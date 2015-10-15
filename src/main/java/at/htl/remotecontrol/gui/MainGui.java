@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 /**
  * Created by Philipp on 15.10.15.
+ *
+ *
  */
 public class MainGui extends Application
 {
