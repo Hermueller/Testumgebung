@@ -7,6 +7,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.*;
 
+//test pohn 1
+
 public class Student {
   private final ObjectOutputStream out;
   private final ObjectInputStream in;
