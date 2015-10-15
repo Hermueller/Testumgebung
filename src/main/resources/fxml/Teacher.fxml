@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.Controller">
+   <children>
+      <Label layoutX="130.0" layoutY="78.0" prefHeight="35.0" prefWidth="440.0" text="Zeit der ScrShots:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfTimeSS" layoutX="130.0" layoutY="167.0" onAction="#changeTime" prefHeight="44.0" prefWidth="301.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>
