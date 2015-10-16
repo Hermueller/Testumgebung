@@ -8,6 +8,8 @@ import java.net.Socket;
 
 /**
  * Created by Philipp on 15.10.15.
+ *
+ * Philipp:  15.Oktober.2015  akzeptieren von Students durch Thread implementiert
  */
 public class Threader implements Runnable {
 

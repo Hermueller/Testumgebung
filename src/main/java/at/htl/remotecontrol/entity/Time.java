@@ -2,6 +2,8 @@ package at.htl.remotecontrol.entity;
 
 /**
  * Created by gnadlinger on 14.10.15.
+ *
+ * Gnadlinger:  15.Oktober.2015  Verwaltung der Gui-Eingabewerte inplementiert
  */
 public class Time {
     public static Time instance = null;
