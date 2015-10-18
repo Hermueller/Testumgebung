@@ -7,8 +7,6 @@ import java.awt.*;
 import java.io.*;
 import java.net.*;
 
-//test pohn 1
-
 public class Student {
   private final ObjectOutputStream out;
   private final ObjectInputStream in;
@@ -85,15 +83,19 @@ public class Student {
     reader.start();
   }
 
+    //region main
+/*
   public static void main(String[] args) throws Exception {
     //String[] args2 = {"172.16.2.137", "Melhorn's Computer" };
     String[] args2 = {"192.88.24.7", "Gnadi's Computer" };
 
-    /*if (args.length != 2) {
-      System.err.println("Usage: java Student server studentname");
-      System.exit(1);
-    }*/
+    //if (args.length != 2) {
+    //  System.err.println("Usage: java Student server studentname");
+    //  System.exit(1);
+    //}
     Student student = new Student(args2[0], args2[1]);
     student.start();
-  }
+  }*/
+    //endregion
+
 }

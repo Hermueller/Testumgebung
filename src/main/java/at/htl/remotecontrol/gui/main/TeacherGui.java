@@ -1,4 +1,4 @@
-package at.htl.remotecontrol.gui;
+package at.htl.remotecontrol.gui.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +7,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Created by Philipp on 15.10.15.
- *
  * Philipp:  15.Oktober.2015   Implementieren der Gui
+ *
+ *
  */
-public class MainGui extends Application
+public class TeacherGui extends Application
 {
     @Override
     public void start(Stage stage) throws Exception {

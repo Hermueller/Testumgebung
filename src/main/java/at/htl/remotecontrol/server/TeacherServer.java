@@ -40,6 +40,8 @@ public class TeacherServer {
     reader.close();
   }
 
+  //region Main
+/*
   public static void main(String[] args) throws Exception {
     ServerSocket ss = new ServerSocket(PORT);
     while (true) {
@@ -47,5 +49,6 @@ public class TeacherServer {
       System.out.println("Connection From " + socket);
       new TeacherServer(socket);
     }
-  }
+  }*/
+  //endregion
 }

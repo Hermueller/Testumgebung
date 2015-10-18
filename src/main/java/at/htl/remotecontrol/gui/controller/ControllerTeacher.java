@@ -1,6 +1,7 @@
-package at.htl.remotecontrol.gui;
+package at.htl.remotecontrol.gui.controller;
 
 import at.htl.remotecontrol.entity.Time;
+import at.htl.remotecontrol.gui.Threader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,12 +15,12 @@ import java.util.ResourceBundle;
  *
  * Philipp:  15.Oktober.2015  Screenshot-Verzögerungs-Zeiteingabe durch Gui ermöglicht
  */
-public class Controller implements Initializable{
+public class ControllerTeacher implements Initializable{
 
     @FXML
     TextField tfTimeSS;
 
-    public Controller() {
+    public ControllerTeacher() {
 
     }
 
