@@ -17,6 +17,7 @@ class SocketWriterThread extends Thread {
                             ObjectOutputStream out) {
     super("Writer to " + studentName);
     this.studentName = studentName;
+    Time.getInstance().addUser(studentName);
     this.out = out;
   }
 

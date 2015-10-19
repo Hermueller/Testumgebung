@@ -1,5 +1,9 @@
 package at.htl.remotecontrol.server;
 
+import at.htl.remotecontrol.entity.Time;
+import at.htl.remotecontrol.gui.controller.ControllerTeacher;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.net.*;
 

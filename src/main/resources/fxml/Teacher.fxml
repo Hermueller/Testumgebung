@@ -9,15 +9,28 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
    <children>
-      <Label layoutX="130.0" layoutY="78.0" prefHeight="35.0" prefWidth="440.0" text="Zeit der ScrShots:">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfTimeSS" layoutX="130.0" layoutY="167.0" onAction="#changeTime" prefHeight="44.0" prefWidth="301.0">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </TextField>
+      <SplitPane dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <ListView fx:id="lvStudents" layoutX="-1.0" layoutY="80.0" prefHeight="398.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TextField fx:id="tfTimeSS" layoutX="234.0" layoutY="35.0" onAction="#changeTime" prefHeight="21.0" prefWidth="237.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="36.0" layoutY="37.0" prefHeight="28.0" prefWidth="173.0" text="Zeit der ScrShots:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>
