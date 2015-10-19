@@ -18,6 +18,7 @@ import java.util.*;
  * Created by Philipp on 15.10.15.
  *
  * Philipp:  15.Oktober.2015  Screenshot-Verzögerungs-Zeiteingabe durch Gui ermöglicht
+ * Philipp:  19.Oktober.2015  Liste der verbundenen Studenten
  */
 public class ControllerTeacher implements Initializable{
 
