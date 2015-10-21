@@ -11,7 +11,6 @@ public class TeacherServer {
   public static final int PORT = 5555;
 
   private final SocketWriterThread writer;
-  private final TeacherFrame frame;
   private final SocketReaderThread reader;
 
   public TeacherServer(Socket socket)
@@ -27,7 +26,9 @@ public class TeacherServer {
 
     reader = new SocketReaderThread(studentName, in, this);
     writer = new SocketWriterThread(studentName, out);
-    frame = new TeacherFrame(studentName, this, writer);
+
+    reader.setDaemon(true);
+    writer.setDaemon(true);
 
     reader.start();
     writer.start();
@@ -35,24 +36,8 @@ public class TeacherServer {
     System.out.println("finished connecting to " + socket);
   }
 
-  public void showScreenShot(byte[] bytes) throws IOException {
-    frame.showScreenShot(bytes);
-  }
-
   public void shutdown() {
     writer.interrupt();
     reader.close();
   }
-
-  //region Main
-/*
-  public static void main(String[] args) throws Exception {
-    ServerSocket ss = new ServerSocket(PORT);
-    while (true) {
-      Socket socket = ss.accept();
-      System.out.println("Connection From " + socket);
-      new TeacherServer(socket);
-    }
-  }*/
-  //endregion
 }

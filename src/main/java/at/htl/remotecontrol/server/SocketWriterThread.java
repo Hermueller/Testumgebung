@@ -27,7 +27,7 @@ class SocketWriterThread extends Thread {
   }
 
   private double getZoomFactor() {
-    return active ? 1.0 : 0.3;
+    return 1.0;
   }
 
   public long getWaitTime() {

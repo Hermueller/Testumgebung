@@ -25,7 +25,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
-      <module name="RemoteControl" target="1.5" />
+      <module name="RemoteControl" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

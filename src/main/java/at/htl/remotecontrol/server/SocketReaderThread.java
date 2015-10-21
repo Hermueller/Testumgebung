@@ -23,7 +23,6 @@ class SocketReaderThread extends Thread {
         byte[] img = (byte[]) in.readObject();
         System.out.println("Received screenshot of " +
             img.length + " bytes from " + studentName);
-        server.showScreenShot(img);
       } catch (Exception ex) {
         System.out.println("Exception occurred: " + ex);
         ex.printStackTrace();

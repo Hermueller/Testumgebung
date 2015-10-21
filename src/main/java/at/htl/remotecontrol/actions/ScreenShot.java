@@ -1,17 +1,24 @@
 package at.htl.remotecontrol.actions;
 
+/**
+ * Philipp:  18.Oktober.2015   Implementieren der Gui
+ * Philipp:  21.Oktober.2015   einfügen der "saveImage()"-Methode zum speichern der Screenshots
+ *
+ */
+
 import javax.imageio.*;
 import javax.imageio.stream.*;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class ScreenShot implements RobotAction {
   // this is used on the student JVM to optimize transfers
   private static final ThreadLocal<byte[]> previous =
       new ThreadLocal<byte[]>();
-  private static final float JPG_QUALITY = 0.3f;
+  private static final float JPG_QUALITY = 1.0f;
 
   private final double scale;
 
@@ -32,6 +39,9 @@ public class ScreenShot implements RobotAction {
     if (scale != 1.0) {
       image = getScaledInstance(image);
     }
+
+    saveImage(image);
+
     byte[] bytes = convertToJPG(image);
     time = System.currentTimeMillis() - time;
     System.out.println("time = " + time);
@@ -42,6 +52,26 @@ public class ScreenShot implements RobotAction {
     }
     previous.set(bytes);
     return bytes;
+  }
+
+  private void saveImage(BufferedImage image) {
+
+    LocalDateTime dateTime = LocalDateTime.now();
+
+    FileOutputStream fos = null;
+    try {
+      fos = new FileOutputStream("/Users/Philipp/Desktop/Testumgebung/Screenshots/he120016-" + dateTime + ".jpg");
+      fos.write(convertToJPG(image));
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        fos.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
   }
 
   private byte[] convertToJPG(BufferedImage img)
@@ -71,6 +101,7 @@ public class ScreenShot implements RobotAction {
     );
     result.createGraphics().drawImage(
         scaled, 0, 0, width, height, null);
+
     return result;
   }
 
