@@ -38,9 +38,9 @@ public class ControllerStudent implements Initializable {
             Student student = new Student(_teacherIP.getText(), _username.getText());
             student.start();
         } catch (AWTException e) {
-            System.out.println("Ein unbekannter Fehler trat ein.");
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Verbindungs Fehler!");
+            e.printStackTrace();
         }
     }
 }
