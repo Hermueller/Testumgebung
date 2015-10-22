@@ -1,5 +1,7 @@
 package at.htl.remotecontrol.server;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 class SocketReaderThread extends Thread {
@@ -23,6 +25,9 @@ class SocketReaderThread extends Thread {
         byte[] img = (byte[]) in.readObject();
         System.out.println("Received screenshot of " +
             img.length + " bytes from " + studentName);
+        final BufferedImage image = ImageIO.read(
+                new ByteArrayInputStream(img));
+        server.saveImage(image);
       } catch (Exception ex) {
         System.out.println("Exception occurred: " + ex);
         ex.printStackTrace();

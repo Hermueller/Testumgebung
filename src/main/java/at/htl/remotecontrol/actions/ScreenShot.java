@@ -42,7 +42,7 @@ public class ScreenShot implements RobotAction {
       image = getScaledInstance(image);
     }
 
-    saveImage(image);
+    //saveImage(image);
 
     byte[] bytes = convertToJPG(image);
     time = System.currentTimeMillis() - time;
@@ -55,7 +55,7 @@ public class ScreenShot implements RobotAction {
     previous.set(bytes);
     return bytes;
   }
-
+/*
   private void saveImage(BufferedImage image) {
 
     LocalDateTime dateTime = LocalDateTime.now();
@@ -85,7 +85,7 @@ public class ScreenShot implements RobotAction {
     }
 
   }
-
+*/
   private byte[] convertToJPG(BufferedImage img)
       throws IOException {
     ImageWriter writer =

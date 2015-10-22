@@ -4,8 +4,15 @@ import at.htl.remotecontrol.entity.Time;
 import at.htl.remotecontrol.gui.controller.ControllerTeacher;
 import javafx.collections.ObservableList;
 
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
+import java.time.LocalDateTime;
 
 public class TeacherServer {
   public static final int PORT = 5555;
@@ -34,6 +41,52 @@ public class TeacherServer {
     writer.start();
 
     System.out.println("finished connecting to " + socket);
+  }
+
+  public void saveImage(BufferedImage image) {
+
+    LocalDateTime dateTime = LocalDateTime.now();
+
+    FileOutputStream fos = null;
+    try {
+      (new File("/Users/Philipp/Desktop/Testumgebung/Screenshots/" + "Tester" + "/")).mkdir();
+      fos = new FileOutputStream(
+              "/Users/Philipp/Desktop/Testumgebung/Screenshots/" +
+                      "Tester" + "/" +
+                      "Tester" +
+                      "-" +
+                      dateTime +
+                      ".jpg"
+      );
+
+      fos.write(convertToJPG(image));
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        fos.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+  }
+
+  private byte[] convertToJPG(BufferedImage img)
+          throws IOException {
+    ImageWriter writer =
+            ImageIO.getImageWritersByFormatName("jpg").next();
+    ImageWriteParam iwp = writer.getDefaultWriteParam();
+    iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+    iwp.setCompressionQuality(1.0f);
+
+    ByteArrayOutputStream bout = new ByteArrayOutputStream();
+    writer.setOutput(new MemoryCacheImageOutputStream(bout));
+    writer.write(null, new IIOImage(img, null, null), iwp);
+    writer.dispose();
+    bout.flush();
+    return bout.toByteArray();
   }
 
   public void shutdown() {
