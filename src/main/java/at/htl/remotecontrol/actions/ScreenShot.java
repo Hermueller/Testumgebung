@@ -21,13 +21,15 @@ public class ScreenShot implements RobotAction {
   private static final float JPG_QUALITY = 1.0f;
 
   private final double scale;
+  private final String studentName;
 
-  public ScreenShot(double scale) {
+  public ScreenShot(double scale, String studentName) {
     this.scale = scale;
+    this.studentName = studentName;
   }
 
   public ScreenShot() {
-    this(1.0);
+    this(1.0, "unbekannt");
   }
 
   public Object execute(Robot robot) throws IOException {
@@ -60,8 +62,18 @@ public class ScreenShot implements RobotAction {
 
     FileOutputStream fos = null;
     try {
-      fos = new FileOutputStream("/Users/Philipp/Desktop/Testumgebung/Screenshots/he120016-" + dateTime + ".jpg");
+      (new File("/Users/Philipp/Desktop/Testumgebung/Screenshots/" + studentName + "/")).mkdir();
+      fos = new FileOutputStream(
+              "/Users/Philipp/Desktop/Testumgebung/Screenshots/" +
+                      studentName + "/" +
+                      studentName +
+                      "-" +
+                      dateTime +
+                      ".jpg"
+      );
+
       fos.write(convertToJPG(image));
+
     } catch (IOException e) {
       e.printStackTrace();
     } finally {

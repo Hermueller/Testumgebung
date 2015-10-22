@@ -16,6 +16,10 @@ public class Time {
     private static long time = 3000;
     private ObservableList users = FXCollections.observableList(new LinkedList());
 
+    /**
+     * Eine Stunde mit 3000 milliSekunden sind ca. 1 200MB von Screenshots
+     *
+     */
     public static Time getInstance() {
         if (instance == null) {
             instance = new Time();

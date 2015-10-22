@@ -45,7 +45,7 @@ class SocketWriterThread extends Thread {
   }
 
   private void askForScreenShot() {
-    jobs.add(new ScreenShot(getZoomFactor()));
+    jobs.add(new ScreenShot(getZoomFactor(), studentName));
   }
 
   public void run() {
