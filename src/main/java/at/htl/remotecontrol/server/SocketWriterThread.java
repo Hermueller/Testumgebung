@@ -31,7 +31,6 @@ class SocketWriterThread extends Thread {
   }
 
   public long getWaitTime() {
-    System.out.println(Time.getInstance().getTime());
     return Time.getInstance().getTime();
   }
 
@@ -60,8 +59,6 @@ class SocketWriterThread extends Thread {
             // we had a timeout, so do a screen capture
             askForScreenShot();
           } else {
-            System.out.println("sending " + action +
-                    " to " + studentName);
             out.writeObject(action);
             out.reset();
             out.flush();

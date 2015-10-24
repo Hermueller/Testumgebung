@@ -42,50 +42,19 @@ public class ScreenShot implements RobotAction {
       image = getScaledInstance(image);
     }
 
-    //saveImage(image);
-
     byte[] bytes = convertToJPG(image);
     time = System.currentTimeMillis() - time;
-    System.out.println("time = " + time);
+    //System.out.println("time = " + time);
     // only send it if the picture has actually changed
     byte[] prev = previous.get();
     if (prev != null && Arrays.equals(bytes, prev)) {
       return null;
     }
     previous.set(bytes);
+
     return bytes;
   }
-/*
-  private void saveImage(BufferedImage image) {
 
-    LocalDateTime dateTime = LocalDateTime.now();
-
-    FileOutputStream fos = null;
-    try {
-      (new File("/Users/Philipp/Desktop/Testumgebung/Screenshots/" + studentName + "/")).mkdir();
-      fos = new FileOutputStream(
-              "/Users/Philipp/Desktop/Testumgebung/Screenshots/" +
-                      studentName + "/" +
-                      studentName +
-                      "-" +
-                      dateTime +
-                      ".jpg"
-      );
-
-      fos.write(convertToJPG(image));
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        fos.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-
-  }
-*/
   private byte[] convertToJPG(BufferedImage img)
       throws IOException {
     ImageWriter writer =

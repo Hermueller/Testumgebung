@@ -23,8 +23,8 @@ class SocketReaderThread extends Thread {
     while (true) {
       try {
         byte[] img = (byte[]) in.readObject();
-        System.out.println("Received screenshot of " +
-            img.length + " bytes from " + studentName);
+        //System.out.println("Received screenshot of " +
+            //img.length + " bytes from " + studentName);
         final BufferedImage image = ImageIO.read(
                 new ByteArrayInputStream(img));
         server.saveImage(image);

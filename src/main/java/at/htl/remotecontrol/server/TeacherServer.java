@@ -20,6 +20,8 @@ public class TeacherServer {
   private final SocketWriterThread writer;
   private final SocketReaderThread reader;
 
+  private String name;
+
   public TeacherServer(Socket socket)
       throws IOException, ClassNotFoundException {
     ObjectOutputStream out = new ObjectOutputStream(
@@ -34,11 +36,15 @@ public class TeacherServer {
     reader = new SocketReaderThread(studentName, in, this);
     writer = new SocketWriterThread(studentName, out);
 
-    reader.setDaemon(true);
-    writer.setDaemon(true);
+    reader.setDaemon(false);
+    writer.setDaemon(false);
 
     reader.start();
     writer.start();
+
+    String ip = socket.getInetAddress().toString();
+    int indexOfIP = Time.getInstance().getIps().indexOf(ip);
+    name = (String)Time.getInstance().getObservableList().get(indexOfIP);
 
     System.out.println("finished connecting to " + socket);
   }
@@ -49,11 +55,11 @@ public class TeacherServer {
 
     FileOutputStream fos = null;
     try {
-      (new File("/Users/Philipp/Desktop/Testumgebung/Screenshots/" + "Tester" + "/")).mkdir();
+      (new File("/Users/Philipp/Desktop/Testumgebung/Screenshots/" + name + "/")).mkdir();
       fos = new FileOutputStream(
               "/Users/Philipp/Desktop/Testumgebung/Screenshots/" +
-                      "Tester" + "/" +
-                      "Tester" +
+                      name + "/" +
+                      name +
                       "-" +
                       dateTime +
                       ".jpg"
