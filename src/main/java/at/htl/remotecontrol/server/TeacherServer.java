@@ -51,7 +51,7 @@ public class TeacherServer {
     try {
       (new File("/Users/Philipp/Desktop/Testumgebung/Screenshots/" + "Tester" + "/")).mkdir();
       fos = new FileOutputStream(
-              "/Users/Philipp/Desktop/Testumgebung/Screenshots/" +
+              "/home/Philipp/Desktop/Testumgebung/Screenshots/" +
                       "Tester" + "/" +
                       "Tester" +
                       "-" +

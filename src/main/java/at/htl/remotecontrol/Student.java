@@ -83,6 +83,11 @@ public class Student {
     reader.start();
   }
 
+  public void stop() {
+    processor.interrupt();
+    reader.interrupt();
+  }
+
     //region main
 /*
   public static void main(String[] args) throws Exception {
