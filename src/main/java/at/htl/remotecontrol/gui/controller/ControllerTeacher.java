@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
  *
  * Philipp:  15.Oktober.2015  Screenshot-Verzögerungs-Zeiteingabe durch Gui ermöglicht
  * Philipp:  19.Oktober.2015  Liste der verbundenen Studenten
+ * Patrick:  24.Oktober.2015  DirectoryChooser für die Screenshots
  */
 public class ControllerTeacher implements Initializable{
 

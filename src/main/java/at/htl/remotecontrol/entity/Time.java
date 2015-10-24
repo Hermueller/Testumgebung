@@ -9,6 +9,7 @@ import java.util.*;
 /**
  * Gnadlinger:  15.Oktober.2015  Verwaltung der Gui-Eingabewerte inplementiert
  * Philipp   :  19.Oktober.2015  erweitert um eine Liste der verbundenen Studenten
+ * Patrick   :  24.Oktober.2015  Erweiterung um den String "screenshotPath"
  *
  */
 public class Time {
