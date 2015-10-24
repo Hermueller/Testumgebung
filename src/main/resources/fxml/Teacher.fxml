@@ -18,16 +18,18 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TextField fx:id="tfTimeSS" layoutX="234.0" layoutY="35.0" onAction="#changeTime" prefHeight="21.0" prefWidth="237.0">
+                  <TextField fx:id="tfTimeSS" layoutX="234.0" layoutY="135.0" onAction="#changeTime" prefHeight="21.0" prefWidth="237.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="36.0" layoutY="37.0" prefHeight="28.0" prefWidth="173.0" text="Zeit der ScrShots:">
+                  <Label layoutX="36.0" layoutY="137.0" prefHeight="28.0" prefWidth="173.0" text="Zeit der ScrShots:">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <Button layoutX="36.0" layoutY="93.0" mnemonicParsing="false" onAction="#chooseDirectory" text="Choose your Directory" />
+                  <Label fx:id="lbAlert" layoutX="20.0" layoutY="356.0" />
                </children>
             </AnchorPane>
         </items>

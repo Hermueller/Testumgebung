@@ -1,8 +1,6 @@
 package at.htl.remotecontrol.server;
 
 import at.htl.remotecontrol.entity.Time;
-import at.htl.remotecontrol.gui.controller.ControllerTeacher;
-import javafx.collections.ObservableList;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -11,7 +9,7 @@ import javax.imageio.ImageWriter;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.*;
+import java.net.Socket;
 import java.time.LocalDateTime;
 
 public class TeacherServer {
@@ -19,8 +17,6 @@ public class TeacherServer {
 
   private final SocketWriterThread writer;
   private final SocketReaderThread reader;
-
-  private String name;
 
   public TeacherServer(Socket socket)
       throws IOException, ClassNotFoundException {
@@ -36,34 +32,34 @@ public class TeacherServer {
     reader = new SocketReaderThread(studentName, in, this);
     writer = new SocketWriterThread(studentName, out);
 
-    reader.setDaemon(false);
-    writer.setDaemon(false);
+    reader.setDaemon(true);
+    writer.setDaemon(true);
 
     reader.start();
     writer.start();
 
-    String ip = socket.getInetAddress().toString();
-    int indexOfIP = Time.getInstance().getIps().indexOf(ip);
-    name = (String)Time.getInstance().getObservableList().get(indexOfIP);
-
     System.out.println("finished connecting to " + socket);
   }
 
-  public void saveImage(BufferedImage image) {
+  public void saveImage(BufferedImage image, String studentname) {
 
     LocalDateTime dateTime = LocalDateTime.now();
 
     FileOutputStream fos = null;
     try {
-      (new File("/Users/Philipp/Desktop/Testumgebung/Screenshots/" + name + "/")).mkdir();
-      fos = new FileOutputStream(
-              "/Users/Philipp/Desktop/Testumgebung/Screenshots/" +
-                      name + "/" +
-                      name +
-                      "-" +
-                      dateTime +
-                      ".jpg"
-      );
+        File f = new File(Time.getInstance().getScreenshotPath() + "/Sceenshots/" + studentname);
+        if(!f.exists()) {
+            f.mkdirs();
+        }
+
+
+
+        fos = new FileOutputStream(f.getPath() +
+                "/" +studentname +
+                "-" +
+                dateTime +
+                ".jpg"
+        );
 
       fos.write(convertToJPG(image));
 

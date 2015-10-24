@@ -2,17 +2,18 @@ package at.htl.remotecontrol.gui.controller;
 
 import at.htl.remotecontrol.entity.Time;
 import at.htl.remotecontrol.gui.Threader;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.*;
 
 /**
  * Created by Philipp on 15.10.15.
@@ -28,6 +29,9 @@ public class ControllerTeacher implements Initializable{
     @FXML
     public ListView lvStudents;
 
+    @FXML
+    public Label lbAlert;
+
     public ControllerTeacher() {
 
     }
@@ -37,10 +41,22 @@ public class ControllerTeacher implements Initializable{
     }
 
     public void changeTime(ActionEvent actionEvent) {
-        Time.getInstance().setTime(Integer.parseInt(tfTimeSS.getText()));
 
-        Thread t1 = new Thread(new Threader());
+        if(Time.getInstance().getScreenshotPath() != null) {
+            Time.getInstance().setTime(Integer.parseInt(tfTimeSS.getText()));
+            Thread t1 = new Thread(new Threader());
+            t1.start();
+        }
+        else {
+            lbAlert.setText("Bitte gib ein Verzeichnis an");
+        }
+    }
 
-        t1.start();
+    public void chooseDirectory(ActionEvent actionEvent) {
+        DirectoryChooser dc = new DirectoryChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        dc.setTitle("Wähle dein Ziel-Verzeichnis");
+        File choosed = dc.showDialog(new Stage());
+        Time.getInstance().setScreenshotPath(choosed.getPath());
     }
 }

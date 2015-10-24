@@ -16,6 +16,7 @@ public class Time {
     private static long time = 3000;
     private ObservableList users = FXCollections.observableList(new LinkedList());
     private List<String> ips = new LinkedList();
+    private String screenshotPath;
 
     /**
      * Eine Stunde mit 3000 milliSekunden sind ca. 1 200MB von Screenshots
@@ -50,5 +51,13 @@ public class Time {
 
     public void addIP(String ip) {
         ips.add(ip);
+    }
+
+    public String getScreenshotPath() {
+        return screenshotPath;
+    }
+
+    public void setScreenshotPath(String screenshotPath) {
+        this.screenshotPath = screenshotPath;
     }
 }

@@ -25,7 +25,7 @@ class SocketReaderThread extends Thread {
         byte[] img = (byte[]) in.readObject();
         final BufferedImage image = ImageIO.read(
                 new ByteArrayInputStream(img));
-        server.saveImage(image);
+        server.saveImage(image,studentName);
       } catch (Exception ex) {
         System.out.println("Exception occurred: " + ex);
         ex.printStackTrace();
