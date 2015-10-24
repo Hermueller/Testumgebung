@@ -28,6 +28,7 @@ public class ControllerStudent implements Initializable {
     public ControllerStudent() {
 
     }
+    public Student student;
 
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -35,12 +36,16 @@ public class ControllerStudent implements Initializable {
 
     public void logIn(ActionEvent event) {
         try {
-            Student student = new Student(_teacherIP.getText(), _username.getText());
+            student = new Student(_teacherIP.getText(), _username.getText());
             student.start();
         } catch (AWTException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void logOut(ActionEvent actionEvent) {
+        student.stop();
     }
 }
