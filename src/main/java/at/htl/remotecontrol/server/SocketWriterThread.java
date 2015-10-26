@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.concurrent.TimeUnit;
 
 class SocketWriterThread extends Thread {
+
     private final RobotActionQueue jobs = new RobotActionQueue();
     private final String studentName;
     private final ObjectOutputStream out;
