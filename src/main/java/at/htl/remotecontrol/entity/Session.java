@@ -8,18 +8,19 @@ import java.util.LinkedList;
 /**
  * Gnadlinger:  15.10.2015  Verwaltung der Gui-Eingabewerte inplementiert
  * Philipp   :  19.10.2015  Erweiterung um eine Liste der verbundenen Studenten
- * Patrick   :  24.10.2015  Erweiterung um den String "screenshotPath"
+ * Patrick   :  24.10.2015  Erweiterung um den String "imagePath"
  * Tobias    :  26.10.2015  Singleton-Pattern korrigiert und Klasse umbenannt
+ * Tobias    :  26.10.2015  ObservableList von Studenden statt von String
  */
 public class Session {
 
     private static Session instance = null;
-    private ObservableList<String> users;
+    private ObservableList<Student> students;
     private long time;
-    private String screenshotPath;
+    private String imagePath;
 
     protected Session() {
-        users = FXCollections.observableList(new LinkedList<String>());
+        students = FXCollections.observableList(new LinkedList<Student>());
     }
 
     /**
@@ -32,13 +33,13 @@ public class Session {
         return instance;
     }
 
-    public void addUser(String user) {
-        users.add(user);
+    public void addStudent(Student student) {
+        students.add(student);
     }
 
     //region Getter and Setter
-    public ObservableList<String> getObservableList() {
-        return users;
+    public ObservableList<Student> getObservableList() {
+        return students;
     }
 
     public long getTime() {
@@ -49,12 +50,12 @@ public class Session {
         this.time = time;
     }
 
-    public String getScreenshotPath() {
-        return screenshotPath;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setScreenshotPath(String screenshotPath) {
-        this.screenshotPath = screenshotPath;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath + "/Sceenshots/";
     }
     //endregion
 

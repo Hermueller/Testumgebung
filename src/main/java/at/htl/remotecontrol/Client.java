@@ -8,7 +8,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
-public class Student {
+public class Client {
+
     private final ObjectOutputStream out;
     private final ObjectInputStream in;
     private final Robot robot;
@@ -16,7 +17,7 @@ public class Student {
     private final ProcessorThread processor;
     private final ReaderThread reader;
 
-    public Student(String serverMachine, String studentName)
+    public Client(String serverMachine, String studentName)
             throws IOException, AWTException {
         Socket socket = new Socket(serverMachine, TeacherServer.PORT);
         robot = new Robot();
@@ -86,20 +87,5 @@ public class Student {
         processor.interrupt();
         reader.interrupt();
     }
-
-    //region main
-/*
-  public static void main(String[] args) throws Exception {
-    //String[] args2 = {"172.16.2.137", "Melhorn's Computer" };
-    String[] args2 = {"192.88.24.7", "Gnadi's Computer" };
-
-    //if (args.length != 2) {
-    //  System.err.println("Usage: java Student server studentname");
-    //  System.exit(1);
-    //}
-    Student student = new Student(args2[0], args2[1]);
-    student.start();
-  }*/
-    //endregion
 
 }

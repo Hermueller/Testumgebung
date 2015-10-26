@@ -2,6 +2,7 @@ package at.htl.remotecontrol.server;
 
 import at.htl.remotecontrol.actions.*;
 import at.htl.remotecontrol.entity.Session;
+import at.htl.remotecontrol.entity.Student;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -11,15 +12,14 @@ import java.util.concurrent.TimeUnit;
 class SocketWriterThread extends Thread {
 
     private final RobotActionQueue jobs = new RobotActionQueue();
-    private final String studentName;
+    private final Student student;
     private final ObjectOutputStream out;
     private volatile boolean active = false;
 
-    public SocketWriterThread(String studentName,
-                              ObjectOutputStream out) {
-        super("Writer to " + studentName);
-        this.studentName = studentName;
-        Session.getInstance().addUser(studentName);
+    public SocketWriterThread(Student student, ObjectOutputStream out) {
+        super("Writer to " + student.getName());
+        this.student = student;
+        Session.getInstance().addStudent(student);
         this.out = out;
     }
 
@@ -46,7 +46,7 @@ class SocketWriterThread extends Thread {
     }
 
     private void askForScreenShot() {
-        jobs.add(new ScreenShot(getZoomFactor(), studentName));
+        jobs.add(new ScreenShot(getZoomFactor()));
     }
 
     public void run() {
@@ -72,9 +72,10 @@ class SocketWriterThread extends Thread {
             }
             out.close();
         } catch (IOException e) {
-            System.out.println("Connection to " + studentName +
+            System.out.println("Connection to " + student.getName() +
                     " closed (" + e + ')');
         }
-        System.out.println("Closing connection to " + studentName);
+        System.out.println("Closing connection to " + student.getName());
     }
+
 }

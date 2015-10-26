@@ -10,6 +10,7 @@ import javafx.stage.Stage;
  * Philipp:  18.10.2015   Implementieren der Gui
  */
 public class StudentGui extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Student.fxml"));
@@ -26,4 +27,5 @@ public class StudentGui extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }

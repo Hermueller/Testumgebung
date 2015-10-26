@@ -1,6 +1,6 @@
 package at.htl.remotecontrol.gui.controller;
 
-import at.htl.remotecontrol.Student;
+import at.htl.remotecontrol.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,7 +23,7 @@ public class ControllerStudent implements Initializable {
     @FXML
     Button btnLogin;
 
-    private Student student;
+    private Client client;
 
     public ControllerStudent() {
     }
@@ -33,8 +33,8 @@ public class ControllerStudent implements Initializable {
 
     public void logIn(ActionEvent event) {
         try {
-            student = new Student(tfTeacherIP.getText(), tfUsername.getText());
-            student.start();
+            client = new Client(tfTeacherIP.getText(), tfUsername.getText());
+            client.start();
         } catch (AWTException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -43,7 +43,7 @@ public class ControllerStudent implements Initializable {
     }
 
     public void logOut(ActionEvent actionEvent) {
-        student.stop();
+        client.stop();
     }
 
 }

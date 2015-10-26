@@ -1,6 +1,7 @@
 package at.htl.remotecontrol.gui.controller;
 
 import at.htl.remotecontrol.entity.Session;
+import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.gui.Threader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class ControllerTeacher implements Initializable {
     public TextField tfTimeSS; // SS ... Screenshot
 
     @FXML
-    public ListView<String> lvStudents;
+    public ListView<Student> lvStudents;
 
     @FXML
     public Label lbAlert;
@@ -40,8 +41,7 @@ public class ControllerTeacher implements Initializable {
     }
 
     public void changeTime(ActionEvent actionEvent) {
-
-        if (Session.getInstance().getScreenshotPath() != null) {
+        if (Session.getInstance().getImagePath() != null) {
             Session.getInstance().setTime(Integer.parseInt(tfTimeSS.getText()));
             Thread t1 = new Thread(new Threader());
             t1.start();
@@ -54,8 +54,8 @@ public class ControllerTeacher implements Initializable {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
-        File choosed = dc.showDialog(new Stage());
-        Session.getInstance().setScreenshotPath(choosed.getPath());
+        File choosedFile = dc.showDialog(new Stage());
+        Session.getInstance().setImagePath(choosedFile.getPath());
     }
 
 }

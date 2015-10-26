@@ -1,5 +1,7 @@
 package at.htl.remotecontrol.server;
 
+import at.htl.remotecontrol.entity.Student;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -7,16 +9,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 class SocketReaderThread extends Thread {
-    private final String studentName;
+
+    private final Student student;
     private final ObjectInputStream in;
     private final TeacherServer server;
 
     public SocketReaderThread(
-            String studentName,
+            Student student,
             ObjectInputStream in,
             TeacherServer server) {
-        super("Reader from " + studentName);
-        this.studentName = studentName;
+        super("Reader from " + student.getName());
+        this.student = student;
         this.in = in;
         this.server = server;
     }
@@ -27,7 +30,7 @@ class SocketReaderThread extends Thread {
                 byte[] img = (byte[]) in.readObject();
                 final BufferedImage image = ImageIO.read(
                         new ByteArrayInputStream(img));
-                server.saveImage(image, studentName);
+                server.saveImage(image, student);
             } catch (Exception ex) {
                 System.out.println("Exception occurred: " + ex);
                 ex.printStackTrace();
@@ -43,4 +46,5 @@ class SocketReaderThread extends Thread {
         } catch (IOException ignore) {
         }
     }
+
 }

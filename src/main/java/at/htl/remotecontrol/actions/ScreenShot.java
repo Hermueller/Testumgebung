@@ -13,7 +13,6 @@ import java.util.Arrays;
 
 /**
  * Philipp:  18.10.2015   Implementieren der Gui
- * Philipp:  21.10.2015   Einfügen der "saveImage()"-Methode zum speichern der Screenshots
  */
 public class ScreenShot implements RobotAction {
 
@@ -23,15 +22,13 @@ public class ScreenShot implements RobotAction {
     private static final float JPG_QUALITY = 1.0f;
 
     private final double scale;
-    private final String studentName;
 
-    public ScreenShot(double scale, String studentName) {
+    public ScreenShot(double scale) {
         this.scale = scale;
-        this.studentName = studentName;
     }
 
     public ScreenShot() {
-        this(1.0, "unbekannt");
+        this(1.0);
     }
 
     public Object execute(Robot robot) throws IOException {
