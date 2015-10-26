@@ -1,104 +1,107 @@
 package at.htl.remotecontrol.actions;
 
-/**
- * Philipp:  18.Oktober.2015   Implementieren der Gui
- * Philipp:  21.Oktober.2015   einfügen der "saveImage()"-Methode zum speichern der Screenshots
- *
- */
-
-import javax.imageio.*;
-import javax.imageio.stream.*;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
 
+/**
+ * Philipp:  18.10.2015   Implementieren der Gui
+ * Philipp:  21.10.2015   Einfügen der "saveImage()"-Methode zum speichern der Screenshots
+ */
 public class ScreenShot implements RobotAction {
-  // this is used on the student JVM to optimize transfers
-  private static final ThreadLocal<byte[]> previous =
-      new ThreadLocal<byte[]>();
-  private static final float JPG_QUALITY = 1.0f;
 
-  private final double scale;
-  private final String studentName;
+    // this is used on the student JVM to optimize transfers
+    private static final ThreadLocal<byte[]> previous =
+            new ThreadLocal<byte[]>();
+    private static final float JPG_QUALITY = 1.0f;
 
-  public ScreenShot(double scale, String studentName) {
-    this.scale = scale;
-    this.studentName = studentName;
-  }
+    private final double scale;
+    private final String studentName;
 
-  public ScreenShot() {
-    this(1.0, "unbekannt");
-  }
-
-  public Object execute(Robot robot) throws IOException {
-    long time = System.currentTimeMillis();
-    Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
-    Rectangle shotArea = new Rectangle(
-        defaultToolkit.getScreenSize());
-    BufferedImage image = robot.createScreenCapture(shotArea);
-    if (scale != 1.0) {
-      image = getScaledInstance(image);
+    public ScreenShot(double scale, String studentName) {
+        this.scale = scale;
+        this.studentName = studentName;
     }
 
-    byte[] bytes = convertToJPG(image);
-    time = System.currentTimeMillis() - time;
-    //System.out.println("time = " + time);
-    // only send it if the picture has actually changed
-    byte[] prev = previous.get();
-    if (prev != null && Arrays.equals(bytes, prev)) {
-      return null;
+    public ScreenShot() {
+        this(1.0, "unbekannt");
     }
-    previous.set(bytes);
 
-    return bytes;
-  }
+    public Object execute(Robot robot) throws IOException {
+        long time = System.currentTimeMillis();
+        Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+        Rectangle shotArea = new Rectangle(
+                defaultToolkit.getScreenSize());
+        BufferedImage image = robot.createScreenCapture(shotArea);
+        if (scale != 1.0) {
+            image = getScaledInstance(image);
+        }
 
-  private byte[] convertToJPG(BufferedImage img)
-      throws IOException {
-    ImageWriter writer =
-        ImageIO.getImageWritersByFormatName("jpg").next();
-    ImageWriteParam iwp = writer.getDefaultWriteParam();
-    iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-    iwp.setCompressionQuality(JPG_QUALITY);
+        byte[] bytes = convertToJPG(image);
+        time = System.currentTimeMillis() - time;
+        //System.out.println("time = " + time);
+        // only send it if the picture has actually changed
+        byte[] prev = previous.get();
+        if (prev != null && Arrays.equals(bytes, prev)) {
+            return null;
+        }
+        previous.set(bytes);
 
-    ByteArrayOutputStream bout = new ByteArrayOutputStream();
-    writer.setOutput(new MemoryCacheImageOutputStream(bout));
-    writer.write(null, new IIOImage(img, null, null), iwp);
-    writer.dispose();
-    bout.flush();
-    return bout.toByteArray();
-  }
+        return bytes;
+    }
 
-  public BufferedImage getScaledInstance(BufferedImage src) {
-    int width = (int) (src.getWidth() * scale);
-    int height = (int) (src.getHeight() * scale);
+    private byte[] convertToJPG(BufferedImage img)
+            throws IOException {
+        ImageWriter writer =
+                ImageIO.getImageWritersByFormatName("jpg").next();
+        ImageWriteParam iwp = writer.getDefaultWriteParam();
+        iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        iwp.setCompressionQuality(JPG_QUALITY);
 
-    Image scaled = src.getScaledInstance(width, height,
-        BufferedImage.SCALE_AREA_AVERAGING);
-    BufferedImage result = new BufferedImage(
-        width, height, BufferedImage.TYPE_INT_RGB
-    );
-    result.createGraphics().drawImage(
-        scaled, 0, 0, width, height, null);
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        writer.setOutput(new MemoryCacheImageOutputStream(bout));
+        writer.write(null, new IIOImage(img, null, null), iwp);
+        writer.dispose();
+        bout.flush();
+        return bout.toByteArray();
+    }
 
-    return result;
-  }
+    public BufferedImage getScaledInstance(BufferedImage src) {
+        int width = (int) (src.getWidth() * scale);
+        int height = (int) (src.getHeight() * scale);
 
-  public String toString() {
-    return "ScreenShot(" + scale + ")";
-  }
+        Image scaled = src.getScaledInstance(width, height,
+                BufferedImage.SCALE_AREA_AVERAGING);
+        BufferedImage result = new BufferedImage(
+                width, height, BufferedImage.TYPE_INT_RGB
+        );
+        result.createGraphics().drawImage(
+                scaled, 0, 0, width, height, null);
 
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ScreenShot that = (ScreenShot) o;
-    return Double.compare(that.scale, scale) == 0;
-  }
+        return result;
+    }
 
-  public int hashCode() {
-    long temp = scale != +0.0d ? Double.doubleToLongBits(scale) : 0L;
-    return (int) (temp ^ (temp >>> 32));
-  }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ScreenShot that = (ScreenShot) o;
+        return Double.compare(that.scale, scale) == 0;
+    }
+
+    public int hashCode() {
+        long temp = scale != +0.0d ? Double.doubleToLongBits(scale) : 0L;
+        return (int) (temp ^ (temp >>> 32));
+    }
+
+    public String toString() {
+        return "ScreenShot(" + scale + ")";
+    }
+
 }

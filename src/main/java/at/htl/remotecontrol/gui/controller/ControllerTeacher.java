@@ -1,6 +1,6 @@
 package at.htl.remotecontrol.gui.controller;
 
-import at.htl.remotecontrol.entity.Time;
+import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.gui.Threader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,39 +16,36 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Philipp on 15.10.15.
- *
- * Philipp:  15.Oktober.2015  Screenshot-Verzögerungs-Zeiteingabe durch Gui ermöglicht
- * Philipp:  19.Oktober.2015  Liste der verbundenen Studenten
- * Patrick:  24.Oktober.2015  DirectoryChooser für die Screenshots
+ * Philipp:  15.10.2015  Screenshot-Verzögerungs-Zeiteingabe durch Gui ermöglicht
+ * Philipp:  19.10.2015  Liste der verbundenen Studenten
+ * Patrick:  24.10.2015  DirectoryChooser für die Screenshots
  */
-public class ControllerTeacher implements Initializable{
+public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS;
+    public TextField tfTimeSS; // SS ... Screenshot
 
     @FXML
-    public ListView lvStudents;
+    public ListView<String> lvStudents;
 
     @FXML
     public Label lbAlert;
 
     public ControllerTeacher() {
-
+        Session.getInstance().setTime(3000);
     }
 
     public void initialize(URL location, ResourceBundle resources) {
-        lvStudents.setItems(Time.getInstance().getObservableList());
+        lvStudents.setItems(Session.getInstance().getObservableList());
     }
 
     public void changeTime(ActionEvent actionEvent) {
 
-        if(Time.getInstance().getScreenshotPath() != null) {
-            Time.getInstance().setTime(Integer.parseInt(tfTimeSS.getText()));
+        if (Session.getInstance().getScreenshotPath() != null) {
+            Session.getInstance().setTime(Integer.parseInt(tfTimeSS.getText()));
             Thread t1 = new Thread(new Threader());
             t1.start();
-        }
-        else {
+        } else {
             lbAlert.setText("Bitte gib ein Verzeichnis an");
         }
     }
@@ -58,6 +55,7 @@ public class ControllerTeacher implements Initializable{
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosed = dc.showDialog(new Stage());
-        Time.getInstance().setScreenshotPath(choosed.getPath());
+        Session.getInstance().setScreenshotPath(choosed.getPath());
     }
+
 }

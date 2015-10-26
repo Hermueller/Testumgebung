@@ -13,30 +13,27 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Philipp:  18.Oktober.2015  einfügen eines Login's mit Werteübergabe
- *
- *
+ * Philipp:  18.10.2015  Einfügen eines Login's mit Werteübergabe
  */
 public class ControllerStudent implements Initializable {
 
     @FXML
-    TextField _username, _teacherIP;
+    TextField tfUsername, tfTeacherIP;
 
     @FXML
-    Button _login;
+    Button btnLogin;
+
+    private Student student;
 
     public ControllerStudent() {
-
     }
-    public Student student;
 
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public void logIn(ActionEvent event) {
         try {
-            student = new Student(_teacherIP.getText(), _username.getText());
+            student = new Student(tfTeacherIP.getText(), tfUsername.getText());
             student.start();
         } catch (AWTException e) {
             e.printStackTrace();
@@ -48,4 +45,5 @@ public class ControllerStudent implements Initializable {
     public void logOut(ActionEvent actionEvent) {
         student.stop();
     }
+
 }
