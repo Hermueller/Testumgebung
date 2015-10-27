@@ -79,11 +79,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ImageView fx:id="ivLiveView" fitHeight="199.0" fitWidth="381.0" layoutX="94.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../../../SYP-Projekt/Sceenshots/BeatingAngel/BeatingAngel-2015-10-26T21:07:34.454.jpg" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ivLiveView" fitHeight="199.0" fitWidth="381.0" layoutX="94.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" />
                                     <LineChart layoutX="14.0" layoutY="14.0" prefHeight="51.0" prefWidth="527.0">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />

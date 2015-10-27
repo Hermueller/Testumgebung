@@ -2,6 +2,7 @@ package at.htl.remotecontrol.gui.controller;
 
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
+import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,6 +54,7 @@ public class ControllerTeacher implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         lvStudents.setItems(Session.getInstance().getObservableList());
+        StudentView.getInstance().setIv(ivLiveView);
 
         // Text in Textfeld mittig setzen
         lbAlert.setTextAlignment(TextAlignment.CENTER);
@@ -64,10 +66,10 @@ public class ControllerTeacher implements Initializable {
         String  ssTime = tfTimeSS.getText();
         boolean isRnd  = TB_SS_rnd.isSelected();
 
-        if (path != null && (isRnd || (!isRnd && ssTime.length() > 0))) {   // 'Random' funktioniert noch nicht
+        if (path != null && (isRnd || (!isRnd && ssTime.length() > 0))) {
             if (isRnd) {
-                Session.getInstance().setTime(0);                          //deshalb ist hier eine momentane
-            } else {                                                        //Notlösung
+                Session.getInstance().setTime(0);                          //  wert kleiner, gleich 0 bedeutet Random
+            } else {
                 Session.getInstance().setTime(Integer.parseInt(tfTimeSS.getText()));
             }
 

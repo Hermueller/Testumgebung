@@ -3,11 +3,16 @@ package at.htl.remotecontrol.server;
 import at.htl.remotecontrol.actions.*;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
+import javafx.application.Platform;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.concurrent.TimeUnit;
+
+/**
+ * Philipp:   27.10.2015   Student wird nach dem Logout aus der Liste entfernt
+ */
 
 class SocketWriterThread extends Thread {
 
@@ -75,7 +80,13 @@ class SocketWriterThread extends Thread {
             System.out.println("Connection to " + student.getName() +
                     " closed (" + e + ')');
         }
+
         System.out.println("Closing connection to " + student.getName());
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Session.getInstance().removeStudent(student);
+            }
+        });
     }
 
 }

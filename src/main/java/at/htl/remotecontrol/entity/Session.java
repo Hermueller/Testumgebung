@@ -12,6 +12,7 @@ import java.util.Random;
  * Patrick   :  24.10.2015  Erweiterung um den String "imagePath"
  * Tobias    :  26.10.2015  Singleton-Pattern korrigiert und Klasse umbenannt
  * Tobias    :  26.10.2015  ObservableList von Studenden statt von String
+ * Philipp   :  27.10.2015  Students werden noch dem Logout von der Liste entfernt
  */
 public class Session {
 
@@ -36,6 +37,10 @@ public class Session {
 
     public void addStudent(Student student) {
         students.add(student);
+    }
+
+    public void removeStudent(Student student) {
+        students.remove(student);
     }
 
     //region Getter and Setter

@@ -1,5 +1,7 @@
 package at.htl.remotecontrol.entity;
 
+import javafx.application.Platform;
+
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -12,14 +14,22 @@ import java.io.IOException;
 
 /**
  * Tobias:  26.10.2015  Klasse erstellt
+ * Philipp: 27.10.2015  Live ÜberwachungsBild wird gesetzt
  */
 public class Image {
 
-    public static void save(BufferedImage img, String fileName) {
+    public static void save(BufferedImage img, final String fileName) {
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
-            if (fileName.contains(".jpg"))
+            if (fileName.contains(".jpg")) {
                 fos.write(convertToJpg(img));
+                System.out.println(fileName);
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        (StudentView.getInstance().getIv()).setImage(new javafx.scene.image.Image("file:"+fileName));
+                    }
+                });
+            }
             fos.close();
         } catch (IOException e) {
             e.printStackTrace();
