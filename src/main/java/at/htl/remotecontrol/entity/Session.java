@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * Gnadlinger:  15.10.2015  Verwaltung der Gui-Eingabewerte inplementiert
@@ -43,7 +44,10 @@ public class Session {
     }
 
     public long getTime() {
-        return time;
+        if (time > 0) {
+            return time;
+        }
+        return getRandom();
     }
 
     public void setTime(long time) {
@@ -59,4 +63,15 @@ public class Session {
     }
     //endregion
 
+    public int getRandom() {
+        Random rn = new Random();
+        int maximum = 30000;
+        int minimum = 1000;
+
+        int n = maximum - minimum + 1;
+        int i = rn.nextInt() % n;
+        int randomNum =  minimum + i;
+
+        return randomNum;
+    }
 }

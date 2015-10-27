@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
+<!--
+    Philipp:   15.10.2015   Implementieren der GUI
+    Philipp:   19.10.2015   Liste der verbundenen Studenten
+    Patrick:   24.10.2015   Implementieren der 'Ordner auswahl'
+    Tobias:    26.10.2015   Implementieren der Fehlermeldungsausgabe
+    Philipp:   26.10.2015   Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
+-->
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
    <children>
@@ -18,18 +28,81 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TextField fx:id="tfTimeSS" layoutX="234.0" layoutY="135.0" onAction="#changeTime" prefHeight="21.0" prefWidth="237.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="36.0" layoutY="137.0" prefHeight="28.0" prefWidth="173.0" text="Zeit der ScrShots:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="36.0" layoutY="93.0" mnemonicParsing="false" onAction="#chooseDirectory" text="Choose your Directory" />
-                  <Label fx:id="lbAlert" layoutX="20.0" layoutY="356.0" />
+                  <TabPane prefHeight="398.0" prefWidth="556.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <tabs>
+                      <Tab text="Optionen">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="25.0" layoutY="57.0" spacing="20.0">
+                                       <children>
+                                          <HBox layoutX="25.0" layoutY="57.0">
+                                             <children>
+                                                <Label layoutX="25.0" layoutY="61.0" prefHeight="31.0" prefWidth="222.0" text="Speicherort:">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Button layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="31.0" prefWidth="234.0" text="Choose your Directory" />
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="25.0" layoutY="119.0">
+                                             <children>
+                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Zufall Zeitabstand zw. Scrrenshots:" />
+                                                <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="31.0" prefWidth="234.0" selected="true" text="EIN" />
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="25.0" layoutY="165.0">
+                                             <children>
+                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="35.0" prefWidth="222.0" text="Fixe Zeit für Screenshots:">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="tfTimeSS" disable="true" editable="false" layoutX="247.0" layoutY="165.0" prefHeight="35.0" prefWidth="234.0">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Label fx:id="lbAlert" layoutX="14.0" layoutY="326.0" prefHeight="25.0" prefWidth="520.0" />
+                                    <Button fx:id="btnStart" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
+                                    <Button fx:id="btnStop" layoutX="275.0" layoutY="282.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Student-Details">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="ivLiveView" fitHeight="199.0" fitWidth="381.0" layoutX="94.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../SYP-Projekt/Sceenshots/BeatingAngel/BeatingAngel-2015-10-26T21:07:34.454.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <LineChart layoutX="14.0" layoutY="14.0" prefHeight="51.0" prefWidth="527.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                        <Tab text="Abgabe">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
                </children>
             </AnchorPane>
         </items>

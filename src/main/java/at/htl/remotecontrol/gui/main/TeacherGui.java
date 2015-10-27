@@ -18,7 +18,7 @@ public class TeacherGui extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
 
-        stage.setTitle("Chat-Client");
+        stage.setTitle("Teacher Client");
         stage.setScene(scene);
 
         stage.show();
