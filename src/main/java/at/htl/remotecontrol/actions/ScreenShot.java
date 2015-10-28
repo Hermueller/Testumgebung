@@ -70,7 +70,7 @@ public class ScreenShot implements RobotAction {
         return bout.toByteArray();
     }
 
-    public BufferedImage getScaledInstance(BufferedImage src) {
+    private BufferedImage getScaledInstance(BufferedImage src) {
         int width = (int) (src.getWidth() * scale);
         int height = (int) (src.getHeight() * scale);
 

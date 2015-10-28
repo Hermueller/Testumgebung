@@ -33,10 +33,6 @@ class SocketWriterThread extends Thread {
         askForScreenShot();
     }
 
-    private double getZoomFactor() {
-        return 1.0;
-    }
-
     public long getWaitTime() {
         return Session.getInstance().getTime();
     }
@@ -51,7 +47,7 @@ class SocketWriterThread extends Thread {
     }
 
     private void askForScreenShot() {
-        jobs.add(new ScreenShot(getZoomFactor()));
+        jobs.add(new ScreenShot(1.0));
     }
 
     public void run() {

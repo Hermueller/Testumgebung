@@ -13,8 +13,8 @@ import java.net.Socket;
  */
 public class Threader implements Runnable {
 
-    ServerSocket ss = null;
-    boolean _continue = true;
+    private ServerSocket ss = null;
+    private boolean _continue = true;
 
     public Threader() {
     }

@@ -23,7 +23,8 @@ public class ControllerStudent implements Initializable {
     @FXML
     Button btnLogin;
 
-    private Client client;
+    private Client client = null;
+    private boolean canLogin = true;
 
     public ControllerStudent() {
     }
@@ -33,8 +34,11 @@ public class ControllerStudent implements Initializable {
 
     public void logIn(ActionEvent event) {
         try {
-            client = new Client(tfTeacherIP.getText(), tfUsername.getText());
-            client.start();
+            if (canLogin) {
+                client = new Client(tfTeacherIP.getText(), tfUsername.getText());
+                client.start();
+                canLogin = false;
+            }
         } catch (AWTException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -44,6 +48,7 @@ public class ControllerStudent implements Initializable {
 
     public void logOut(ActionEvent actionEvent) {
         client.stop();
+        canLogin = true;
     }
 
 }

@@ -1,5 +1,6 @@
 package at.htl.remotecontrol.entity;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -35,8 +36,12 @@ public class Session {
         return instance;
     }
 
-    public void addStudent(Student student) {
-        students.add(student);
+    public void addStudent(final Student student) {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                students.add(student);
+            }
+        });
     }
 
     public void removeStudent(Student student) {
@@ -68,15 +73,14 @@ public class Session {
     }
     //endregion
 
-    public int getRandom() {
+    private int getRandom() {
         Random rn = new Random();
         int maximum = 30000;
         int minimum = 1000;
 
         int n = maximum - minimum + 1;
         int i = rn.nextInt() % n;
-        int randomNum =  minimum + i;
 
-        return randomNum;
+        return minimum + i;
     }
 }

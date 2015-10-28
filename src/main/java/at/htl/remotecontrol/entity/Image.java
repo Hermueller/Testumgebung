@@ -24,7 +24,6 @@ public class Image {
             FileOutputStream fos = new FileOutputStream(fileName);
             if (fileName.contains(".jpg")) {
                 fos.write(convertToJpg(img));
-                System.out.println(fileName);
                 Platform.runLater(new Runnable() {
                     public void run() {
                         Student selected = (Student)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
@@ -42,7 +41,7 @@ public class Image {
         }
     }
 
-    public static byte[] convertToJpg(BufferedImage img) throws IOException {
+    private static byte[] convertToJpg(BufferedImage img) throws IOException {
         ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
         ImageWriteParam writeParam = writer.getDefaultWriteParam();
         writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);

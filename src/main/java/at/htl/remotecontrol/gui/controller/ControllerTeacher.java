@@ -45,8 +45,8 @@ public class ControllerTeacher implements Initializable {
     @FXML
     public ImageView ivLiveView;
 
-    Thread server;
-    Threader threader;
+    private Thread server;
+    private Threader threader;
 
     public ControllerTeacher() {
         //Session.getInstance().setTime(3000);
@@ -99,7 +99,7 @@ public class ControllerTeacher implements Initializable {
         }
     }
 
-    public void setMsg(boolean error, String msg) {
+    private void setMsg(boolean error, String msg) {
         String color = (error ? "red" : "limegreen");   //bei Fehlermeldung rot, sonst grün
         lbAlert.setText(msg);
         lbAlert.setStyle("-fx-background-color: " + color);
