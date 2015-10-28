@@ -55,6 +55,7 @@ public class ControllerTeacher implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         lvStudents.setItems(Session.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
+        StudentView.getInstance().setLv(lvStudents);
 
         // Text in Textfeld mittig setzen
         lbAlert.setTextAlignment(TextAlignment.CENTER);

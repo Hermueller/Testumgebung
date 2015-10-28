@@ -15,10 +15,11 @@ import java.io.IOException;
 /**
  * Tobias:  26.10.2015  Klasse erstellt
  * Philipp: 27.10.2015  Live ÜberwachungsBild wird gesetzt
+ * Philipp: 28.10.2015  Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
  */
 public class Image {
 
-    public static void save(BufferedImage img, final String fileName) {
+    public static void save(BufferedImage img, final String fileName, final Student student) {
         try {
             FileOutputStream fos = new FileOutputStream(fileName);
             if (fileName.contains(".jpg")) {
@@ -26,7 +27,12 @@ public class Image {
                 System.out.println(fileName);
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        (StudentView.getInstance().getIv()).setImage(new javafx.scene.image.Image("file:"+fileName));
+                        Student selected = (Student)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
+                        if (selected != null) {
+                            if (student.getName().equals(selected.getName())) {
+                                (StudentView.getInstance().getIv()).setImage(new javafx.scene.image.Image("file:" + fileName));
+                            }
+                        }
                     }
                 });
             }
