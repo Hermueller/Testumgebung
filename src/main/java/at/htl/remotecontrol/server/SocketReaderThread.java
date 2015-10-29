@@ -32,8 +32,7 @@ class SocketReaderThread extends Thread {
                         new ByteArrayInputStream(img));
                 server.saveImage(image, student);
             } catch (Exception ex) {
-                System.out.println("Exception occurred: " + ex);
-                ex.printStackTrace();
+                System.out.println("canceled");
                 server.shutdown();
                 return;
             }

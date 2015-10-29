@@ -48,7 +48,7 @@ public class TeacherServer {
                 student.getDirectory(),
                 student.getName(),
                 LocalDateTime.now());
-        Image.save(image, path);
+        Image.save(image, path, student);
     }
 
     public void shutdown() {

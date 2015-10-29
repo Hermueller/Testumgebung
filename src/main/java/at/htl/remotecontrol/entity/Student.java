@@ -28,9 +28,9 @@ public class Student {
         this.directory = directory;
         File file = new File(directory);
         if (!file.exists()) {
-            file.mkdirs();
-        } else {
-            System.out.println("Verzeichnis ist vorhanden!");
+            if (!file.mkdirs()) {
+                System.out.println("Verzeichnis konnte nicht erstellt werden!");
+            }
         }
     }
     //endregion
