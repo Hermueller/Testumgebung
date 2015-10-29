@@ -42,20 +42,25 @@ public class TestDirectoryCooser {
 
 
 
-        if(getFilePath() != null && getUsername()!= null){
+        if(getFilePath().length() <= 0 && getUsername()!= null){
             File file = new File(getFilePath() + "/"+ getUsername());
             file.mkdir();
             System.out.println("Verzeichnis erstellt: "+getFilePath() +"/"+getUsername());
         }
+
         else if(getUsername() == null) {
             System.out.println("Kein User vorhanden");
         }
+
         else{
             System.out.println("Something happend -Microsoft ");
         }
 
 
 
+    }
+    public void createZip(){
+        File zipfile = new File(getFilePath()+"/"+getUsername()+".zip");
     }
 
 

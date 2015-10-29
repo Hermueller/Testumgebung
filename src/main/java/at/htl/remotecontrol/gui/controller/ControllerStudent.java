@@ -15,6 +15,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -39,7 +41,7 @@ public class ControllerStudent implements Initializable {
     public void logIn(ActionEvent event) {
         try {
             client = new Client(tfTeacherIP.getText(), tfUsername.getText());
-            TestDirectoryCooser.getInstance().CreateDirectory();
+
             client.start();
         } catch (AWTException e) {
             e.printStackTrace();
@@ -55,6 +57,8 @@ public class ControllerStudent implements Initializable {
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null)
             TestDirectoryCooser.getInstance().setFilePath(choosedFile.getPath());
+
+        TestDirectoryCooser.getInstance().CreateDirectory();
     }
 
     public void logOut(ActionEvent actionEvent) {
