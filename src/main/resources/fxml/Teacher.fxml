@@ -79,12 +79,12 @@
                       <Tab text="Student-Details">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
+                                 <children><!--
                                     <ImageView fx:id="ivLiveView" fitHeight="199.0" fitWidth="280.0" layoutX="177.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
+                                       <!-<image>
                                           <Image requestedWidth="380" url="@file:../images/loading.gif" />
-                                       </image>
-                                    </ImageView>
+                                       </image>-
+                                    </ImageView>-->
                                     <LineChart layoutX="14.0" layoutY="14.0" prefHeight="51.0" prefWidth="527.0">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
