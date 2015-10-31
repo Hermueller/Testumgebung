@@ -7,14 +7,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Philipp:  15.10.2015     Akzeptieren von Students durch Thread implementiert
- * Tobias:   26.10.2015     Verbesserung des Codes
- * Philipp:  27.10.2015     Socketproblem und Portproblem gelöst
+ * 15.10.2015:  Philipp     Akzeptieren von Students durch Thread implementiert
+ * 26.10.2015:  Tobias      Verbesserung des Codes
+ * 27.10.2015:  Philipp     Socketproblem und Portproblem gelöst (continue)
+ * 31.10.2015:  Tobias      statt continue interrupt()
  */
 public class Threader implements Runnable {
 
     private ServerSocket ss = null;
-    private boolean _continue = true;
+    private boolean isContinue = true;
 
     public Threader() {
     }
@@ -22,7 +23,7 @@ public class Threader implements Runnable {
     public void run() {
         try {
             ss = new ServerSocket(TeacherServer.PORT);
-            while (_continue) {
+            while (isContinue) {
                 Socket socket = ss.accept();
                 System.out.println("Connection from " + socket);
                 new TeacherServer(socket);
@@ -34,8 +35,8 @@ public class Threader implements Runnable {
         }
     }
 
-    public void stopSS() {
-        _continue = false;
+    public void stop() {
+        isContinue = false;
         if (ss != null) {
             try {
                 ss.close();
@@ -44,4 +45,5 @@ public class Threader implements Runnable {
             }
         }
     }
+    
 }

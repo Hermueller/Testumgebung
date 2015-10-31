@@ -1,7 +1,11 @@
 package at.htl.remotecontrol.server;
 
 import at.htl.remotecontrol.entity.Image;
+import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
+import at.htl.remotecontrol.entity.StudentView;
+import at.htl.remotecontrol.packets.LoginPacket;
+import javafx.application.Platform;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -12,8 +16,15 @@ import java.net.Socket;
 import java.time.LocalDateTime;
 
 /**
- * Philipp:  21.10.2015   Einfügen der "saveImage()"-Methode zum speichern der Screenshots
- * Tobias :  26.10.2015   Verbesserung der von saveImage()
+ * Die Hauptklasse ist der TeacherServer. Wenn ein Schüler sich mit ihm verbindet,
+ * schickt er ein LoginPacket. Sobald dieses Packet verarbeitet wurde, wird der
+ * SocketReaderThread und der SocketWriterThread erzeugt, mit denen dann die
+ * Netzwerkkommunikation ermöglicht ist.
+ * <p>
+ * 21.10.2015:  Philipp     Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
+ * 26.10.2015:  Tobias      Verbesserung der Methode saveImage()
+ * 27.10.2015:  Philipp     Live ÜberwachungsBild wird gesetzt
+ * 28.10.2015:  Philipp     Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
  */
 public class TeacherServer {
 
@@ -30,12 +41,17 @@ public class TeacherServer {
                         socket.getInputStream()));
         System.out.println("waiting for student name ...");
 
-        Student student = new Student((String) in.readObject());
+        LoginPacket packet = (LoginPacket) in.readObject();
+        Student student = new Student(packet.getUserName(), packet.getDirOfWatch());
+        Session.getInstance().addStudent(student);
+
         reader = new SocketReaderThread(student, in, this);
         writer = new SocketWriterThread(student, out);
 
         reader.setDaemon(true);
         writer.setDaemon(true);
+
+        writer.handOut();
 
         reader.start();
         writer.start();
@@ -43,12 +59,36 @@ public class TeacherServer {
         System.out.println("finished connecting to " + socket);
     }
 
+    public SocketWriterThread getWriter() {
+        return writer;
+    }
+
+    public SocketReaderThread getReader() {
+        return reader;
+    }
+
     public void saveImage(BufferedImage image, Student student) {
         String path = String.format("%s/%s-%s.jpg",
-                student.getDirectory(),
+                student.getPathOfImages(),
                 student.getName(),
                 LocalDateTime.now());
-        Image.save(image, path, student);
+        Image.save(image, path);
+        showImage(path, student);
+    }
+
+    public void showImage(final String fileName, final Student student) {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Student selected = (Student) StudentView.getInstance().getLv()
+                        .getSelectionModel().getSelectedItem();
+                if (selected != null) {
+                    if (student.getName().equals(selected.getName())) {
+                        (StudentView.getInstance().getIv())
+                                .setImage(new javafx.scene.image.Image("file:" + fileName));
+                    }
+                }
+            }
+        });
     }
 
     public void shutdown() {

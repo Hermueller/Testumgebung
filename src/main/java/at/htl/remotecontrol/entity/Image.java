@@ -1,7 +1,5 @@
 package at.htl.remotecontrol.entity;
 
-import javafx.application.Platform;
-
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -13,31 +11,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Tobias:  26.10.2015  Klasse erstellt
- * Philipp: 27.10.2015  Live ÜberwachungsBild wird gesetzt
- * Philipp: 28.10.2015  Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
+ * 26.10.2015:  Tobias      Klasse erstellt
+ * 30.10.2015:  Tobias      Speichern von Images verbessert
  */
 public class Image {
 
-    public static void save(BufferedImage img, final String fileName, final Student student) {
+    public static void save(BufferedImage img, String fileName) {
         try {
-            FileOutputStream fos = new FileOutputStream(fileName);
-            if (fileName.contains(".jpg")) {
-                fos.write(convertToJpg(img));
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        Student selected = (Student)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
-                        if (selected != null) {
-                            if (student.getName().equals(selected.getName())) {
-                                (StudentView.getInstance().getIv()).setImage(new javafx.scene.image.Image("file:" + fileName));
-                            }
-                        }
-                    }
-                });
-            }
-            fos.close();
+            if (fileName.contains(".jpg"))
+                new FileOutputStream(fileName).write(convertToJpg(img));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Image konnte nicht gespeichert werden!");
         }
     }
 

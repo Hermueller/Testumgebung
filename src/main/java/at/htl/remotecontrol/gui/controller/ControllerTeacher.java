@@ -1,5 +1,6 @@
 package at.htl.remotecontrol.gui.controller;
 
+import at.htl.remotecontrol.entity.Interval;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
@@ -13,7 +14,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -23,10 +23,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Philipp:  15.10.2015  Screenshot-Verzögerungs-Zeiteingabe durch Gui ermöglicht
- * Philipp:  19.10.2015  Liste der verbundenen Studenten
- * Patrick:  24.10.2015  DirectoryChooser für die Screenshots
- * Philipp:  26.10.2015  Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
+ * 15.10.2015:  Philipp     Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
+ * 19.10.2015:  Patrick     Liste der verbundenen Studenten
+ * 24.10.2015:  Patrick     DirectoryChooser für die Screenshots
+ * 26.10.2015:  Philipp     Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
  */
 public class ControllerTeacher implements Initializable {
 
@@ -63,15 +63,17 @@ public class ControllerTeacher implements Initializable {
     }
 
     public void startServer(ActionEvent actionEvent) {
-        String  path   = Session.getInstance().getImagePath();
-        String  ssTime = tfTimeSS.getText();
-        boolean isRnd  = TB_SS_rnd.isSelected();
+        String path = Session.getInstance().getPathOfImages();
+        Session.getInstance().setHandOutFile(new File(String.format("%s/angabe.zip",
+                Session.getInstance().getPath())));
+        String ssTime = tfTimeSS.getText();
+        boolean isRnd = TB_SS_rnd.isSelected();
 
         if (path != null && (isRnd || (!isRnd && ssTime.length() > 0))) {
             if (isRnd) {
-                Session.getInstance().setTime(0);                          //  wert kleiner, gleich 0 bedeutet Random
+                Session.getInstance().setInterval(new Interval(1000, 30000)); //  wert kleiner, gleich 0 bedeutet Random
             } else {
-                Session.getInstance().setTime(Integer.parseInt(tfTimeSS.getText()));
+                Session.getInstance().setInterval(new Interval(Integer.parseInt(tfTimeSS.getText())));
             }
 
             threader = new Threader();
@@ -88,7 +90,7 @@ public class ControllerTeacher implements Initializable {
     public void stopServer(ActionEvent actionEvent) {
         if (server != null) {
             if (!server.isInterrupted()) {
-                threader.stopSS();
+                threader.stop();
                 server.interrupt();
                 setMsg(false, "Server gestoppt");
             } else {
@@ -111,7 +113,7 @@ public class ControllerTeacher implements Initializable {
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null)
-            Session.getInstance().setImagePath(choosedFile.getPath());
+            Session.getInstance().setPath(choosedFile.getPath());
     }
 
     public void changeSomeOptions(ActionEvent actionEvent) {
@@ -119,8 +121,7 @@ public class ControllerTeacher implements Initializable {
             tfTimeSS.setDisable(true);
             tfTimeSS.setEditable(false);
             TB_SS_rnd.setText("EIN");
-        }
-        else {
+        } else {
             tfTimeSS.setDisable(false);
             tfTimeSS.setEditable(true);
             TB_SS_rnd.setText("AUS");

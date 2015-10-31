@@ -1,26 +1,35 @@
 package at.htl.remotecontrol.entity;
 
+import at.htl.remotecontrol.packets.HandOutPacket;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
-import java.util.Random;
 
 /**
- * Gnadlinger:  15.10.2015  Verwaltung der Gui-Eingabewerte inplementiert
- * Philipp   :  19.10.2015  Erweiterung um eine Liste der verbundenen Studenten
- * Patrick   :  24.10.2015  Erweiterung um den String "imagePath"
- * Tobias    :  26.10.2015  Singleton-Pattern korrigiert und Klasse umbenannt
- * Tobias    :  26.10.2015  ObservableList von Studenden statt von String
- * Philipp   :  27.10.2015  Students werden noch dem Logout von der Liste entfernt
+ * 15.10.2015:  Gnadi       Klasse erstellt
+ * 15.10.2015:  Gnadi       Verwaltung der Gui-Eingabewerte inplementiert
+ * 19.10.2015:  Philipp     Erweiterung um eine Liste der verbundenen Studenten
+ * 24.10.2015:  Philipp     Erweiterung um den String "pathOfImages"
+ * 26.10.2015:  Tobias      Singleton-Pattern korrigiert und Klasse von Time auf Session umbenannt
+ * 26.10.2015:  Tobias      ObservableList von Studenten statt von String
+ * 27.10.2015:  Philipp     Students werden nach dem Logout von der Liste entfernt
+ * 30.10.2015:  Ph, Tobi    fixe/zufällige Zeitspanne zwischen Screenshots erstellt
+ * 31.10.2015:  Tobias      Funktion implementiert: Testbeginn und Testende festlegen
+ * 31.10.2015:  Tobias      Erweiterung um handOutFile und getHandOutPacket()
  */
 public class Session {
 
     private static Session instance = null;
     private ObservableList<Student> students;
-    private long time;
-    private String imagePath;
+    private File handOutFile;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private Interval interval;
+    private String path;
 
     protected Session() {
         students = FXCollections.observableList(new LinkedList<Student>());
@@ -36,6 +45,67 @@ public class Session {
         return instance;
     }
 
+    //region Getter and Setter
+    public ObservableList<Student> getObservableList() {
+        return students;
+    }
+
+    public File getHandOutFile() {
+        return handOutFile;
+    }
+
+    public void setHandOutFile(File handOutFile) {
+        this.handOutFile = handOutFile;
+    }
+
+    public HandOutPacket getHandOutPacket() {
+        // Prüfung, ob nötige Daten vorhanden fehlt
+        return new HandOutPacket(handOutFile, endTime, "Viel Glück!");
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public long getInterval() {
+        return interval.getValue();
+    }
+
+    public void setInterval(Interval interval) {
+        this.interval = interval;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public String getPathOfImages() {
+        return path + "/Sceenshots";
+    }
+
+    public String getPathOfHandInFiles() {
+        return path + "/Abgabe";
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+        Directory.create(path + "/Sceenshots");
+        Directory.create(path + "/Abgabe");
+    }
+    //endregion
+
     public void addStudent(final Student student) {
         Platform.runLater(new Runnable() {
             public void run() {
@@ -44,43 +114,12 @@ public class Session {
         });
     }
 
-    public void removeStudent(Student student) {
-        students.remove(student);
+    public void removeStudent(final Student student) {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                students.remove(student);
+            }
+        });
     }
 
-    //region Getter and Setter
-    public ObservableList<Student> getObservableList() {
-        return students;
-    }
-
-    public long getTime() {
-        if (time > 0) {
-            return time;
-        }
-        return getRandom();
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath + "/Sceenshots/";
-    }
-    //endregion
-
-    private int getRandom() {
-        Random rn = new Random();
-        int maximum = 30000;
-        int minimum = 1000;
-
-        int n = maximum - minimum + 1;
-        int i = rn.nextInt() % n;
-
-        return minimum + i;
-    }
 }

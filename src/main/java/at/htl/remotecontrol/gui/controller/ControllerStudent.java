@@ -1,11 +1,12 @@
 package at.htl.remotecontrol.gui.controller;
 
-import at.htl.remotecontrol.Client;
-import at.htl.remotecontrol.entity.TestDirectoryCooser;
+import at.htl.remotecontrol.packets.LoginPacket;
+import at.htl.remotecontrol.student.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -17,31 +18,39 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Philipp:  18.10.2015  Einfügen eines Login's mit Werteübergabe
+ * 18.10.2015:  Philipp     Einfügen eines Login's mit Werteübergabe
+ * 30.10.2015:  Tobias      Login/Logout erweitert
+ * 31.10.2015:  Tobias      Erstellen von Client-Paketen und deren Übermittlung an Client
  */
 public class ControllerStudent implements Initializable {
 
     @FXML
-    TextField tfUsername, tfTeacherIP;
+    TextField tfUsername, tfTeacherIP, tfPath;
 
     @FXML
-    Button btnLogin;
+    Button btnLogin, btnHandIn;
 
-    private Client client = null;
-    private boolean canLogin = true;
+    @FXML
+    public Label lbAlert;
 
-    public ControllerStudent() {
-    }
+    private Client client;
+    private boolean loggedIn;
 
     public void initialize(URL location, ResourceBundle resources) {
+        this.loggedIn = false;
     }
 
     public void logIn(ActionEvent event) {
         try {
-            if (canLogin) {
-                client = new Client(tfTeacherIP.getText(), tfUsername.getText());
+            if (!loggedIn) {
+                client = new Client(new LoginPacket(
+                        tfUsername.getText(),
+                        "hugo",
+                        tfTeacherIP.getText(),
+                        tfPath.getText()
+                ));
                 client.start();
-                canLogin = false;
+                loggedIn = true;
             }
         } catch (AWTException e) {
             e.printStackTrace();
@@ -50,20 +59,29 @@ public class ControllerStudent implements Initializable {
         }
     }
 
-    public void fileDirectory(ActionEvent event){
+    public void chooseDirectory(ActionEvent event) {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null)
-            TestDirectoryCooser.getInstance().setFilePath(choosedFile.getPath());
+            tfPath.setText(String.format("%s/%s", choosedFile.getPath(), tfUsername.getText()));
 
-        TestDirectoryCooser.getInstance().CreateDirectory();
+    }
+
+    public void handIn(ActionEvent event) {
+        if (client.handIn()) {
+            lbAlert.setText("Datei gezippt abgegeben");
+        } else {
+            lbAlert.setText("hand in error");
+        }
     }
 
     public void logOut(ActionEvent actionEvent) {
-        client.stop();
-        canLogin = true;
+        if (loggedIn) {
+            client.stop();
+            loggedIn = false;
+        }
     }
 
 }
