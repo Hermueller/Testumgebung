@@ -30,6 +30,8 @@ public class Session {
     private LocalDateTime endTime;
     private Interval interval;
     private String path;
+    private String pathOfImages;
+    private String pathOfHandOutFiles;
 
     protected Session() {
         students = FXCollections.observableList(new LinkedList<Student>());
@@ -60,6 +62,7 @@ public class Session {
 
     public HandOutPacket getHandOutPacket() {
         // Prüfung, ob nötige Daten vorhanden fehlt
+        // funktioniert noch nicht
         return new HandOutPacket(handOutFile, endTime, "Viel Glück!");
     }
 
@@ -92,17 +95,19 @@ public class Session {
     }
 
     public String getPathOfImages() {
-        return path + "/Sceenshots";
+        return pathOfImages;
     }
 
     public String getPathOfHandInFiles() {
-        return path + "/Abgabe";
+        return pathOfHandOutFiles;
     }
 
     public void setPath(String path) {
         this.path = path;
-        Directory.create(path + "/Sceenshots");
-        Directory.create(path + "/Abgabe");
+        pathOfImages = path + "/Sceenshots";
+        Directory.create(pathOfImages);
+        pathOfHandOutFiles = path + "/Abgabe";
+        Directory.create(pathOfHandOutFiles);
     }
     //endregion
 

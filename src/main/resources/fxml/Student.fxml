@@ -8,15 +8,15 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerStudent">
-  <children>
-    <TextField fx:id="tfUsername" layoutX="319.0" layoutY="136.0" />
-    <Label layoutX="192.0" layoutY="141.0" prefHeight="16.0" prefWidth="110.0" text="Username:" />
-    <Label layoutX="192.0" layoutY="184.0" text="Teacher-IP:" />
-    <TextField fx:id="tfTeacherIP" layoutX="319.0" layoutY="179.0" />
-    <Button fx:id="btnLogin" layoutX="279.0" layoutY="232.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="100.0" text="Log In" />
-    <Button id="btnLogin" layoutX="424.0" layoutY="232.0" mnemonicParsing="false" onAction="#logOut" prefHeight="26.0" prefWidth="100.0" text="Log Out" />
-    <Button fx:id="btfilePath" layoutX="503.0" layoutY="299.0" mnemonicParsing="false" onAction="#chooseDirectory" text="ChooseFilePath" />
-      <TextField fx:id="tfPath" layoutX="96.0" layoutY="299.0" prefHeight="26.0" prefWidth="384.0" />
-      <Button fx:id="btnHandIn" layoutX="705.0" layoutY="351.0" mnemonicParsing="false" text="Hand in" />
-  </children>
+    <children>
+        <TextField fx:id="tfUsername" layoutX="319.0" layoutY="136.0" />
+        <Label layoutX="192.0" layoutY="141.0" prefHeight="16.0" prefWidth="110.0" text="Username:" />
+        <Label layoutX="192.0" layoutY="184.0" text="Teacher-IP:" />
+        <TextField fx:id="tfTeacherIP" layoutX="319.0" layoutY="179.0" />
+        <Button fx:id="btnLogin" layoutX="279.0" layoutY="232.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="100.0" text="Log In" />
+        <Button id="btnLogin" layoutX="424.0" layoutY="232.0" mnemonicParsing="false" onAction="#logOut" prefHeight="26.0" prefWidth="100.0" text="Log Out" />
+        <Button fx:id="btfilePath" layoutX="503.0" layoutY="299.0" mnemonicParsing="false" onAction="#chooseDirectory" text="ChooseFilePath" />
+        <TextField fx:id="tfPath" layoutX="96.0" layoutY="299.0" prefHeight="26.0" prefWidth="384.0" />
+        <Button fx:id="btnHandIn" layoutX="705.0" layoutY="351.0" mnemonicParsing="false" text="Hand in" />
+    </children>
 </AnchorPane>

@@ -3,6 +3,7 @@ package at.htl.remotecontrol.student;
 import at.htl.remotecontrol.actions.RobotAction;
 import at.htl.remotecontrol.actions.RobotActionQueue;
 import at.htl.remotecontrol.entity.Directory;
+import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.packets.LoginPacket;
 import at.htl.remotecontrol.server.TeacherServer;
 
@@ -11,7 +12,9 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * 26.10.2015   Tobias      Klasse von Student auf Client umbenannt
+ * 26.10.2015:  Tobias      Klasse von Student auf Client umbenannt
+ * 31.10.2015:  Tobias      Funktion "Angabe herunterladen" implementiert
+ * 01.10.2015:  Tobias      überwachter Ordner automatisch gezippt abgeben
  */
 public class Client {
 
@@ -19,7 +22,6 @@ public class Client {
     private final ObjectInputStream in;
     private final Robot robot;
     private RobotActionQueue jobs;
-    private final HandOutThread handOutThread;
     private final ProcessorThread processor;
     private final ReaderThread reader;
     private final LoginPacket loginPacket;
@@ -36,29 +38,28 @@ public class Client {
         out = new ObjectOutputStream(socket.getOutputStream());
         out.writeObject(loginPacket);
         out.flush();
-        handOutThread = new HandOutThread();
         processor = new ProcessorThread();
         reader = new ReaderThread();
     }
 
-    private class HandOutThread extends Thread {
-        public void run() {
-            try {
-                File file = new File(loginPacket.getDirOfWatch() + "/angabe.zip");
-                System.out.println(getClass() + " Fetching file... " + file);
-                OutputStream outputStream = new FileOutputStream(file);
-                byte[] buffer = new byte[16384];
-                int len;
-                while ((len = in.read(buffer)) > 0)
-                    outputStream.write(buffer, 0, len);
-                System.out.println(getClass() + " Fetching complete.");
-                outputStream.close();
-                processor.start();
-                reader.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+    public void loadFiles() {
+        FileStream.receive(in, loginPacket.getDirOfWatch() + "/angabe.zip");
+        processor.start();
+        reader.start();
+    }
+
+    public boolean handIn() {
+        System.out.println("DELETE DIRECTORY:");
+        Directory.delete(loginPacket.getDirOfWatch() + "/angabe.zip");
+        if (processor.isInterrupted() && reader.isInterrupted()) {
+            String zipFileName = "handInFile.zip";
+            Directory.zip(loginPacket.getDirOfWatch(), zipFileName);
+            FileStream.send(out, new File(String.format("%s/%s",
+                    loginPacket.getDirOfWatch(), zipFileName)));
+            return true;
         }
+        return false;
     }
 
     private class ReaderThread extends Thread {
@@ -80,6 +81,7 @@ public class Client {
             }
         }
     }
+
 
     private class ProcessorThread extends Thread {
         public ProcessorThread() {
@@ -103,24 +105,29 @@ public class Client {
                         break;
                     }
                 }
-                out.close();
             } catch (IOException e) {
                 System.out.println("Connection closed (" + e + ')');
             }
         }
     }
 
-    public boolean handIn() {
-        return true;
+    public void closeOut() {
+        try {
+            out.close();
+        } catch (IOException e) {
+            System.out.println("Error by closing of ObjectOutStream!");
+        }
     }
 
     public void start() {
-        handOutThread.start();
+        loadFiles();
     }
 
     public void stop() {
         processor.interrupt();
         reader.interrupt();
+        handIn();
+        closeOut();
     }
 
 }

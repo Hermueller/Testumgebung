@@ -1,5 +1,7 @@
 package at.htl.remotecontrol.server;
 
+import at.htl.remotecontrol.entity.FileStream;
+import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 
 import javax.imageio.ImageIO;
@@ -38,6 +40,8 @@ class SocketReaderThread extends Thread {
                 server.saveImage(image, student);
             } catch (Exception ex) {
                 System.out.println("canceled");
+                FileStream.receive(in, String.format("%s/%s.zip",
+                        Session.getInstance().getPathOfHandInFiles(), student.getName()));
                 server.shutdown();
                 return;
             }

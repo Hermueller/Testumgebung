@@ -21,7 +21,7 @@ public class Image {
             if (fileName.contains(".jpg"))
                 new FileOutputStream(fileName).write(convertToJpg(img));
         } catch (IOException e) {
-            System.out.println("Image konnte nicht gespeichert werden!");
+            System.out.println("Image failed to save!");
         }
     }
 

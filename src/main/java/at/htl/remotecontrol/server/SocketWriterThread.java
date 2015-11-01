@@ -1,13 +1,12 @@
 package at.htl.remotecontrol.server;
 
 import at.htl.remotecontrol.actions.*;
+import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 
 import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.util.concurrent.TimeUnit;
 
@@ -56,21 +55,16 @@ class SocketWriterThread extends Thread {
     }
 
     public void handOut() {
-        try {
-            byte[] buffer = new byte[16384];
-            InputStream inputStream = new FileInputStream(
-                    Session.getInstance().getHandOutFile());
-            int len;
-            while ((len = inputStream.read(buffer)) > 0)
-                out.write(buffer, 0, len);
-            System.out.println(getClass() + " sending completed");
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileStream.send(out, Session.getInstance().getHandOutFile());
     }
 
     public void run() {
+        handOut();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         askForScreenShot();
         try {
             while (!isInterrupted()) {
