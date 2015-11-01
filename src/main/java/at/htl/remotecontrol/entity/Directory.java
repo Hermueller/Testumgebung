@@ -17,6 +17,7 @@ import java.util.zip.ZipOutputStream;
  * 31.10.2015:  Tobias      Zippen von Ordnern korrigiert und mit Meldungen versehen
  * 31.10.2015:  Tobias      einen oder mehrere Ordner löschen
  * 01.11.2015:  Tobias      Löschen von Verzeichnissen verbessert und mit Meldungen versehen
+ * 01.11.2015:  Tobias      Bug festgestellt: Löschen von Dateien nicht funktionsfähig
  */
 public class Directory {
 
