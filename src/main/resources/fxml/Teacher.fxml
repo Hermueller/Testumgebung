@@ -39,8 +39,11 @@
                                                     <children>
                                                         <HBox layoutX="25.0" layoutY="119.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Angabe" />
-                                                                <Button fx:id="btn" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
+                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Angabe">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font></Label>
+                                                                <Button fx:id="btn" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandoutFile" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
                                                             </children>
                                                         </HBox>
                                                         <HBox layoutX="25.0" layoutY="57.0">
@@ -59,7 +62,7 @@
                                                                 <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="31.0" prefWidth="234.0" selected="true" text="EIN" />
                                                             </children>
                                                         </HBox>
-                                                        <HBox layoutX="25.0" layoutY="165.0">
+                                                        <HBox fx:id="btnAngabe" layoutX="25.0" layoutY="165.0">
                                                             <children>
                                                                 <Label layoutX="25.0" layoutY="169.0" prefHeight="35.0" prefWidth="222.0" text="Fixe Zeit für Screenshots:">
                                                                     <font>
@@ -82,15 +85,15 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab text="Student-Details">
+                                <!--Tab text="Student-Details">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                            <children><!--
+                                            <children><
                                     <ImageView fx:id="ivLiveView" fitHeight="199.0" fitWidth="280.0" layoutX="177.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
                                        <!-<image>
                                           <Image requestedWidth="380" url="@file:../images/loading.gif" />
                                        </image>-
-                                    </ImageView>-->
+                                    </ImageView>>
                                                 <LineChart layoutX="14.0" layoutY="14.0" prefHeight="51.0" prefWidth="527.0">
                                                     <xAxis>
                                                         <CategoryAxis side="BOTTOM" />
@@ -102,7 +105,8 @@
                                             </children>
                                         </AnchorPane>
                                     </content>
-                                </Tab>
+                                </Tab-->
+
                                 <Tab text="Abgabe">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />

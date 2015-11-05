@@ -18,6 +18,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -126,5 +127,15 @@ public class ControllerTeacher implements Initializable {
             tfTimeSS.setEditable(true);
             TB_SS_rnd.setText("AUS");
         }
+    }
+
+    public void chooseHandoutFile(ActionEvent actionEvent) {
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fc.setDialogTitle("Wähle dein Ziel-Verzeichnis");
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        File choosedFile = fc.getSelectedFile();
+        if (choosedFile != null)
+            Session.getInstance().setHandOutFile(new File(choosedFile.getPath()));
     }
 }
