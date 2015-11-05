@@ -16,9 +16,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
  * 19.10.2015:  Patrick     Liste der verbundenen Studenten
  * 24.10.2015:  Patrick     DirectoryChooser für die Screenshots
  * 26.10.2015:  Philipp     Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
+ * 05.11.2015:  Patrick     Auswahl der Angaben-Datei. Die File wird in Session gespeichert
  */
 public class ControllerTeacher implements Initializable {
 
@@ -130,12 +131,14 @@ public class ControllerTeacher implements Initializable {
     }
 
     public void chooseHandoutFile(ActionEvent actionEvent) {
-        JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
-        fc.setDialogTitle("Wähle dein Ziel-Verzeichnis");
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        File choosedFile = fc.getSelectedFile();
+        FileChooser fc = new FileChooser();
+        fc.setInitialDirectory(new File(System.getProperty("user.home")));
+        fc.setTitle("Wähle dein Ziel-Verzeichnis");
+        File choosedFile = fc.showOpenDialog(new Stage());
         if (choosedFile != null)
             Session.getInstance().setHandOutFile(new File(choosedFile.getPath()));
+
     }
+
+
 }
