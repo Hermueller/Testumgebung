@@ -16,6 +16,7 @@
     Patrick:   24.10.2015   Implementieren der 'Ordner auswahl'
     Tobias:    26.10.2015   Implementieren der Fehlermeldungsausgabe
     Philipp:   26.10.2015   Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
+    Patrick:   05.11.2015   Reparatur der Datei
 -->
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
