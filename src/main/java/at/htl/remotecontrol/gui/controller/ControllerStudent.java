@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
  * 18.10.2015:  Philipp     Einfügen eines Login's mit Werteübergabe
  * 30.10.2015:  Tobias      Login/Logout erweitert
  * 31.10.2015:  Tobias      Erstellen von Client-Paketen und deren Übermittlung an Client
+ *
  */
 public class ControllerStudent implements Initializable {
 
