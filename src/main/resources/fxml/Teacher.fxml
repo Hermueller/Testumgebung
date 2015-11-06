@@ -36,7 +36,7 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <VBox layoutX="25.0" layoutY="57.0" spacing="20.0">
+                                                <VBox layoutX="47.0" layoutY="22.0" prefHeight="243.0" prefWidth="456.0" spacing="20.0">
                                                     <children>
                                                         <HBox layoutX="25.0" layoutY="119.0">
                                                             <children>
@@ -77,6 +77,16 @@
                                                                 </TextField>
                                                             </children>
                                                         </HBox>
+                                          <HBox prefHeight="37.0" prefWidth="456.0">
+                                             <children>
+                                                <Label prefHeight="93.0" prefWidth="215.0" text="Passwort">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="43.0" prefWidth="243.0" />
+                                             </children>
+                                          </HBox>
                                                     </children>
                                                 </VBox>
                                                 <Label fx:id="lbAlert" layoutX="14.0" layoutY="326.0" prefHeight="25.0" prefWidth="520.0" />

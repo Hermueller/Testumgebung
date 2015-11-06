@@ -20,6 +20,7 @@ import java.util.LinkedList;
  * 30.10.2015:  Ph, Tobi    fixe/zufällige Zeitspanne zwischen Screenshots erstellt
  * 31.10.2015:  Tobias      Funktion implementiert: Testbeginn und Testende festlegen
  * 31.10.2015:  Tobias      Erweiterung um handOutFile und getHandOutPacket()
+ * 06.11.2015   Patrick     Erweiterung um password
  */
 public class Session {
 
@@ -32,6 +33,7 @@ public class Session {
     private String path;
     private String pathOfImages;
     private String pathOfHandOutFiles;
+    private String password;
 
     protected Session() {
         students = FXCollections.observableList(new LinkedList<Student>());
@@ -58,6 +60,12 @@ public class Session {
 
     public void setHandOutFile(File handOutFile) {
         this.handOutFile = handOutFile;
+    }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public HandOutPacket getHandOutPacket() {

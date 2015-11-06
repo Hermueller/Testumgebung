@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS; // SS ... Screenshot
+    public TextField tfTimeSS, tfPassword; // SS ... Screenshot
 
     @FXML
     public ListView<Student> lvStudents;

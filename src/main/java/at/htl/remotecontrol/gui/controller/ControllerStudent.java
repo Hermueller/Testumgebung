@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -25,18 +26,22 @@ import java.util.ResourceBundle;
 public class ControllerStudent implements Initializable {
 
     @FXML
-    TextField tfUsername, tfTeacherIP, tfPath;
+    TextField tfUsername, tfTeacherIP, tfPath, tfPassword;
 
     @FXML
-    Button btnLogin, btnHandIn;
+    Button btnLogin, btnHandIn, btnLogout;
 
     @FXML
     public Label lbAlert;
 
+    @FXML
+    ToggleButton tbSwitch;
+
     private Client client;
     private boolean loggedIn;
 
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
         this.loggedIn = false;
     }
 
@@ -45,7 +50,7 @@ public class ControllerStudent implements Initializable {
             if (!loggedIn) {
                 client = new Client(new LoginPacket(
                         tfUsername.getText(),
-                        "hugo",
+                        tfPassword.getText(),
                         tfTeacherIP.getText(),
                         tfPath.getText()
                 ));
@@ -83,5 +88,4 @@ public class ControllerStudent implements Initializable {
             loggedIn = false;
         }
     }
-
 }
