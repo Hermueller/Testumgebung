@@ -5,7 +5,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- *
+ * 06.11.2015:  Tobias      Class created
  */
 public class Cryptography {
 
