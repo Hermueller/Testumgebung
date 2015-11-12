@@ -1,7 +1,7 @@
 package at.htl.remotecontrol;
 
 /**
- * Created by patrickpohn on 12.11.15.
+ * Patrick:  12.November.2015 Erstellen der Klasse
  */
 public class StudentTest {
 }
