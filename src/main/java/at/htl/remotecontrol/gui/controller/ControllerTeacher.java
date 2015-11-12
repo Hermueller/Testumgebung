@@ -9,10 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
@@ -33,7 +30,10 @@ import java.util.ResourceBundle;
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS, tfPassword; // SS ... Screenshot
+    public TextField tfTimeSS; // SS ... Screenshot
+
+    @FXML
+    public PasswordField tbPassword;
 
     @FXML
     public ListView<Student> lvStudents;
@@ -66,6 +66,7 @@ public class ControllerTeacher implements Initializable {
 
     public void startServer(ActionEvent actionEvent) {
         String path = Session.getInstance().getPathOfImages();
+        Session.getInstance().setPassword(tbPassword.getText());
         Session.getInstance().setHandOutFile(new File(String.format("%s/angabe.zip",
                 Session.getInstance().getPath())));
         String ssTime = tfTimeSS.getText();
