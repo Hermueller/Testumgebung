@@ -1,18 +1,20 @@
 package at.htl.remotecontrol.entity;
 
-import java.io.File;
-
 /**
- * Tobias:   26.10.2015     Klasse erstellt
+ * 26.10.2015: Tobias   Klasse erstellt
+ * 26.10.2015: Tobias   Name des Schülers, Verzeichnis der Screenshots
+ * 31.10.2015: Tobias   Funktion für Verzeichnis der Screenshots verbessert
  */
 public class Student {
 
     private String name;
-    private String directory;
+    private String pathOfWatch;
+    private String pathOfImages;
 
-    public Student(String studentName) {
-        this.name = studentName;
-        setDirectory(Session.getInstance().getImagePath() + studentName);
+    public Student(String name, String pathOfWatch) {
+        this.name = name;
+        this.pathOfWatch = pathOfWatch;
+        setPathOfImages(Session.getInstance().getPathOfImages());
     }
 
     //region Getter and Setter
@@ -20,39 +22,20 @@ public class Student {
         return name;
     }
 
-    public String getDirectory() {
-        return directory;
+    public String getPathOfWatch() {
+        return pathOfWatch;
     }
 
-    private void setDirectory(String directory) {
-        this.directory = directory;
-        File file = new File(directory);
-        if (!file.exists()) {
-            file.mkdirs();
-        } else {
-            System.out.println("Verzeichnis ist vorhanden!");
-        }
+    public String getPathOfImages() {
+        return pathOfImages;
+    }
+
+    private void setPathOfImages(String path) {
+        path = String.format("%s/%s", path, name);
+        if (Directory.create(path))
+            this.pathOfImages = path;
     }
     //endregion
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Student)) return false;
-
-        Student student = (Student) o;
-
-        if (!name.equals(student.name)) return false;
-        return directory.equals(student.directory);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + directory.hashCode();
-        return result;
-    }
 
     @Override
     public String toString() {

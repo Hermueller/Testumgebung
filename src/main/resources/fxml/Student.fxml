@@ -7,13 +7,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="at.htl.remotecontrol.gui.controller.ControllerStudent">
-  <children>
-    <TextField fx:id="tfUsername" layoutX="319.0" layoutY="136.0" />
-    <Label layoutX="192.0" layoutY="141.0" prefHeight="16.0" prefWidth="110.0" text="Username:" />
-    <Label layoutX="192.0" layoutY="184.0" text="Teacher-IP:" />
-    <TextField fx:id="tfTeacherIP" layoutX="319.0" layoutY="179.0" />
-    <Button fx:id="btnLogin" layoutX="279.0" layoutY="232.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="100.0" text="Log In" />
-    <Button id="btnLogin" layoutX="424.0" layoutY="232.0" mnemonicParsing="false" onAction="#logOut" prefHeight="26.0" prefWidth="100.0" text="Log Out" />
-  </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerStudent">
+    <children>
+        <TextField fx:id="tfUsername" layoutX="317.0" layoutY="80.0" />
+        <Label layoutX="190.0" layoutY="85.0" prefHeight="16.0" prefWidth="110.0" text="Username:" />
+        <Label layoutX="190.0" layoutY="128.0" text="Teacher-IP:" />
+        <TextField fx:id="tfTeacherIP" layoutX="317.0" layoutY="123.0" />
+        <Button fx:id="btnLogin" layoutX="279.0" layoutY="232.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="100.0" text="Log In" />
+        <Button id="btnLogin" fx:id="btnLogOut" disable="true" layoutX="424.0" layoutY="232.0" onAction="#logOut" prefHeight="26.0" prefWidth="100.0" text="Log Out" />
+        <Button fx:id="btfilePath" layoutX="503.0" layoutY="299.0" mnemonicParsing="false" onAction="#chooseDirectory" text="ChooseFilePath" />
+        <TextField fx:id="tfPath" layoutX="96.0" layoutY="299.0" prefHeight="26.0" prefWidth="384.0" />
+      <Button layoutX="571.0" layoutY="214.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="200.0" text="Senden" />
+      <ToggleButton fx:id="tbSwitch" layoutX="673.0" layoutY="346.0" mnemonicParsing="false" onAction="#toggleReadyButton" text="Abgabeberiet" />
+      <TextArea layoutX="571.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" promptText="Nachricht an den Lehrer" />
+      <TextField fx:id="tfPassword" layoutX="317.0" layoutY="165.0" />
+      <Label layoutX="190.0" layoutY="170.0" text="Passwort:" />
+    </children>
 </AnchorPane>

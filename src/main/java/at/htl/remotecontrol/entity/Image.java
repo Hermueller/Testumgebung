@@ -11,22 +11,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Tobias:  26.10.2015  Klasse erstellt
+ * 26.10.2015:  Tobias      Klasse erstellt
+ * 30.10.2015:  Tobias      Speichern von Images verbessert
  */
 public class Image {
 
     public static void save(BufferedImage img, String fileName) {
         try {
-            FileOutputStream fos = new FileOutputStream(fileName);
             if (fileName.contains(".jpg"))
-                fos.write(convertToJpg(img));
-            fos.close();
+                new FileOutputStream(fileName).write(convertToJpg(img));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Image failed to save!");
         }
     }
 
-    public static byte[] convertToJpg(BufferedImage img) throws IOException {
+    private static byte[] convertToJpg(BufferedImage img) throws IOException {
         ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
         ImageWriteParam writeParam = writer.getDefaultWriteParam();
         writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);

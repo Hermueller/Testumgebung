@@ -32,7 +32,7 @@ public class ScreenShot implements RobotAction {
     }
 
     public Object execute(Robot robot) throws IOException {
-        long time = System.currentTimeMillis();
+        //long time = System.currentTimeMillis();
         Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
         Rectangle shotArea = new Rectangle(
                 defaultToolkit.getScreenSize());
@@ -42,7 +42,7 @@ public class ScreenShot implements RobotAction {
         }
 
         byte[] bytes = convertToJPG(image);
-        time = System.currentTimeMillis() - time;
+        //time = System.currentTimeMillis() - time;
         //System.out.println("time = " + time);
         // only send it if the picture has actually changed
         byte[] prev = previous.get();
@@ -70,7 +70,7 @@ public class ScreenShot implements RobotAction {
         return bout.toByteArray();
     }
 
-    public BufferedImage getScaledInstance(BufferedImage src) {
+    private BufferedImage getScaledInstance(BufferedImage src) {
         int width = (int) (src.getWidth() * scale);
         int height = (int) (src.getHeight() * scale);
 

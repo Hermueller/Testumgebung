@@ -1,98 +1,99 @@
 package at.htl.remotecontrol.server;
 
-import at.htl.remotecontrol.entity.Time;
+import at.htl.remotecontrol.entity.Image;
+import at.htl.remotecontrol.entity.Session;
+import at.htl.remotecontrol.entity.Student;
+import at.htl.remotecontrol.entity.StudentView;
+import at.htl.remotecontrol.packets.LoginPacket;
+import javafx.application.Platform;
 
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.time.LocalDateTime;
 
+/**
+ * Die Hauptklasse ist der TeacherServer. Wenn ein Schüler sich mit ihm verbindet,
+ * schickt er ein LoginPacket. Sobald dieses Packet verarbeitet wurde, wird der
+ * SocketReaderThread und der SocketWriterThread erzeugt, mit denen dann die
+ * Netzwerkkommunikation ermöglicht ist.
+ * <p>
+ * 21.10.2015:  Philipp     Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
+ * 26.10.2015:  Tobias      Verbesserung der Methode saveImage()
+ * 27.10.2015:  Philipp     Live ÜberwachungsBild wird gesetzt
+ * 28.10.2015:  Philipp     Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
+ */
 public class TeacherServer {
-  public static final int PORT = 5555;
 
-  private final SocketWriterThread writer;
-  private final SocketReaderThread reader;
+    public static final int PORT = 5555;
 
-  public TeacherServer(Socket socket)
-      throws IOException, ClassNotFoundException {
-    ObjectOutputStream out = new ObjectOutputStream(
-        socket.getOutputStream());
-    ObjectInputStream in = new ObjectInputStream(
-        new BufferedInputStream(
-            socket.getInputStream()));
-    System.out.println("waiting for student name ...");
-    String studentName = (String) in.readObject();
+    private final SocketWriterThread writer;
+    private final SocketReaderThread reader;
 
+    public TeacherServer(Socket socket)
+            throws IOException, ClassNotFoundException {
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(
+                new BufferedInputStream(
+                        socket.getInputStream()));
+        System.out.println("waiting for student name ...");
 
-    reader = new SocketReaderThread(studentName, in, this);
-    writer = new SocketWriterThread(studentName, out);
+        LoginPacket packet = (LoginPacket) in.readObject();
+        Student student = new Student(packet.getUserName(), packet.getDirOfWatch());
+        Session.getInstance().addStudent(student);
 
-    reader.setDaemon(true);
-    writer.setDaemon(true);
+        reader = new SocketReaderThread(student, in, this);
+        writer = new SocketWriterThread(student, out);
 
-    reader.start();
-    writer.start();
+        reader.setDaemon(true);
+        writer.setDaemon(true);
 
-    System.out.println("finished connecting to " + socket);
-  }
+        writer.handOut();
 
-  public void saveImage(BufferedImage image, String studentname) {
+        reader.start();
+        writer.start();
 
-    LocalDateTime dateTime = LocalDateTime.now();
-
-    FileOutputStream fos = null;
-    try {
-        File f = new File(Time.getInstance().getScreenshotPath() + "/Screenshots/" + studentname);
-        if(!f.exists()) {
-            f.mkdirs();
-        }
-
-
-
-        fos = new FileOutputStream(f.getPath() +
-                "/" +studentname +
-                "-" +
-                dateTime +
-                ".jpg"
-        );
-
-      fos.write(convertToJPG(image));
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        fos.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+        System.out.println("finished connecting to " + socket);
     }
 
-  }
+    public SocketWriterThread getWriter() {
+        return writer;
+    }
 
-  private byte[] convertToJPG(BufferedImage img)
-          throws IOException {
-    ImageWriter writer =
-            ImageIO.getImageWritersByFormatName("jpg").next();
-    ImageWriteParam iwp = writer.getDefaultWriteParam();
-    iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-    iwp.setCompressionQuality(1.0f);
+    public SocketReaderThread getReader() {
+        return reader;
+    }
 
-    ByteArrayOutputStream bout = new ByteArrayOutputStream();
-    writer.setOutput(new MemoryCacheImageOutputStream(bout));
-    writer.write(null, new IIOImage(img, null, null), iwp);
-    writer.dispose();
-    bout.flush();
-    return bout.toByteArray();
-  }
+    public void saveImage(BufferedImage image, Student student) {
+        String path = String.format("%s/%s-%s.jpg",
+                student.getPathOfImages(),
+                student.getName(),
+                LocalDateTime.now());
+        Image.save(image, path);
+        showImage(path, student);
+    }
 
-  public void shutdown() {
-    writer.interrupt();
-    reader.close();
-  }
+    public void showImage(final String fileName, final Student student) {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Student selected = (Student) StudentView.getInstance().getLv()
+                        .getSelectionModel().getSelectedItem();
+                if (selected != null) {
+                    if (student.getName().equals(selected.getName())) {
+                        (StudentView.getInstance().getIv())
+                                .setImage(new javafx.scene.image.Image("file:" + fileName));
+                    }
+                }
+            }
+        });
+    }
+
+    public void shutdown() {
+        writer.interrupt();
+        reader.close();
+    }
+
 }
