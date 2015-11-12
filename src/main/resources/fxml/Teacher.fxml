@@ -49,7 +49,7 @@
                                                         </HBox>
                                                         <HBox layoutX="25.0" layoutY="57.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="61.0" prefHeight="31.0" prefWidth="222.0" text="Speicherort:">
+                                                                <Label layoutX="25.0" layoutY="61.0" prefHeight="30.0" prefWidth="222.0" text="Speicherort:">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
@@ -65,7 +65,7 @@
                                                         </HBox>
                                                         <HBox fx:id="btnAngabe" layoutX="25.0" layoutY="165.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="35.0" prefWidth="222.0" text="Fixe Zeit für Screenshots:">
+                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="30.0" prefWidth="222.0" text="Fixe Zeit für Screenshots:">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
@@ -79,12 +79,12 @@
                                                         </HBox>
                                           <HBox prefHeight="37.0" prefWidth="456.0">
                                              <children>
-                                                <Label prefHeight="93.0" prefWidth="215.0" text="Passwort">
+                                                <Label prefHeight="30.0" prefWidth="222.0" text="Passwort">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="43.0" prefWidth="243.0" />
+                                                <TextField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="35.0" prefWidth="234.0" />
                                              </children>
                                           </HBox>
                                                     </children>
@@ -96,15 +96,15 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <!--Tab text="Student-Details">
+                                <Tab text="Student-Details">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                            <children><
+                                            <children>
                                     <ImageView fx:id="ivLiveView" fitHeight="199.0" fitWidth="280.0" layoutX="177.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
-                                       <!-<image>
+                                       <!--<image>
                                           <Image requestedWidth="380" url="@file:../images/loading.gif" />
-                                       </image>-
-                                    </ImageView>>
+                                       </image>-->
+                                    </ImageView>
                                                 <LineChart layoutX="14.0" layoutY="14.0" prefHeight="51.0" prefWidth="527.0">
                                                     <xAxis>
                                                         <CategoryAxis side="BOTTOM" />
@@ -116,11 +116,14 @@
                                             </children>
                                         </AnchorPane>
                                     </content>
-                                </Tab-->
+                                </Tab>
 
                                 <Tab text="Abgabe">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children></AnchorPane>
                                     </content>
                                 </Tab>
                             </tabs>

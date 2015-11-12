@@ -18,7 +18,7 @@
         <Button fx:id="btfilePath" layoutX="503.0" layoutY="299.0" mnemonicParsing="false" onAction="#chooseDirectory" text="ChooseFilePath" />
         <TextField fx:id="tfPath" layoutX="96.0" layoutY="299.0" prefHeight="26.0" prefWidth="384.0" />
       <Button layoutX="571.0" layoutY="214.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="200.0" text="Senden" />
-      <ToggleButton fx:id="tbSwitch" layoutX="673.0" layoutY="346.0" mnemonicParsing="false" onAction="#toggleReadyButton" text="Abgabeberiet" />
+      <ToggleButton fx:id="tbSwitch" layoutX="673.0" layoutY="346.0" mnemonicParsing="false" text="Abgabeberiet" />
       <TextArea layoutX="571.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" promptText="Nachricht an den Lehrer" />
       <TextField fx:id="tfPassword" layoutX="317.0" layoutY="165.0" />
       <Label layoutX="190.0" layoutY="170.0" text="Passwort:" />
