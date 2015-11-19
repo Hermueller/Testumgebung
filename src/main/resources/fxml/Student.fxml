@@ -12,7 +12,7 @@
         <TextField fx:id="tfUsername" layoutX="317.0" layoutY="80.0" />
         <Label layoutX="190.0" layoutY="85.0" prefHeight="16.0" prefWidth="110.0" text="Username:" />
         <Label layoutX="190.0" layoutY="128.0" text="Teacher-IP:" />
-        <TextField fx:id="tfTeacherIP" layoutX="317.0" layoutY="123.0" />
+        <TextField fx:id="tfTeacherIP" layoutX="317.0" layoutY="123.0" prefHeight="27.0" prefWidth="100.0" promptText="IP" />
         <Button fx:id="btnLogin" layoutX="279.0" layoutY="232.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="100.0" text="Log In" />
         <Button id="btnLogin" fx:id="btnLogOut" disable="true" layoutX="424.0" layoutY="232.0" onAction="#logOut" prefHeight="26.0" prefWidth="100.0" text="Log Out" />
         <Button fx:id="btfilePath" layoutX="503.0" layoutY="299.0" mnemonicParsing="false" onAction="#chooseDirectory" text="ChooseFilePath" />
@@ -22,5 +22,6 @@
       <TextArea layoutX="571.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" promptText="Nachricht an den Lehrer" />
       <Label layoutX="190.0" layoutY="170.0" text="Passwort:" />
       <PasswordField fx:id="pfPassword" layoutX="319.0" layoutY="165.0" />
+      <TextField fx:id="tfPort" layoutX="424.0" layoutY="123.0" prefHeight="27.0" prefWidth="61.0" promptText="Port" />
     </children>
 </AnchorPane>

@@ -1,4 +1,4 @@
-package at.htl.remotecontrol.gui.main;
+package at.htl.remotecontrol.gui.main.teacher;
 
 import at.htl.remotecontrol.gui.controller.ControllerTeacher;
 import javafx.application.Application;

@@ -36,18 +36,28 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="646.0">
                                             <children>
-                                                <VBox layoutX="47.0" layoutY="22.0" prefHeight="243.0" prefWidth="456.0" spacing="20.0">
+                                                <VBox layoutX="47.0" layoutY="22.0" prefHeight="155.0" prefWidth="456.0" spacing="20.0">
                                                     <children>
-                                                        <HBox layoutX="25.0" layoutY="119.0">
+                                                        <HBox layoutX="25.0" layoutY="119.0" prefHeight="10.0" prefWidth="456.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Angabe">
+                                                <HBox prefHeight="27.0" prefWidth="262.0">
+                                                   <children>
+                                                      <Label prefHeight="27.0" prefWidth="201.0" text="Port:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="tfPort" prefHeight="27.0" prefWidth="209.0" />
+                                                   </children>
+                                                </HBox>
+                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="27.0" prefWidth="130.0" text="Angabe">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font></Label>
                                                                 <Button fx:id="btnAngabe1" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandoutFile" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
                                                             </children>
                                                         </HBox>
-                                                        <HBox alignment="TOP_RIGHT" layoutX="25.0" layoutY="57.0">
+                                                        <HBox alignment="TOP_RIGHT" layoutX="25.0" layoutY="57.0" prefHeight="0.0" prefWidth="456.0">
                                                             <children>
                                                                 <Label layoutX="25.0" layoutY="61.0" prefHeight="30.0" prefWidth="437.0" text="Speicherort:">
                                                                     <font>
@@ -58,13 +68,13 @@
                                                                 <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="30.0" prefWidth="14.0" text="Choose your Directory" />
                                                             </children>
                                                         </HBox>
-                                                        <HBox layoutX="25.0" layoutY="119.0">
+                                                        <HBox layoutX="25.0" layoutY="119.0" prefHeight="0.0" prefWidth="456.0">
                                                             <children>
                                                                 <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Zufall Zeitabstand zw. Scrrenshots:" />
                                                                 <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="31.0" prefWidth="234.0" selected="true" text="EIN" />
                                                             </children>
                                                         </HBox>
-                                                        <HBox fx:id="btnAngabe" layoutX="25.0" layoutY="165.0">
+                                                        <HBox fx:id="btnAngabe" layoutX="25.0" layoutY="165.0" prefHeight="0.0" prefWidth="456.0">
                                                             <children>
                                                                 <Label layoutX="25.0" layoutY="169.0" prefHeight="35.0" prefWidth="222.0" text="Fixe Zeit für Screenshots:">
                                                                     <font>
@@ -78,7 +88,7 @@
                                                                 </TextField>
                                                             </children>
                                                         </HBox>
-                                          <HBox prefHeight="37.0" prefWidth="456.0">
+                                          <HBox prefHeight="0.0" prefWidth="456.0">
                                              <children>
                                                 <Label prefHeight="93.0" prefWidth="215.0" text="Passwort">
                                                    <font>

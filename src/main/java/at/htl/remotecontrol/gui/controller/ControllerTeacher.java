@@ -5,6 +5,7 @@ import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
+import at.htl.remotecontrol.server.TeacherServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,11 +27,12 @@ import java.util.ResourceBundle;
  * 24.10.2015:  Patrick     DirectoryChooser für die Screenshots
  * 26.10.2015:  Philipp     Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
  * 05.11.2015:  Patrick     Auswahl der Angaben-Datei. Die File wird in Session gespeichert
+ * 19.11.2015:  Patrick     Port hinzugefügt
  */
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS, tfPath; // SS ... Screenshot
+    public TextField tfTimeSS, tfPath, tfPort; // SS ... Screenshot
 
     @FXML
     public PasswordField tbPassword;
@@ -66,6 +68,7 @@ public class ControllerTeacher implements Initializable {
 
     public void startServer(ActionEvent actionEvent) {
         String path = Session.getInstance().getPathOfImages();
+        TeacherServer.PORT = Integer.valueOf(tfPort.getText());
         Session.getInstance().setPassword(tbPassword.getText());
         Session.getInstance().setHandOutFile(new File(String.format("%s/angabe.zip",
                 Session.getInstance().getPath())));
@@ -142,6 +145,7 @@ public class ControllerTeacher implements Initializable {
             Session.getInstance().setHandOutFile(new File(choosedFile.getPath()));
 
     }
+
 
 
 }

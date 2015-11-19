@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
  */
 public class TeacherServer {
 
-    public static final int PORT = 5555;
+    public static int PORT = 5555;
 
     private final SocketWriterThread writer;
     private final SocketReaderThread reader;

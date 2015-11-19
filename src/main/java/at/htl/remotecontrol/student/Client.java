@@ -30,7 +30,7 @@ public class Client {
     public Client(LoginPacket loginPacket)
             throws IOException, AWTException {
         this.loginPacket = loginPacket;
-        Socket socket = new Socket(loginPacket.getServerIP(), TeacherServer.PORT);
+        Socket socket = new Socket(loginPacket.getServerIP(), loginPacket.getPort());
         Directory.create(loginPacket.getDirOfWatch());
         robot = new Robot();
         jobs = new RobotActionQueue();

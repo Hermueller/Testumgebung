@@ -1,6 +1,7 @@
 package at.htl.remotecontrol.gui.controller;
 
 import at.htl.remotecontrol.packets.LoginPacket;
+import at.htl.remotecontrol.server.TeacherServer;
 import at.htl.remotecontrol.student.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,12 +23,12 @@ import java.util.ResourceBundle;
  * 18.10.2015:  Philipp     Einfügen eines Login's mit Werteübergabe
  * 30.10.2015:  Tobias      Login/Logout erweitert
  * 31.10.2015:  Tobias      Erstellen von Client-Paketen und deren Übermittlung an Client
- *
+ * 19.11.2015:  Patrick     Port hinzugefügt
  */
 public class ControllerStudent implements Initializable {
 
     @FXML
-    TextField tfUsername, tfTeacherIP, tfPath;
+    TextField tfUsername, tfTeacherIP, tfPath, tfPort;
 
     @FXML
     PasswordField pfPassword;
@@ -56,8 +57,10 @@ public class ControllerStudent implements Initializable {
                         tfUsername.getText(),
                         pfPassword.getText(),
                         tfTeacherIP.getText(),
-                        tfPath.getText()
+                        tfPath.getText(),
+                        Integer.valueOf(tfPort.getText())
                 ));
+                TeacherServer.PORT = Integer.valueOf(tfPort.getText());
                 client.start();
                 loggedIn = true;
             }
@@ -66,6 +69,7 @@ public class ControllerStudent implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public void chooseDirectory(ActionEvent event) {
