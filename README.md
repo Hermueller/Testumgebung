@@ -5,7 +5,9 @@ Beispiel für Versionierung:
 
 2.3.5.0041
 
-│ │ │  └────── Buildnummer          (Einzelschritte, Kompilierung)│ │ └───────── Revisionsnummer      (Fehlerbehebungen)
+│ │ │  └────── Buildnummer          (Einzelschritte, Kompilierung)
+
+│ │ └───────── Revisionsnummer      (Fehlerbehebungen)
 
 │ └─────────── Nebenversionsnummer  (funktionelle Erweiterung)
 
