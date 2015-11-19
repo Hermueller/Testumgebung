@@ -1,9 +1,6 @@
 package at.htl.remotecontrol;
 
-import at.htl.remotecontrol.actions.RobotAction;
-import at.htl.remotecontrol.actions.RobotActionQueue;
-import at.htl.remotecontrol.actions.ScreenShot;
-import at.htl.remotecontrol.server.TeacherServer;
+import at.htl.remotecontrol.entity.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -13,9 +10,9 @@ import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.concurrent.TimeUnit;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 /**
  * Patrick:  12.November.2015 Erstellen der Klasse
@@ -26,6 +23,7 @@ public class StudentTest extends GuiTest{
     TextField tfTeacherIP;
     PasswordField pfPassword;
     Button btnLogin;
+    TextField tfPort;
 
     @Override
     protected Parent getRootNode() {
@@ -46,10 +44,7 @@ public class StudentTest extends GuiTest{
         tfTeacherIP = find("#tfTeacherIP");
         pfPassword = find("#pfPassword");
         btnLogin = find("#btnLogin");
-
-        Socket socket = new Socket("localhost", TeacherServer.PORT);
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-        RobotActionQueue jobs = new RobotActionQueue();
+        tfPort = find("#tfPort");
 
 
 
@@ -57,17 +52,14 @@ public class StudentTest extends GuiTest{
         type("admin");
         click(tfTeacherIP);
         type("localhost");
+        click(tfPort);
+        type("55555");
         click(pfPassword);
         type("passme");
         click(btnLogin);
 
-        jobs.add(new ScreenShot(1.0));
 
-        RobotAction action = jobs.poll(0L, TimeUnit.MILLISECONDS);
-
-        out.writeObject(action);
-        out.reset();
-        out.flush();
+        assertThat(Session.getInstance().getPassword(),is("passme"));
 
 
 
