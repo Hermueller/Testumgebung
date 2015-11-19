@@ -10,12 +10,5 @@ Beispiel für Versionierung:
 └───────────── Hauptversionsnummer  (signifikante Änderungen)
 
 
-
-2.3.5.0041
-| | |  |_______ Buildnummer
-| | |__________ Revisionsnummer
-| |____________ Nebenversionsnummer
-|______________ Hauptversionsnummer
-
   
   
