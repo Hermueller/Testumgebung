@@ -5,10 +5,10 @@ import at.htl.remotecontrol.student.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -27,7 +27,10 @@ import java.util.ResourceBundle;
 public class ControllerStudent implements Initializable {
 
     @FXML
-    TextField tfUsername, tfTeacherIP, tfPath, tfPassword;
+    TextField tfUsername, tfTeacherIP, tfPath;
+
+    @FXML
+    PasswordField pfPassword;
 
     @FXML
     Button btnLogin, btnHandIn, btnLogout;
@@ -51,7 +54,7 @@ public class ControllerStudent implements Initializable {
             if (!loggedIn) {
                 client = new Client(new LoginPacket(
                         tfUsername.getText(),
-                        tfPassword.getText(),
+                        pfPassword.getText(),
                         tfTeacherIP.getText(),
                         tfPath.getText()
                 ));

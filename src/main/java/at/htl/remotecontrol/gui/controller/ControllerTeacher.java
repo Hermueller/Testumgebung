@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS; // SS ... Screenshot
+    public TextField tfTimeSS, tfPath; // SS ... Screenshot
 
     @FXML
     public PasswordField tbPassword;
@@ -115,8 +115,10 @@ public class ControllerTeacher implements Initializable {
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosedFile = dc.showDialog(new Stage());
-        if (choosedFile != null)
+        if (choosedFile != null) {
             Session.getInstance().setPath(choosedFile.getPath());
+            tfPath.setText(Session.getInstance().getPath());
+        }
     }
 
     public void changeSomeOptions(ActionEvent actionEvent) {

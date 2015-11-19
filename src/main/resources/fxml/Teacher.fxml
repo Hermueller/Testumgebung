@@ -23,7 +23,7 @@
     <children>
         <SplitPane dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="156.0">
                     <children>
                         <ListView fx:id="lvStudents" layoutX="-1.0" layoutY="80.0" prefHeight="398.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                     </children>
@@ -34,7 +34,7 @@
                             <tabs>
                                 <Tab text="Optionen">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="646.0">
                                             <children>
                                                 <VBox layoutX="47.0" layoutY="22.0" prefHeight="243.0" prefWidth="456.0" spacing="20.0">
                                                     <children>
@@ -47,14 +47,15 @@
                                                                 <Button fx:id="btnAngabe1" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandoutFile" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
                                                             </children>
                                                         </HBox>
-                                                        <HBox layoutX="25.0" layoutY="57.0">
+                                                        <HBox alignment="TOP_RIGHT" layoutX="25.0" layoutY="57.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="61.0" prefHeight="31.0" prefWidth="222.0" text="Speicherort:">
+                                                                <Label layoutX="25.0" layoutY="61.0" prefHeight="30.0" prefWidth="437.0" text="Speicherort:">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <Button layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="31.0" prefWidth="234.0" text="Choose your Directory" />
+                                                <TextField fx:id="tfPath" prefHeight="30.0" prefWidth="421.0" />
+                                                                <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="30.0" prefWidth="14.0" text="Choose your Directory" />
                                                             </children>
                                                         </HBox>
                                                         <HBox layoutX="25.0" layoutY="119.0">

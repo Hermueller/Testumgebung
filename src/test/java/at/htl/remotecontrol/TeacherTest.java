@@ -17,7 +17,7 @@ import static org.hamcrest.core.Is.is;
 
 /**
  * Philipp:  19.Oktober.2015  einfüger der Tests:
- * Patrick:  12.November.2015 Implementierung des ParameterTests
+ * Patrick:  12.November.2015 Implementierung des ParameterTests.
  */
 public class TeacherTest extends GuiTest {
 
@@ -53,7 +53,6 @@ public class TeacherTest extends GuiTest {
 
         assertThat(session.getInterval(),is(3000L));
         assertThat(session.getPassword(), is("passme"));
-
     }
 
 }
