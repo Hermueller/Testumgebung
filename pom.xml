@@ -7,6 +7,8 @@
     <groupId>at.htl</groupId>
     <artifactId>remotecontrol</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -17,7 +19,7 @@
         <dependency>
             <groupId>org.loadui</groupId>
             <artifactId>testFx</artifactId>
-            <version>3.1.2</version>
+            <version>3.1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

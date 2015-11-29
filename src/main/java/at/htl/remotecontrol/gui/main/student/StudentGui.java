@@ -1,4 +1,4 @@
-package at.htl.remotecontrol.gui.main;
+package at.htl.remotecontrol.gui.main.student;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

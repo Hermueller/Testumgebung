@@ -17,7 +17,6 @@
     Tobias:    26.10.2015   Implementieren der Fehlermeldungsausgabe
     Philipp:   26.10.2015   Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
     Patrick:   05.11.2015   Reparatur der Datei
-    Philipp:   29.11.2015   Strukturierung bei der Ansicht geändert
 -->
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
@@ -42,10 +41,10 @@
                                                         <HBox layoutX="25.0" layoutY="119.0">
                                                             <children>
                                                                 <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Angabe">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font></Label>
-                                                                <Button fx:id="btn" onAction="#chooseHandOutFile" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font></Label>
+                                                                <Button fx:id="btn" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandoutFile" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
                                                             </children>
                                                         </HBox>
                                                         <HBox layoutX="25.0" layoutY="57.0">
@@ -64,7 +63,7 @@
                                                                 <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="31.0" prefWidth="234.0" selected="true" text="EIN" />
                                                             </children>
                                                         </HBox>
-                                                        <HBox layoutX="25.0" layoutY="165.0">
+                                                        <HBox fx:id="btnAngabe" layoutX="25.0" layoutY="165.0">
                                                             <children>
                                                                 <Label layoutX="25.0" layoutY="169.0" prefHeight="30.0" prefWidth="222.0" text="Fixe Zeit für Screenshots:">
                                                                     <font>
