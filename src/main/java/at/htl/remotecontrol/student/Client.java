@@ -4,6 +4,7 @@ import at.htl.remotecontrol.actions.RobotAction;
 import at.htl.remotecontrol.actions.RobotActionQueue;
 import at.htl.remotecontrol.entity.Directory;
 import at.htl.remotecontrol.entity.FileStream;
+import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.packets.LoginPacket;
 import at.htl.remotecontrol.server.TeacherServer;
 
@@ -45,13 +46,13 @@ public class Client {
 
 
     public void loadFiles() {
-        FileStream.receive(in, loginPacket.getDirOfWatch() + "/angabe.zip");
+        FileStream.receive(in, loginPacket.getDirOfWatch() + "/ss.jpg");
         processor.start();
         reader.start();
     }
 
     public boolean handIn() {
-        System.out.println("DELETE DIRECTORY:");
+        System.out.println("DELETED DIRECTORY");
         Directory.delete(loginPacket.getDirOfWatch() + "/angabe.zip");
         if (processor.isInterrupted() && reader.isInterrupted()) {
             String zipFileName = "handInFile.zip";
@@ -125,9 +126,11 @@ public class Client {
     }
 
     public void stop() {
+        Session.getInstance().removeStudent(loginPacket.getUserName());
         processor.interrupt();
         reader.interrupt();
-        handIn();
+        boolean check = handIn();
+        System.out.println("ERFOLGREICH ==> " + check);
         closeOut();
     }
 

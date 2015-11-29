@@ -6,6 +6,7 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.packets.LoginPacket;
 import javafx.application.Platform;
+import javafx.scene.control.TextField;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
  * 26.10.2015:  Tobias      Verbesserung der Methode saveImage()
  * 27.10.2015:  Philipp     Live ÜberwachungsBild wird gesetzt
  * 28.10.2015:  Philipp     Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
+ * 29.11.2015:  Philipp     Umänderung auf TextField-liste für die farbige Studentenausgabe
  */
 public class TeacherServer {
 
@@ -79,10 +81,10 @@ public class TeacherServer {
     public void showImage(final String fileName, final Student student) {
         Platform.runLater(new Runnable() {
             public void run() {
-                Student selected = (Student) StudentView.getInstance().getLv()
+                TextField selected = (TextField) StudentView.getInstance().getLv()
                         .getSelectionModel().getSelectedItem();
                 if (selected != null) {
-                    if (student.getName().equals(selected.getName())) {
+                    if (student.getName().equals(selected.getText())) {
                         (StudentView.getInstance().getIv())
                                 .setImage(new javafx.scene.image.Image("file:" + fileName));
                     }

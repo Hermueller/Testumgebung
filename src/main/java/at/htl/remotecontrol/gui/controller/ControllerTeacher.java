@@ -9,10 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
@@ -28,15 +25,15 @@ import java.util.ResourceBundle;
  * 19.10.2015:  Patrick     Liste der verbundenen Studenten
  * 24.10.2015:  Patrick     DirectoryChooser für die Screenshots
  * 26.10.2015:  Philipp     Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
- * 05.11.2015:  Patrick     Auswahl der Angaben-Datei. Die File wird in Session gespeichert
+ * 29.11.2015:  Philipp     Angabe-Auswahl + Fehlermeldungen in GUI
  */
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS, tfPassword; // SS ... Screenshot
+    public TextField tfTimeSS, tbPassword; // SS ... Screenshot
 
     @FXML
-    public ListView<Student> lvStudents;
+    public ListView<TextField> lvStudents;
 
     @FXML
     public Label lbAlert;
@@ -46,6 +43,9 @@ public class ControllerTeacher implements Initializable {
 
     @FXML
     public ImageView ivLiveView;
+
+    @FXML
+    public Button btnStart, btnStop, btn;
 
     private Thread server;
     private Threader threader;
@@ -66,12 +66,13 @@ public class ControllerTeacher implements Initializable {
 
     public void startServer(ActionEvent actionEvent) {
         String path = Session.getInstance().getPathOfImages();
-        Session.getInstance().setHandOutFile(new File(String.format("%s/angabe.zip",
-                Session.getInstance().getPath())));
+        File handOut = Session.getInstance().getHandOutFile();
+        //Session.getInstance().setHandOutFile(new File(String.format("%s/angabe.zip",
+        //        Session.getInstance().getPath())));
         String ssTime = tfTimeSS.getText();
         boolean isRnd = TB_SS_rnd.isSelected();
 
-        if (path != null && (isRnd || (!isRnd && ssTime.length() > 0))) {
+        if (path != null && (isRnd || (!isRnd && ssTime.length() > 0)) && handOut != null) {
             if (isRnd) {
                 Session.getInstance().setInterval(new Interval(1000, 30000)); //  wert kleiner, gleich 0 bedeutet Random
             } else {
@@ -86,6 +87,8 @@ public class ControllerTeacher implements Initializable {
             setMsg(true, "Bitte gib ein Verzeichnis an");
         } else if (!isRnd && ssTime.length() < 1) {
             setMsg(true, "Bitte gib einen Zeitwert(in ms) an");
+        } else if (handOut == null) {
+            setMsg(true, "Bitte eine Angabe auswählen!");
         }
     }
 
@@ -118,6 +121,17 @@ public class ControllerTeacher implements Initializable {
             Session.getInstance().setPath(choosedFile.getPath());
     }
 
+    public void chooseHandOutFile(ActionEvent actionEvent) {
+        FileChooser dc = new FileChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        dc.setTitle("Wähle deine Angabe aus");
+        File choosedFile = dc.showOpenDialog(new Stage());
+        if (choosedFile != null) {
+            Session.getInstance().setHandOutFile(new File(choosedFile.getPath()));
+            System.out.println("###########   " + choosedFile.getPath() + "   ############");
+        }
+    }
+
     public void changeSomeOptions(ActionEvent actionEvent) {
         if (TB_SS_rnd.isSelected()) {
             tfTimeSS.setDisable(true);
@@ -129,16 +143,4 @@ public class ControllerTeacher implements Initializable {
             TB_SS_rnd.setText("AUS");
         }
     }
-
-    public void chooseHandoutFile(ActionEvent actionEvent) {
-        FileChooser fc = new FileChooser();
-        fc.setInitialDirectory(new File(System.getProperty("user.home")));
-        fc.setTitle("Wähle dein Ziel-Verzeichnis");
-        File choosedFile = fc.showOpenDialog(new Stage());
-        if (choosedFile != null)
-            Session.getInstance().setHandOutFile(new File(choosedFile.getPath()));
-
-    }
-
-
 }

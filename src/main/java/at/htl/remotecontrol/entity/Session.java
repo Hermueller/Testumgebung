@@ -4,6 +4,10 @@ import at.htl.remotecontrol.packets.HandOutPacket;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -20,12 +24,13 @@ import java.util.LinkedList;
  * 30.10.2015:  Ph, Tobi    fixe/zufällige Zeitspanne zwischen Screenshots erstellt
  * 31.10.2015:  Tobias      Funktion implementiert: Testbeginn und Testende festlegen
  * 31.10.2015:  Tobias      Erweiterung um handOutFile und getHandOutPacket()
- * 06.11.2015   Patrick     Erweiterung um password
+ * 06.11.2015:  Patrick     Erweiterung um password
+ * 29.11.2015:  Philipp     Hinzufügen und Entfernen von Studenten geändert (farbige)TestField
  */
 public class Session {
 
     private static Session instance = null;
-    private ObservableList<Student> students;
+    private ObservableList<TextField> students;
     private File handOutFile;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -36,7 +41,7 @@ public class Session {
     private String password;
 
     protected Session() {
-        students = FXCollections.observableList(new LinkedList<Student>());
+        students = FXCollections.observableList(new LinkedList<TextField>());
     }
 
     /**
@@ -50,7 +55,7 @@ public class Session {
     }
 
     //region Getter and Setter
-    public ObservableList<Student> getObservableList() {
+    public ObservableList<TextField> getObservableList() {
         return students;
     }
 
@@ -122,15 +127,24 @@ public class Session {
     public void addStudent(final Student student) {
         Platform.runLater(new Runnable() {
             public void run() {
-                students.add(student);
+                TextField tf = new TextField(student.getName());
+                tf.setEditable(false);
+                tf.setStyle("-fx-background-color: greenyellow");
+                students.add(tf);
             }
         });
     }
 
-    public void removeStudent(final Student student) {
+    public void removeStudent(final String studentName) {
         Platform.runLater(new Runnable() {
             public void run() {
-                students.remove(student);
+                for (TextField tf : students) {
+                    if (tf.getText().equals(studentName)) {
+                        students.remove(tf);
+                        //tf.setStyle("-fx-background-color: crimson");
+                        break;
+                    }
+                }
             }
         });
     }

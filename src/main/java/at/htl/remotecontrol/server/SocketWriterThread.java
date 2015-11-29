@@ -89,7 +89,7 @@ class SocketWriterThread extends Thread {
             System.out.println("Connection to " + student.getName() + " closed (" + e + ')');
         }
         System.out.println("Closing connection to " + student.getName());
-        Session.getInstance().removeStudent(student);
+        Session.getInstance().removeStudent(student.getName());
     }
 
 }
