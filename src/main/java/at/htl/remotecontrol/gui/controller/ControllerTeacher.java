@@ -5,6 +5,7 @@ import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
+import at.htl.remotecontrol.server.TeacherServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +31,10 @@ import java.util.ResourceBundle;
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS, tbPassword; // SS ... Screenshot
+    public TextField tfTimeSS, tfPath, tfPort; // SS ... Screenshot
+
+    @FXML
+    public PasswordField tbPassword;
 
     @FXML
     public ListView<TextField> lvStudents;
@@ -67,6 +71,9 @@ public class ControllerTeacher implements Initializable {
     public void startServer(ActionEvent actionEvent) {
         String path = Session.getInstance().getPathOfImages();
         File handOut = Session.getInstance().getHandOutFile();
+        TeacherServer.PORT = Integer.valueOf(tfPort.getText());
+        Session.getInstance().setPassword(tbPassword.getText());
+        System.out.println("#+#+#+#+#+#       " + tbPassword.getText());
         //Session.getInstance().setHandOutFile(new File(String.format("%s/angabe.zip",
         //        Session.getInstance().getPath())));
         String ssTime = tfTimeSS.getText();

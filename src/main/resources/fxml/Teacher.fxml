@@ -19,7 +19,7 @@
     Patrick:   05.11.2015   Reparatur der Datei
 -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
     <children>
         <SplitPane dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -38,13 +38,23 @@
                                             <children>
                                                 <VBox layoutX="47.0" layoutY="22.0" prefHeight="243.0" prefWidth="456.0" spacing="20.0">
                                                     <children>
+                                                        <HBox prefHeight="27.0" prefWidth="262.0">
+                                                            <children>
+                                                                <Label prefHeight="30.0" prefWidth="222.0" text="Port:">
+                                                                    <font>
+                                                                        <Font size="18.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" />
+                                                            </children>
+                                                        </HBox>
                                                         <HBox layoutX="25.0" layoutY="119.0">
                                                             <children>
                                                                 <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Angabe">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font></Label>
-                                                                <Button fx:id="btn" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandoutFile" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
+                                                                <font>
+                                                                    <Font size="18.0" />
+                                                                </font></Label>
+                                                                <Button fx:id="btn" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
                                                             </children>
                                                         </HBox>
                                                         <HBox layoutX="25.0" layoutY="57.0">
@@ -70,28 +80,28 @@
                                                                         <Font size="18.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <TextField fx:id="tfTimeSS" disable="true" editable="false" layoutX="247.0" layoutY="165.0" prefHeight="35.0" prefWidth="234.0">
+                                                                <TextField fx:id="tfTimeSS" disable="true" editable="false" layoutX="247.0" layoutY="165.0" maxHeight="26.0" prefHeight="26.0" prefWidth="234.0">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
                                                                 </TextField>
                                                             </children>
                                                         </HBox>
-                                          <HBox prefHeight="37.0" prefWidth="456.0">
-                                             <children>
-                                                <Label prefHeight="30.0" prefWidth="222.0" text="Passwort">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="35.0" prefWidth="234.0" />
-                                             </children>
-                                          </HBox>
+                                                        <HBox prefHeight="37.0" prefWidth="456.0">
+                                                            <children>
+                                                                <Label prefHeight="30.0" prefWidth="222.0" text="Passwort">
+                                                                    <font>
+                                                                        <Font size="18.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <PasswordField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" />
+                                                            </children>
+                                                        </HBox>
                                                     </children>
                                                 </VBox>
-                                                <Label fx:id="lbAlert" layoutX="14.0" layoutY="326.0" prefHeight="25.0" prefWidth="520.0" />
-                                                <Button fx:id="btnStart" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
-                                                <Button fx:id="btnStop" layoutX="275.0" layoutY="282.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                <Label fx:id="lbAlert" layoutX="15.0" layoutY="347.0" prefHeight="25.0" prefWidth="520.0" />
+                                                <Button fx:id="btnStart" layoutX="47.0" layoutY="308.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
+                                                <Button fx:id="btnStop" layoutX="284.0" layoutY="308.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
                                             </children>
                                         </AnchorPane>
                                     </content>

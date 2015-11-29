@@ -2,15 +2,17 @@ package at.htl.remotecontrol.gui.controller;
 
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.packets.LoginPacket;
+import at.htl.remotecontrol.server.TeacherServer;
 import at.htl.remotecontrol.student.Client;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -25,12 +27,16 @@ import java.util.ResourceBundle;
  * 18.10.2015:  Philipp     Einfügen eines Login's mit Werteübergabe
  * 30.10.2015:  Tobias      Login/Logout erweitert
  * 31.10.2015:  Tobias      Erstellen von Client-Paketen und deren Übermittlung an Client
+ * 19.11.2015:  Patrick     Port hinzugefügt
  * 29.11.2015:  Philipp     Fehlermeldungen in GUI
  */
 public class ControllerStudent implements Initializable {
 
     @FXML
-    TextField tfUsername, tfTeacherIP, tfPath, tfPassword;
+    TextField tfUsername, tfTeacherIP, tfPath, tfPort;
+
+    @FXML
+    PasswordField pfPassword;
 
     @FXML
     Button btnLogin, btnLogOut, btnfilePath;
@@ -77,9 +83,6 @@ public class ControllerStudent implements Initializable {
         } else if (tfPath.getText().length() <= 0) {
             setMsg(true, "Arbeits-Ordner bitte auswählen");
             ready = false;
-        } else if (tfPassword.getText().length() <= 0) {
-            setMsg(true, "Passwort ist falsch");
-            ready = false;
         }
 
         try {
@@ -88,10 +91,12 @@ public class ControllerStudent implements Initializable {
                 btnLogOut.setDisable(false);
                 client = new Client(new LoginPacket(
                         tfUsername.getText(),
-                        "hugo",
+                        pfPassword.getText(),
                         tfTeacherIP.getText(),
-                        tfPath.getText()
+                        tfPath.getText(),
+                        Integer.valueOf(tfPort.getText())
                 ));
+                TeacherServer.PORT = Integer.valueOf(tfPort.getText());
                 setMsg(false, "Angemeldet");
                 client.start();
                 loggedIn = true;
