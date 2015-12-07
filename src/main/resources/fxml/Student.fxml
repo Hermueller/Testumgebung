@@ -21,7 +21,7 @@
             <HBox layoutX="190.0" layoutY="80.0">
                <children>
                     <Label layoutX="190.0" layoutY="85.0" prefHeight="27.0" prefWidth="135.0" text="Username:" />
-                    <TextField fx:id="tfUsername" layoutX="317.0" layoutY="80.0" />
+                    <TextField fx:id="tfUsername" layoutX="317.0" layoutY="80.0" promptText="Username" />
                </children>
             </HBox>
             <HBox layoutX="190.0" layoutY="123.0">
@@ -33,17 +33,22 @@
             <HBox layoutX="190.0" layoutY="165.0">
                <children>
                   <Label layoutX="190.0" layoutY="170.0" prefHeight="27.0" prefWidth="135.0" text="Passwort:" />
-                   <PasswordField fx:id="pfPassword" layoutX="319.0" layoutY="165.0" />
+                   <PasswordField fx:id="pfPassword" layoutX="319.0" layoutY="165.0" promptText="Passwort" />
                </children>
             </HBox>
             <HBox>
                <children>
                   <Label layoutX="95.0" layoutY="174.0" prefHeight="27.0" prefWidth="135.0" text="Arbeits-Ordner:" />
-                    <TextField fx:id="tfPath" layoutX="230.0" layoutY="174.0" prefHeight="26.0" prefWidth="163.0" />
+                    <TextField fx:id="tfPath" layoutX="230.0" layoutY="174.0" prefHeight="26.0" prefWidth="163.0" promptText="Ordnerpfad" />
                     <Button fx:id="btnfilePath" layoutX="393.0" layoutY="174.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="26.0" prefWidth="163.0" text="ChooseFilePath" />
                </children>
             </HBox>
-             <TextField fx:id="tfPort" layoutX="424.0" layoutY="123.0" prefHeight="27.0" prefWidth="324.0" promptText="Port" />
+            <HBox>
+               <children>
+                  <Label prefHeight="27.0" prefWidth="135.0" text="Port:" />
+                   <TextField fx:id="tfPort" layoutX="424.0" layoutY="123.0" prefHeight="27.0" prefWidth="163.0" promptText="Port" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <HBox layoutX="95.0" layoutY="306.0" spacing="50.0">

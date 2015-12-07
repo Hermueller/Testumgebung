@@ -52,6 +52,7 @@ public class ControllerStudent implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         this.loggedIn = false;
+        btnLogOut.setDisable(true);
 
         // Text in Textfeld mittig setzen
         lbAlert.setTextAlignment(TextAlignment.CENTER);
@@ -66,6 +67,7 @@ public class ControllerStudent implements Initializable {
 
     public void logIn(ActionEvent event) {
         boolean ready = true;
+        int port = 0;
 
         for (TextField tf : Session.getInstance().getObservableList()) {
             System.out.println(tf.getText());
@@ -83,6 +85,16 @@ public class ControllerStudent implements Initializable {
         } else if (tfPath.getText().length() <= 0) {
             setMsg(true, "Arbeits-Ordner bitte auswählen");
             ready = false;
+        } else if (tfPort.getText().length() <= 0) {
+            setMsg(true, "Port bitte angeben");
+            ready = false;
+        } else {
+            try {
+                port = Integer.valueOf(tfPort.getText());
+            } catch (Exception exc) {
+                setMsg(true, "ungültiger Port!!");
+                ready = false;
+            }
         }
 
         try {
@@ -94,9 +106,9 @@ public class ControllerStudent implements Initializable {
                         pfPassword.getText(),
                         tfTeacherIP.getText(),
                         tfPath.getText(),
-                        Integer.valueOf(tfPort.getText())
+                        port
                 ));
-                TeacherServer.PORT = Integer.valueOf(tfPort.getText());
+                //TeacherServer.PORT = port;
                 setMsg(false, "Angemeldet");
                 client.start();
                 loggedIn = true;

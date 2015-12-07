@@ -79,15 +79,13 @@ public class TeacherServer {
     }
 
     public void showImage(final String fileName, final Student student) {
-        Platform.runLater(new Runnable() {
-            public void run() {
-                TextField selected = (TextField) StudentView.getInstance().getLv()
-                        .getSelectionModel().getSelectedItem();
-                if (selected != null) {
-                    if (student.getName().equals(selected.getText())) {
-                        (StudentView.getInstance().getIv())
-                                .setImage(new javafx.scene.image.Image("file:" + fileName));
-                    }
+        Platform.runLater(() -> {
+            TextField selected = (TextField) StudentView.getInstance().getLv()
+                    .getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                if (student.getName().equals(selected.getText())) {
+                    (StudentView.getInstance().getIv())
+                            .setImage(new javafx.scene.image.Image("file:" + fileName));
                 }
             }
         });

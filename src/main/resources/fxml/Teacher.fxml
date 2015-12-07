@@ -17,15 +17,16 @@
     Tobias:    26.10.2015   Implementieren der Fehlermeldungsausgabe
     Philipp:   26.10.2015   Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
     Patrick:   05.11.2015   Reparatur der Datei
+    Philipp:   07.12.2015   Fixe Größe der Liste von den verbundenen Studenten {(time:=00:02)}
 -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
     <children>
-        <SplitPane dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane fx:id="splitter" dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minWidth="200.0" prefHeight="516.0" prefWidth="200.0" maxWidth="200.0">
                     <children>
-                        <ListView fx:id="lvStudents" layoutX="-1.0" layoutY="80.0" prefHeight="398.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="lvStudents" layoutX="-1.0" layoutY="80.0" onContextMenuRequested="#changeSuspicionColour" prefHeight="398.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -45,12 +46,12 @@
                                                                         <Font size="18.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" />
+                                                                <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="Port" />
                                                             </children>
                                                         </HBox>
                                                         <HBox layoutX="25.0" layoutY="119.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Angabe">
+                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Angabe:">
                                                                 <font>
                                                                     <Font size="18.0" />
                                                                 </font></Label>
@@ -89,12 +90,12 @@
                                                         </HBox>
                                                         <HBox prefHeight="37.0" prefWidth="456.0">
                                                             <children>
-                                                                <Label prefHeight="30.0" prefWidth="222.0" text="Passwort">
+                                                                <Label prefHeight="30.0" prefWidth="222.0" text="Passwort:">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <PasswordField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" />
+                                                                <PasswordField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" promptText="Passwort" />
                                                             </children>
                                                         </HBox>
                                                     </children>
@@ -108,14 +109,9 @@
                                 </Tab>
                                 <Tab text="Student-Details">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                    <ImageView fx:id="ivLiveView" fitHeight="199.0" fitWidth="280.0" layoutX="177.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
-                                       <!--<image>
-                                          <Image requestedWidth="380" url="@file:../images/loading.gif" />
-                                       </image>-->
-                                    </ImageView>
-                                                <LineChart layoutX="14.0" layoutY="14.0" prefHeight="51.0" prefWidth="527.0">
+                                                <LineChart fx:id="loc" layoutY="-1.0" prefHeight="86.0" prefWidth="556.0">
                                                     <xAxis>
                                                         <CategoryAxis side="BOTTOM" />
                                                     </xAxis>
@@ -123,6 +119,11 @@
                                                         <NumberAxis side="LEFT" />
                                                     </yAxis>
                                                 </LineChart>
+                                                <ImageView fx:id="ivLiveView" fitHeight="329.0" fitWidth="638.0" layoutX="14.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/screen.jpg" />
+                                                    </image>
+                                                </ImageView>
                                             </children>
                                         </AnchorPane>
                                     </content>
@@ -131,9 +132,10 @@
                                 <Tab text="Abgabe">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children></AnchorPane>
+                                            <children>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
+                                            </children>
+                                        </AnchorPane>
                                     </content>
                                 </Tab>
                             </tabs>

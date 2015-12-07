@@ -11,6 +11,7 @@ import java.net.Socket;
  * 26.10.2015:  Tobias      Verbesserung des Codes
  * 27.10.2015:  Philipp     Socketproblem und Portproblem gelöst (continue)
  * 31.10.2015:  Tobias      statt continue interrupt()
+ * 01.12.2015:  Philipp     Umstrukturierung für bessere Testfreundlichkeit (mocking)
  */
 public class Threader implements Runnable {
 
@@ -22,16 +23,35 @@ public class Threader implements Runnable {
 
     public void run() {
         try {
-            ss = new ServerSocket(TeacherServer.PORT);
+            ss = createServerSocket();
             while (isContinue) {
                 Socket socket = ss.accept();
                 System.out.println("Connection from " + socket);
-                new TeacherServer(socket);
+                createTeacherServer(socket);
             }
         } catch (IOException e) {
             System.out.println("socket closed");
+        }
+    }
+
+    public ServerSocket createServerSocket() {
+        try {
+            return new ServerSocket(TeacherServer.PORT);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public boolean createTeacherServer(Socket socket) {
+        try {
+            new TeacherServer(socket);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

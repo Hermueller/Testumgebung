@@ -125,25 +125,21 @@ public class Session {
     //endregion
 
     public void addStudent(final Student student) {
-        Platform.runLater(new Runnable() {
-            public void run() {
-                TextField tf = new TextField(student.getName());
-                tf.setEditable(false);
-                tf.setStyle("-fx-background-color: greenyellow");
-                students.add(tf);
-            }
+        Platform.runLater(() -> {
+            TextField tf = new TextField(student.getName());
+            tf.setEditable(false);
+            tf.setStyle("-fx-background-color: greenyellow");
+            students.add(tf);
         });
     }
 
     public void removeStudent(final String studentName) {
-        Platform.runLater(new Runnable() {
-            public void run() {
-                for (TextField tf : students) {
-                    if (tf.getText().equals(studentName)) {
-                        students.remove(tf);
-                        //tf.setStyle("-fx-background-color: crimson");
-                        break;
-                    }
+        Platform.runLater(() -> {
+            for (TextField tf : students) {
+                if (tf.getText().equals(studentName)) {
+                    students.remove(tf);
+                    //tf.setStyle("-fx-background-color: crimson");
+                    break;
                 }
             }
         });

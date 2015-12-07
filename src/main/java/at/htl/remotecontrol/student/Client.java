@@ -46,14 +46,14 @@ public class Client {
 
 
     public void loadFiles() {
-        FileStream.receive(in, loginPacket.getDirOfWatch() + "/ss.jpg");
+        FileStream.receive(in, loginPacket.getDirOfWatch() + "/Angabe.pdf");
         processor.start();
         reader.start();
     }
 
     public boolean handIn() {
-        System.out.println("DELETED DIRECTORY");
-        Directory.delete(loginPacket.getDirOfWatch() + "/angabe.zip");
+        //System.out.println("DELETED DIRECTORY");
+        //Directory.delete(loginPacket.getDirOfWatch() + "/" + loginPacket.getUserName());//loginPacket.getDirOfWatch() + "/angabe.zip");
         if (processor.isInterrupted() && reader.isInterrupted()) {
             String zipFileName = "handInFile.zip";
             Directory.zip(loginPacket.getDirOfWatch(), zipFileName);

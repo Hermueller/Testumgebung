@@ -6,12 +6,16 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -27,11 +31,12 @@ import java.util.ResourceBundle;
  * 24.10.2015:  Patrick     DirectoryChooser für die Screenshots
  * 26.10.2015:  Philipp     Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
  * 29.11.2015:  Philipp     Angabe-Auswahl + Fehlermeldungen in GUI
+ * 07.12.2015:  Philipp     Live-View und das LOC-Diagramm passt sich dem Fenster an  {(time:=00:31)}
  */
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS, tfPath, tfPort; // SS ... Screenshot
+    public TextField tfTimeSS, tfPort; // SS ... Screenshot
 
     @FXML
     public PasswordField tbPassword;
@@ -51,11 +56,20 @@ public class ControllerTeacher implements Initializable {
     @FXML
     public Button btnStart, btnStop, btn;
 
+    @FXML
+    public AnchorPane apStudentDetail;
+
+    @FXML
+    public LineChart loc;
+
+    @FXML
+    public SplitPane splitter;
+
     private Thread server;
     private Threader threader;
 
     public ControllerTeacher() {
-        //Session.getInstance().setTime(3000);
+
     }
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,36 +80,56 @@ public class ControllerTeacher implements Initializable {
         // Text in Textfeld mittig setzen
         lbAlert.setTextAlignment(TextAlignment.CENTER);
         lbAlert.setAlignment(Pos.CENTER);
+
+        apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
+            ivLiveView.setFitWidth((double)newValue);
+            loc.setPrefWidth((double)newValue);
+        });
+        apStudentDetail.heightProperty().addListener((observable, oldValue, newValue) -> {
+            ivLiveView.setFitHeight((double)newValue - loc.getHeight() - 10);
+        });
+        ivLiveView.setPreserveRatio(true);
+        ivLiveView.setSmooth(true);
+        ivLiveView.setCache(true);
     }
 
     public void startServer(ActionEvent actionEvent) {
         String path = Session.getInstance().getPathOfImages();
         File handOut = Session.getInstance().getHandOutFile();
-        TeacherServer.PORT = Integer.valueOf(tfPort.getText());
-        Session.getInstance().setPassword(tbPassword.getText());
-        System.out.println("#+#+#+#+#+#       " + tbPassword.getText());
-        //Session.getInstance().setHandOutFile(new File(String.format("%s/angabe.zip",
-        //        Session.getInstance().getPath())));
-        String ssTime = tfTimeSS.getText();
-        boolean isRnd = TB_SS_rnd.isSelected();
-
-        if (path != null && (isRnd || (!isRnd && ssTime.length() > 0)) && handOut != null) {
-            if (isRnd) {
-                Session.getInstance().setInterval(new Interval(1000, 30000)); //  wert kleiner, gleich 0 bedeutet Random
-            } else {
-                Session.getInstance().setInterval(new Interval(Integer.parseInt(tfTimeSS.getText())));
+        if (tfPort.getText().length() > 0) {
+            try {
+                TeacherServer.PORT = Integer.valueOf(tfPort.getText());
+            } catch (Exception exc) {
+                setMsg(true, "ungültiger Port!!");
             }
+            if (TeacherServer.PORT > 0) {
+                Session.getInstance().setPassword(tbPassword.getText());
+                //Session.getInstance().setHandOutFile(new File(String.format("%s/angabe.zip",
+                //        Session.getInstance().getPath())));
+                String ssTime = tfTimeSS.getText();
+                boolean isRnd = TB_SS_rnd.isSelected();
 
-            threader = new Threader();
-            server = new Thread(threader);
-            server.start();
-            setMsg(false, "Server lauft");
-        } else if (path == null) {
-            setMsg(true, "Bitte gib ein Verzeichnis an");
-        } else if (!isRnd && ssTime.length() < 1) {
-            setMsg(true, "Bitte gib einen Zeitwert(in ms) an");
-        } else if (handOut == null) {
-            setMsg(true, "Bitte eine Angabe auswählen!");
+                if (path != null && (isRnd || (!isRnd && ssTime.length() > 0)) && handOut != null) {
+                    if (isRnd) {
+                        Session.getInstance().setInterval(new Interval(1000, 30000)); //  wert kleiner, gleich 0 bedeutet Random
+                    } else {
+                        Session.getInstance().setInterval(new Interval(Integer.parseInt(tfTimeSS.getText())));
+                    }
+
+                    threader = new Threader();
+                    server = new Thread(threader);
+                    server.start();
+                    setMsg(false, "Server lauft");
+                } else if (path == null) {
+                    setMsg(true, "Bitte gib ein Verzeichnis an");
+                } else if (!isRnd && ssTime.length() < 1) {
+                    setMsg(true, "Bitte gib einen Zeitwert(in ms) an");
+                } else if (handOut == null) {
+                    setMsg(true, "Bitte eine Angabe auswählen!");
+                }
+            }
+        } else {
+            setMsg(true, "Bitte einen Port angeben");
         }
     }
 
@@ -135,7 +169,6 @@ public class ControllerTeacher implements Initializable {
         File choosedFile = dc.showOpenDialog(new Stage());
         if (choosedFile != null) {
             Session.getInstance().setHandOutFile(new File(choosedFile.getPath()));
-            System.out.println("###########   " + choosedFile.getPath() + "   ############");
         }
     }
 
@@ -149,5 +182,9 @@ public class ControllerTeacher implements Initializable {
             tfTimeSS.setEditable(true);
             TB_SS_rnd.setText("AUS");
         }
+    }
+
+    public void changeSuspicionColour(ActionEvent actionEvent) {
+        System.out.println("INHALT: " + actionEvent.getSource());
     }
 }
