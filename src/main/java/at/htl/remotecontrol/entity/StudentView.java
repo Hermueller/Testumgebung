@@ -4,8 +4,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 
 /**
- * 27.10.2015:  Philipp     Erstellung dieser Singleton-Klasse
- * 28.10.2015:  Philipp     Erweitert um die ListView
+ * 27.10.2015:  Philipp     ??? Erstellung dieser Singleton-Klasse
+ * 28.10.2015:  Philipp     ??? Erweitert um die ListView
  */
 public class StudentView {
 

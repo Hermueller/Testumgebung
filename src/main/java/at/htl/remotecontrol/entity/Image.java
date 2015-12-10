@@ -11,8 +11,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * 26.10.2015:  Tobias      Klasse erstellt
- * 30.10.2015:  Tobias      Speichern von Images verbessert
+ * 26.10.2015:  Tobias      ??? Klasse erstellt
+ * 30.10.2015:  Tobias      ??? Speichern von Images verbessert
  */
 public class Image {
 
@@ -22,6 +22,7 @@ public class Image {
                 new FileOutputStream(fileName).write(convertToJpg(img));
         } catch (IOException e) {
             System.out.println("Image failed to save!");
+            System.out.println(e.getMessage());
         }
     }
 

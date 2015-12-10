@@ -8,11 +8,14 @@ import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,15 +26,17 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
- * 15.10.2015:  Philipp     Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
- * 19.10.2015:  Patrick     Liste der verbundenen Studenten
- * 24.10.2015:  Patrick     DirectoryChooser für die Screenshots
- * 26.10.2015:  Philipp     Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
- * 29.11.2015:  Philipp     Angabe-Auswahl + Fehlermeldungen in GUI
- * 07.12.2015:  Philipp     Live-View und das LOC-Diagramm passt sich dem Fenster an  {(time:=00:31)}
+ * 15.10.2015:  Philipp     ??? Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
+ * 19.10.2015:  Patrick     ??? Liste der verbundenen Studenten
+ * 24.10.2015:  Patrick     ??? DirectoryChooser für die Screenshots
+ * 26.10.2015:  Philipp     ??? Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
+ * 29.11.2015:  Philipp     ??? Angabe-Auswahl + Fehlermeldungen in GUI
+ * 07.12.2015:  Philipp     031 Live-View und das LOC-Diagramm passt sich dem Fenster an
+ * 07.12.2015:  Philipp     017 LineChart optimieren und benutzungsfähig machen
  */
 public class ControllerTeacher implements Initializable {
 
@@ -60,7 +65,7 @@ public class ControllerTeacher implements Initializable {
     public AnchorPane apStudentDetail;
 
     @FXML
-    public LineChart loc;
+    public LineChart<Number,Number> loc;
 
     @FXML
     public SplitPane splitter;
@@ -91,6 +96,18 @@ public class ControllerTeacher implements Initializable {
         ivLiveView.setPreserveRatio(true);
         ivLiveView.setSmooth(true);
         ivLiveView.setCache(true);
+
+        initializeLOC();
+
+        Session.getInstance().setStartTime(LocalDateTime.now());
+    }
+
+    private void initializeLOC() {
+        //defining the axes
+        loc.getXAxis().setLabel("Seconds after START");
+        loc.getYAxis().setLabel("Lines in File");
+
+        Session.getInstance().setChart(loc);
     }
 
     public void startServer(ActionEvent actionEvent) {

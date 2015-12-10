@@ -9,15 +9,15 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * 29.10.2015:  Gnadi       Erstellen von Verzeichnissen
- * 30.10.2015:  Tobias      Klasse erstellt
- * 30.10.2015:  Tobias      Funktion für das zippen von Ordnern
- * 31.10.2015:  Tobias      Funktion "Erstellen von Ordnern" mit Meldungen versehen
- * 31.10.2015:  Tobias      Mothode "getAllPaths" implementiert
- * 31.10.2015:  Tobias      Zippen von Ordnern korrigiert und mit Meldungen versehen
- * 31.10.2015:  Tobias      einen oder mehrere Ordner löschen
- * 01.11.2015:  Tobias      Löschen von Verzeichnissen verbessert und mit Meldungen versehen
- * 01.11.2015:  Tobias      Bug festgestellt: Löschen von Dateien nicht funktionsfähig
+ * 29.10.2015:  Gnadi       ??? Erstellen von Verzeichnissen
+ * 30.10.2015:  Tobias      ??? Klasse erstellt
+ * 30.10.2015:  Tobias      ??? Funktion für das zippen von Ordnern
+ * 31.10.2015:  Tobias      ??? Funktion "Erstellen von Ordnern" mit Meldungen versehen
+ * 31.10.2015:  Tobias      ??? Mothode "getAllPaths" implementiert
+ * 31.10.2015:  Tobias      ??? Zippen von Ordnern korrigiert und mit Meldungen versehen
+ * 31.10.2015:  Tobias      ??? einen oder mehrere Ordner löschen
+ * 01.11.2015:  Tobias      ??? Löschen von Verzeichnissen verbessert und mit Meldungen versehen
+ * 01.11.2015:  Tobias      ??? Bug festgestellt: Löschen von Dateien nicht funktionsfähig
  */
 public class Directory {
 
@@ -25,9 +25,9 @@ public class Directory {
         boolean created = false;
         File dir = new File(path);
         if (dir.exists()) {
-            System.out.println(String.format("Directory %s is already exist!", path));
+            System.out.println(String.format("Directory %s already exists!", path));
         } else if (!dir.mkdir()) {
-            System.out.println(String.format("Directory %s failed to create!", path));
+            System.out.println(String.format("Directory %s can't be created!", path));
         } else {
             System.out.println("created directory " + path);
             created = true;
@@ -43,7 +43,7 @@ public class Directory {
         boolean created = false;
         File dir = new File(path);
         if (!dir.isDirectory()) {
-            System.out.println(path + "is a invalid directory");
+            System.out.println(path + " is a invalid directory");
         } else if (!zipFileName.contains(".zip")) {
             System.out.println(zipFileName + " is a invalid filename of an zip archive!");
         } else {

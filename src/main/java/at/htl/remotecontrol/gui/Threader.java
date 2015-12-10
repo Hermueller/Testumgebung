@@ -7,11 +7,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * 15.10.2015:  Philipp     Akzeptieren von Students durch Thread implementiert
- * 26.10.2015:  Tobias      Verbesserung des Codes
- * 27.10.2015:  Philipp     Socketproblem und Portproblem gelöst (continue)
- * 31.10.2015:  Tobias      statt continue interrupt()
- * 01.12.2015:  Philipp     Umstrukturierung für bessere Testfreundlichkeit (mocking)
+ * 15.10.2015:  Philipp     ??? Akzeptieren von Students durch Thread implementiert
+ * 26.10.2015:  Tobias      ??? Verbesserung des Codes
+ * 27.10.2015:  Philipp     ??? Socketproblem und Portproblem gelöst (continue)
+ * 31.10.2015:  Tobias      ??? statt continue interrupt()
+ * 01.12.2015:  Philipp     ??? Umstrukturierung für bessere Testfreundlichkeit (mocking)
  */
 public class Threader implements Runnable {
 

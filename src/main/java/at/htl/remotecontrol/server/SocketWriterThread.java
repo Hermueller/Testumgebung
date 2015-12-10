@@ -2,6 +2,7 @@ package at.htl.remotecontrol.server;
 
 import at.htl.remotecontrol.actions.*;
 import at.htl.remotecontrol.entity.FileStream;
+import at.htl.remotecontrol.entity.LineCounter;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 
@@ -13,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Im SocketWriterTrhead wird die Wartezeit zwischen Screenshots kontrolliert
  *
- * 27.10.2015:  Philipp     Student wird nach dem Logout aus der Liste entfernt
- * 31.10.2015:  Tobias      Angabe zur Verfügung stellen
+ * 27.10.2015:  Philipp     ??? Student wird nach dem Logout aus der Liste entfernt
+ * 31.10.2015:  Tobias      ??? Angabe zur Verfügung stellen
  */
 class SocketWriterThread extends Thread {
 
@@ -66,6 +67,8 @@ class SocketWriterThread extends Thread {
             e.printStackTrace();
         }
         askForScreenShot();
+        LineCounter lc = new LineCounter("/Users/Philipp/Desktop/Testumgebung/TestumgebungNeu/src/main/java/at/htl/remotecontrol/server/SocketReaderThread.java");
+        Session.getInstance().newSeries("SocketReaderThread.java");
         try {
             while (!isInterrupted()) {
                 try {
@@ -74,6 +77,10 @@ class SocketWriterThread extends Thread {
                     if (action == null) {
                         // we had a timeout, so do a screen capture
                         askForScreenShot();
+                        //also we want to count the lines in the code
+                        Long _loc = lc.countLines();
+                        student.addLoC(_loc);
+                        Session.getInstance().addValue(_loc);
                     } else {
                         out.writeObject(action);
                         out.reset();

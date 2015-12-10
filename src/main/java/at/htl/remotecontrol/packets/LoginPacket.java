@@ -3,8 +3,8 @@ package at.htl.remotecontrol.packets;
 import java.io.Serializable;
 
 /**
- * 31.10.2015:  Tobias      Klasse erstellt
- * 19.11.2015:  Patrick     Port hinzugefügt
+ * 31.10.2015:  Tobias      ??? Klasse erstellt
+ * 19.11.2015:  Patrick     ??? Port hinzugefügt
  */
 public class LoginPacket implements Serializable {
 

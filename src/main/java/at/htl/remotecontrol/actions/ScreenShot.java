@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * Philipp:  18.10.2015   Implementieren der Gui
+ * Philipp:  18.10.2015   ??? Implementieren der Gui
  */
 public class ScreenShot implements RobotAction {
 

@@ -11,20 +11,21 @@
 <?import javafx.scene.layout.*?>
 
 <!--
-    Philipp:   15.10.2015   Implementieren der GUI
-    Philipp:   19.10.2015   Liste der verbundenen Studenten
-    Patrick:   24.10.2015   Implementieren der 'Ordner auswahl'
-    Tobias:    26.10.2015   Implementieren der Fehlermeldungsausgabe
-    Philipp:   26.10.2015   Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
-    Patrick:   05.11.2015   Reparatur der Datei
-    Philipp:   07.12.2015   Fixe Größe der Liste von den verbundenen Studenten {(time:=00:02)}
+    Philipp:   15.10.2015   ??? Implementieren der GUI
+    Philipp:   19.10.2015   ??? Liste der verbundenen Studenten
+    Patrick:   24.10.2015   ??? Implementieren der 'Ordner auswahl'
+    Tobias:    26.10.2015   ??? Implementieren der Fehlermeldungsausgabe
+    Philipp:   26.10.2015   ??? Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
+    Patrick:   05.11.2015   ??? Reparatur der Datei
+    Philipp:   07.12.2015   002 Fixe Größe der Liste von den verbundenen Studenten
+    Philipp:   10.12.2015   020 Hinzufügen von Checkboxen, die angeben, ob etwas Ausgewählt wurde oder nicht
 -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
     <children>
         <SplitPane fx:id="splitter" dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <AnchorPane minWidth="200.0" prefHeight="516.0" prefWidth="200.0" maxWidth="200.0">
+                <AnchorPane maxWidth="200.0" minWidth="200.0" prefHeight="516.0" prefWidth="200.0">
                     <children>
                         <ListView fx:id="lvStudents" layoutX="-1.0" layoutY="80.0" onContextMenuRequested="#changeSuspicionColour" prefHeight="398.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                     </children>
@@ -35,13 +36,13 @@
                             <tabs>
                                 <Tab text="Optionen">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
                                             <children>
-                                                <VBox layoutX="47.0" layoutY="22.0" prefHeight="243.0" prefWidth="456.0" spacing="20.0">
+                                                <VBox layoutX="34.0" layoutY="22.0" prefHeight="265.0" prefWidth="556.0" spacing="20.0">
                                                     <children>
                                                         <HBox prefHeight="27.0" prefWidth="262.0">
                                                             <children>
-                                                                <Label prefHeight="30.0" prefWidth="222.0" text="Port:">
+                                                                <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
@@ -51,7 +52,7 @@
                                                         </HBox>
                                                         <HBox layoutX="25.0" layoutY="119.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Angabe:">
+                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="413.0" text="Angabe:">
                                                                 <font>
                                                                     <Font size="18.0" />
                                                                 </font></Label>
@@ -60,7 +61,7 @@
                                                         </HBox>
                                                         <HBox layoutX="25.0" layoutY="57.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="61.0" prefHeight="30.0" prefWidth="222.0" text="Speicherort:">
+                                                                <Label layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="416.0" text="Speicherort (Screenshots, Abgaben):">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
@@ -68,15 +69,18 @@
                                                                 <Button layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="31.0" prefWidth="234.0" text="Choose your Directory" />
                                                             </children>
                                                         </HBox>
-                                                        <HBox layoutX="25.0" layoutY="119.0">
+                                                        <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="528.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="30.0" prefWidth="222.0" text="Zufall Zeitabstand zw. Scrrenshots:" />
-                                                                <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="31.0" prefWidth="234.0" selected="true" text="EIN" />
+                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="466.0" text="Zufall Zeitabstand zwischen Screenshots:">
+                                                                    <font>
+                                                                        <Font size="18.0" />
+                                                                    </font></Label>
+                                                                <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="282.0" selected="true" text="EIN" />
                                                             </children>
                                                         </HBox>
                                                         <HBox fx:id="btnAngabe" layoutX="25.0" layoutY="165.0">
                                                             <children>
-                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="30.0" prefWidth="222.0" text="Fixe Zeit für Screenshots:">
+                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="30.0" prefWidth="417.0" text="Fixe Zeitabstände zwischen Screenshots:">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
@@ -90,7 +94,7 @@
                                                         </HBox>
                                                         <HBox prefHeight="37.0" prefWidth="456.0">
                                                             <children>
-                                                                <Label prefHeight="30.0" prefWidth="222.0" text="Passwort:">
+                                                                <Label prefHeight="26.0" prefWidth="417.0" text="Passwort:">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
@@ -100,9 +104,13 @@
                                                         </HBox>
                                                     </children>
                                                 </VBox>
-                                                <Label fx:id="lbAlert" layoutX="15.0" layoutY="347.0" prefHeight="25.0" prefWidth="520.0" />
+                                                <Label fx:id="lbAlert" layoutX="15.0" layoutY="347.0" prefHeight="25.0" prefWidth="629.0" />
                                                 <Button fx:id="btnStart" layoutX="47.0" layoutY="308.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
                                                 <Button fx:id="btnStop" layoutX="284.0" layoutY="308.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                <CheckBox layoutX="12.0" layoutY="29.0" mnemonicParsing="false" />
+                                                <CheckBox layoutX="12.0" layoutY="73.0" mnemonicParsing="false" />
+                                                <CheckBox layoutX="12.0" layoutY="119.0" mnemonicParsing="false" />
+                                                <CheckBox layoutX="14.0" layoutY="269.0" mnemonicParsing="false" />
                                             </children>
                                         </AnchorPane>
                                     </content>
@@ -111,15 +119,15 @@
                                     <content>
                                         <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <LineChart fx:id="loc" layoutY="-1.0" prefHeight="86.0" prefWidth="556.0">
+                                                <LineChart fx:id="loc" layoutY="-1.0" prefHeight="167.0" prefWidth="556.0" title="Lines of Code in Project">
                                                     <xAxis>
-                                                        <CategoryAxis side="BOTTOM" />
+                                                        <NumberAxis side="BOTTOM" />
                                                     </xAxis>
                                                     <yAxis>
                                                         <NumberAxis side="LEFT" />
                                                     </yAxis>
                                                 </LineChart>
-                                                <ImageView fx:id="ivLiveView" fitHeight="329.0" fitWidth="638.0" layoutX="14.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fx:id="ivLiveView" fitHeight="298.0" fitWidth="514.0" layoutX="14.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../images/screen.jpg" />
                                                     </image>
@@ -133,7 +141,21 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fitHeight="114.0" fitWidth="537.0" layoutX="24.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/inArbeit.gif" />
+                                                    </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="331.0" fitWidth="243.0" layoutX="265.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/falseWay.gif" />
+                                                    </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="251.0" fitWidth="274.0" layoutX="34.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/planen.gif" />
+                                                    </image>
+                                                </ImageView>
                                             </children>
                                         </AnchorPane>
                                     </content>

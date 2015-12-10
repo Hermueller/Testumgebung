@@ -22,11 +22,11 @@ import java.time.LocalDateTime;
  * SocketReaderThread und der SocketWriterThread erzeugt, mit denen dann die
  * Netzwerkkommunikation ermöglicht ist.
  * <p>
- * 21.10.2015:  Philipp     Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
- * 26.10.2015:  Tobias      Verbesserung der Methode saveImage()
- * 27.10.2015:  Philipp     Live ÜberwachungsBild wird gesetzt
- * 28.10.2015:  Philipp     Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
- * 29.11.2015:  Philipp     Umänderung auf TextField-liste für die farbige Studentenausgabe
+ * 21.10.2015:  Philipp     ??? Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
+ * 26.10.2015:  Tobias      ??? Verbesserung der Methode saveImage()
+ * 27.10.2015:  Philipp     ??? Live ÜberwachungsBild wird gesetzt
+ * 28.10.2015:  Philipp     ??? Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
+ * 29.11.2015:  Philipp     ??? Umänderung auf TextField-liste für die farbige Studentenausgabe
  */
 public class TeacherServer {
 

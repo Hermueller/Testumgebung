@@ -13,10 +13,10 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * 26.10.2015:  Tobias      Klasse von Student auf Client umbenannt
- * 31.10.2015:  Tobias      Funktion "Angabe herunterladen" implementiert
- * 01.11.2015:  Tobias      überwachter Ordner automatisch gezippt abgeben
- * 01.11.2015:  Tobias      Bug festgestellt: Abgabe nur unmittelbar nach Login
+ * 26.10.2015:  Tobias      ??? Klasse von Student auf Client umbenannt
+ * 31.10.2015:  Tobias      ??? Funktion "Angabe herunterladen" implementiert
+ * 01.11.2015:  Tobias      ??? überwachter Ordner automatisch gezippt abgeben
+ * 01.11.2015:  Tobias      ??? Bug festgestellt: Abgabe nur unmittelbar nach Login
  */
 public class Client {
 

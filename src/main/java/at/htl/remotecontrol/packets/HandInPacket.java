@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 31.10.2015:  Tobias      Klasse erstellt
+ * 31.10.2015:  Tobias      ??? Klasse erstellt
  */
 public class HandInPacket implements Serializable {
 

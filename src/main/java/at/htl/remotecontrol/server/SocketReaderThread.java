@@ -15,7 +15,7 @@ import java.io.ObjectInputStream;
  * und reicht sie dann an dem TeacherServer weiter, der sie auch
  * sofort anzeigt.
  * <p>
- * 31.10.2015:  Tobias      Änderung
+ * 31.10.2015:  Tobias      ??? Änderung
  */
 class SocketReaderThread extends Thread {
 
@@ -55,5 +55,4 @@ class SocketReaderThread extends Thread {
             System.out.println("Error by closing of ObjectInputStream!");
         }
     }
-
 }

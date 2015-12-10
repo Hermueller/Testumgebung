@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * Diese Klasse verwaltet alle Informationen, die für den
  * "Client" bzw. für den Schüler relevant sind.
  *
- * 31.10.2015:  Tobias      Klasse erstellt
+ * 31.10.2015:  Tobias      ??? Klasse erstellt
  */
 public class HandOutPacket implements Serializable {
 

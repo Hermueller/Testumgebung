@@ -1,7 +1,7 @@
 package at.htl.remotecontrol.entity;
 
 /**
- * 30.10.2015:  Tobias      Klasse für Zeitspanne zwischen Screenshots erstellt
+ * 30.10.2015:  Tobias      ??? Klasse für Zeitspanne zwischen Screenshots erstellt
  */
 public class Interval {
 

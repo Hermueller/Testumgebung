@@ -3,8 +3,8 @@ package at.htl.remotecontrol.entity;
 import java.io.*;
 
 /**
- * 01.11.2015:  Tobias      Klasse erstellt
- * 01.11.2015:  Tobias      Senden und Empfangen von Dateien
+ * 01.11.2015:  Tobias      ??? Klasse erstellt
+ * 01.11.2015:  Tobias      ??? Senden und Empfangen von Dateien
  */
 public class FileStream {
 
