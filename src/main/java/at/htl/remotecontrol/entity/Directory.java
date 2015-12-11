@@ -83,7 +83,6 @@ public class Directory {
                     allFiles.addAll(getAllFiles(file));
                 } else {
                     allFiles.add(file);
-                    System.out.println(file.getPath() + " added");
                 }
             }
         }

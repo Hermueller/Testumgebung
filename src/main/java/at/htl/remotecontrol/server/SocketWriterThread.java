@@ -7,6 +7,7 @@ import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  *
  * 27.10.2015:  Philipp     ??? Student wird nach dem Logout aus der Liste entfernt
  * 31.10.2015:  Tobias      ??? Angabe zur Verfügung stellen
+ * 11.12.2015:  Philipp     010 LoC werden immer mit dem Screenshot berechnet
  */
 class SocketWriterThread extends Thread {
 
@@ -67,8 +69,8 @@ class SocketWriterThread extends Thread {
             e.printStackTrace();
         }
         askForScreenShot();
-        LineCounter lc = new LineCounter("/Users/Philipp/Desktop/Testumgebung/TestumgebungNeu/src/main/java/at/htl/remotecontrol/server/SocketReaderThread.java");
-        Session.getInstance().newSeries("SocketReaderThread.java");
+        LineCounter lc = new LineCounter();
+        Session.getInstance().newSeries("LoC");
         try {
             while (!isInterrupted()) {
                 try {
@@ -78,7 +80,7 @@ class SocketWriterThread extends Thread {
                         // we had a timeout, so do a screen capture
                         askForScreenShot();
                         //also we want to count the lines in the code
-                        Long _loc = lc.countLines();
+                        Long _loc = lc.listFilesForFolder(new File(student.getPathOfWatch()));
                         student.addLoC(_loc);
                         Session.getInstance().addValue(_loc);
                     } else {
