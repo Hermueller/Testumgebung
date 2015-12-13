@@ -14,6 +14,12 @@ public class LineCounter {
 
     }
 
+    /**
+     * Counts the lines of code in a file
+     *
+     * @param _filename Specifies the file in which the lines have to be counted
+     * @return  the number of lines in the file
+     */
     public long countLines(String _filename) {
         long lines = 0;
 
@@ -28,6 +34,13 @@ public class LineCounter {
         return lines;
     }
 
+    /**
+     * Counts the line of code in every file of the root directory
+     *
+     * @param folder    Specifies the directory in which the files to count
+     *                  are located.
+     * @return  the number of lines from all files in the directory
+     */
     public long listFilesForFolder(final File folder) {
         long allLines = 0;
 

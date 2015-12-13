@@ -19,6 +19,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -41,7 +42,7 @@ import java.util.ResourceBundle;
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS, tfPort; // SS ... Screenshot
+    public TextField tfTimeSS, tfPort; //tfTimeSS -> Time-interval between screenshots
 
     @FXML
     public PasswordField tbPassword;
@@ -53,16 +54,16 @@ public class ControllerTeacher implements Initializable {
     public Label lbAlert;
 
     @FXML
-    public ToggleButton TB_SS_rnd;  //TB...ToggleButton   SS...Screenshot  rnd...Random
+    public ToggleButton TB_SS_rnd;  //ToggleButton to see if 'random' is active
 
     @FXML
-    public ImageView ivLiveView;
+    public ImageView ivLiveView;    //shows the screenshot
 
     @FXML
     public Button btnStart, btnStop, btn;
 
     @FXML
-    public AnchorPane apStudentDetail;
+    public AnchorPane apStudentDetail, apOption, spOption;
 
     @FXML
     public LineChart<Number,Number> loc;
@@ -82,10 +83,21 @@ public class ControllerTeacher implements Initializable {
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
 
-        // Text in Textfeld mittig setzen
+        // text in the middle of the textfield
         lbAlert.setTextAlignment(TextAlignment.CENTER);
         lbAlert.setAlignment(Pos.CENTER);
 
+        setDynamicScreenSize();
+        initializeLOC();
+
+        Session.getInstance().setStartTime(LocalDateTime.now());
+    }
+
+    /**
+     * if the screensize changes, the size of the image and chart changes too.
+     *
+     */
+    private void setDynamicScreenSize() {
         apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
             ivLiveView.setFitWidth((double)newValue);
             loc.setPrefWidth((double)newValue);
@@ -93,23 +105,34 @@ public class ControllerTeacher implements Initializable {
         apStudentDetail.heightProperty().addListener((observable, oldValue, newValue) -> {
             ivLiveView.setFitHeight((double)newValue - loc.getHeight() - 10);
         });
+        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setLeftAnchor(apOption, (double)newValue/2 - apOption.getPrefWidth()/2);
+        });
+        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setTopAnchor(apOption, (double)newValue/2 - apOption.getPrefHeight()/2);
+        });
         ivLiveView.setPreserveRatio(true);
         ivLiveView.setSmooth(true);
         ivLiveView.setCache(true);
-
-        initializeLOC();
-
-        Session.getInstance().setStartTime(LocalDateTime.now());
     }
 
+    /**
+     * edits the chart and saves it in a singleton-class.
+     *
+     */
     private void initializeLOC() {
-        //defining the axes
         loc.getXAxis().setLabel("Seconds after START");
         loc.getYAxis().setLabel("Lines in File");
 
         Session.getInstance().setChart(loc);
     }
 
+    /**
+     * checks all fields on correctness.
+     * starts the server for the students to connect.
+     *
+     * @param actionEvent Information from the click on the button.
+     */
     public void startServer(ActionEvent actionEvent) {
         String path = Session.getInstance().getPathOfImages();
         File handOut = Session.getInstance().getHandOutFile();
@@ -150,6 +173,11 @@ public class ControllerTeacher implements Initializable {
         }
     }
 
+    /**
+     * stops the server.
+     *
+     * @param actionEvent Information from the click on the button.
+     */
     public void stopServer(ActionEvent actionEvent) {
         if (server != null) {
             if (!server.isInterrupted()) {
@@ -164,13 +192,26 @@ public class ControllerTeacher implements Initializable {
         }
     }
 
+    /**
+     * sets an message on the screen of the teacher.
+     *
+     * @param error TRUE if it is an error-message and
+     *              FALSE if it is a success-message.
+     * @param msg   Specifies the message to show.
+     */
     private void setMsg(boolean error, String msg) {
         String color = (error ? "red" : "limegreen");   //bei Fehlermeldung rot, sonst grün
         lbAlert.setText(msg);
         lbAlert.setStyle("-fx-background-color: " + color);
     }
 
-    public void chooseDirectory(ActionEvent actionEvent) {
+    /**
+     * shows a dialog-screen to choose the directory where the directorys of the
+     * screenshots and the finished tests will be.
+     *
+     * @param event Information from the click on the button.
+     */
+    public void chooseDirectory(ActionEvent event) {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
@@ -179,7 +220,12 @@ public class ControllerTeacher implements Initializable {
             Session.getInstance().setPath(choosedFile.getPath());
     }
 
-    public void chooseHandOutFile(ActionEvent actionEvent) {
+    /**
+     * shows a dialog-screen to choose the test-file.
+     *
+     * @param event Information from the click on the button.
+     */
+    public void chooseHandOutFile(ActionEvent event) {
         FileChooser dc = new FileChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
         dc.setTitle("Wähle deine Angabe aus");
@@ -189,6 +235,12 @@ public class ControllerTeacher implements Initializable {
         }
     }
 
+    /**
+     * disables the textfield of the time-interval if the button 'random' is clicked and
+     * enables it if the 'random'-Button is OFF
+     *
+     * @param actionEvent Information from the click on the button
+     */
     public void changeSomeOptions(ActionEvent actionEvent) {
         if (TB_SS_rnd.isSelected()) {
             tfTimeSS.setDisable(true);
@@ -199,9 +251,5 @@ public class ControllerTeacher implements Initializable {
             tfTimeSS.setEditable(true);
             TB_SS_rnd.setText("AUS");
         }
-    }
-
-    public void changeSuspicionColour(ActionEvent actionEvent) {
-        System.out.println("INHALT: " + actionEvent.getSource());
     }
 }

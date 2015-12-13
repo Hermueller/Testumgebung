@@ -27,7 +27,7 @@
             <items>
                 <AnchorPane maxWidth="200.0" minWidth="200.0" prefHeight="516.0" prefWidth="200.0">
                     <children>
-                        <ListView fx:id="lvStudents" layoutX="-1.0" layoutY="80.0" onContextMenuRequested="#changeSuspicionColour" prefHeight="398.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="lvStudents" layoutX="-1.0" layoutY="80.0" prefHeight="398.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -36,81 +36,87 @@
                             <tabs>
                                 <Tab text="Optionen">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
+                                        <AnchorPane fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
                                             <children>
-                                                <VBox layoutX="34.0" layoutY="22.0" prefHeight="265.0" prefWidth="556.0" spacing="20.0">
+                                                <AnchorPane fx:id="apOption" prefHeight="369.0" prefWidth="592.0" AnchorPane.leftAnchor="0.0">
                                                     <children>
-                                                        <HBox prefHeight="27.0" prefWidth="262.0">
+                                                        <VBox layoutX="32.0" layoutY="18.0" prefHeight="265.0" prefWidth="556.0" spacing="20.0">
                                                             <children>
-                                                                <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="Port" />
+                                                                <HBox prefHeight="27.0" prefWidth="262.0">
+                                                                    <children>
+                                                                        <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="Port" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox layoutX="25.0" layoutY="119.0">
+                                                                    <children>
+                                                                        <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="413.0" text="Angabe:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Button fx:id="btn" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox layoutX="25.0" layoutY="57.0">
+                                                                    <children>
+                                                                        <Label layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="416.0" text="Speicherort (Screenshots, Abgaben):">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Button layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="31.0" prefWidth="234.0" text="Choose your Directory" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="528.0">
+                                                                    <children>
+                                                                        <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="466.0" text="Zufall Zeitabstand zwischen Screenshots:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="282.0" selected="true" text="EIN" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox fx:id="btnAngabe" layoutX="25.0" layoutY="165.0">
+                                                                    <children>
+                                                                        <Label layoutX="25.0" layoutY="169.0" prefHeight="30.0" prefWidth="417.0" text="Fixe Zeitabstände zwischen Screenshots:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextField fx:id="tfTimeSS" disable="true" editable="false" layoutX="247.0" layoutY="165.0" maxHeight="26.0" prefHeight="26.0" prefWidth="234.0">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </TextField>
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox prefHeight="37.0" prefWidth="456.0">
+                                                                    <children>
+                                                                        <Label prefHeight="26.0" prefWidth="417.0" text="Passwort:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <PasswordField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" promptText="Passwort" />
+                                                                    </children>
+                                                                </HBox>
                                                             </children>
-                                                        </HBox>
-                                                        <HBox layoutX="25.0" layoutY="119.0">
-                                                            <children>
-                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="413.0" text="Angabe:">
-                                                                <font>
-                                                                    <Font size="18.0" />
-                                                                </font></Label>
-                                                                <Button fx:id="btn" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
-                                                            </children>
-                                                        </HBox>
-                                                        <HBox layoutX="25.0" layoutY="57.0">
-                                                            <children>
-                                                                <Label layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="416.0" text="Speicherort (Screenshots, Abgaben):">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <Button layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="31.0" prefWidth="234.0" text="Choose your Directory" />
-                                                            </children>
-                                                        </HBox>
-                                                        <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="528.0">
-                                                            <children>
-                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="466.0" text="Zufall Zeitabstand zwischen Screenshots:">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font></Label>
-                                                                <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="282.0" selected="true" text="EIN" />
-                                                            </children>
-                                                        </HBox>
-                                                        <HBox fx:id="btnAngabe" layoutX="25.0" layoutY="165.0">
-                                                            <children>
-                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="30.0" prefWidth="417.0" text="Fixe Zeitabstände zwischen Screenshots:">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <TextField fx:id="tfTimeSS" disable="true" editable="false" layoutX="247.0" layoutY="165.0" maxHeight="26.0" prefHeight="26.0" prefWidth="234.0">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </TextField>
-                                                            </children>
-                                                        </HBox>
-                                                        <HBox prefHeight="37.0" prefWidth="456.0">
-                                                            <children>
-                                                                <Label prefHeight="26.0" prefWidth="417.0" text="Passwort:">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <PasswordField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" promptText="Passwort" />
-                                                            </children>
-                                                        </HBox>
+                                                        </VBox>
+                                                        <Label fx:id="lbAlert" layoutX="1.0" layoutY="340.0" prefHeight="25.0" prefWidth="593.0" />
+                                                        <Button fx:id="btnStart" layoutX="32.0" layoutY="296.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
+                                                        <Button fx:id="btnStop" layoutX="315.0" layoutY="296.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                        <CheckBox layoutX="2.0" layoutY="25.0" mnemonicParsing="false" />
+                                                        <CheckBox layoutX="2.0" layoutY="70.0" mnemonicParsing="false" />
+                                                        <CheckBox layoutX="2.0" layoutY="116.0" mnemonicParsing="false" />
+                                                        <CheckBox layoutX="2.0" layoutY="258.0" mnemonicParsing="false" />
                                                     </children>
-                                                </VBox>
-                                                <Label fx:id="lbAlert" layoutX="15.0" layoutY="347.0" prefHeight="25.0" prefWidth="629.0" />
-                                                <Button fx:id="btnStart" layoutX="47.0" layoutY="308.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
-                                                <Button fx:id="btnStop" layoutX="284.0" layoutY="308.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
-                                                <CheckBox layoutX="12.0" layoutY="29.0" mnemonicParsing="false" />
-                                                <CheckBox layoutX="12.0" layoutY="73.0" mnemonicParsing="false" />
-                                                <CheckBox layoutX="12.0" layoutY="119.0" mnemonicParsing="false" />
-                                                <CheckBox layoutX="14.0" layoutY="269.0" mnemonicParsing="false" />
+                                                </AnchorPane>
                                             </children>
                                         </AnchorPane>
                                     </content>

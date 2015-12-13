@@ -40,10 +40,18 @@ class SocketWriterThread extends Thread {
         askForScreenShot();
     }
 
+    /**
+     * the time to wait, before taking another screenshot.
+     * @return  the time to wait.
+     */
     public long getWaitTime() {
         return Session.getInstance().getInterval();
     }
 
+    /**
+     * if teacher clicks on the screenshot, the click is also on the students-screen.
+     * @param e Specialises the click.
+     */
     public void clickEvent(MouseEvent e) {
         if (active) {
             jobs.add(new MoveMouse(e));
@@ -53,10 +61,16 @@ class SocketWriterThread extends Thread {
         askForScreenShot();
     }
 
+    /**
+     * adds a new job for the robot.
+     */
     private void askForScreenShot() {
         jobs.add(new ScreenShot(1.0));
     }
 
+    /**
+     * sends the test-file to the students.
+     */
     public void handOut() {
         FileStream.send(out, Session.getInstance().getHandOutFile());
     }

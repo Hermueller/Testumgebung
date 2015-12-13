@@ -13,7 +13,6 @@ public class StudentView {
 
     private ImageView iv = null;    //Screenshot-Image
     private ListView lv = null;
-    /*   HIER werden Variablen für 'Lines Of Code' hinkommen   */
 
     private StudentView() {
 

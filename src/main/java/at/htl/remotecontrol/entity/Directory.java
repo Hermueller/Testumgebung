@@ -21,6 +21,13 @@ import java.util.zip.ZipOutputStream;
  */
 public class Directory {
 
+    /**
+     * create a directory on the computer/laptop.
+     *
+     * @param path  Specifies the name of the directory and
+     *              the location of the directory.
+     * @return      the success of it.
+     */
     public static boolean create(String path) {
         boolean created = false;
         File dir = new File(path);
@@ -35,6 +42,13 @@ public class Directory {
         return created;
     }
 
+    /**
+     * compromises a directory and saves it on the same location.
+     *
+     * @param path          Specifies the directory to compromise.
+     * @param zipFileName   Specifies the name of the compromised directory.
+     * @return              the success of it.
+     */
     public static boolean zip(String path, String zipFileName) {
         if (path.contains(".zip")) {
             System.out.println(String.format("Directory %s is already zipped!", path));
@@ -74,6 +88,12 @@ public class Directory {
         return created;
     }
 
+    /**
+     * gets all Files in a directory.
+     *
+     * @param dir   Specifies the directory of the files.
+     * @return      all files in the directory.
+     */
     private static LinkedList<File> getAllFiles(File dir) {
         LinkedList<File> allFiles = new LinkedList<File>();
         File[] files = dir.listFiles();
@@ -89,6 +109,12 @@ public class Directory {
         return allFiles;
     }
 
+    /**
+     * deletes all files from the list
+     *
+     * @param paths Specifies the list of the files to delete
+     * @return      the success of it
+     */
     public static boolean deleteAll(LinkedList<String> paths) {
         boolean error = false;
         for (String path : paths) {
@@ -104,6 +130,12 @@ public class Directory {
         }
     }
 
+    /**
+     * delete a file.
+     *
+     * @param path  Specifies the file to delete
+     * @return      the success of it
+     */
     public static boolean delete(String path) {
         boolean deleted = false;
         File[] files = new File(path).listFiles();

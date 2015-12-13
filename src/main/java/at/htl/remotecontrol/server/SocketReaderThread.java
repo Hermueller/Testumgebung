@@ -32,6 +32,9 @@ class SocketReaderThread extends Thread {
         this.server = server;
     }
 
+    /**
+     * reads images from stream and gives them the teacher-server to save them.
+     */
     public void run() {
         while (!isInterrupted()) {
             try {
@@ -48,6 +51,9 @@ class SocketReaderThread extends Thread {
         }
     }
 
+    /**
+     * closes the stream.
+     */
     public void close() {
         try {
             in.close();

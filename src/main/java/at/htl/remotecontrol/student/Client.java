@@ -44,13 +44,21 @@ public class Client {
         reader = new ReaderThread();
     }
 
-
+    /**
+     * gets the file from the teacher for the test and saves it
+     *
+     */
     public void loadFiles() {
         FileStream.receive(in, loginPacket.getDirOfWatch() + "/Angabe.pdf");
         processor.start();
         reader.start();
     }
 
+    /**
+     * compromises the working-directory and sends it to the teacher
+     *
+     * @return  the success of it
+     */
     public boolean handIn() {
         //System.out.println("DELETED DIRECTORY");
         //Directory.delete(loginPacket.getDirOfWatch() + "/" + loginPacket.getUserName());//loginPacket.getDirOfWatch() + "/angabe.zip");
@@ -64,6 +72,9 @@ public class Client {
         return false;
     }
 
+    /**
+     * reads jobs from the stream and adds them as a new job
+     */
     private class ReaderThread extends Thread {
         public void run() {
             try {
@@ -85,6 +96,10 @@ public class Client {
     }
 
 
+    /**
+     * takes all jobs from the stream and executes them.
+     * Afterwords he sends the result from the job back with the stream.
+     */
     private class ProcessorThread extends Thread {
         public ProcessorThread() {
             super("ProcessorThread");
@@ -113,6 +128,9 @@ public class Client {
         }
     }
 
+    /**
+     * closes the stream
+     */
     public void closeOut() {
         try {
             out.close();
@@ -121,10 +139,16 @@ public class Client {
         }
     }
 
+    /**
+     * start-point for the thread
+     */
     public void start() {
         loadFiles();
     }
 
+    /**
+     * student logs out -> stop all streams from this student.
+     */
     public void stop() {
         Session.getInstance().removeStudent(loginPacket.getUserName());
         processor.interrupt();

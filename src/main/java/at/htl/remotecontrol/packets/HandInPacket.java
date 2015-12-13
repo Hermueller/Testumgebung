@@ -13,6 +13,12 @@ public class HandInPacket implements Serializable {
     private String comment;
     private LocalDateTime finishedTime;
 
+    /**
+     * the packet the student sends the teacher back with information from their test.
+     *
+     * @param file      Specialises the file of test.
+     * @param comment   Specialises a comment from the student.
+     */
     public HandInPacket(File file, String comment) {
         this.file = file;
         this.comment = comment;

@@ -16,6 +16,13 @@ public class HandOutPacket implements Serializable {
     private LocalDateTime endTime;
     private String comment;
 
+    /**
+     * A package with information for the test.
+     *
+     * @param file      Specialises the file where the test-questions are listed.
+     * @param endTime   Specialises the time the test ends.
+     * @param comment   Specialises a comment from the teacher to the student for the test.
+     */
     public HandOutPacket(File file, LocalDateTime endTime, String comment) {
         this.file = file;
         this.endTime = endTime;

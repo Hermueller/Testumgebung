@@ -59,12 +59,24 @@ public class ControllerStudent implements Initializable {
         lbAlert.setAlignment(Pos.CENTER);
     }
 
+    /**
+     * sets an message on the screen of the student.
+     *
+     * @param error TRUE if it is an error-message and
+     *              FALSE if it is a success-message.
+     * @param msg   Specifies the message to show.
+     */
     private void setMsg(boolean error, String msg) {
-        String color = (error ? "red" : "limegreen");   //bei Fehlermeldung rot, sonst grün
+        String color = (error ? "red" : "limegreen");
         lbAlert.setText(msg);
         lbAlert.setStyle("-fx-background-color: " + color);
     }
 
+    /**
+     * connects the student with the teacher
+     *
+     * @param event Information from the click on the button.
+     */
     public void logIn(ActionEvent event) {
         boolean ready = true;
         int port = 0;
@@ -82,7 +94,7 @@ public class ControllerStudent implements Initializable {
         } else if (tfTeacherIP.getText().length() <= 0) {
             setMsg(true, "Lehrer-IP bitte angeben");
             ready = false;
-        } else if (tfPath.getText().length() <= 0) {
+        } else if (tfPath.getText().length() <= 0 || tfPath == null) {
             setMsg(true, "Arbeits-Ordner bitte auswählen");
             ready = false;
         } else if (tfPort.getText().length() <= 0) {
@@ -113,13 +125,17 @@ public class ControllerStudent implements Initializable {
                 client.start();
                 loggedIn = true;
             }
-        } catch (AWTException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (AWTException | IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * shows a dialog-screen to choose the working-directory where
+     * the project will be and saves the path of it.
+     *
+     * @param event Information from the click on the button.
+     */
     public void chooseDirectory(ActionEvent event) {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -130,6 +146,10 @@ public class ControllerStudent implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     public void handIn(ActionEvent event) {
         if (client.handIn()) {
             lbAlert.setText("Datei gezippt abgegeben");
@@ -138,6 +158,11 @@ public class ControllerStudent implements Initializable {
         }
     }
 
+    /**
+     * disconnects from the teacher.
+     *
+     * @param actionEvent Information from the click on the button.
+     */
     public void logOut(ActionEvent actionEvent) {
         btnLogin.setDisable(false);
         btnLogOut.setDisable(true);

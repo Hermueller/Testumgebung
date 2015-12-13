@@ -13,7 +13,7 @@ public class Student {
     private String name;
     private String pathOfWatch;
     private String pathOfImages;
-    private List<Long> loc = new LinkedList<Long>();
+    private List<Long> loc = new LinkedList<>();
 
     public Student(String name, String pathOfWatch) {
         this.name = name;
@@ -46,6 +46,12 @@ public class Student {
         return name;
     }
 
+    /**
+     * To remember the Lines of Code for exactly this student.
+     * Saves the Lines of Code.
+     *
+     * @param lines Specifies the lines of code at an specific time
+     */
     public void addLoC(Long lines) {
         loc.add(lines);
         System.out.println(loc);

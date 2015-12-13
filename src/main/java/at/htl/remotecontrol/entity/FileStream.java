@@ -10,6 +10,13 @@ public class FileStream {
 
     private static final int BUFFER_SIZE = 16384;
 
+    /**
+     * sends a file.
+     *
+     * @param out   Specifies the stream which is used for sending the file.
+     * @param file  Specifies the file to send.
+     * @return      the success of it.
+     */
     public static boolean send(ObjectOutputStream out, File file) {
         boolean sent = false;
         byte[] buffer = new byte[BUFFER_SIZE];
@@ -28,6 +35,13 @@ public class FileStream {
         return sent;
     }
 
+    /**
+     * gets a file and saves it.
+     *
+     * @param in    Specifies the stream which is used for receiving the file.
+     * @param path  Specifies the path where the file is saved.
+     * @return      the success of it.
+     */
     public static boolean receive(ObjectInputStream in, String path) {
         boolean received = false;
         File file = new File(path);

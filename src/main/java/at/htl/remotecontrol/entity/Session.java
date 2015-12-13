@@ -4,18 +4,16 @@ import at.htl.remotecontrol.packets.HandOutPacket;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
+
+//region Comments
 
 /*
  * 15.10.2015:  Gnadi       ??? Klasse erstellt
@@ -31,7 +29,11 @@ import java.util.LinkedList;
  * 06.11.2015:  Patrick     ??? Erweiterung um password
  * 29.11.2015:  Philipp     ??? Hinzufügen und Entfernen von Studenten geändert (farbige)TestField
  * 10.12.2015:  Philipp     023 Einbinden von Funktionen, die für die Lines of Code benötigt werden
+ * 12.12.2015:  Philipp     036 kommentieren von Methoden und die Klassenstruktur geändert
  */
+
+//endregion
+
 public class Session {
 
     private static Session instance = null;
@@ -49,12 +51,9 @@ public class Session {
     private LineChart<Number, Number> chart;
 
     protected Session() {
-        students = FXCollections.observableList(new LinkedList<TextField>());
+        students = FXCollections.observableList(new LinkedList<>());
     }
 
-    /**
-     * Eine Stunde mit 3000 Millisekunden sind ca. 1 200 MB von Screenshots
-     */
     public static Session getInstance() {
         if (instance == null) {
             instance = new Session();
@@ -63,66 +62,134 @@ public class Session {
     }
 
     //region Getter and Setter
+
+    /**
+     *
+     * @return the list of students.
+     */
     public ObservableList<TextField> getObservableList() {
         return students;
     }
 
+    /**
+     *
+     * @return the file for the test with the test-questions.
+     */
     public File getHandOutFile() {
         return handOutFile;
     }
 
+    /**
+     *
+     * @param handOutFile Specialises the file for the test.
+     */
     public void setHandOutFile(File handOutFile) {
         this.handOutFile = handOutFile;
     }
 
-    public String getPassword() { return password; }
+    /**
+     *
+     * @return the password.
+     */
+    public String getPassword() {
+        return password;
+    }
 
+    /**
+     *
+     * @param password Specialises the password.
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return the package of information for the student.
+     */
     public HandOutPacket getHandOutPacket() {
         // Prüfung, ob nötige Daten vorhanden fehlt
         // funktioniert noch nicht
         return new HandOutPacket(handOutFile, endTime, "Viel Glück!");
     }
 
+    /**
+     *
+     * @return the time when the test starts.
+     */
     public LocalDateTime getStartTime() {
         return startTime;
     }
 
+    /**
+     *
+     * @param startTime Specialises the time when the test starts.
+     */
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
+    /**
+     *
+     * @return the time when the test ends.
+     */
     public LocalDateTime getEndTime() {
         return endTime;
     }
 
+    /**
+     *
+     * @param endTime Specialises the time when the test ends.
+     */
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
+    /**
+     *
+     * @return the time to wait for the next screenshot.
+     */
     public long getInterval() {
         return interval.getValue();
     }
 
+    /**
+     *
+     * @param interval Specialises the class with the calculations for the next interval-time.
+     */
     public void setInterval(Interval interval) {
         this.interval = interval;
     }
 
+    /**
+     *
+     * @return  the root-path of the directory of the images and finished tests directory.
+     */
     public String getPath() {
         return path;
     }
 
+    /**
+     *
+     * @return the path of the directory of screenshots
+     */
     public String getPathOfImages() {
         return pathOfImages;
     }
 
+    /**
+     *
+     * @return the path of the directory of finished tests
+     */
     public String getPathOfHandInFiles() {
         return pathOfHandOutFiles;
     }
 
+    /**
+     * sets the path for the directory of the screenshots and finished tests.
+     *
+     * @param path Specifies the root-path of the screenshots and finished tests
+     */
     public void setPath(String path) {
         this.path = path;
         pathOfImages = path + "/Sceenshots";
@@ -132,8 +199,23 @@ public class Session {
 
         System.out.println(pathOfImages);
     }
+
+    /**
+     *
+     * @param chart Specialises the chart which is shown on the screen of the teacher.
+     */
+    public void setChart(LineChart<Number, Number> chart) {
+        this.chart = chart;
+    }
     //endregion
 
+    //region Methods
+
+    /**
+     * Adds a student to the list of all students and colours him green.
+     *
+     * @param student Specialises the student which will be added.
+     */
     public void addStudent(final Student student) {
         Platform.runLater(() -> {
             TextField tf = new TextField(student.getName());
@@ -143,6 +225,11 @@ public class Session {
         });
     }
 
+    /**
+     * Removes a student from the list of all students and/or colours him red.
+     *
+     * @param studentName Specialises the student to remove from the list.
+     */
     public void removeStudent(final String studentName) {
         Platform.runLater(() -> {
             for (TextField tf : students) {
@@ -155,6 +242,11 @@ public class Session {
         });
     }
 
+    /**
+     * creates a new line in the chart.
+     *
+     * @param name Specialises the name of the new line.
+     */
     public void newSeries(String name) {
         series = new XYChart.Series();
         series.setName(name);
@@ -162,6 +254,11 @@ public class Session {
         Platform.runLater(() -> chart.getData().add(series));
     }
 
+    /**
+     * Add the Number of Lines in the code to the chart.
+     *
+     * @param _loc Specialises the number of lines in the code.
+     */
     public void addValue(Long _loc) {
         if (starting == null) {
             starting = LocalDateTime.now();
@@ -185,7 +282,5 @@ public class Session {
         });
     }
 
-    public void setChart(LineChart<Number, Number> chart) {
-        this.chart = chart;
-    }
+    //endregion
 }

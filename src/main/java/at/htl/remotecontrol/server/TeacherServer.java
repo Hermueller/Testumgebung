@@ -27,6 +27,7 @@ import java.time.LocalDateTime;
  * 27.10.2015:  Philipp     ??? Live ÜberwachungsBild wird gesetzt
  * 28.10.2015:  Philipp     ??? Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
  * 29.11.2015:  Philipp     ??? Umänderung auf TextField-liste für die farbige Studentenausgabe
+ * 12.12.2015:  Philipp     009 Kommentieren von Methoden
  */
 public class TeacherServer {
 
@@ -45,6 +46,7 @@ public class TeacherServer {
 
         LoginPacket packet = (LoginPacket) in.readObject();
         Student student = new Student(packet.getUserName(), packet.getDirOfWatch());
+        System.out.println("I got the Package: " + packet.getDirOfWatch());
         Session.getInstance().addStudent(student);
 
         reader = new SocketReaderThread(student, in, this);
@@ -61,28 +63,33 @@ public class TeacherServer {
         System.out.println("finished connecting to " + socket);
     }
 
-    public SocketWriterThread getWriter() {
-        return writer;
-    }
-
-    public SocketReaderThread getReader() {
-        return reader;
-    }
-
+    /**
+     * It redirects to save and show the screenshot.
+     *
+     * @param image     Specifies the image which should be saved.
+     * @param student   Specifies the student from which the screenshot is.
+     */
     public void saveImage(BufferedImage image, Student student) {
         String path = String.format("%s/%s-%s.jpg",
-                student.getPathOfImages(),
+                Session.getInstance().getPathOfImages() + "/" + student.getName(),
                 student.getName(),
                 LocalDateTime.now());
         Image.save(image, path);
         showImage(path, student);
     }
 
+    /**
+     * It shows the Image on the Teacher-GUI.
+     *
+     * @param fileName  Specifies the path of the file (screenshot).
+     * @param student   Specifies the student from which the screenshot is.
+     */
     public void showImage(final String fileName, final Student student) {
         Platform.runLater(() -> {
             TextField selected = (TextField) StudentView.getInstance().getLv()
                     .getSelectionModel().getSelectedItem();
             if (selected != null) {
+                //ist der Screenshot vom ausgewählten Studenten?
                 if (student.getName().equals(selected.getText())) {
                     (StudentView.getInstance().getIv())
                             .setImage(new javafx.scene.image.Image("file:" + fileName));
@@ -91,6 +98,10 @@ public class TeacherServer {
         });
     }
 
+    /**
+     * Close the Socket-Reader and the Socket-Writer.
+     *
+     */
     public void shutdown() {
         writer.interrupt();
         reader.close();

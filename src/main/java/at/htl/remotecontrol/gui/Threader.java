@@ -34,6 +34,11 @@ public class Threader implements Runnable {
         }
     }
 
+    /**
+     * creates a socket which will work as an server.
+     *
+     * @return  the server-socket.
+     */
     public ServerSocket createServerSocket() {
         try {
             return new ServerSocket(TeacherServer.PORT);
@@ -42,6 +47,12 @@ public class Threader implements Runnable {
         }
     }
 
+    /**
+     * creates a new server for a student which will work as a teacher.
+     *
+     * @param socket    the socket which will communicate with the students.
+     * @return          the success of it.
+     */
     public boolean createTeacherServer(Socket socket) {
         try {
             new TeacherServer(socket);
@@ -55,6 +66,9 @@ public class Threader implements Runnable {
         }
     }
 
+    /**
+     * stops the server and closes it.
+     */
     public void stop() {
         isContinue = false;
         if (ss != null) {
