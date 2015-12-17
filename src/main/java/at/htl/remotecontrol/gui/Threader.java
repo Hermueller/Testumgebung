@@ -56,14 +56,13 @@ public class Threader implements Runnable {
     public boolean createTeacherServer(Socket socket) {
         try {
             new TeacherServer(socket);
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            return false;
         }
+        return true;
+
     }
 
     /**

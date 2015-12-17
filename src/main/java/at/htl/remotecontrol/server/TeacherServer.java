@@ -36,8 +36,9 @@ public class TeacherServer {
     private final SocketWriterThread writer;
     private final SocketReaderThread reader;
 
-    public TeacherServer(Socket socket)
-            throws IOException, ClassNotFoundException {
+    public TeacherServer(Socket socket) throws IOException, ClassNotFoundException {
+
+
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(
                 new BufferedInputStream(

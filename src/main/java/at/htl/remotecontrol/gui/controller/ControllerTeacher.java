@@ -6,27 +6,22 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
@@ -38,6 +33,7 @@ import java.util.ResourceBundle;
  * 29.11.2015:  Philipp     ??? Angabe-Auswahl + Fehlermeldungen in GUI
  * 07.12.2015:  Philipp     031 Live-View und das LOC-Diagramm passt sich dem Fenster an
  * 07.12.2015:  Philipp     017 LineChart optimieren und benutzungsfähig machen
+ * 17.12.2015:  Patrick     037 importPupilList
  */
 public class ControllerTeacher implements Initializable {
 
@@ -266,5 +262,39 @@ public class ControllerTeacher implements Initializable {
             tfTimeSS.setEditable(true);
             TB_SS_rnd.setText("AUS");
         }
+    }
+
+    /**
+     * Inports a file of pupils
+     * sets the observable list
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void importPupilList(ActionEvent actionEvent) throws IOException {
+        FileChooser dc = new FileChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        dc.setTitle("Wähle Die Schülerliste aus");
+        /*FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(".csv");
+        dc.getExtensionFilters().add(filter);*/
+        File choosedFile = dc.showOpenDialog(new Stage());
+
+        BufferedReader bis = new BufferedReader(new InputStreamReader(
+                new FileInputStream(choosedFile), Charset.forName("UTF-16")));
+
+        int nameColumn = 0;
+        String line;
+        String[] words = bis.readLine().split(";");
+
+
+        for (int i = 0;i < words.length;i++) {
+            if(words[i].equals("Familienname")) {
+                nameColumn = i;
+            }
+        }
+        while((line=bis.readLine())!=null) {
+            Session.getInstance().addStudent(new Student(line.split(";")[nameColumn],null));
+        }
+
     }
 }

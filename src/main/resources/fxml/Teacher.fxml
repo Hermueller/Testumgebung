@@ -40,8 +40,18 @@
                                             <children>
                                                 <AnchorPane fx:id="apOption" prefHeight="406.0" prefWidth="594.0" AnchorPane.leftAnchor="0.0">
                                                     <children>
-                                                        <VBox layoutX="32.0" layoutY="18.0" prefHeight="265.0" prefWidth="556.0" spacing="20.0">
+                                                        <VBox layoutX="32.0" layoutY="18.0" prefHeight="320.0" prefWidth="556.0" spacing="20.0">
                                                             <children>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label prefHeight="27.0" prefWidth="367.0" text="Schülerliste">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#importPupilList" prefHeight="27.0" prefWidth="196.0" text="Import" />
+                                                   </children>
+                                                </HBox>
                                                                 <HBox prefHeight="27.0" prefWidth="262.0">
                                                                     <children>
                                                                         <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
@@ -119,8 +129,8 @@
                                                             </children>
                                                         </VBox>
                                                         <Label fx:id="lbAlert" layoutX="1.0" layoutY="380.0" prefHeight="25.0" prefWidth="593.0" />
-                                                        <Button fx:id="btnStart" layoutX="32.0" layoutY="347.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
-                                                        <Button fx:id="btnStop" layoutX="310.0" layoutY="347.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                        <Button fx:id="btnStart" layoutX="26.0" layoutY="393.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
+                                                        <Button fx:id="btnStop" layoutX="369.0" layoutY="392.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
                                                         <CheckBox fx:id="cbAngabe" layoutX="2.0" layoutY="70.0" mnemonicParsing="false" />
                                                         <CheckBox fx:id="cbHome" layoutX="2.0" layoutY="116.0" mnemonicParsing="false" />
                                                     </children>
