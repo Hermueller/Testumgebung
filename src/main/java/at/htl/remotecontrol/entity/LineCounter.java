@@ -35,6 +35,8 @@ public class LineCounter {
     }
 
     /**
+     * RECURSIVE
+     *
      * Counts the line of code in every file of the root directory
      *
      * @param folder    Specifies the directory in which the files to count
@@ -48,8 +50,10 @@ public class LineCounter {
             if (fileEntry.isDirectory()) {
                 allLines += listFilesForFolder(fileEntry);
             } else {
-                if (fileEntry.getName().endsWith(".java")) {
-                    allLines += countLines(fileEntry.getPath());
+                for (String ending : Session.getInstance().getEndings()) {
+                    if (fileEntry.getName().endsWith("." + ending.split("\\.")[1])) {
+                        allLines += countLines(fileEntry.getPath());
+                    }
                 }
             }
         }

@@ -42,7 +42,7 @@ import java.util.ResourceBundle;
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS, tfPort; //tfTimeSS -> Time-interval between screenshots
+    public TextField tfTimeSS, tfPort, tfFileendings; //tfTimeSS -> Time-interval between screenshots
 
     @FXML
     public PasswordField tbPassword;
@@ -70,6 +70,9 @@ public class ControllerTeacher implements Initializable {
 
     @FXML
     public SplitPane splitter;
+
+    @FXML
+    public CheckBox cbAngabe, cbHome;
 
     private Thread server;
     private Threader threader;
@@ -156,6 +159,9 @@ public class ControllerTeacher implements Initializable {
                         Session.getInstance().setInterval(new Interval(Integer.parseInt(tfTimeSS.getText())));
                     }
 
+                    String[] endings = tfFileendings.getText().split(";");
+                    Session.getInstance().setEndings(endings);
+
                     threader = new Threader();
                     server = new Thread(threader);
                     server.start();
@@ -184,6 +190,8 @@ public class ControllerTeacher implements Initializable {
                 threader.stop();
                 server.interrupt();
                 setMsg(false, "Server gestoppt");
+                cbAngabe.setSelected(false);
+                cbHome.setSelected(false);
             } else {
                 setMsg(true, "Server wurde bereits gestoppt");
             }
@@ -216,8 +224,12 @@ public class ControllerTeacher implements Initializable {
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosedFile = dc.showDialog(new Stage());
-        if (choosedFile != null)
+        if (choosedFile != null) {
             Session.getInstance().setPath(choosedFile.getPath());
+            cbHome.setSelected(true);
+        } else {
+            cbHome.setSelected(false);
+        }
     }
 
     /**
@@ -232,6 +244,9 @@ public class ControllerTeacher implements Initializable {
         File choosedFile = dc.showOpenDialog(new Stage());
         if (choosedFile != null) {
             Session.getInstance().setHandOutFile(new File(choosedFile.getPath()));
+            cbAngabe.setSelected(true);
+        } else {
+            cbAngabe.setSelected(false);
         }
     }
 

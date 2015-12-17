@@ -49,6 +49,7 @@ public class Session {
     private XYChart.Series series;
     private LocalDateTime starting = null;
     private LineChart<Number, Number> chart;
+    private String[] endings;
 
     protected Session() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -207,6 +208,23 @@ public class Session {
     public void setChart(LineChart<Number, Number> chart) {
         this.chart = chart;
     }
+
+    /**
+     *
+     * @return the endings of the files (in which the lines are counted).
+     */
+    public String[] getEndings() {
+        return endings;
+    }
+
+    /**
+     *
+     * @param endings The endings of files in which we count the lines.
+     */
+    public void setEndings(String[] endings) {
+        this.endings = endings;
+    }
+
     //endregion
 
     //region Methods

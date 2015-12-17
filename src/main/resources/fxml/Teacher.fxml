@@ -38,7 +38,7 @@
                                     <content>
                                         <AnchorPane fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
                                             <children>
-                                                <AnchorPane fx:id="apOption" prefHeight="369.0" prefWidth="592.0" AnchorPane.leftAnchor="0.0">
+                                                <AnchorPane fx:id="apOption" prefHeight="406.0" prefWidth="594.0" AnchorPane.leftAnchor="0.0">
                                                     <children>
                                                         <VBox layoutX="32.0" layoutY="18.0" prefHeight="265.0" prefWidth="556.0" spacing="20.0">
                                                             <children>
@@ -106,15 +106,23 @@
                                                                         <PasswordField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" promptText="Passwort" />
                                                                     </children>
                                                                 </HBox>
+                                                                <HBox prefHeight="37.0" prefWidth="456.0">
+                                                                   <children>
+                                                                      <Label prefHeight="26.0" prefWidth="417.0" text="File-endings of files (lines of Code):">
+                                                                         <font>
+                                                                            <Font size="18.0" />
+                                                                         </font>
+                                                                      </Label>
+                                                                      <TextField fx:id="tfFileendings" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" promptText="z.B.  *.java; *.fxml; *.cs" />
+                                                                   </children>
+                                                                </HBox>
                                                             </children>
                                                         </VBox>
-                                                        <Label fx:id="lbAlert" layoutX="1.0" layoutY="340.0" prefHeight="25.0" prefWidth="593.0" />
-                                                        <Button fx:id="btnStart" layoutX="32.0" layoutY="296.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
-                                                        <Button fx:id="btnStop" layoutX="315.0" layoutY="296.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
-                                                        <CheckBox layoutX="2.0" layoutY="25.0" mnemonicParsing="false" />
-                                                        <CheckBox layoutX="2.0" layoutY="70.0" mnemonicParsing="false" />
-                                                        <CheckBox layoutX="2.0" layoutY="116.0" mnemonicParsing="false" />
-                                                        <CheckBox layoutX="2.0" layoutY="258.0" mnemonicParsing="false" />
+                                                        <Label fx:id="lbAlert" layoutX="1.0" layoutY="380.0" prefHeight="25.0" prefWidth="593.0" />
+                                                        <Button fx:id="btnStart" layoutX="32.0" layoutY="347.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
+                                                        <Button fx:id="btnStop" layoutX="310.0" layoutY="347.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                        <CheckBox fx:id="cbAngabe" layoutX="2.0" layoutY="70.0" mnemonicParsing="false" />
+                                                        <CheckBox fx:id="cbHome" layoutX="2.0" layoutY="116.0" mnemonicParsing="false" />
                                                     </children>
                                                 </AnchorPane>
                                             </children>
