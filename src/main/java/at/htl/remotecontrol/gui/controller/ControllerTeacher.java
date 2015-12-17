@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
  * 29.11.2015:  Philipp     ??? Angabe-Auswahl + Fehlermeldungen in GUI
  * 07.12.2015:  Philipp     031 Live-View und das LOC-Diagramm passt sich dem Fenster an
  * 07.12.2015:  Philipp     017 LineChart optimieren und benutzungsfähig machen
- * 17.12.2015:  Patrick     037 importPupilList
+ * 17.12.2015:  Patrick     038 importPupilList
  */
 public class ControllerTeacher implements Initializable {
 
