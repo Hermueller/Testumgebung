@@ -5,8 +5,8 @@ import javafx.scene.image.ImageView;
 
 /**
  * @timeline Text
- * 27.10.2015: PHI ???  Erstellung dieser Singleton-Klasse
- * 28.10.2015: PHI ???  Erweitert um die ListView
+ * 27.10.2015: PHI 015  Erstellung dieser Singleton-Klasse
+ * 28.10.2015: PHI 005  Erweitert um die ListView
  */
 public class StudentView {
 

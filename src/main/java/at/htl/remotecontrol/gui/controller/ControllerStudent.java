@@ -23,11 +23,11 @@ import java.util.ResourceBundle;
 
 /**
  * @timeline Text
- * 18.10.2015: PHI ???  Einfügen eines Login's mit Werteübergabe
+ * 18.10.2015: PHI 030  Einfügen eines Login's mit Werteübergabe
  * 30.10.2015: MET ???  Login/Logout erweitert
  * 31.10.2015: MET ???  Erstellen von Client-Paketen und deren Übermittlung an Client
  * 19.11.2015: PON 010  Port hinzugefügt
- * 29.11.2015: PHI ???  Fehlermeldungen in GUI
+ * 29.11.2015: PHI 040  Fehlermeldungen in GUI
  */
 public class ControllerStudent implements Initializable {
 

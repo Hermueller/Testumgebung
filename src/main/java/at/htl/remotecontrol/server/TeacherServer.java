@@ -23,11 +23,11 @@ import java.time.LocalDateTime;
  * Netzwerkkommunikation ermöglicht ist.
  *
  * @timeline Text
- * 21.10.2015: PHI ???  Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
+ * 21.10.2015: PHI 020  Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
  * 26.10.2015: MET ???  Verbesserung der Methode saveImage()
- * 27.10.2015: PHI ???  Live ÜberwachungsBild wird gesetzt
- * 28.10.2015: PHI ???  Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
- * 29.11.2015: PHI ???  Umänderung auf TextField-liste für die farbige Studentenausgabe
+ * 27.10.2015: PHI 080  Live ÜberwachungsBild wird gesetzt
+ * 28.10.2015: PHI 015  Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
+ * 29.11.2015: PHI 060  Umänderung auf TextField-liste für die farbige Studentenausgabe
  * 12.12.2015: PHI 010  Kommentieren von Methoden
  */
 public class TeacherServer {

@@ -16,15 +16,14 @@ import javafx.stage.Stage;
 
 /**
  * @timeline Text
- * 15.10.2015: PHI ???  Implementieren der Gui
- * 15.10.2015: PHI ???  Implementieren der GUI
- * 19.10.2015: PHI ???  Liste der verbundenen Studenten
- * 24.10.2015: PHI ???  Implementieren der 'Ordner auswahl'
+ * 15.10.2015: PHI 001  Implementieren der GUI
+ * 19.10.2015: PHI 055  Liste der verbundenen Studenten
+ * 24.10.2015: PHI 005  Implementieren der 'Ordner auswahl'
  * 26.10.2015: MET ???  Implementieren der Fehlermeldungsausgabe
- * 26.10.2015: PHI ???  Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
+ * 26.10.2015: PHI 060  Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
  * 05.11.2015: PON 005  Reparatur der Datei
- * 07.12.2015: PHI 002  Fixe Größe der Liste von den verbundenen Studenten
- * 10.12.2015: PHI 020  Hinzufügen von Checkboxen, die angeben, ob etwas Ausgewählt wurde oder nicht
+ * 07.12.2015: PHI 020  Fixe Größe der Liste von den verbundenen Studenten
+ * 10.12.2015: PHI 005  Hinzufügen von Checkboxen, die angeben, ob etwas Ausgewählt wurde oder nicht
  * 16.12.2015: PHI 135  Beim Schließen des Fenster eine Abfrage erstellt
  */
 public class TeacherGui extends Application {
@@ -92,8 +91,16 @@ public class TeacherGui extends Application {
         cancel.setPrefWidth(138);
         cancel.setUnderline(true);
 
+        final Light.Distant light = new Light.Distant();
+        light.setAzimuth(-135.0);
+        light.setColor(Color.valueOf("#861c24"));
+        final Lighting lighting = new Lighting();
+        lighting.setLight(light);
+        lighting.setSurfaceScale(9.0);
+        cancel.setEffect(lighting);
+
         //quit the window
-        Button ok = new Button("JAP");
+        Button ok = new Button("OKEY");
         ok.setLayoutX(268);
         ok.setLayoutY(206);
         ok.setPrefHeight(35);
@@ -102,13 +109,13 @@ public class TeacherGui extends Application {
         ok.setDefaultButton(true);
 
         //set effects
-        final Light.Distant light = new Light.Distant();
-        light.setAzimuth(-135.0);
-        light.setColor(Color.valueOf("#d7e2e4"));
-        final Lighting lighting = new Lighting();
-        lighting.setLight(light);
-        lighting.setSurfaceScale(9.0);
-        ok.setEffect(lighting);
+        final Light.Distant light1 = new Light.Distant();
+        light1.setAzimuth(-135.0);
+        light1.setColor(Color.valueOf("#d7e2e4"));
+        final Lighting lighting1 = new Lighting();
+        lighting1.setLight(light1);
+        lighting1.setSurfaceScale(9.0);
+        ok.setEffect(lighting1);
 
         //on click close
         cancel.setOnAction(cancelEvent -> stage1.close());

@@ -55,7 +55,6 @@ public class Student {
      */
     public void addLoC(Long lines) {
         loc.add(lines);
-        System.out.println(loc);
     }
 
 }
