@@ -9,24 +9,25 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * 29.10.2015:  Gnadi       ??? Erstellen von Verzeichnissen
- * 30.10.2015:  Tobias      ??? Klasse erstellt
- * 30.10.2015:  Tobias      ??? Funktion für das zippen von Ordnern
- * 31.10.2015:  Tobias      ??? Funktion "Erstellen von Ordnern" mit Meldungen versehen
- * 31.10.2015:  Tobias      ??? Mothode "getAllPaths" implementiert
- * 31.10.2015:  Tobias      ??? Zippen von Ordnern korrigiert und mit Meldungen versehen
- * 31.10.2015:  Tobias      ??? einen oder mehrere Ordner löschen
- * 01.11.2015:  Tobias      ??? Löschen von Verzeichnissen verbessert und mit Meldungen versehen
- * 01.11.2015:  Tobias      ??? Bug festgestellt: Löschen von Dateien nicht funktionsfähig
+ * @timeline Text
+ * 29.10.2015: GNA ???  Erstellen von Verzeichnissen
+ * 30.10.2015: MET ???  Klasse erstellt
+ * 30.10.2015: MET ???  Funktion für das zippen von Ordnern
+ * 31.10.2015: MET ???  Funktion "Erstellen von Ordnern" mit Meldungen versehen
+ * 31.10.2015: MET ???  Mothode "getAllPaths" implementiert
+ * 31.10.2015: MET ???  Zippen von Ordnern korrigiert und mit Meldungen versehen
+ * 31.10.2015: MET ???  einen oder mehrere Ordner löschen
+ * 01.11.2015: MET ???  Löschen von Verzeichnissen verbessert und mit Meldungen versehen
+ * 01.11.2015: MET ???  Bug festgestellt: Löschen von Dateien nicht funktionsfähig
  */
 public class Directory {
 
     /**
      * create a directory on the computer/laptop.
      *
-     * @param path  Specifies the name of the directory and
-     *              the location of the directory.
-     * @return      the success of it.
+     * @param path Specifies the name of the directory and
+     *             the location of the directory.
+     * @return the success of it.
      */
     public static boolean create(String path) {
         boolean created = false;
@@ -45,9 +46,9 @@ public class Directory {
     /**
      * compromises a directory and saves it on the same location.
      *
-     * @param path          Specifies the directory to compromise.
-     * @param zipFileName   Specifies the name of the compromised directory.
-     * @return              the success of it.
+     * @param path        Specifies the directory to compromise.
+     * @param zipFileName Specifies the name of the compromised directory.
+     * @return the success of it.
      */
     public static boolean zip(String path, String zipFileName) {
         if (path.contains(".zip")) {
@@ -91,8 +92,8 @@ public class Directory {
     /**
      * gets all Files in a directory.
      *
-     * @param dir   Specifies the directory of the files.
-     * @return      all files in the directory.
+     * @param dir Specifies the directory of the files.
+     * @return all files in the directory.
      */
     private static LinkedList<File> getAllFiles(File dir) {
         LinkedList<File> allFiles = new LinkedList<File>();
@@ -113,7 +114,7 @@ public class Directory {
      * deletes all files from the list
      *
      * @param paths Specifies the list of the files to delete
-     * @return      the success of it
+     * @return the success of it
      */
     public static boolean deleteAll(LinkedList<String> paths) {
         boolean error = false;
@@ -133,8 +134,8 @@ public class Directory {
     /**
      * delete a file.
      *
-     * @param path  Specifies the file to delete
-     * @return      the success of it
+     * @param path Specifies the file to delete
+     * @return the success of it
      */
     public static boolean delete(String path) {
         boolean deleted = false;

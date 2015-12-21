@@ -26,14 +26,15 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
- * 15.10.2015:  Philipp     ??? Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
- * 19.10.2015:  Patrick     ??? Liste der verbundenen Studenten
- * 24.10.2015:  Patrick     ??? DirectoryChooser für die Screenshots
- * 26.10.2015:  Philipp     ??? Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
- * 29.11.2015:  Philipp     ??? Angabe-Auswahl + Fehlermeldungen in GUI
- * 07.12.2015:  Philipp     031 Live-View und das LOC-Diagramm passt sich dem Fenster an
- * 07.12.2015:  Philipp     017 LineChart optimieren und benutzungsfähig machen
- * 17.12.2015:  Patrick     038 importPupilList
+ * @timeline Text
+ * 15.10.2015: PHI ???  Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
+ * 19.10.2015: PON ???  Liste der verbundenen Studenten
+ * 24.10.2015: PON ???  DirectoryChooser für die Screenshots
+ * 26.10.2015: PHI ???  Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
+ * 29.11.2015: PHI ???  Angabe-Auswahl + Fehlermeldungen in GUI
+ * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
+ * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
+ * 17.12.2015: PON 040  importPupilList
  */
 public class ControllerTeacher implements Initializable {
 
@@ -62,7 +63,7 @@ public class ControllerTeacher implements Initializable {
     public AnchorPane apStudentDetail, apOption, spOption;
 
     @FXML
-    public LineChart<Number,Number> loc;
+    public LineChart<Number, Number> loc;
 
     @FXML
     public SplitPane splitter;
@@ -94,21 +95,20 @@ public class ControllerTeacher implements Initializable {
 
     /**
      * if the screensize changes, the size of the image and chart changes too.
-     *
      */
     private void setDynamicScreenSize() {
         apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitWidth((double)newValue);
-            loc.setPrefWidth((double)newValue);
+            ivLiveView.setFitWidth((double) newValue);
+            loc.setPrefWidth((double) newValue);
         });
         apStudentDetail.heightProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitHeight((double)newValue - loc.getHeight() - 10);
+            ivLiveView.setFitHeight((double) newValue - loc.getHeight() - 10);
         });
         spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setLeftAnchor(apOption, (double)newValue/2 - apOption.getPrefWidth()/2);
+            AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
         });
         spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setTopAnchor(apOption, (double)newValue/2 - apOption.getPrefHeight()/2);
+            AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
         });
         ivLiveView.setPreserveRatio(true);
         ivLiveView.setSmooth(true);
@@ -117,7 +117,6 @@ public class ControllerTeacher implements Initializable {
 
     /**
      * edits the chart and saves it in a singleton-class.
-     *
      */
     private void initializeLOC() {
         loc.getXAxis().setLabel("Seconds after START");
@@ -287,13 +286,13 @@ public class ControllerTeacher implements Initializable {
         String[] words = bis.readLine().split(";");
 
 
-        for (int i = 0;i < words.length;i++) {
-            if(words[i].equals("Familienname")) {
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals("Familienname")) {
                 nameColumn = i;
             }
         }
-        while((line=bis.readLine())!=null) {
-            Session.getInstance().addStudent(new Student(line.split(";")[nameColumn],null));
+        while ((line = bis.readLine()) != null) {
+            Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
         }
 
     }

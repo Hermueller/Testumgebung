@@ -1,12 +1,13 @@
 package at.htl.remotecontrol.entity;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
- * 26.10.2015: Tobias   ??? Klasse erstellt
- * 26.10.2015: Tobias   ??? Name des Schülers, Verzeichnis der Screenshots
- * 31.10.2015: Tobias   ??? Funktion für Verzeichnis der Screenshots verbessert
+ * @timeline Text
+ * 26.10.2015: MET ???  Klasse erstellt
+ * 26.10.2015: MET ???  Name des Schülers, Verzeichnis der Screenshots
+ * 31.10.2015: MET ???  Funktion für Verzeichnis der Screenshots verbessert
  */
 public class Student {
 

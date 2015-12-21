@@ -7,13 +7,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<!--
-    Philipp:   15.10.2015   Implementieren der GUI
-    Tobias:    26.10.2015   Implementieren der Fehlermeldungsausgabe
-    Patrick:   05.11.2015   Reparatur der Datei
-    Philipp:   29.11.2015   Strukturierung bei der Ansicht geändert
--->
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerStudent">
     <children>
       <VBox layoutX="95.0" layoutY="26.0" spacing="20.0">

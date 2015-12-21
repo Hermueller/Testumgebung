@@ -15,9 +15,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * Im SocketWriterTrhead wird die Wartezeit zwischen Screenshots kontrolliert
  *
- * 27.10.2015:  Philipp     ??? Student wird nach dem Logout aus der Liste entfernt
- * 31.10.2015:  Tobias      ??? Angabe zur Verfügung stellen
- * 11.12.2015:  Philipp     010 LoC werden immer mit dem Screenshot berechnet
+ * @timeline Text
+ * 27.10.2015: PHI ???  Student wird nach dem Logout aus der Liste entfernt
+ * 31.10.2015: MET ???  Angabe zur Verfügung stellen
+ * 11.12.2015: PHI 010  LoC werden immer mit dem Screenshot berechnet
  */
 class SocketWriterThread extends Thread {
 
@@ -42,7 +43,8 @@ class SocketWriterThread extends Thread {
 
     /**
      * the time to wait, before taking another screenshot.
-     * @return  the time to wait.
+     *
+     * @return the time to wait.
      */
     public long getWaitTime() {
         return Session.getInstance().getInterval();
@@ -50,6 +52,7 @@ class SocketWriterThread extends Thread {
 
     /**
      * if teacher clicks on the screenshot, the click is also on the students-screen.
+     *
      * @param e Specialises the click.
      */
     public void clickEvent(MouseEvent e) {

@@ -21,13 +21,14 @@ import java.time.LocalDateTime;
  * schickt er ein LoginPacket. Sobald dieses Packet verarbeitet wurde, wird der
  * SocketReaderThread und der SocketWriterThread erzeugt, mit denen dann die
  * Netzwerkkommunikation ermöglicht ist.
- * <p>
- * 21.10.2015:  Philipp     ??? Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
- * 26.10.2015:  Tobias      ??? Verbesserung der Methode saveImage()
- * 27.10.2015:  Philipp     ??? Live ÜberwachungsBild wird gesetzt
- * 28.10.2015:  Philipp     ??? Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
- * 29.11.2015:  Philipp     ??? Umänderung auf TextField-liste für die farbige Studentenausgabe
- * 12.12.2015:  Philipp     009 Kommentieren von Methoden
+ *
+ * @timeline Text
+ * 21.10.2015: PHI ???  Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
+ * 26.10.2015: MET ???  Verbesserung der Methode saveImage()
+ * 27.10.2015: PHI ???  Live ÜberwachungsBild wird gesetzt
+ * 28.10.2015: PHI ???  Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
+ * 29.11.2015: PHI ???  Umänderung auf TextField-liste für die farbige Studentenausgabe
+ * 12.12.2015: PHI 010  Kommentieren von Methoden
  */
 public class TeacherServer {
 
@@ -67,8 +68,8 @@ public class TeacherServer {
     /**
      * It redirects to save and show the screenshot.
      *
-     * @param image     Specifies the image which should be saved.
-     * @param student   Specifies the student from which the screenshot is.
+     * @param image   Specifies the image which should be saved.
+     * @param student Specifies the student from which the screenshot is.
      */
     public void saveImage(BufferedImage image, Student student) {
         String path = String.format("%s/%s-%s.jpg",
@@ -82,8 +83,8 @@ public class TeacherServer {
     /**
      * It shows the Image on the Teacher-GUI.
      *
-     * @param fileName  Specifies the path of the file (screenshot).
-     * @param student   Specifies the student from which the screenshot is.
+     * @param fileName Specifies the path of the file (screenshot).
+     * @param student  Specifies the student from which the screenshot is.
      */
     public void showImage(final String fileName, final Student student) {
         Platform.runLater(() -> {
@@ -101,7 +102,6 @@ public class TeacherServer {
 
     /**
      * Close the Socket-Reader and the Socket-Writer.
-     *
      */
     public void shutdown() {
         writer.interrupt();

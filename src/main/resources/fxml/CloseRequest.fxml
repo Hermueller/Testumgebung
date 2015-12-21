@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.*?>
 
 <!--
-    Philipp:   16.12.2015   032 Erstellen und Anfertigung dieser GUI
+16.12.2015: PHI 035  Erstellen und Anfertigung dieser GUI
 -->
 
 <AnchorPane prefHeight="279.0" prefWidth="431.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">

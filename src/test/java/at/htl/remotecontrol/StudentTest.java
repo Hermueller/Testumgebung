@@ -15,7 +15,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
- * Patrick:  12.November.2015 Erstellen der Klasse
+ * @timeline Text
+ * 12.11.2015: PON ???  Erstellen der Klasse
  */
 public class StudentTest extends GuiTest{
 

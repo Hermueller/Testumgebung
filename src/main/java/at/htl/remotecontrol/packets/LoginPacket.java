@@ -3,8 +3,9 @@ package at.htl.remotecontrol.packets;
 import java.io.Serializable;
 
 /**
- * 31.10.2015:  Tobias      ??? Klasse erstellt
- * 19.11.2015:  Patrick     ??? Port hinzugefügt
+ * @timeline Text
+ * 31.10.2015: MET ???  Klasse erstellt
+ * 19.11.2015: PON ???  Port hinzugefügt
  */
 public class LoginPacket implements Serializable {
 
@@ -18,11 +19,11 @@ public class LoginPacket implements Serializable {
      * is the package the student sends the teacher.
      * the packet contains information from the student.
      *
-     * @param userName      Specialises the name of the student.
-     * @param password      Specialises the password the student typed in.
-     * @param serverIP      Specialises the ip-address from the teacher.
-     * @param dirOfWatch    Specialises the directory where the student will work.
-     * @param port          Specialises the port where the two will communicate.
+     * @param userName   Specialises the name of the student.
+     * @param password   Specialises the password the student typed in.
+     * @param serverIP   Specialises the ip-address from the teacher.
+     * @param dirOfWatch Specialises the directory where the student will work.
+     * @param port       Specialises the port where the two will communicate.
      */
     public LoginPacket(String userName,
                        String password,

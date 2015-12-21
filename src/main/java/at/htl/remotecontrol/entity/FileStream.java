@@ -3,8 +3,9 @@ package at.htl.remotecontrol.entity;
 import java.io.*;
 
 /**
- * 01.11.2015:  Tobias      ??? Klasse erstellt
- * 01.11.2015:  Tobias      ??? Senden und Empfangen von Dateien
+ * @timeline Text
+ * 01.11.2015: MET ???  Klasse erstellt
+ * 01.11.2015: MET ???  Senden und Empfangen von Dateien
  */
 public class FileStream {
 
@@ -13,9 +14,9 @@ public class FileStream {
     /**
      * sends a file.
      *
-     * @param out   Specifies the stream which is used for sending the file.
-     * @param file  Specifies the file to send.
-     * @return      the success of it.
+     * @param out  Specifies the stream which is used for sending the file.
+     * @param file Specifies the file to send.
+     * @return the success of it.
      */
     public static boolean send(ObjectOutputStream out, File file) {
         boolean sent = false;
@@ -38,9 +39,9 @@ public class FileStream {
     /**
      * gets a file and saves it.
      *
-     * @param in    Specifies the stream which is used for receiving the file.
-     * @param path  Specifies the path where the file is saved.
-     * @return      the success of it.
+     * @param in   Specifies the stream which is used for receiving the file.
+     * @param path Specifies the path where the file is saved.
+     * @return the success of it.
      */
     public static boolean receive(ObjectInputStream in, String path) {
         boolean received = false;

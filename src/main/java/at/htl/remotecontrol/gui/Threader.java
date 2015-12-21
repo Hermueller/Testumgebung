@@ -7,11 +7,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * 15.10.2015:  Philipp     ??? Akzeptieren von Students durch Thread implementiert
- * 26.10.2015:  Tobias      ??? Verbesserung des Codes
- * 27.10.2015:  Philipp     ??? Socketproblem und Portproblem gelöst (continue)
- * 31.10.2015:  Tobias      ??? statt continue interrupt()
- * 01.12.2015:  Philipp     ??? Umstrukturierung für bessere Testfreundlichkeit (mocking)
+ * @timeline Text
+ * 15.10.2015: PHI ???  Akzeptieren von Students durch Thread implementiert
+ * 26.10.2015: MET ???  Verbesserung des Codes
+ * 27.10.2015: PHI ???  Socketproblem und Portproblem gelöst (continue)
+ * 31.10.2015: MET ???  statt continue interrupt()
+ * 01.12.2015: PHI ???  Umstrukturierung für bessere Testfreundlichkeit (mocking)
  */
 public class Threader implements Runnable {
 
@@ -37,7 +38,7 @@ public class Threader implements Runnable {
     /**
      * creates a socket which will work as an server.
      *
-     * @return  the server-socket.
+     * @return the server-socket.
      */
     public ServerSocket createServerSocket() {
         try {
@@ -50,8 +51,8 @@ public class Threader implements Runnable {
     /**
      * creates a new server for a student which will work as a teacher.
      *
-     * @param socket    the socket which will communicate with the students.
-     * @return          the success of it.
+     * @param socket the socket which will communicate with the students.
+     * @return the success of it.
      */
     public boolean createTeacherServer(Socket socket) {
         try {
@@ -78,5 +79,5 @@ public class Threader implements Runnable {
             }
         }
     }
-    
+
 }

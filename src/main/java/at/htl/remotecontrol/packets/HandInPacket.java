@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 31.10.2015:  Tobias      ??? Klasse erstellt
+ * @timeline Text
+ * 31.10.2015: MET ???  Klasse erstellt
  */
 public class HandInPacket implements Serializable {
 
@@ -16,8 +17,8 @@ public class HandInPacket implements Serializable {
     /**
      * the packet the student sends the teacher back with information from their test.
      *
-     * @param file      Specialises the file of test.
-     * @param comment   Specialises a comment from the student.
+     * @param file    Specialises the file of test.
+     * @param comment Specialises a comment from the student.
      */
     public HandInPacket(File file, String comment) {
         this.file = file;

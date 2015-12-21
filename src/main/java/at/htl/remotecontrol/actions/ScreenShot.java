@@ -11,9 +11,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-/**
- * Philipp:  18.10.2015   ??? Implementieren der Gui
- */
 public class ScreenShot implements RobotAction {
 
     // this is used on the student JVM to optimize transfers

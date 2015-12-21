@@ -1,29 +1,31 @@
 package at.htl.remotecontrol.gui.main.teacher;
 
-import at.htl.remotecontrol.gui.controller.ControllerTeacher;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
- * Philipp:  15.10.2015   ???  Implementieren der Gui
- * Philipp:  16.12.2015   132  Beim Schließen des Fenster eine Abfrage erstellt
+ * @timeline Text
+ * 15.10.2015: PHI ???  Implementieren der Gui
+ * 15.10.2015: PHI ???  Implementieren der GUI
+ * 19.10.2015: PHI ???  Liste der verbundenen Studenten
+ * 24.10.2015: PHI ???  Implementieren der 'Ordner auswahl'
+ * 26.10.2015: MET ???  Implementieren der Fehlermeldungsausgabe
+ * 26.10.2015: PHI ???  Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
+ * 05.11.2015: PON ???  Reparatur der Datei
+ * 07.12.2015: PHI 002  Fixe Größe der Liste von den verbundenen Studenten
+ * 10.12.2015: PHI 020  Hinzufügen von Checkboxen, die angeben, ob etwas Ausgewählt wurde oder nicht
+ * 16.12.2015: PHI 135  Beim Schließen des Fenster eine Abfrage erstellt
  */
 public class TeacherGui extends Application {
 
@@ -55,7 +57,7 @@ public class TeacherGui extends Application {
     /**
      * Show a window to ask if the root-window should really be closed or not.
      *
-     * @param stage     Specialises the root-window of the program.
+     * @param stage Specialises the root-window of the program.
      */
     public void askCancel(Stage stage) {
         //create Window

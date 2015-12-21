@@ -6,17 +6,17 @@ import at.htl.remotecontrol.entity.Directory;
 import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.packets.LoginPacket;
-import at.htl.remotecontrol.server.TeacherServer;
 
 import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
 /**
- * 26.10.2015:  Tobias      ??? Klasse von Student auf Client umbenannt
- * 31.10.2015:  Tobias      ??? Funktion "Angabe herunterladen" implementiert
- * 01.11.2015:  Tobias      ??? überwachter Ordner automatisch gezippt abgeben
- * 01.11.2015:  Tobias      ??? Bug festgestellt: Abgabe nur unmittelbar nach Login
+ * @timeline Text
+ * 26.10.2015: MET ???  Klasse von Student auf Client umbenannt
+ * 31.10.2015: MET ???  Funktion "Angabe herunterladen" implementiert
+ * 01.11.2015: MET ???  überwachter Ordner automatisch gezippt abgeben
+ * 01.11.2015: MET ???  Bug festgestellt: Abgabe nur unmittelbar nach Login
  */
 public class Client {
 
@@ -46,7 +46,6 @@ public class Client {
 
     /**
      * gets the file from the teacher for the test and saves it
-     *
      */
     public void loadFiles() {
         FileStream.receive(in, loginPacket.getDirOfWatch() + "/Angabe.pdf");
@@ -57,7 +56,7 @@ public class Client {
     /**
      * compromises the working-directory and sends it to the teacher
      *
-     * @return  the success of it
+     * @return the success of it
      */
     public boolean handIn() {
         //System.out.println("DELETED DIRECTORY");

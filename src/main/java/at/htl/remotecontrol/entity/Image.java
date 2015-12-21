@@ -11,16 +11,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * 26.10.2015:  Tobias      ??? Klasse erstellt
- * 30.10.2015:  Tobias      ??? Speichern von Images verbessert
+ * @timeline Text
+ * 26.10.2015: MET ???  Klasse erstellt
+ * 30.10.2015: MET ???  Speichern von Images verbessert
  */
 public class Image {
 
     /**
      * save image to a specific location.
      *
-     * @param img       Specifies the images which should be saved.
-     * @param fileName  Specifies the name and location of the file.
+     * @param img      Specifies the images which should be saved.
+     * @param fileName Specifies the name and location of the file.
      */
     public static void save(BufferedImage img, String fileName) {
         try {
@@ -35,8 +36,8 @@ public class Image {
     /**
      * converts a bufferedImage to a JPG
      *
-     * @param img   Specifies the image which should be converted
-     * @return      the JPG-File
+     * @param img Specifies the image which should be converted
+     * @return the JPG-File
      * @throws IOException
      */
     private static byte[] convertToJpg(BufferedImage img) throws IOException {

@@ -16,8 +16,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
- * Philipp:  19.Oktober.2015  einfüger der Tests:
- * Patrick:  12.November.2015 Implementierung des ParameterTests.
+ * @timeline Text
+ * 19.10.2015: PHI ???  einfüger der Tests:
+ * 12.11.2015: PON ???  Implementierung des ParameterTests.
  */
 public class TeacherTest extends GuiTest {
 

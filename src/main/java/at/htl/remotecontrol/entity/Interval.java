@@ -1,7 +1,8 @@
 package at.htl.remotecontrol.entity;
 
 /**
- * 30.10.2015:  Tobias      ??? Klasse für Zeitspanne zwischen Screenshots erstellt
+ * @timeline Text
+ * 30.10.2015: MET ???  Klasse für Zeitspanne zwischen Screenshots erstellt
  */
 public class Interval {
 
@@ -23,8 +24,8 @@ public class Interval {
     /**
      * RANDOM interval between screenshots.
      *
-     * @param min   the minimum time interval between screenshots.
-     * @param max   the maximum time interval between screenshots.
+     * @param min the minimum time interval between screenshots.
+     * @param max the maximum time interval between screenshots.
      */
     public Interval(long min, long max) {
         this.min = min;
@@ -37,7 +38,7 @@ public class Interval {
     /**
      * how much time to the next screenshot.
      *
-     * @return  the time to wait for the next screenshot.
+     * @return the time to wait for the next screenshot.
      */
     public long getValue() {
         if (isRandom())

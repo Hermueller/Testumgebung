@@ -14,8 +14,9 @@ import java.io.ObjectInputStream;
  * Der SocketReaderThread liest Screenshots von unserem Studenten
  * und reicht sie dann an dem TeacherServer weiter, der sie auch
  * sofort anzeigt.
- * <p>
- * 31.10.2015:  Tobias      ??? Änderung
+ *
+ * @timeline Text
+ * 31.10.2015: MET ???  Änderung
  */
 class SocketReaderThread extends Thread {
 

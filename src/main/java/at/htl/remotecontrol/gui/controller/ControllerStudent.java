@@ -2,16 +2,14 @@ package at.htl.remotecontrol.gui.controller;
 
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.packets.LoginPacket;
-import at.htl.remotecontrol.server.TeacherServer;
 import at.htl.remotecontrol.student.Client;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
@@ -24,11 +22,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * 18.10.2015:  Philipp     ??? Einfügen eines Login's mit Werteübergabe
- * 30.10.2015:  Tobias      ??? Login/Logout erweitert
- * 31.10.2015:  Tobias      ??? Erstellen von Client-Paketen und deren Übermittlung an Client
- * 19.11.2015:  Patrick     ??? Port hinzugefügt
- * 29.11.2015:  Philipp     ??? Fehlermeldungen in GUI
+ * @timeline Text
+ * 18.10.2015: PHI ???  Einfügen eines Login's mit Werteübergabe
+ * 30.10.2015: MET ???  Login/Logout erweitert
+ * 31.10.2015: MET ???  Erstellen von Client-Paketen und deren Übermittlung an Client
+ * 19.11.2015: PON ???  Port hinzugefügt
+ * 29.11.2015: PHI ???  Fehlermeldungen in GUI
  */
 public class ControllerStudent implements Initializable {
 
@@ -147,7 +146,6 @@ public class ControllerStudent implements Initializable {
     }
 
     /**
-     *
      * @param event
      */
     public void handIn(ActionEvent event) {

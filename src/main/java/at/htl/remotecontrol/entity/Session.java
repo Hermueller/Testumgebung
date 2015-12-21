@@ -13,27 +13,24 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 
-//region Comments
-
-/*
- * 15.10.2015:  Gnadi       ??? Klasse erstellt
- * 15.10.2015:  Gnadi       ??? Verwaltung der Gui-Eingabewerte inplementiert
- * 19.10.2015:  Philipp     ??? Erweiterung um eine Liste der verbundenen Studenten
- * 24.10.2015:  Philipp     ??? Erweiterung um den String "pathOfImages"
- * 26.10.2015:  Tobias      ??? Singleton-Pattern korrigiert und Klasse von Time auf Session umbenannt
- * 26.10.2015:  Tobias      ??? ObservableList von Studenten statt von String
- * 27.10.2015:  Philipp     ??? Students werden nach dem Logout von der Liste entfernt
- * 30.10.2015:  Ph, Tobi    ??? fixe/zufällige Zeitspanne zwischen Screenshots erstellt
- * 31.10.2015:  Tobias      ??? Funktion implementiert: Testbeginn und Testende festlegen
- * 31.10.2015:  Tobias      ??? Erweiterung um handOutFile und getHandOutPacket()
- * 06.11.2015:  Patrick     ??? Erweiterung um password
- * 29.11.2015:  Philipp     ??? Hinzufügen und Entfernen von Studenten geändert (farbige)TestField
- * 10.12.2015:  Philipp     023 Einbinden von Funktionen, die für die Lines of Code benötigt werden
- * 12.12.2015:  Philipp     036 kommentieren von Methoden und die Klassenstruktur geändert
+/**
+ * @timeline Text
+ * 15.10.2015: GNA 001  Klasse erstellt
+ * 15.10.2015: GNA ???  Verwaltung der Gui-Eingabewerte inplementiert
+ * 19.10.2015: PHI ???  Erweiterung um eine Liste der verbundenen Studenten
+ * 24.10.2015: PHI ???  Erweiterung um den String "pathOfImages"
+ * 26.10.2015: MET ???  Singleton-Pattern korrigiert und Klasse von Time auf Session umbenannt
+ * 26.10.2015: MET ???  ObservableList von Studenten statt von String
+ * 27.10.2015: PHI ???  Students werden nach dem Logout von der Liste entfernt
+ * 30.10.2015: PHI ???  fixe/zufällige Zeitspanne zwischen Screenshots erstellt
+ * 30.10.2015: MET ???  fixe/zufällige Zeitspanne zwischen Screenshots erstellt
+ * 31.10.2015: MET ???  Funktion implementiert: Testbeginn und Testende festlegen
+ * 31.10.2015: MET ???  Erweiterung um handOutFile und getHandOutPacket()
+ * 06.11.2015: PON ???  Erweiterung um password
+ * 29.11.2015: PHI ???  Hinzufügen und Entfernen von Studenten geändert (farbige)TestField
+ * 10.12.2015: PHI 025  Einbinden von Funktionen, die für die Lines of Code benötigt werden
+ * 12.12.2015: PHI 035  kommentieren von Methoden und die Klassenstruktur geändert
  */
-
-//endregion
-
 public class Session {
 
     private static Session instance = null;
@@ -65,7 +62,6 @@ public class Session {
     //region Getter and Setter
 
     /**
-     *
      * @return the list of students.
      */
     public ObservableList<TextField> getObservableList() {
@@ -73,7 +69,6 @@ public class Session {
     }
 
     /**
-     *
      * @return the file for the test with the test-questions.
      */
     public File getHandOutFile() {
@@ -81,7 +76,6 @@ public class Session {
     }
 
     /**
-     *
      * @param handOutFile Specialises the file for the test.
      */
     public void setHandOutFile(File handOutFile) {
@@ -89,7 +83,6 @@ public class Session {
     }
 
     /**
-     *
      * @return the password.
      */
     public String getPassword() {
@@ -97,7 +90,6 @@ public class Session {
     }
 
     /**
-     *
      * @param password Specialises the password.
      */
     public void setPassword(String password) {
@@ -105,7 +97,6 @@ public class Session {
     }
 
     /**
-     *
      * @return the package of information for the student.
      */
     public HandOutPacket getHandOutPacket() {
@@ -115,7 +106,6 @@ public class Session {
     }
 
     /**
-     *
      * @return the time when the test starts.
      */
     public LocalDateTime getStartTime() {
@@ -123,7 +113,6 @@ public class Session {
     }
 
     /**
-     *
      * @param startTime Specialises the time when the test starts.
      */
     public void setStartTime(LocalDateTime startTime) {
@@ -131,7 +120,6 @@ public class Session {
     }
 
     /**
-     *
      * @return the time when the test ends.
      */
     public LocalDateTime getEndTime() {
@@ -139,7 +127,6 @@ public class Session {
     }
 
     /**
-     *
      * @param endTime Specialises the time when the test ends.
      */
     public void setEndTime(LocalDateTime endTime) {
@@ -147,7 +134,6 @@ public class Session {
     }
 
     /**
-     *
      * @return the time to wait for the next screenshot.
      */
     public long getInterval() {
@@ -155,7 +141,6 @@ public class Session {
     }
 
     /**
-     *
      * @param interval Specialises the class with the calculations for the next interval-time.
      */
     public void setInterval(Interval interval) {
@@ -163,15 +148,13 @@ public class Session {
     }
 
     /**
-     *
-     * @return  the root-path of the directory of the images and finished tests directory.
+     * @return the root-path of the directory of the images and finished tests directory.
      */
     public String getPath() {
         return path;
     }
 
     /**
-     *
      * @return the path of the directory of screenshots
      */
     public String getPathOfImages() {
@@ -179,7 +162,6 @@ public class Session {
     }
 
     /**
-     *
      * @return the path of the directory of finished tests
      */
     public String getPathOfHandInFiles() {
@@ -202,7 +184,6 @@ public class Session {
     }
 
     /**
-     *
      * @param chart Specialises the chart which is shown on the screen of the teacher.
      */
     public void setChart(LineChart<Number, Number> chart) {
@@ -210,7 +191,6 @@ public class Session {
     }
 
     /**
-     *
      * @return the endings of the files (in which the lines are counted).
      */
     public String[] getEndings() {
@@ -218,7 +198,6 @@ public class Session {
     }
 
     /**
-     *
      * @param endings The endings of files in which we count the lines.
      */
     public void setEndings(String[] endings) {
@@ -291,7 +270,7 @@ public class Session {
 
         Long _seconds = now.until(LocalDateTime.now(), ChronoUnit.SECONDS);
 
-        Long _time = _seconds + _minutes*60 + _hours*60*60;
+        Long _time = _seconds + _minutes * 60 + _hours * 60 * 60;
 
         Platform.runLater(() -> {
             chart.getData().remove(series);

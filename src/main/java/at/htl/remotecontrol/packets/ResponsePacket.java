@@ -3,7 +3,8 @@ package at.htl.remotecontrol.packets;
 import java.io.Serializable;
 
 /**
- * 31.10.2015:  Tobias      ??? Klasse erstellt
+ * @timeline Text
+ * 31.10.2015: MET ???  Klasse erstellt
  */
 public class ResponsePacket implements Serializable {
 
