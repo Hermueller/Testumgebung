@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  * @timeline Text
  * 18.10.2015: PHI ???  Implementieren der Gui
  * 26.10.2015: MET ???  Implementieren der Fehlermeldungsausgabe
- * 05.11.2015: PON ???  Reparatur der Datei
+ * 05.11.2015: PON 010  Reparatur der Datei
  * 29.11.2015: PHI ???  Strukturierung bei der Ansicht geändert
  */
 public class StudentGui extends Application {

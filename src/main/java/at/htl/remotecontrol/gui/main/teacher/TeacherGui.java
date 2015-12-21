@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * 24.10.2015: PHI ???  Implementieren der 'Ordner auswahl'
  * 26.10.2015: MET ???  Implementieren der Fehlermeldungsausgabe
  * 26.10.2015: PHI ???  Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
- * 05.11.2015: PON ???  Reparatur der Datei
+ * 05.11.2015: PON 005  Reparatur der Datei
  * 07.12.2015: PHI 002  Fixe Größe der Liste von den verbundenen Studenten
  * 10.12.2015: PHI 020  Hinzufügen von Checkboxen, die angeben, ob etwas Ausgewählt wurde oder nicht
  * 16.12.2015: PHI 135  Beim Schließen des Fenster eine Abfrage erstellt

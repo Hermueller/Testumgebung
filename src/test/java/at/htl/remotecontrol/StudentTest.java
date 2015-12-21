@@ -15,9 +15,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
- * @timeline Text
- * 12.11.2015: PON ???  Erstellen der Klasse
+ * 12.11.2015: PON 045  Erstellen der Klasse und implementieren einer Testmethode
  */
+
 public class StudentTest extends GuiTest{
 
     TextField tfUsername;

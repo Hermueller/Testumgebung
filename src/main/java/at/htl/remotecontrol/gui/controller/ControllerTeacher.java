@@ -28,8 +28,7 @@ import java.util.ResourceBundle;
 /**
  * @timeline Text
  * 15.10.2015: PHI ???  Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
- * 19.10.2015: PON ???  Liste der verbundenen Studenten
- * 24.10.2015: PON ???  DirectoryChooser für die Screenshots
+ * 24.10.2015: PON 020  DirectoryChooser für die Screenshots
  * 26.10.2015: PHI ???  Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
  * 29.11.2015: PHI ???  Angabe-Auswahl + Fehlermeldungen in GUI
  * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
