@@ -12,8 +12,8 @@ import java.io.IOException;
 
 /**
  * @timeline Text
- * 26.10.2015: MET ???  Klasse erstellt
- * 30.10.2015: MET ???  Speichern von Images verbessert
+ * 26.10.2015: MET 001  Klasse erstellt
+ * 30.10.2015: MET 015  Speichern von Images verbessert
  */
 public class Image {
 

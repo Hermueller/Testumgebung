@@ -13,10 +13,10 @@ import java.net.Socket;
 
 /**
  * @timeline Text
- * 26.10.2015: MET ???  Klasse von Student auf Client umbenannt
- * 31.10.2015: MET ???  Funktion "Angabe herunterladen" implementiert
- * 01.11.2015: MET ???  überwachter Ordner automatisch gezippt abgeben
- * 01.11.2015: MET ???  Bug festgestellt: Abgabe nur unmittelbar nach Login
+ * 26.10.2015: MET 002  Klasse von Student auf Client umbenannt
+ * 31.10.2015: MET 075  Funktion "Angabe herunterladen" implementiert
+ * 01.11.2015: MET 015  überwachter Ordner automatisch gezippt abgeben
+ * 01.11.2015: MET 005  Bug festgestellt: Abgabe nur unmittelbar nach Login
  */
 public class Client {
 

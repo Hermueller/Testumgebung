@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 /**
  * @timeline Text
- * 31.10.2015: MET ???  Klasse erstellt
- * 19.11.2015: PON ???  Port hinzugefügt
+ * 31.10.2015: MET 005  Klasse erstellt
+ * 19.11.2015: PON 002  Port hinzugefügt
  */
 public class LoginPacket implements Serializable {
 

@@ -4,8 +4,8 @@ import java.io.*;
 
 /**
  * @timeline Text
- * 01.11.2015: MET ???  Klasse erstellt
- * 01.11.2015: MET ???  Senden und Empfangen von Dateien
+ * 01.11.2015: MET 001  Klasse erstellt
+ * 01.11.2015: MET 040  Senden und Empfangen von Dateien
  */
 public class FileStream {
 

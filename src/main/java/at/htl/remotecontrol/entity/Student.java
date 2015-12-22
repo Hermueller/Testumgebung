@@ -5,9 +5,9 @@ import java.util.List;
 
 /**
  * @timeline Text
- * 26.10.2015: MET ???  Klasse erstellt
- * 26.10.2015: MET ???  Name des Schülers, Verzeichnis der Screenshots
- * 31.10.2015: MET ???  Funktion für Verzeichnis der Screenshots verbessert
+ * 26.10.2015: MET 001  Klasse erstellt
+ * 26.10.2015: MET 005  Name des Schülers, Verzeichnis der Screenshots
+ * 31.10.2015: MET 005  Funktion für Verzeichnis der Screenshots verbessert
  */
 public class Student {
 

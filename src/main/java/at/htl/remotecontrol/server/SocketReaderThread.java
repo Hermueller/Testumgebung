@@ -16,7 +16,7 @@ import java.io.ObjectInputStream;
  * sofort anzeigt.
  *
  * @timeline Text
- * 31.10.2015: MET ???  Änderung
+ * 31.10.2015: MET 010  Änderung
  */
 class SocketReaderThread extends Thread {
 

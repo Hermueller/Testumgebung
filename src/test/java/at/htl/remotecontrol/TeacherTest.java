@@ -17,7 +17,7 @@ import static org.hamcrest.core.Is.is;
 
 /**
  * @timeline Text
- * 19.10.2015: PHI ???  einfüger der Tests:
+ * 19.10.2015: PHI 030  einfüger der Tests:
  * 12.11.2015: PON 020  Implementierung des ParameterTests.
  */
 public class TeacherTest extends GuiTest {

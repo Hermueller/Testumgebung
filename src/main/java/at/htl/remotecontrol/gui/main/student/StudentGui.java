@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 /**
  * @timeline Text
  * 18.10.2015: PHI 065  Implementieren der Gui
- * 26.10.2015: MET ???  Implementieren der Fehlermeldungsausgabe
  * 05.11.2015: PON 010  Reparatur der Datei
  * 29.11.2015: PHI 035  Strukturierung bei der Ansicht geändert
  */

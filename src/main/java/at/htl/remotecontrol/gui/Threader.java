@@ -9,9 +9,9 @@ import java.net.Socket;
 /**
  * @timeline Text
  * 15.10.2015: PHI 045  Akzeptieren von Students durch Thread implementiert
- * 26.10.2015: MET ???  Verbesserung des Codes
+ * 26.10.2015: MET 030  Verbesserung des Codes
  * 27.10.2015: PHI 015  Socketproblem und Portproblem gelöst (continue)
- * 31.10.2015: MET ???  statt continue interrupt()
+ * 31.10.2015: MET 005  statt continue interrupt()
  * 01.12.2015: PHI 003  Umstrukturierung für bessere Testfreundlichkeit (mocking)
  */
 public class Threader implements Runnable {

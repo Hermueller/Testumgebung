@@ -2,7 +2,7 @@ package at.htl.remotecontrol.entity;
 
 /**
  * @timeline Text
- * 30.10.2015: MET ???  Klasse für Zeitspanne zwischen Screenshots erstellt
+ * 30.10.2015: MET 015  Klasse für Zeitspanne zwischen Screenshots erstellt
  */
 public class Interval {
 

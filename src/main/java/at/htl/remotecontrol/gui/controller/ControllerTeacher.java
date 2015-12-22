@@ -34,7 +34,6 @@ import java.util.ResourceBundle;
  * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
  * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
  * 17.12.2015: PON 040  importPupilList
- *
  */
 public class ControllerTeacher implements Initializable {
 

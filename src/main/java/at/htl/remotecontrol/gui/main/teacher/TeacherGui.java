@@ -19,7 +19,6 @@ import javafx.stage.Stage;
  * 15.10.2015: PHI 001  Implementieren der GUI
  * 19.10.2015: PHI 055  Liste der verbundenen Studenten
  * 24.10.2015: PHI 005  Implementieren der 'Ordner auswahl'
- * 26.10.2015: MET ???  Implementieren der Fehlermeldungsausgabe
  * 26.10.2015: PHI 060  Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
  * 05.11.2015: PON 005  Reparatur der Datei
  * 07.12.2015: PHI 020  Fixe Größe der Liste von den verbundenen Studenten

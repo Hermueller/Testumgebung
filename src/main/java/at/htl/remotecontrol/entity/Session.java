@@ -16,17 +16,17 @@ import java.util.LinkedList;
 /**
  * @timeline Text
  * 15.10.2015: GNA 001  Klasse erstellt
- * 15.10.2015: GNA ???  Verwaltung der Gui-Eingabewerte inplementiert
+ * 15.10.2015: GNA 010  Verwaltung der Gui-Eingabewerte inplementiert
  * 19.10.2015: PHI 015  Erweiterung um eine Liste der verbundenen Studenten
  * 24.10.2015: PHI 003  Erweiterung um den String "pathOfImages"
- * 26.10.2015: MET ???  Singleton-Pattern korrigiert und Klasse von Time auf Session umbenannt
- * 26.10.2015: MET ???  ObservableList von Studenten statt von String
+ * 26.10.2015: MET 005  Singleton-Pattern korrigiert und Klasse von Time auf Session umbenannt
+ * 26.10.2015: MET 003  ObservableList von Studenten statt von String
  * 27.10.2015: PHI 035  Students werden nach dem Logout von der Liste entfernt
  * 30.10.2015: PHI 030  fixe/zufällige Zeitspanne zwischen Screenshots erstellt
- * 30.10.2015: MET ???  fixe/zufällige Zeitspanne zwischen Screenshots erstellt
- * 31.10.2015: MET ???  Funktion implementiert: Testbeginn und Testende festlegen
- * 31.10.2015: MET ???  Erweiterung um handOutFile und getHandOutPacket()
- * 06.11.2015: PON ???  Erweiterung um password
+ * 30.10.2015: MET 005  fixe/zufällige Zeitspanne zwischen Screenshots erstellt
+ * 31.10.2015: MET 010  Funktion implementiert: Testbeginn und Testende festlegen
+ * 31.10.2015: MET 005  Erweiterung um handOutFile und getHandOutPacket()
+ * 06.11.2015: PON 005  Erweiterung um password
  * 29.11.2015: PHI 040  Hinzufügen und Entfernen von Studenten geändert (farbige)TestField
  * 10.12.2015: PHI 025  Einbinden von Funktionen, die für die Lines of Code benötigt werden
  * 12.12.2015: PHI 035  kommentieren von Methoden und die Klassenstruktur geändert

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @timeline Text
- * 31.10.2015: MET ???  Klasse erstellt
+ * 31.10.2015: MET 003  Klasse erstellt
  */
 public class ResponsePacket implements Serializable {
 
