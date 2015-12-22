@@ -27,20 +27,20 @@
                                     <content>
                                         <AnchorPane fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
                                             <children>
-                                                <AnchorPane fx:id="apOption" prefHeight="406.0" prefWidth="594.0" AnchorPane.leftAnchor="0.0">
+                                                <AnchorPane fx:id="apOption" prefHeight="466.0" prefWidth="631.0" AnchorPane.leftAnchor="0.0">
                                                     <children>
                                                         <VBox layoutX="32.0" layoutY="18.0" prefHeight="320.0" prefWidth="556.0" spacing="20.0">
                                                             <children>
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
-                                                      <Label prefHeight="27.0" prefWidth="367.0" text="Schülerliste">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#importPupilList" prefHeight="27.0" prefWidth="196.0" text="Import" />
-                                                   </children>
-                                                </HBox>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                   <children>
+                                                                      <Label prefHeight="27.0" prefWidth="367.0" text="Schülerliste">
+                                                                         <font>
+                                                                            <Font size="18.0" />
+                                                                         </font>
+                                                                      </Label>
+                                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#importPupilList" prefHeight="27.0" prefWidth="196.0" text="Import" />
+                                                                   </children>
+                                                                </HBox>
                                                                 <HBox prefHeight="27.0" prefWidth="262.0">
                                                                     <children>
                                                                         <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
@@ -68,7 +68,7 @@
                                                                                 <Font size="18.0" />
                                                                             </font>
                                                                         </Label>
-                                                                        <Button layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="31.0" prefWidth="234.0" text="Choose your Directory" />
+                                                                        <Button alignment="CENTER" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="31.0" prefWidth="234.0" text="Choose your Directory" textAlignment="CENTER" />
                                                                     </children>
                                                                 </HBox>
                                                                 <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="528.0">
@@ -115,15 +115,23 @@
                                                                       <TextField fx:id="tfFileendings" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" promptText="z.B.  *.java; *.fxml; *.cs" />
                                                                    </children>
                                                                 </HBox>
+                                                                <Label fx:id="lbAlert" prefHeight="29.0" prefWidth="556.0">
+                                                                   <font>
+                                                                      <Font size="18.0" />
+                                                                   </font>
+                                                                </Label>
+                                                <HBox spacing="120.0">
+                                                   <children>
+                                                                    <Button fx:id="btnStart" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
+                                                                    <Button fx:id="btnStop" alignment="CENTER" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                   </children>
+                                                </HBox>
                                                             </children>
                                                         </VBox>
-                                                        <Label fx:id="lbAlert" layoutX="1.0" layoutY="380.0" prefHeight="25.0" prefWidth="593.0" />
-                                                        <CheckBox fx:id="cbAngabe" layoutX="2.0" layoutY="70.0" mnemonicParsing="false" />
-                                                        <CheckBox fx:id="cbHome" layoutX="2.0" layoutY="116.0" mnemonicParsing="false" />
+                                                        <CheckBox fx:id="cbAngabe" disable="true" layoutX="2.0" layoutY="115.0" mnemonicParsing="false" />
+                                                        <CheckBox fx:id="cbHome" disable="true" layoutX="2.0" layoutY="160.0" mnemonicParsing="false" />
                                                     </children>
                                                 </AnchorPane>
-                                                  <Button fx:id="btnStart" layoutX="30.0" layoutY="429.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
-                                                  <Button fx:id="btnStop" layoutX="375.0" layoutY="429.0" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
                                             </children>
                                         </AnchorPane>
                                     </content>

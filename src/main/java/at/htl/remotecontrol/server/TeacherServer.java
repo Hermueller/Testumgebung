@@ -29,6 +29,7 @@ import java.time.LocalDateTime;
  * 28.10.2015: PHI 015  Live ÜberwachungsBild wird NUR für den ausgewählten Benutzer gesetzt
  * 29.11.2015: PHI 060  Umänderung auf TextField-liste für die farbige Studentenausgabe
  * 12.12.2015: PHI 010  Kommentieren von Methoden
+ * 22.12.2015: PHI 001  Ändern von "Hinzufügen" von Schülern zu "Einloggen" von Schülern.
  */
 public class TeacherServer {
 
@@ -49,7 +50,7 @@ public class TeacherServer {
         LoginPacket packet = (LoginPacket) in.readObject();
         Student student = new Student(packet.getUserName(), packet.getDirOfWatch());
         System.out.println("I got the Package: " + packet.getDirOfWatch());
-        Session.getInstance().addStudent(student);
+        Session.getInstance().loginStudent(student);
 
         reader = new SocketReaderThread(student, in, this);
         writer = new SocketWriterThread(student, out);

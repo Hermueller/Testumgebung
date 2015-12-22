@@ -24,6 +24,7 @@ import javafx.stage.Stage;
  * 07.12.2015: PHI 020  Fixe Größe der Liste von den verbundenen Studenten
  * 10.12.2015: PHI 005  Hinzufügen von Checkboxen, die angeben, ob etwas Ausgewählt wurde oder nicht
  * 16.12.2015: PHI 135  Beim Schließen des Fenster eine Abfrage erstellt
+ * 22.12.2015: PHI 010  Optische Fehler in der GUI ausgebessert.
  */
 public class TeacherGui extends Application {
 

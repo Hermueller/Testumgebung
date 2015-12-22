@@ -263,7 +263,7 @@ public class ControllerTeacher implements Initializable {
     }
 
     /**
-     * Inports a file of pupils
+     * Imports a file of pupils
      * sets the observable list
      *
      * @param actionEvent

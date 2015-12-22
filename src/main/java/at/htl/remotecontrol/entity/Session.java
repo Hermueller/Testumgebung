@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.LinkedList;
 
 /**
@@ -30,6 +31,7 @@ import java.util.LinkedList;
  * 29.11.2015: PHI 040  Hinzufügen und Entfernen von Studenten geändert (farbige)TestField
  * 10.12.2015: PHI 025  Einbinden von Funktionen, die für die Lines of Code benötigt werden
  * 12.12.2015: PHI 035  kommentieren von Methoden und die Klassenstruktur geändert
+ * 22.12.2015: PHI 020  ändern der Anzeige von Schülern beim Lehrer.
  */
 public class Session {
 
@@ -47,6 +49,7 @@ public class Session {
     private LocalDateTime starting = null;
     private LineChart<Number, Number> chart;
     private String[] endings;
+    private List<TextField> preStudents = new LinkedList<>();
 
     protected Session() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -217,8 +220,26 @@ public class Session {
         Platform.runLater(() -> {
             TextField tf = new TextField(student.getName());
             tf.setEditable(false);
-            tf.setStyle("-fx-background-color: greenyellow");
+            tf.setStyle("-fx-background-color: crimson");
             students.add(tf);
+            //preStudents.add(tf);
+        });
+    }
+
+    /**
+     * Notifies the teacher that the student has logged in.
+     *
+     * @param student   the student which logged in.
+     */
+    public void loginStudent(final Student student) {
+        Platform.runLater(() -> {
+            for (TextField tf : students) {
+                if (tf.getText().equals(student.getName())) {
+                    students.add(tf);
+                    tf.setStyle("-fx-background-color: greenyellow");
+                    break;
+                }
+            }
         });
     }
 
@@ -231,8 +252,8 @@ public class Session {
         Platform.runLater(() -> {
             for (TextField tf : students) {
                 if (tf.getText().equals(studentName)) {
-                    students.remove(tf);
-                    //tf.setStyle("-fx-background-color: crimson");
+                    //students.remove(tf);
+                    tf.setStyle("-fx-background-color: crimson");
                     break;
                 }
             }
