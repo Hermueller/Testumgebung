@@ -57,9 +57,7 @@ public class Threader implements Runnable {
     public boolean createTeacherServer(Socket socket) {
         try {
             new TeacherServer(socket);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return true;

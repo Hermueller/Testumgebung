@@ -34,6 +34,7 @@ import java.util.ResourceBundle;
  * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
  * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
  * 17.12.2015: PON 040  importPupilList
+ * 25.12.2015: PHI 010  teacher wählt *.zip-Datei als Angabe.
  */
 public class ControllerTeacher implements Initializable {
 
@@ -208,7 +209,7 @@ public class ControllerTeacher implements Initializable {
     }
 
     /**
-     * shows a dialog-screen to choose the directory where the directorys of the
+     * shows a dialog-screen to choose the directory where the directories of the
      * screenshots and the finished tests will be.
      *
      * @param event Information from the click on the button.
@@ -228,16 +229,19 @@ public class ControllerTeacher implements Initializable {
 
     /**
      * shows a dialog-screen to choose the test-file.
+     * only zip-files are allowed.
      *
      * @param event Information from the click on the button.
      */
     public void chooseHandOutFile(ActionEvent event) {
-        FileChooser dc = new FileChooser();
-        dc.setInitialDirectory(new File(System.getProperty("user.home")));
-        dc.setTitle("Wähle deine Angabe aus");
-        File choosedFile = dc.showOpenDialog(new Stage());
-        if (choosedFile != null) {
-            Session.getInstance().setHandOutFile(new File(choosedFile.getPath()));
+        // Create and show the file filter
+        FileChooser fc = new FileChooser();
+        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
+        File yourZip = fc.showOpenDialog(new Stage());
+
+        // Check the user pressed OK, and not Cancel.
+        if (yourZip != null) {
+            Session.getInstance().setHandOutFile(yourZip);
             cbAngabe.setSelected(true);
         } else {
             cbAngabe.setSelected(false);

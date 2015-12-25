@@ -48,7 +48,7 @@ public class Client {
      * gets the file from the teacher for the test and saves it
      */
     public void loadFiles() {
-        FileStream.receive(in, loginPacket.getDirOfWatch() + "/Angabe.pdf");
+        FileStream.receive(in, loginPacket.getDirOfWatch() + "/angabe.zip");
         processor.start();
         reader.start();
     }
