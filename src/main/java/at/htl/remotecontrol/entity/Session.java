@@ -7,6 +7,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -32,6 +35,7 @@ import java.util.LinkedList;
  * 10.12.2015: PHI 025  Einbinden von Funktionen, die für die Lines of Code benötigt werden
  * 12.12.2015: PHI 035  kommentieren von Methoden und die Klassenstruktur geändert
  * 22.12.2015: PHI 020  ändern der Anzeige von Schülern beim Lehrer.
+ * 29.12.2015: PHI 050  fehler bei der Schüler an-/abmeldung entfernt und Sound hinzugefügt
  */
 public class Session {
 
@@ -49,7 +53,8 @@ public class Session {
     private LocalDateTime starting = null;
     private LineChart<Number, Number> chart;
     private String[] endings;
-    private List<TextField> preStudents = new LinkedList<>();
+    //private List<TextField> preStudents = new LinkedList<>();
+    private MediaPlayer mediaPlayer = null;
 
     protected Session() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -235,7 +240,6 @@ public class Session {
         Platform.runLater(() -> {
             for (TextField tf : students) {
                 if (tf.getText().equals(student.getName())) {
-                    students.add(tf);
                     tf.setStyle("-fx-background-color: greenyellow");
                     break;
                 }
@@ -253,7 +257,7 @@ public class Session {
             for (TextField tf : students) {
                 if (tf.getText().equals(studentName)) {
                     //students.remove(tf);
-                    tf.setStyle("-fx-background-color: crimson");
+                    tf.setStyle("-fx-background-color: #996adc");
                     break;
                 }
             }
@@ -298,6 +302,21 @@ public class Session {
             series.getData().add(new XYChart.Data<Number, Number>(_time, _loc));
             chart.getData().add(series);
         });
+    }
+
+    /**
+     * plays a sound to notify the user about an event
+     * plays only the first 3 seconds.
+     */
+    public void notification() {
+        final File file = new File("src/main/resources/sound/pikachu.mp3");
+        final Media media = new Media(file.toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+
+        mediaPlayer.setStartTime(Duration.seconds(0));
+        mediaPlayer.setStopTime(Duration.seconds(3));
+
+        mediaPlayer.play();
     }
 
     //endregion

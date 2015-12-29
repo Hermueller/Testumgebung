@@ -115,7 +115,10 @@ class SocketWriterThread extends Thread {
             System.out.println("Connection to " + student.getName() + " closed (" + e + ')');
         }
         System.out.println("Closing connection to " + student.getName());
+
+        // REMOVES the student from the list / marks him in a different color + plays a sound
         Session.getInstance().removeStudent(student.getName());
+        Session.getInstance().notification();
     }
 
 }

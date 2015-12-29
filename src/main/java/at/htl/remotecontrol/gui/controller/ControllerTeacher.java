@@ -14,6 +14,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -180,6 +182,8 @@ public class ControllerTeacher implements Initializable {
      * @param actionEvent Information from the click on the button.
      */
     public void stopServer(ActionEvent actionEvent) {
+        Session.getInstance().notification();
+
         if (server != null) {
             if (!server.isInterrupted()) {
                 threader.stop();
@@ -281,22 +285,23 @@ public class ControllerTeacher implements Initializable {
         dc.getExtensionFilters().add(filter);*/
         File choosedFile = dc.showOpenDialog(new Stage());
 
-        BufferedReader bis = new BufferedReader(new InputStreamReader(
-                new FileInputStream(choosedFile), Charset.forName("UTF-16")));
+        if (choosedFile != null) {
+            BufferedReader bis = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(choosedFile), Charset.forName("UTF-16")));
 
-        int nameColumn = 0;
-        String line;
-        String[] words = bis.readLine().split(";");
+            int nameColumn = 0;
+            String line;
+            String[] words = bis.readLine().split(";");
 
 
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].equals("Familienname")) {
-                nameColumn = i;
+            for (int i = 0; i < words.length; i++) {
+                if (words[i].equals("Familienname")) {
+                    nameColumn = i;
+                }
+            }
+            while ((line = bis.readLine()) != null) {
+                Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
             }
         }
-        while ((line = bis.readLine()) != null) {
-            Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
-        }
-
     }
 }
