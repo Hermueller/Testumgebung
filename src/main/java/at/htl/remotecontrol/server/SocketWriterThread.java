@@ -97,9 +97,8 @@ class SocketWriterThread extends Thread {
                         // we had a timeout, so do a screen capture
                         askForScreenShot();
                         //also we want to count the lines in the code
-                        Long _loc = lc.listFilesForFolder(new File(student.getPathOfWatch()));
-                        student.addLoC(_loc);
-                        Session.getInstance().addValue(_loc);
+                        Long _loc = lc.countLinesInFilesFromFolder(new File(student.getPathOfWatch()));
+                        Session.getInstance().addValue(_loc, student);
                     } else {
                         out.writeObject(action);
                         out.reset();

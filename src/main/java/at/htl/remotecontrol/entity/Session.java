@@ -36,11 +36,13 @@ import java.util.LinkedList;
  * 12.12.2015: PHI 035  kommentieren von Methoden und die Klassenstruktur geändert
  * 22.12.2015: PHI 020  ändern der Anzeige von Schülern beim Lehrer.
  * 29.12.2015: PHI 050  fehler bei der Schüler an-/abmeldung entfernt und Sound hinzugefügt
+ * 31.12.2015: PHI 020  Schülersuche eingefügt und LineChart überarbeitet/verändert.
  */
 public class Session {
 
     private static Session instance = null;
     private ObservableList<TextField> students;
+    private List<Student> studentsList = new LinkedList<>();
     private File handOutFile;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -212,22 +214,42 @@ public class Session {
         this.endings = endings;
     }
 
+    /**
+     * creates a new line in the chart.
+     *
+     * @param name Specialises the name of the new line.
+     */
+    public void newSeries(String name) {
+        series = new XYChart.Series();
+        series.setName(name);
+
+        Platform.runLater(() -> chart.getData().add(series));
+    }
+
+    /**
+     *
+     * @return the actual series from the chart.
+     */
+    public XYChart.Series getSeries() {
+        return series;
+    }
+
     //endregion
 
     //region Methods
 
     /**
-     * Adds a student to the list of all students and colours him green.
+     * Adds a student to the list of all students and colours him red.
      *
      * @param student Specialises the student which will be added.
      */
     public void addStudent(final Student student) {
+        studentsList.add(student);
         Platform.runLater(() -> {
             TextField tf = new TextField(student.getName());
             tf.setEditable(false);
             tf.setStyle("-fx-background-color: crimson");
             students.add(tf);
-            //preStudents.add(tf);
         });
     }
 
@@ -265,28 +287,19 @@ public class Session {
     }
 
     /**
-     * creates a new line in the chart.
-     *
-     * @param name Specialises the name of the new line.
-     */
-    public void newSeries(String name) {
-        series = new XYChart.Series();
-        series.setName(name);
-
-        Platform.runLater(() -> chart.getData().add(series));
-    }
-
-    /**
      * Add the Number of Lines in the code to the chart.
      *
-     * @param _loc Specialises the number of lines in the code.
+     * @param _loc    Specialises the number of lines in the code.
+     * @param student Specialises the student who owes the file of code.
      */
-    public void addValue(Long _loc) {
+    public void addValue(Long _loc, Student student) {
+        //startzeit festlegen
         if (starting == null) {
             starting = LocalDateTime.now();
         }
         LocalDateTime now = starting;
 
+        //zeit in sekunden ausrechnen
         Long _hours = now.until(LocalDateTime.now(), ChronoUnit.HOURS);
         now = now.plusHours(_hours);
 
@@ -297,10 +310,21 @@ public class Session {
 
         Long _time = _seconds + _minutes * 60 + _hours * 60 * 60;
 
+        //punkt im diagramm speichern
+        student.addLoC(_loc, _time);
+
+        //punkt in diagramm anzeigen
         Platform.runLater(() -> {
-            chart.getData().remove(series);
-            series.getData().add(new XYChart.Data<Number, Number>(_time, _loc));
-            chart.getData().add(series);
+            TextField selected = (TextField) StudentView.getInstance().getLv()
+                    .getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                //ist es vom ausgewählten Studenten?
+                if (student.getName().equals(selected.getText())) {
+                    chart.getData().remove(series);
+                    series.getData().add(new XYChart.Data<Number, Number>(_time, _loc));
+                    chart.getData().add(series);
+                }
+            }
         });
     }
 
@@ -317,6 +341,15 @@ public class Session {
         mediaPlayer.setStopTime(Duration.seconds(3));
 
         mediaPlayer.play();
+    }
+
+    public Student findStudentByName(String name) {
+        for (Student _student : studentsList) {
+            if (_student.getName().equals(name)) {
+                return _student;
+            }
+        }
+        return null;
     }
 
     //endregion

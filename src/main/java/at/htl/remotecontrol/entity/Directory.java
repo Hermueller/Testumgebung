@@ -37,7 +37,6 @@ public class Directory {
         } else if (!dir.mkdir()) {
             System.out.println(String.format("Directory %s can't be created!", path));
         } else {
-            System.out.println("created directory " + path);
             created = true;
         }
         return created;

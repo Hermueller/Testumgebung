@@ -44,12 +44,12 @@ public class LineCounter {
      *               are located.
      * @return the number of lines from all files in the directory
      */
-    public long listFilesForFolder(final File folder) {
+    public long countLinesInFilesFromFolder(final File folder) {
         long allLines = 0;
 
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
-                allLines += listFilesForFolder(fileEntry);
+                allLines += countLinesInFilesFromFolder(fileEntry);
             } else {
                 for (String ending : Session.getInstance().getEndings()) {
                     if (fileEntry.getName().endsWith("." + ending.split("\\.")[1])) {

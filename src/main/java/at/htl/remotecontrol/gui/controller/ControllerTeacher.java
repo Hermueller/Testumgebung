@@ -6,16 +6,16 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -26,6 +26,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.List;
 
 /**
  * @timeline Text
@@ -37,6 +38,7 @@ import java.util.ResourceBundle;
  * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
  * 17.12.2015: PON 040  importPupilList
  * 25.12.2015: PHI 010  teacher wählt *.zip-Datei als Angabe.
+ * 31.12.2015: PHI 010  LineChart überarbeitet, sodass bei der Änderung der ListView-Selection sich auch das Diagramm ändert.
  */
 public class ControllerTeacher implements Initializable {
 
@@ -93,6 +95,27 @@ public class ControllerTeacher implements Initializable {
         initializeLOC();
 
         Session.getInstance().setStartTime(LocalDateTime.now());
+
+        lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("should remove");
+            loc.getData().removeAll(Session.getInstance().getSeries());
+            Student actStudent = Session.getInstance().findStudentByName(newValue.getText());
+            int x = actStudent.getLocs().size();
+            List<Long> _locs = actStudent.getLocs();
+            List<Long> _times = actStudent.getTimes();
+            int i = 0;
+            XYChart.Series serie = new XYChart.Series();
+            serie.setName("XXX");
+
+            System.out.println(i + " < " + x);
+            while (i < x) {
+                serie.getData().add(new XYChart.Data<Number, Number>(_times.get(i), _locs.get(i)));
+
+                i++;
+            }
+
+            loc.getData().add(serie);
+        });
     }
 
     /**
@@ -182,8 +205,6 @@ public class ControllerTeacher implements Initializable {
      * @param actionEvent Information from the click on the button.
      */
     public void stopServer(ActionEvent actionEvent) {
-        Session.getInstance().notification();
-
         if (server != null) {
             if (!server.isInterrupted()) {
                 threader.stop();
