@@ -6,7 +6,6 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +24,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.List;
 
@@ -39,6 +39,7 @@ import java.util.List;
  * 17.12.2015: PON 040  importPupilList
  * 25.12.2015: PHI 010  teacher wählt *.zip-Datei als Angabe.
  * 31.12.2015: PHI 010  LineChart überarbeitet, sodass bei der Änderung der ListView-Selection sich auch das Diagramm ändert.
+ * 01.01.2016: PHI 010  Fehler in der LineChart verbessert.
  */
 public class ControllerTeacher implements Initializable {
 
@@ -97,19 +98,18 @@ public class ControllerTeacher implements Initializable {
         Session.getInstance().setStartTime(LocalDateTime.now());
 
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("should remove");
             loc.getData().removeAll(Session.getInstance().getSeries());
             Student actStudent = Session.getInstance().findStudentByName(newValue.getText());
             int x = actStudent.getLocs().size();
+            System.out.println(Arrays.toString(actStudent.getLocs().toArray()));
             List<Long> _locs = actStudent.getLocs();
             List<Long> _times = actStudent.getTimes();
             int i = 0;
-            XYChart.Series serie = new XYChart.Series();
-            serie.setName("XXX");
+            XYChart.Series<Number, Number> serie = new XYChart.Series<>();
+            serie.setName(newValue.getText());
 
-            System.out.println(i + " < " + x);
             while (i < x) {
-                serie.getData().add(new XYChart.Data<Number, Number>(_times.get(i), _locs.get(i)));
+                serie.getData().add(new XYChart.Data<>(_times.get(i), _locs.get(i)));
 
                 i++;
             }

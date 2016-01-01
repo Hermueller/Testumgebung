@@ -65,7 +65,7 @@ public class Student {
      * @param _loc  Specifies the lines of code at an specific time.
      * @param _time Specifies the time when the program counted the lines.
      */
-    public void addLoC(Long _loc, Long _time) {
+    public void addLoC_Time(Long _loc, Long _time) {
         locs.add(_loc);
         times.add(_time);
     }

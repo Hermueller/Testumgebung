@@ -37,6 +37,7 @@ import java.util.LinkedList;
  * 22.12.2015: PHI 020  ändern der Anzeige von Schülern beim Lehrer.
  * 29.12.2015: PHI 050  fehler bei der Schüler an-/abmeldung entfernt und Sound hinzugefügt
  * 31.12.2015: PHI 020  Schülersuche eingefügt und LineChart überarbeitet/verändert.
+ * 01.01.2016: PHI 055  Fehler im Chart und der Schülerspeicherung verbessert.
  */
 public class Session {
 
@@ -51,11 +52,10 @@ public class Session {
     private String pathOfImages;
     private String pathOfHandOutFiles;
     private String password;
-    private XYChart.Series series;
+    private XYChart.Series<Number, Number> series;
     private LocalDateTime starting = null;
     private LineChart<Number, Number> chart;
     private String[] endings;
-    //private List<TextField> preStudents = new LinkedList<>();
     private MediaPlayer mediaPlayer = null;
 
     protected Session() {
@@ -220,7 +220,7 @@ public class Session {
      * @param name Specialises the name of the new line.
      */
     public void newSeries(String name) {
-        series = new XYChart.Series();
+        series = new XYChart.Series<>();
         series.setName(name);
 
         Platform.runLater(() -> chart.getData().add(series));
@@ -230,8 +230,8 @@ public class Session {
      *
      * @return the actual series from the chart.
      */
-    public XYChart.Series getSeries() {
-        return series;
+    public XYChart.Series<Number, Number> getSeries() {
+        return chart.getData().get(0);
     }
 
     //endregion
@@ -311,7 +311,10 @@ public class Session {
         Long _time = _seconds + _minutes * 60 + _hours * 60 * 60;
 
         //punkt im diagramm speichern
-        student.addLoC(_loc, _time);
+        //student.addLoC(_loc, _time);
+
+        Student toModify = findStudentByName(student.getName());
+        toModify.addLoC_Time(_loc, _time);
 
         //punkt in diagramm anzeigen
         Platform.runLater(() -> {
@@ -320,9 +323,10 @@ public class Session {
             if (selected != null) {
                 //ist es vom ausgewählten Studenten?
                 if (student.getName().equals(selected.getText())) {
-                    chart.getData().remove(series);
-                    series.getData().add(new XYChart.Data<Number, Number>(_time, _loc));
-                    chart.getData().add(series);
+                    XYChart.Series<Number, Number> actual = getSeries();
+                    chart.getData().remove(actual);
+                    actual.getData().add(new XYChart.Data<>(_time, _loc));
+                    chart.getData().add(actual);
                 }
             }
         });
