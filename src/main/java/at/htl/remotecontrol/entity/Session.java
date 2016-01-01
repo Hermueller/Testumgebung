@@ -337,12 +337,13 @@ public class Session {
      * plays only the first 3 seconds.
      */
     public void notification() {
-        final File file = new File("src/main/resources/sound/pikachu.mp3");
+        final File file = new File("src/main/resources/sound/Fall.mp3");
         final Media media = new Media(file.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
 
-        mediaPlayer.setStartTime(Duration.seconds(0));
-        mediaPlayer.setStopTime(Duration.seconds(3));
+        //mediaPlayer.setStartTime(Duration.seconds(0));
+        //mediaPlayer.setStopTime(Duration.seconds(3));
+        mediaPlayer.setCycleCount(4);
 
         mediaPlayer.play();
     }

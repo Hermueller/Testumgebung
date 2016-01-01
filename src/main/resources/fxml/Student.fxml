@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerStudent">
     <children>
-      <VBox layoutX="95.0" layoutY="26.0" spacing="20.0">
+      <VBox layoutX="172.0" layoutY="26.0" spacing="20.0">
          <children>
             <HBox layoutX="190.0" layoutY="80.0">
                <children>
@@ -44,16 +44,14 @@
             </HBox>
          </children>
       </VBox>
-      <HBox layoutX="95.0" layoutY="306.0" spacing="50.0">
+      <HBox layoutX="172.0" layoutY="304.0" spacing="50.0">
          <children>
               <Button fx:id="btnLogin" layoutX="95.0" layoutY="290.0" mnemonicParsing="false" onAction="#logIn" prefHeight="35.0" prefWidth="156.0" text="Log In" />
               <Button fx:id="btnLogOut" layoutX="282.0" layoutY="286.0" onAction="#logOut" prefHeight="35.0" prefWidth="156.0" text="Log Out" />
          </children>
       </HBox>
       <HBox layoutX="31.0" layoutY="173.0" />
-      <Button layoutX="571.0" layoutY="214.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="200.0" text="Senden" />
-      <ToggleButton fx:id="tbSwitch" layoutX="240.0" layoutY="263.0" mnemonicParsing="false" text="Abgeben" />
-      <TextArea layoutX="571.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" promptText="Nachricht an den Lehrer" />
+      <ToggleButton fx:id="tbSwitch" layoutX="317.0" layoutY="258.0" mnemonicParsing="false" text="Abgeben" />
       <Label fx:id="lbAlert" layoutX="19.0" layoutY="359.0" prefHeight="26.0" prefWidth="766.0" text="">
          <font>
             <Font size="18.0" />
