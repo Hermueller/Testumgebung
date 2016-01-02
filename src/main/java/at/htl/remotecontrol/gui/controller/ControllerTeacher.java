@@ -10,11 +10,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
+import javafx.scene.Cursor;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -98,6 +106,7 @@ public class ControllerTeacher implements Initializable {
         Session.getInstance().setStartTime(LocalDateTime.now());
 
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            //   CHANGE LINECHART
             loc.getData().removeAll(Session.getInstance().getSeries());
             Student actStudent = Session.getInstance().findStudentByName(newValue.getText());
             int x = actStudent.getLocs().size();
@@ -115,6 +124,9 @@ public class ControllerTeacher implements Initializable {
             }
 
             loc.getData().add(serie);
+
+            //   CHANGE SCREENSHOT
+            ivLiveView.setImage(new Image("images/loading.gif"));
         });
     }
 
@@ -144,10 +156,9 @@ public class ControllerTeacher implements Initializable {
      * edits the chart and saves it in a singleton-class.
      */
     private void initializeLOC() {
-        loc.getXAxis().setLabel("Seconds after START");
-        loc.getYAxis().setLabel("Lines in File");
-
         Session.getInstance().setChart(loc);
+
+        loc.setCursor(Cursor.CROSSHAIR);
     }
 
     /**

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.image.*?>
@@ -140,17 +141,17 @@
                                     <content>
                                         <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <LineChart fx:id="loc" layoutY="-1.0" prefHeight="167.0" prefWidth="556.0" title="Lines of Code in Project">
+                                                <LineChart fx:id="loc" layoutY="-1.0" legendSide="LEFT" prefHeight="167.0" prefWidth="690.0" title="Lines of Code in Project">
                                                     <xAxis>
-                                                        <NumberAxis side="BOTTOM" />
+                                                        <NumberAxis label="Seconds after START" side="BOTTOM" />
                                                     </xAxis>
                                                     <yAxis>
-                                                        <NumberAxis side="LEFT" />
+                                                        <NumberAxis label="Lines in File" side="LEFT" />
                                                     </yAxis>
                                                 </LineChart>
                                                 <ImageView fx:id="ivLiveView" fitHeight="298.0" fitWidth="514.0" layoutX="14.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../images/screen.jpg" />
+                                                        <Image url="@../images/loading.gif" />
                                                     </image>
                                                 </ImageView>
                                             </children>

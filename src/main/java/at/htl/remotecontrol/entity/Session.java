@@ -1,5 +1,6 @@
 package at.htl.remotecontrol.entity;
 
+import at.htl.remotecontrol.actions.HoveredThresholdNode;
 import at.htl.remotecontrol.packets.HandOutPacket;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -38,6 +39,7 @@ import java.util.LinkedList;
  * 29.12.2015: PHI 050  fehler bei der Schüler an-/abmeldung entfernt und Sound hinzugefügt
  * 31.12.2015: PHI 020  Schülersuche eingefügt und LineChart überarbeitet/verändert.
  * 01.01.2016: PHI 055  Fehler im Chart und der Schülerspeicherung verbessert.
+ * 02.01.2016: PHI 005  "Hover" implementiert.
  */
 public class Session {
 
@@ -325,7 +327,17 @@ public class Session {
                 if (student.getName().equals(selected.getText())) {
                     XYChart.Series<Number, Number> actual = getSeries();
                     chart.getData().remove(actual);
-                    actual.getData().add(new XYChart.Data<>(_time, _loc));
+
+                    //der Wert sollte angezeigt werden, wenn man mit der Maus hinfährt.
+                    XYChart.Data<Number, Number> data = new XYChart.Data<>(_time, _loc);
+                    data.setNode(
+                            new HoveredThresholdNode(
+                                    0,
+                                    _loc
+                            )
+                    );
+
+                    actual.getData().add(data);
                     chart.getData().add(actual);
                 }
             }
