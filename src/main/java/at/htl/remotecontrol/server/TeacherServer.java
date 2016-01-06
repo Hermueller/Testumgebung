@@ -30,6 +30,7 @@ import java.time.LocalDateTime;
  * 29.11.2015: PHI 060  Umänderung auf TextField-liste für die farbige Studentenausgabe
  * 12.12.2015: PHI 010  Kommentieren von Methoden
  * 22.12.2015: PHI 001  Ändern von "Hinzufügen" von Schülern zu "Einloggen" von Schülern.
+ * 06.01.2016: PHI 025  Fehler gefunden und geändert bei der Anmeldung eines Schülers der schon gespeichert ist.
  */
 public class TeacherServer {
 
@@ -48,7 +49,16 @@ public class TeacherServer {
         System.out.println("waiting for student name ...");
 
         LoginPacket packet = (LoginPacket) in.readObject();
-        Student student = new Student(packet.getUserName(), packet.getDirOfWatch());
+
+        Student student;
+        if (Session.getInstance().findStudentByName(packet.getUserName()) != null) {
+            student = Session.getInstance().findStudentByName(packet.getUserName());
+            if (student.getPathOfWatch() == null) {
+                student.setPathOfWatch(packet.getDirOfWatch());
+            }
+        } else {
+            student = new Student(packet.getUserName(), packet.getDirOfWatch());
+        }
         System.out.println("I got the Package: " + packet.getDirOfWatch());
         Session.getInstance().loginStudent(student);
 

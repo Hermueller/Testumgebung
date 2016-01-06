@@ -5,11 +5,13 @@ import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.entity.LineCounter;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
+import javafx.scene.chart.XYChart;
 
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,13 +21,13 @@ import java.util.concurrent.TimeUnit;
  * 27.10.2015: PHI 025  Student wird nach dem Logout aus der Liste entfernt
  * 31.10.2015: MET 060  Angabe zur Verfügung stellen
  * 11.12.2015: PHI 010  LoC werden immer mit dem Screenshot berechnet
+ * 06.01.2016: PHI 005  Serie bekommt einen Namen zur vermeidung von doppelten Serien
  */
 class SocketWriterThread extends Thread {
 
     private final Student student;
     private final ObjectOutputStream out;
     private final RobotActionQueue jobs;
-    private volatile boolean active;
 
     public SocketWriterThread(Student student,
                               ObjectOutputStream out) {
@@ -33,12 +35,6 @@ class SocketWriterThread extends Thread {
         this.student = student;
         this.out = out;
         this.jobs = new RobotActionQueue();
-        this.active = false;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-        askForScreenShot();
     }
 
     /**
@@ -48,20 +44,6 @@ class SocketWriterThread extends Thread {
      */
     public long getWaitTime() {
         return Session.getInstance().getInterval();
-    }
-
-    /**
-     * if teacher clicks on the screenshot, the click is also on the students-screen.
-     *
-     * @param e Specialises the click.
-     */
-    public void clickEvent(MouseEvent e) {
-        if (active) {
-            jobs.add(new MoveMouse(e));
-            jobs.add(new ClickMouse(e));
-        }
-        active = true;
-        askForScreenShot();
     }
 
     /**
@@ -87,7 +69,13 @@ class SocketWriterThread extends Thread {
         }
         askForScreenShot();
         LineCounter lc = new LineCounter();
-        Session.getInstance().newSeries("LoC");
+        XYChart.Series<Number, Number> seri = new XYChart.Series<>();
+        seri.setName(student.getName() + "/" + LocalTime.now());
+
+        Session.getInstance()
+                .findStudentByName(student.getName())
+                .addSeries(seri);
+
         try {
             while (!isInterrupted()) {
                 try {

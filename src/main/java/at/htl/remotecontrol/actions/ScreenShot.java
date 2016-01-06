@@ -15,17 +15,13 @@ public class ScreenShot implements RobotAction {
 
     // this is used on the student JVM to optimize transfers
     private static final ThreadLocal<byte[]> previous =
-            new ThreadLocal<byte[]>();
+            new ThreadLocal<>();
     private static final float JPG_QUALITY = 1.0f;
 
     private final double scale;
 
     public ScreenShot(double scale) {
         this.scale = scale;
-    }
-
-    public ScreenShot() {
-        this(1.0);
     }
 
     public Object execute(Robot robot) throws IOException {

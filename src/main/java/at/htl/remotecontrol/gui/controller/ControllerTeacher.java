@@ -1,5 +1,6 @@
 package at.htl.remotecontrol.gui.controller;
 
+import at.htl.remotecontrol.actions.HoveredThresholdNode;
 import at.htl.remotecontrol.entity.Interval;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
@@ -48,6 +49,7 @@ import java.util.List;
  * 25.12.2015: PHI 010  teacher wählt *.zip-Datei als Angabe.
  * 31.12.2015: PHI 010  LineChart überarbeitet, sodass bei der Änderung der ListView-Selection sich auch das Diagramm ändert.
  * 01.01.2016: PHI 010  Fehler in der LineChart verbessert.
+ * 06.01.2016: PHI 025  Überarbeitung der Fehler beim Wechsel von der LineChart von einem Schüler zum Anderen.
  */
 public class ControllerTeacher implements Initializable {
 
@@ -107,23 +109,14 @@ public class ControllerTeacher implements Initializable {
 
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             //   CHANGE LINECHART
-            loc.getData().removeAll(Session.getInstance().getSeries());
-            Student actStudent = Session.getInstance().findStudentByName(newValue.getText());
-            int x = actStudent.getLocs().size();
-            System.out.println(Arrays.toString(actStudent.getLocs().toArray()));
-            List<Long> _locs = actStudent.getLocs();
-            List<Long> _times = actStudent.getTimes();
-            int i = 0;
-            XYChart.Series<Number, Number> serie = new XYChart.Series<>();
-            serie.setName(newValue.getText());
+            loc.getData().clear();
 
-            while (i < x) {
-                serie.getData().add(new XYChart.Data<>(_times.get(i), _locs.get(i)));
-
-                i++;
+            Student st = Session.getInstance().findStudentByName(newValue.getText());
+            if (st.getSeries() != null) {
+                for (XYChart.Series<Number, Number> actualSeries : st.getSeries()) {
+                    loc.getData().add(actualSeries);
+                }
             }
-
-            loc.getData().add(serie);
 
             //   CHANGE SCREENSHOT
             ivLiveView.setImage(new Image("images/loading.gif"));

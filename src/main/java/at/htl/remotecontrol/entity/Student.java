@@ -1,5 +1,9 @@
 package at.htl.remotecontrol.entity;
 
+import at.htl.remotecontrol.actions.HoveredThresholdNode;
+import javafx.application.Platform;
+import javafx.scene.chart.XYChart;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +13,8 @@ import java.util.List;
  * 26.10.2015: MET 005  Name des Schülers, Verzeichnis der Screenshots
  * 31.10.2015: MET 005  Funktion für Verzeichnis der Screenshots verbessert
  * 31.12.2015: PHI 001  Getter und Setter für locs und times erstellt.
+ * 05.01.2016: PHI 065  "Series" werden nun beim Schüler gespeichert.
+ * 06.01.2016: PHI 015  Fehler beim hinzufügen von "Series" entdeckt und ausgebessert.
  */
 public class Student {
 
@@ -17,6 +23,7 @@ public class Student {
     private String pathOfImages;
     private List<Long> locs = new LinkedList<>();
     private List<Long> times = new LinkedList<>();
+    private List<XYChart.Series<Number, Number>> series = new LinkedList<>();
 
     public Student(String name, String pathOfWatch) {
         this.name = name;
@@ -49,6 +56,34 @@ public class Student {
 
     public List<Long> getTimes() {
         return times;
+    }
+
+    public void addSeries(XYChart.Series<Number, Number> numberSeries) {
+        series.add(numberSeries);
+    }
+
+    public List<XYChart.Series<Number, Number>> getSeries() {
+        return series;
+    }
+
+    public void addValueToLast(Long loc, Long time) {
+        Platform.runLater(() -> {
+            XYChart.Series<Number, Number> actual = series.get(series.size() - 1);
+
+            XYChart.Data<Number, Number> data = new XYChart.Data<>(time, loc);
+            data.setNode(
+                    new HoveredThresholdNode(
+                            0,
+                            loc
+                    )
+            );
+            actual.getData().add(data);
+        });
+    }
+
+    public void setPathOfWatch(String pathOfWatch) {
+        this.pathOfWatch = pathOfWatch;
+        setPathOfImages(Session.getInstance().getPathOfImages());
     }
 
     //endregion

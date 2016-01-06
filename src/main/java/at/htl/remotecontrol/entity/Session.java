@@ -10,7 +10,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -40,6 +39,7 @@ import java.util.LinkedList;
  * 31.12.2015: PHI 020  Schülersuche eingefügt und LineChart überarbeitet/verändert.
  * 01.01.2016: PHI 055  Fehler im Chart und der Schülerspeicherung verbessert.
  * 02.01.2016: PHI 005  "Hover" implementiert.
+ * 06.01.2016: PHI 045  Fehler bei "Series"-Speicherung behoben und geändert. Kommunizierung mit Schüler eingebunden.
  */
 public class Session {
 
@@ -54,7 +54,6 @@ public class Session {
     private String pathOfImages;
     private String pathOfHandOutFiles;
     private String password;
-    private XYChart.Series<Number, Number> series;
     private LocalDateTime starting = null;
     private LineChart<Number, Number> chart;
     private String[] endings;
@@ -221,20 +220,38 @@ public class Session {
      *
      * @param name Specialises the name of the new line.
      */
-    public void newSeries(String name) {
-        series = new XYChart.Series<>();
-        series.setName(name);
+    /*public void newSeries(String name) {
+        XYChart.Series<Number, Number> serie = new XYChart.Series<>();
+        serie.setName(name);
+        series.add(serie);
 
-        Platform.runLater(() -> chart.getData().add(series));
+        Platform.runLater(() -> chart.getData().add(serie));
+    }*/
+
+    /**
+     *
+     * @return the last series from the chart.
+     */
+    public XYChart.Series<Number, Number> getLastSeries(Student st) {
+        /*if (chart.getData().size() > 0) {
+            return chart.getData().get(chart.getData().size() - 1);
+        }
+        XYChart.Series<Number, Number> newSeries = new XYChart.Series<>();
+        newSeries.setName(name);
+        return newSeries;*/
+        if (st.getSeries().size() > 0) {
+            return st.getSeries().get(st.getSeries().size() - 1);
+        }
+        return null;
     }
 
     /**
      *
-     * @return the actual series from the chart.
+     * @return  the series from the students. (all of them).
      */
-    public XYChart.Series<Number, Number> getSeries() {
-        return chart.getData().get(0);
-    }
+    /*public List<XYChart.Series<Number, Number>> getSeries() {
+        return series;
+    }*/
 
     //endregion
 
@@ -317,6 +334,7 @@ public class Session {
 
         Student toModify = findStudentByName(student.getName());
         toModify.addLoC_Time(_loc, _time);
+        toModify.addValueToLast(_loc, _time);
 
         //punkt in diagramm anzeigen
         Platform.runLater(() -> {
@@ -325,7 +343,7 @@ public class Session {
             if (selected != null) {
                 //ist es vom ausgewählten Studenten?
                 if (student.getName().equals(selected.getText())) {
-                    XYChart.Series<Number, Number> actual = getSeries();
+                    XYChart.Series<Number, Number> actual = getLastSeries(student);
                     chart.getData().remove(actual);
 
                     //der Wert sollte angezeigt werden, wenn man mit der Maus hinfährt.
@@ -336,8 +354,8 @@ public class Session {
                                     _loc
                             )
                     );
-
                     actual.getData().add(data);
+
                     chart.getData().add(actual);
                 }
             }
