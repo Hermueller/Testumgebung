@@ -58,6 +58,7 @@ public class TeacherServer {
             }
         } else {
             student = new Student(packet.getUserName(), packet.getDirOfWatch());
+            Session.getInstance().addStudent(student);
         }
         System.out.println("I got the Package: " + packet.getDirOfWatch());
         Session.getInstance().loginStudent(student);
