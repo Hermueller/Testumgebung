@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @timeline Text
  * 31.10.2015: MET 005  Klasse erstellt
  */
-public class HandOutPacket implements Serializable {
+public class HandOutPackage implements Serializable {
 
     private File file;
     private LocalDateTime endTime;
@@ -24,7 +24,7 @@ public class HandOutPacket implements Serializable {
      * @param endTime Specialises the time the test ends.
      * @param comment Specialises a comment from the teacher to the student for the test.
      */
-    public HandOutPacket(File file, LocalDateTime endTime, String comment) {
+    public HandOutPackage(File file, LocalDateTime endTime, String comment) {
         this.file = file;
         this.endTime = endTime;
         this.comment = comment;

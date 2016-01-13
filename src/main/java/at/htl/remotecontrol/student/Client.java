@@ -5,7 +5,7 @@ import at.htl.remotecontrol.actions.RobotActionQueue;
 import at.htl.remotecontrol.entity.Directory;
 import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.entity.Session;
-import at.htl.remotecontrol.packets.LoginPacket;
+import at.htl.remotecontrol.packets.LoginPackage;
 
 import java.awt.*;
 import java.io.*;
@@ -26,19 +26,19 @@ public class Client {
     private RobotActionQueue jobs;
     private final ProcessorThread processor;
     private final ReaderThread reader;
-    private final LoginPacket loginPacket;
+    private final LoginPackage loginPackage;
 
-    public Client(LoginPacket loginPacket)
+    public Client(LoginPackage loginPackage)
             throws IOException, AWTException {
-        this.loginPacket = loginPacket;
-        Socket socket = new Socket(loginPacket.getServerIP(), loginPacket.getPort());
-        Directory.create(loginPacket.getDirOfWatch());
+        this.loginPackage = loginPackage;
+        Socket socket = new Socket(loginPackage.getServerIP(), loginPackage.getPort());
+        Directory.create(loginPackage.getDirOfWatch());
         robot = new Robot();
         jobs = new RobotActionQueue();
         in = new ObjectInputStream(
                 new BufferedInputStream(socket.getInputStream()));
         out = new ObjectOutputStream(socket.getOutputStream());
-        out.writeObject(loginPacket);
+        out.writeObject(loginPackage);
         out.flush();
         processor = new ProcessorThread();
         reader = new ReaderThread();
@@ -48,7 +48,7 @@ public class Client {
      * gets the file from the teacher for the test and saves it
      */
     public void loadFiles() {
-        FileStream.receive(in, loginPacket.getDirOfWatch() + "/angabe.zip");
+        FileStream.receive(in, loginPackage.getDirOfWatch() + "/angabe.zip");
         processor.start();
         reader.start();
     }
@@ -63,12 +63,12 @@ public class Client {
         //Directory.delete(loginPacket.getDirOfWatch() + "/" + loginPacket.getUserName());//loginPacket.getDirOfWatch() + "/angabe.zip");
         if (processor.isInterrupted() && reader.isInterrupted()) {
             String zipFileName = "handInFile.zip";
-            System.out.println(loginPacket.getDirOfWatch());
-            Directory.delete(loginPacket.getDirOfWatch() + "/angabe.zip");
-            Directory.delete(loginPacket.getDirOfWatch() + "handInFile.zip");
-            Directory.zip(loginPacket.getDirOfWatch(), zipFileName);
+            System.out.println(loginPackage.getDirOfWatch());
+            Directory.delete(loginPackage.getDirOfWatch() + "/angabe.zip");
+            Directory.delete(loginPackage.getDirOfWatch() + "handInFile.zip");
+            Directory.zip(loginPackage.getDirOfWatch(), zipFileName);
             FileStream.send(out, new File(String.format("%s/%s",
-                    loginPacket.getDirOfWatch(), zipFileName)));
+                    loginPackage.getDirOfWatch(), zipFileName)));
             return true;
         }
         return false;
@@ -152,7 +152,7 @@ public class Client {
      * student logs out -> stop all streams from this student.
      */
     public void stop() {
-        Session.getInstance().removeStudent(loginPacket.getUserName());
+        Session.getInstance().removeStudent(loginPackage.getUserName());
         processor.interrupt();
         reader.interrupt();
         boolean check = handIn();

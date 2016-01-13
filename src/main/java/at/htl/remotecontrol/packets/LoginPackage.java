@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 31.10.2015: MET 005  Klasse erstellt
  * 19.11.2015: PON 002  Port hinzugefügt
  */
-public class LoginPacket implements Serializable {
+public class LoginPackage implements Serializable {
 
     private String userName;
     private String password;
@@ -25,11 +25,11 @@ public class LoginPacket implements Serializable {
      * @param dirOfWatch Specialises the directory where the student will work.
      * @param port       Specialises the port where the two will communicate.
      */
-    public LoginPacket(String userName,
-                       String password,
-                       String serverIP,
-                       String dirOfWatch,
-                       int port) {
+    public LoginPackage(String userName,
+                        String password,
+                        String serverIP,
+                        String dirOfWatch,
+                        int port) {
         this.userName = userName;
         this.password = password;
         this.serverIP = serverIP;

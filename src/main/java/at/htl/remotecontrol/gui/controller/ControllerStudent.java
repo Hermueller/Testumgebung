@@ -1,7 +1,7 @@
 package at.htl.remotecontrol.gui.controller;
 
 import at.htl.remotecontrol.entity.Session;
-import at.htl.remotecontrol.packets.LoginPacket;
+import at.htl.remotecontrol.packets.LoginPackage;
 import at.htl.remotecontrol.student.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -112,7 +112,7 @@ public class ControllerStudent implements Initializable {
             if (!loggedIn && ready) {
                 btnLogin.setDisable(true);
                 btnLogOut.setDisable(false);
-                client = new Client(new LoginPacket(
+                client = new Client(new LoginPackage(
                         tfUsername.getText(),
                         pfPassword.getText(),
                         tfTeacherIP.getText(),

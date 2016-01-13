@@ -4,7 +4,7 @@ import at.htl.remotecontrol.entity.Image;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
-import at.htl.remotecontrol.packets.LoginPacket;
+import at.htl.remotecontrol.packets.LoginPackage;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 
@@ -48,7 +48,7 @@ public class TeacherServer {
                         socket.getInputStream()));
         System.out.println("waiting for student name ...");
 
-        LoginPacket packet = (LoginPacket) in.readObject();
+        LoginPackage packet = (LoginPackage) in.readObject();
 
         Student student;
         if (Session.getInstance().findStudentByName(packet.getUserName()) != null) {

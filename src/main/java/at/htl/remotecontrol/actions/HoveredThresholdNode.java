@@ -16,7 +16,7 @@ public class HoveredThresholdNode extends StackPane {
      * @param priorValue    value before the actual value
      * @param value         actual value (to add)
      */
-    public HoveredThresholdNode(int priorValue, Long value) {
+    public HoveredThresholdNode(Long priorValue, Long value) {
         setPrefSize(15, 15);
 
         final Label label = createDataThresholdLabel(priorValue, value);
@@ -39,17 +39,17 @@ public class HoveredThresholdNode extends StackPane {
      * @param value         actual value (to add)
      * @return      the colored label (with value)
      */
-    private Label createDataThresholdLabel(int priorValue, Long value) {
+    private Label createDataThresholdLabel(Long priorValue, Long value) {
         final Label label = new Label(value + "");
         label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
         label.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
 
-        if (priorValue == 0) {
-            label.setTextFill(Color.DARKGRAY);
+        if (value < priorValue) {
+            label.setTextFill(Color.FIREBRICK);
         } else if (value > priorValue) {
             label.setTextFill(Color.FORESTGREEN);
         } else {
-            label.setTextFill(Color.FIREBRICK);
+            label.setTextFill(Color.DARKGRAY);
         }
 
         label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);

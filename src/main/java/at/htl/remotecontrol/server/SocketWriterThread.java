@@ -2,13 +2,10 @@ package at.htl.remotecontrol.server;
 
 import at.htl.remotecontrol.actions.*;
 import at.htl.remotecontrol.entity.FileStream;
-import at.htl.remotecontrol.entity.LineCounter;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 import javafx.scene.chart.XYChart;
 
-import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.time.LocalTime;
@@ -22,6 +19,9 @@ import java.util.concurrent.TimeUnit;
  * 31.10.2015: MET 060  Angabe zur Verfügung stellen
  * 11.12.2015: PHI 010  LoC werden immer mit dem Screenshot berechnet
  * 06.01.2016: PHI 005  Serie bekommt einen Namen zur vermeidung von doppelten Serien
+ * 12.01.2016: PHI 055  Writer fragt jetzt auch nach dem Lines of Code.
+ * 13.01.2016: PHI 045  Schweren Fehler behoben bei der Abfrage nach LinesOfCode & Screenshot (PipeÜberlastung)
+ * 13.01.2016: PHI 015  Einführen des TransferPackets.
  */
 class SocketWriterThread extends Thread {
 
@@ -48,10 +48,15 @@ class SocketWriterThread extends Thread {
 
     /**
      * adds a new job for the robot.
+     * The Screenshot from the Student.
+     * Counts the Lines of Code from the Student.
+     *
+     * @param student The student, of the screenshot and LinesOfCode
      */
-    private void askForScreenShot() {
-        jobs.add(new ScreenShot(1.0));
+    private void startLittleHarvester(Student student) {
+        jobs.add(new LittleHarvester(student.getName(), student.getPathOfWatch()));
     }
+
 
     /**
      * sends the test-file to the students.
@@ -67,8 +72,7 @@ class SocketWriterThread extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        askForScreenShot();
-        LineCounter lc = new LineCounter();
+        startLittleHarvester(student);
         XYChart.Series<Number, Number> seri = new XYChart.Series<>();
         seri.setName(student.getName() + "/" + LocalTime.now());
 
@@ -82,11 +86,7 @@ class SocketWriterThread extends Thread {
                     RobotAction action = jobs.poll(
                             getWaitTime(), TimeUnit.MILLISECONDS);
                     if (action == null) {
-                        // we had a timeout, so do a screen capture
-                        askForScreenShot();
-                        //also we want to count the lines in the code
-                        Long _loc = lc.countLinesInFilesFromFolder(new File(student.getPathOfWatch()));
-                        Session.getInstance().addValue(_loc, student);
+                        startLittleHarvester(student);
                     } else {
                         out.writeObject(action);
                         out.reset();

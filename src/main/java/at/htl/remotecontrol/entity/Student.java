@@ -66,14 +66,14 @@ public class Student {
         return series;
     }
 
-    public void addValueToLast(Long loc, Long time) {
+    public void addValueToLast(Long loc, Long time, Long priorValue) {
         Platform.runLater(() -> {
             XYChart.Series<Number, Number> actual = series.get(series.size() - 1);
 
             XYChart.Data<Number, Number> data = new XYChart.Data<>(time, loc);
             data.setNode(
                     new HoveredThresholdNode(
-                            0,
+                            priorValue,
                             loc
                     )
             );

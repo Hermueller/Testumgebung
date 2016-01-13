@@ -1,7 +1,7 @@
 package at.htl.remotecontrol.entity;
 
 import at.htl.remotecontrol.actions.HoveredThresholdNode;
-import at.htl.remotecontrol.packets.HandOutPacket;
+import at.htl.remotecontrol.packets.HandOutPackage;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +61,7 @@ public class Session {
 
     protected Session() {
         students = FXCollections.observableList(new LinkedList<>());
+        endings = ("*.java; *.fxml").split(";");
     }
 
     public static Session getInstance() {
@@ -110,10 +111,10 @@ public class Session {
     /**
      * @return the package of information for the student.
      */
-    public HandOutPacket getHandOutPacket() {
+    public HandOutPackage getHandOutPacket() {
         // Prüfung, ob nötige Daten vorhanden fehlt
         // funktioniert noch nicht
-        return new HandOutPacket(handOutFile, endTime, "Viel Glück!");
+        return new HandOutPackage(handOutFile, endTime, "Viel Glück!");
     }
 
     /**
@@ -311,7 +312,7 @@ public class Session {
      * @param _loc    Specialises the number of lines in the code.
      * @param student Specialises the student who owes the file of code.
      */
-    public void addValue(Long _loc, Student student) {
+    public void addValue(Long _loc, Student student, Long priorValue) {
         //startzeit festlegen
         if (starting == null) {
             starting = LocalDateTime.now();
@@ -334,7 +335,7 @@ public class Session {
 
         Student toModify = findStudentByName(student.getName());
         toModify.addLoC_Time(_loc, _time);
-        toModify.addValueToLast(_loc, _time);
+        toModify.addValueToLast(_loc, _time, priorValue);
 
         //punkt in diagramm anzeigen
         Platform.runLater(() -> {
@@ -350,7 +351,7 @@ public class Session {
                     XYChart.Data<Number, Number> data = new XYChart.Data<>(_time, _loc);
                     data.setNode(
                             new HoveredThresholdNode(
-                                    0,
+                                    priorValue,
                                     _loc
                             )
                     );

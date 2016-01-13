@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * @timeline Text
  * 31.10.2015: MET 005  Klasse erstellt
  */
-public class HandInPacket implements Serializable {
+public class HandInPackage implements Serializable {
 
     private File file;
     private String comment;
@@ -20,7 +20,7 @@ public class HandInPacket implements Serializable {
      * @param file    Specialises the file of test.
      * @param comment Specialises a comment from the student.
      */
-    public HandInPacket(File file, String comment) {
+    public HandInPackage(File file, String comment) {
         this.file = file;
         this.comment = comment;
         setFinishedTime(LocalDateTime.now());

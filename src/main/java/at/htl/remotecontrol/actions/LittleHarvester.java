@@ -1,5 +1,8 @@
 package at.htl.remotecontrol.actions;
 
+import at.htl.remotecontrol.entity.LineCounter;
+import at.htl.remotecontrol.packets.HarvestedPackage;
+
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -8,35 +11,40 @@ import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-
-public class ScreenShot implements RobotAction {
+/**
+ * Liest die Zeilen of Code und erstellt Screenshots bei dem PC
+ * des Students und sendet diese verpackt in einem Package zurück.
+ *
+ * @timeline Text
+ * 13.01.2016: PHI 055  Es werden neben Screenshots auch die Lines of Code eingelesen und versendet.
+ */
+public class LittleHarvester implements RobotAction {
 
     // this is used on the student JVM to optimize transfers
     private static final ThreadLocal<byte[]> previous =
             new ThreadLocal<>();
     private static final float JPG_QUALITY = 1.0f;
 
-    private final double scale;
+    private final double scale = 1.0;
 
-    public ScreenShot(double scale) {
-        this.scale = scale;
+    private final String studentName;
+    private final String studentPath;
+
+    public LittleHarvester(String studentName, String studentPath) {
+        this.studentName = studentName;
+        this.studentPath = studentPath;
     }
 
     public Object execute(Robot robot) throws IOException {
-        //long time = System.currentTimeMillis();
         Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
         Rectangle shotArea = new Rectangle(
                 defaultToolkit.getScreenSize());
         BufferedImage image = robot.createScreenCapture(shotArea);
-        if (scale != 1.0) {
-            image = getScaledInstance(image);
-        }
 
         byte[] bytes = convertToJPG(image);
-        //time = System.currentTimeMillis() - time;
-        //System.out.println("time = " + time);
         // only send it if the picture has actually changed
         byte[] prev = previous.get();
         if (prev != null && Arrays.equals(bytes, prev)) {
@@ -44,7 +52,10 @@ public class ScreenShot implements RobotAction {
         }
         previous.set(bytes);
 
-        return bytes;
+        LineCounter lc = new LineCounter();
+        long loc = lc.countLinesInFilesFromFolder(new File(studentPath));
+
+        return new HarvestedPackage(bytes, loc);
     }
 
     private byte[] convertToJPG(BufferedImage img)
@@ -63,35 +74,20 @@ public class ScreenShot implements RobotAction {
         return bout.toByteArray();
     }
 
-    private BufferedImage getScaledInstance(BufferedImage src) {
-        int width = (int) (src.getWidth() * scale);
-        int height = (int) (src.getHeight() * scale);
-
-        Image scaled = src.getScaledInstance(width, height,
-                BufferedImage.SCALE_AREA_AVERAGING);
-        BufferedImage result = new BufferedImage(
-                width, height, BufferedImage.TYPE_INT_RGB
-        );
-        result.createGraphics().drawImage(
-                scaled, 0, 0, width, height, null);
-
-        return result;
-    }
-
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ScreenShot that = (ScreenShot) o;
+        LittleHarvester that = (LittleHarvester) o;
         return Double.compare(that.scale, scale) == 0;
     }
 
     public int hashCode() {
-        long temp = scale != +0.0d ? Double.doubleToLongBits(scale) : 0L;
+        long temp = Double.doubleToLongBits(scale);
         return (int) (temp ^ (temp >>> 32));
     }
 
     public String toString() {
-        return "ScreenShot(" + scale + ")";
+        return "I'm harvesting " + studentName + ".";
     }
 
 }
