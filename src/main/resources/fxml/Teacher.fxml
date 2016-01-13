@@ -163,21 +163,31 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <ImageView fitHeight="114.0" fitWidth="537.0" layoutX="24.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="114.0" fitWidth="537.0" layoutX="88.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../images/inArbeit.gif" />
                                                     </image>
                                                 </ImageView>
-                                                <ImageView fitHeight="331.0" fitWidth="243.0" layoutX="265.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="331.0" fitWidth="243.0" layoutX="433.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../images/falseWay.gif" />
                                                     </image>
                                                 </ImageView>
-                                                <ImageView fitHeight="251.0" fitWidth="274.0" layoutX="34.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="251.0" fitWidth="274.0" layoutX="14.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../images/planen.gif" />
                                                     </image>
                                                 </ImageView>
+                                    <HBox layoutX="41.0" layoutY="39.0" prefHeight="31.0" prefWidth="612.0">
+                                       <children>
+                                          <Label prefHeight="31.0" prefWidth="199.0" text="Meine IP-Addresse:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="tfMyIP_Address" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" />
+                                       </children>
+                                    </HBox>
                                             </children>
                                         </AnchorPane>
                                     </content>

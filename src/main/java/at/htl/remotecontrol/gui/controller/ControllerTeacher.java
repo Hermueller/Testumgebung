@@ -30,7 +30,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -54,7 +56,7 @@ import java.util.List;
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS, tfPort, tfFileendings; //tfTimeSS -> Time-interval between screenshots
+    public TextField tfTimeSS, tfPort, tfFileendings, tfMyIP_Address; //tfTimeSS -> Time-interval between screenshots
 
     @FXML
     public PasswordField tbPassword;
@@ -121,6 +123,8 @@ public class ControllerTeacher implements Initializable {
             //   CHANGE SCREENSHOT
             ivLiveView.setImage(new Image("images/loading.gif"));
         });
+
+        showIP_Address();
     }
 
     /**
@@ -328,5 +332,15 @@ public class ControllerTeacher implements Initializable {
                 Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
             }
         }
+    }
+
+    public void showIP_Address() {
+        String ip = "";
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        tfMyIP_Address.setText(ip);
     }
 }
