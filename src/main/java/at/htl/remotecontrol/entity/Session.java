@@ -1,6 +1,6 @@
 package at.htl.remotecontrol.entity;
 
-import at.htl.remotecontrol.actions.HoveredThresholdNode;
+import at.htl.remotecontrol.actions.TimeShower;
 import at.htl.remotecontrol.packets.HandOutPackage;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,6 +13,7 @@ import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.LinkedList;
@@ -350,9 +351,13 @@ public class Session {
                     //der Wert sollte angezeigt werden, wenn man mit der Maus hinfährt.
                     XYChart.Data<Number, Number> data = new XYChart.Data<>(_time, _loc);
                     data.setNode(
-                            new HoveredThresholdNode(
+                            new TimeShower(
                                     priorValue,
-                                    _loc
+                                    _loc,
+                                    LocalDateTime.now()
+                                            .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                                            .split("T")[1]
+                                            .split("\\.")[0]
                             )
                     );
                     actual.getData().add(data);

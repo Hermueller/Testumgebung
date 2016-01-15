@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Teacher:jar">
-    <output-path>$USER_HOME$/Desktop</output-path>
-    <root id="archive" name="RemoteControl.jar">
+  <artifact type="jar" name="Shinigami">
+    <output-path>$PROJECT_DIR$/../..</output-path>
+    <root id="archive" name="Shinigami.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/gui/main/teacher/META-INF/MANIFEST.MF" />
       </element>
