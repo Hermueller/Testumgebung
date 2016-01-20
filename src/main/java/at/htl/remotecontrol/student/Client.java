@@ -6,6 +6,7 @@ import at.htl.remotecontrol.entity.Directory;
 import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.packets.LoginPackage;
+import javafx.scene.control.ToggleButton;
 
 import java.awt.*;
 import java.io.*;
@@ -27,6 +28,7 @@ public class Client {
     private final ProcessorThread processor;
     private final ReaderThread reader;
     private final LoginPackage loginPackage;
+    private ToggleButton isTestFinished;
 
     public Client(LoginPackage loginPackage)
             throws IOException, AWTException {
@@ -44,6 +46,14 @@ public class Client {
         reader = new ReaderThread();
     }
 
+    public void setIsTestFinished(ToggleButton isTestFinished) {
+        this.isTestFinished = isTestFinished;
+    }
+
+    public ObjectOutputStream getOut() {
+        return out;
+    }
+
     /**
      * gets the file from the teacher for the test and saves it
      */
@@ -59,13 +69,16 @@ public class Client {
      * @return the success of it
      */
     public boolean handIn() {
-        //System.out.println("DELETED DIRECTORY");
-        //Directory.delete(loginPacket.getDirOfWatch() + "/" + loginPacket.getUserName());//loginPacket.getDirOfWatch() + "/angabe.zip");
         if (processor.isInterrupted() && reader.isInterrupted()) {
+            /*try {
+                out.writeBoolean(true);
+            } catch (IOException e) {
+                System.out.println("sending boolean failed!");
+            }*/
             String zipFileName = "handInFile.zip";
             System.out.println(loginPackage.getDirOfWatch());
-            Directory.delete(loginPackage.getDirOfWatch() + "/angabe.zip");
-            Directory.delete(loginPackage.getDirOfWatch() + "handInFile.zip");
+            Directory.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/angabe.zip");
+            Directory.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/handInFile.zip");
             Directory.zip(loginPackage.getDirOfWatch(), zipFileName);
             FileStream.send(out, new File(String.format("%s/%s",
                     loginPackage.getDirOfWatch(), zipFileName)));
@@ -92,7 +105,12 @@ public class Client {
             } catch (EOFException eof) {
                 System.out.println("Connection closed");
             } catch (Exception ex) {
-                System.out.println("Connection closed abruptly: " + ex);
+                System.out.println("Send Boolean");
+                /*try {
+                    out.writeBoolean(isTestFinished.isSelected());
+                } catch (IOException e) {
+                    System.out.println("Can't send Boolean: " + e);
+                }*/
             }
         }
     }
@@ -152,12 +170,9 @@ public class Client {
      * student logs out -> stop all streams from this student.
      */
     public void stop() {
-        Session.getInstance().removeStudent(loginPackage.getUserName());
+        //Session.getInstance().removeStudent(loginPackage.getUserName());
         processor.interrupt();
         reader.interrupt();
-        boolean check = handIn();
-        System.out.println("ERFOLGREICH ==> " + check);
-        closeOut();
     }
 
 }

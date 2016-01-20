@@ -57,8 +57,17 @@ class SocketReaderThread extends Thread {
 
             } catch (Exception ex) {
                 System.out.println("canceled");
-                FileStream.receive(in, String.format("%s/%s.zip",
-                        Session.getInstance().getPathOfHandInFiles(), student.getName()));
+                /*boolean fetchTest = false;
+                try {
+                    fetchTest = in.readBoolean();
+                } catch (IOException e) {
+                    System.out.println("Next item wasn't a Boolean!");
+                }
+                System.out.println("I GOT " + fetchTest);
+                if (fetchTest) {
+                    FileStream.receive(in, String.format("%s/%s.zip",
+                            Session.getInstance().getPathOfHandInFiles(), student.getName()));
+                }*/
                 server.shutdown();
                 return;
             }

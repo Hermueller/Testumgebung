@@ -50,11 +50,11 @@
                                                                             </font>
                                                                         </Label>
                                                                         <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="5555" />
-                                                      <ImageView fx:id="ivPort" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                         <HBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </HBox.margin>
-                                                      </ImageView>
+                                                                        <ImageView fx:id="ivPort" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                            <HBox.margin>
+                                                                                <Insets left="10.0" />
+                                                                            </HBox.margin>
+                                                                        </ImageView>
                                                                     </children>
                                                                 </HBox>
                                                                 <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
@@ -65,11 +65,11 @@
                                                                             </font>
                                                                         </Label>
                                                                         <Button fx:id="btn" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="26.0" prefWidth="234.0" text="Angabe" />
-                                                      <ImageView fx:id="ivAngabe" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                         <HBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </HBox.margin>
-                                                      </ImageView>
+                                                                          <ImageView fx:id="ivAngabe" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                             <HBox.margin>
+                                                                                <Insets left="10.0" />
+                                                                             </HBox.margin>
+                                                                          </ImageView>
                                                                     </children>
                                                                 </HBox>
                                                                 <HBox layoutX="25.0" layoutY="57.0" spacing="20.0">
@@ -80,11 +80,11 @@
                                                                             </font>
                                                                         </Label>
                                                                         <Button alignment="CENTER" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="26.0" prefWidth="234.0" text="Choose your Directory" textAlignment="CENTER" />
-                                                      <ImageView fx:id="ivPath" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                         <HBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </HBox.margin>
-                                                      </ImageView>
+                                                                      <ImageView fx:id="ivPath" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                         <HBox.margin>
+                                                                            <Insets left="10.0" />
+                                                                         </HBox.margin>
+                                                                      </ImageView>
                                                                     </children>
                                                                 </HBox>
                                                                 <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="528.0" spacing="20.0">
@@ -105,12 +105,12 @@
                                                                             </font>
                                                                         </Label>
                                                                         <TextField fx:id="tfTimeSS" disable="true" editable="false" prefHeight="26.0" prefWidth="234.0" />
-                                                      <Label prefHeight="26.0" prefWidth="40.0" text="Sek.">
-                                                         <font>
-                                                            <Font size="17.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <ImageView fx:id="ivTime" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                                                                          <Label prefHeight="26.0" prefWidth="40.0" text="Sek.">
+                                                                             <font>
+                                                                                <Font size="17.0" />
+                                                                             </font>
+                                                                          </Label>
+                                                                          <ImageView fx:id="ivTime" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                                                     </children>
                                                                 </HBox>
                                                                 <HBox prefHeight="37.0" prefWidth="456.0" spacing="20.0">
@@ -121,11 +121,11 @@
                                                                          </font>
                                                                       </Label>
                                                                       <TextField fx:id="tfFileendings" alignment="CENTER" depthTest="DISABLE" prefHeight="26.0" prefWidth="234.0" promptText="*.java; *.fxml; *.cs; *.xhtml; *.html" />
-                                                      <ImageView fx:id="ivEnding" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                         <HBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </HBox.margin>
-                                                      </ImageView>
+                                                                      <ImageView fx:id="ivEnding" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                         <HBox.margin>
+                                                                            <Insets left="10.0" />
+                                                                         </HBox.margin>
+                                                                      </ImageView>
                                                                    </children>
                                                                 </HBox>
                                                                 <Label fx:id="lbAlert" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="718.0">
@@ -133,18 +133,111 @@
                                                                       <Font size="18.0" />
                                                                    </font>
                                                                 </Label>
-                                                <HBox spacing="280.0">
-                                                   <children>
-                                                                    <Button fx:id="btnStart" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
-                                                                    <Button fx:id="btnStop" alignment="CENTER" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
-                                                   </children>
-                                                </HBox>
+                                                                <HBox spacing="280.0">
+                                                                   <children>
+                                                                        <Button fx:id="btnStart" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
+                                                                        <Button fx:id="btnStop" alignment="CENTER" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                                   </children>
+                                                                </HBox>
                                                             </children>
                                                         </VBox>
                                                     </children>
                                                 </AnchorPane>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="121.0" text="Simple Mode" />
-                                    <Label alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
+                                                <Button fx:id="btnChange" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="121.0" text="Simple Mode" />
+                                                <Label alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
+                                    <AnchorPane fx:id="apSimple" layoutX="84.0" layoutY="121.0" prefHeight="466.0" prefWidth="808.0" visible="false">
+                                       <children>
+                                          <VBox layoutX="32.0" layoutY="18.0" prefHeight="437.0" prefWidth="723.0" spacing="20.0">
+                                             <children>
+                                                <HBox prefHeight="27.0" prefWidth="262.0" spacing="20.0">
+                                                   <children>
+                                                      <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="tfPort1" prefHeight="31.0" prefWidth="234.0" promptText="5555" />
+                                                      <ImageView fx:id="ivPort1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </ImageView>
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                   <children>
+                                                      <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Angabe:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button fx:id="btn1" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="26.0" prefWidth="234.0" text="Angabe" />
+                                                      <ImageView fx:id="ivAngabe1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </ImageView>
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="25.0" layoutY="57.0" spacing="20.0">
+                                                   <children>
+                                                      <Label layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Speicherort (Screenshots, Abgaben):">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button alignment="CENTER" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="26.0" prefWidth="234.0" text="Choose your Directory" textAlignment="CENTER" />
+                                                      <ImageView fx:id="ivPath1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </ImageView>
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="528.0" spacing="20.0">
+                                                   <children>
+                                                      <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Zufall Zeitabstand zwischen Screenshots:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <ToggleButton fx:id="TB_SS_rnd1" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="234.0" selected="true" text="EIN" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox fx:id="btnAngabe1" layoutX="25.0" layoutY="165.0" prefHeight="26.0">
+                                                   <children>
+                                                      <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="434.0" text="Fixe Zeitabstände zwischen Screenshots:">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField fx:id="tfTimeSS1" disable="true" editable="false" prefHeight="26.0" prefWidth="234.0" />
+                                                      <Label prefHeight="26.0" prefWidth="40.0" text="Sek.">
+                                                         <font>
+                                                            <Font size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <ImageView fx:id="ivTime1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets bottom="103.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <Label fx:id="lbAlert1" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="718.0">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <HBox spacing="280.0">
+                                                   <children>
+                                                      <Button fx:id="btnStart1" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
+                                                      <Button fx:id="btnStop1" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
                                             </children>
                                         </AnchorPane>
                                     </content>

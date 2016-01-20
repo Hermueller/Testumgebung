@@ -6,11 +6,13 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -24,6 +26,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
@@ -45,6 +48,7 @@ import java.util.ResourceBundle;
  * 01.01.2016: PHI 010  Fehler in der LineChart verbessert.
  * 06.01.2016: PHI 025  Überarbeitung der Fehler beim Wechsel von der LineChart von einem Schüler zum Anderen.
  * 15.01.2016: PHI 060  Check-Bild bei Error und Erfolg beim Starten des Servers eingefügt.
+ * 20.01.2016: PHI 040  Simple- und Advanced-Mode eingefügt. / Zeit wird nun in Sekunden eingegeben.
  */
 public class ControllerTeacher implements Initializable {
 
@@ -52,7 +56,7 @@ public class ControllerTeacher implements Initializable {
     public TextField tfTimeSS, tfPort, tfFileendings, tfMyIP_Address; //tfTimeSS -> Time-interval between screenshots
 
     @FXML
-    public ListView<TextField> lvStudents;
+    public ListView<Button> lvStudents;
 
     @FXML
     public Label lbAlert;
@@ -64,10 +68,10 @@ public class ControllerTeacher implements Initializable {
     public ImageView ivLiveView;    //shows the screenshot
 
     @FXML
-    public Button btnStart, btnStop, btn;
+    public Button btnStart, btnStop, btn, btnChange;
 
     @FXML
-    public AnchorPane apStudentDetail, apOption, spOption;
+    public AnchorPane apStudentDetail, apOption, apSimple, spOption;
 
     @FXML
     public LineChart<Number, Number> loc;
@@ -92,6 +96,8 @@ public class ControllerTeacher implements Initializable {
      * @param resources
      */
     public void initialize(URL location, ResourceBundle resources) {
+        //initializeSimple();
+
         lvStudents.setItems(Session.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
@@ -105,6 +111,16 @@ public class ControllerTeacher implements Initializable {
         btnStop.setDisable(true);
 
         Session.getInstance().setStartTime(LocalDateTime.now());
+    }
+
+    public void changeMode(ActionEvent event) {
+        apOption.setVisible(!apOption.isVisible());
+        apSimple.setVisible(!apSimple.isVisible());
+        if (apOption.isVisible()) {
+            btnChange.setText("Simple Mode");
+        } else {
+            btnChange.setText("Advanced Mode");
+        }
     }
 
     /**
@@ -155,6 +171,12 @@ public class ControllerTeacher implements Initializable {
         });
         spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
+        });
+        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
+        });
+        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setTopAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefHeight() / 2);
         });
         ivLiveView.setPreserveRatio(true);
         ivLiveView.setSmooth(true);

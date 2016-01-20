@@ -61,6 +61,7 @@ public class TeacherGui extends Application {
     public void askCancel(Stage stage) {
         //create Window
         Stage stage1 = new Stage();
+        stage1.setResizable(false);
         AnchorPane root1 = new AnchorPane();
         Scene scene1 = new Scene(root1, 431, 279);
 

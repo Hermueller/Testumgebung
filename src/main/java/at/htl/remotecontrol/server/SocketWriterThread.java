@@ -84,7 +84,7 @@ class SocketWriterThread extends Thread {
             while (!isInterrupted()) {
                 try {
                     RobotAction action = jobs.poll(
-                            getWaitTime(), TimeUnit.MILLISECONDS);
+                            getWaitTime(), TimeUnit.SECONDS);
                     if (action == null) {
                         startLittleHarvester(student);
                     } else {
