@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
+    <children>
+        <SplitPane fx:id="splitter" dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane maxWidth="200.0" minWidth="200.0" prefHeight="516.0" prefWidth="200.0">
+                    <children>
+                        <ListView fx:id="lvStudents" layoutX="-1.0" layoutY="80.0" prefHeight="398.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <TabPane prefHeight="398.0" prefWidth="556.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <tabs>
+                                <Tab text="Optionen">
+                                    <content>
+                                        <AnchorPane fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
+                                            <children>
+                                                <AnchorPane fx:id="apOption" prefHeight="466.0" prefWidth="631.0" AnchorPane.leftAnchor="0.0">
+                                                    <children>
+                                                        <VBox layoutX="32.0" layoutY="18.0" prefHeight="320.0" prefWidth="556.0" spacing="20.0">
+                                                            <children>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                   <children>
+                                                                      <Label prefHeight="27.0" prefWidth="367.0" text="Schülerliste">
+                                                                         <font>
+                                                                            <Font size="18.0" />
+                                                                         </font>
+                                                                      </Label>
+                                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#importPupilList" prefHeight="27.0" prefWidth="196.0" text="Import" />
+                                                                   </children>
+                                                                </HBox>
+                                                                <HBox prefHeight="27.0" prefWidth="262.0">
+                                                                    <children>
+                                                                        <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="Port" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox layoutX="25.0" layoutY="119.0">
+                                                                    <children>
+                                                                        <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="413.0" text="Angabe:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Button fx:id="btn" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="31.0" prefWidth="234.0" text="Angabe" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox layoutX="25.0" layoutY="57.0">
+                                                                    <children>
+                                                                        <Label layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="416.0" text="Speicherort (Screenshots, Abgaben):">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Button alignment="CENTER" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="31.0" prefWidth="234.0" text="Choose your Directory" textAlignment="CENTER" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="528.0">
+                                                                    <children>
+                                                                        <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="466.0" text="Zufall Zeitabstand zwischen Screenshots:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="282.0" selected="true" text="EIN" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox fx:id="btnAngabe" layoutX="25.0" layoutY="165.0">
+                                                                    <children>
+                                                                        <Label layoutX="25.0" layoutY="169.0" prefHeight="30.0" prefWidth="417.0" text="Fixe Zeitabstände zwischen Screenshots:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <TextField fx:id="tfTimeSS" disable="true" editable="false" layoutX="247.0" layoutY="165.0" maxHeight="26.0" prefHeight="26.0" prefWidth="234.0">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </TextField>
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox prefHeight="37.0" prefWidth="456.0">
+                                                                    <children>
+                                                                        <Label prefHeight="26.0" prefWidth="417.0" text="Passwort:">
+                                                                            <font>
+                                                                                <Font size="18.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <PasswordField fx:id="tbPassword" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" promptText="Passwort" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox prefHeight="37.0" prefWidth="456.0">
+                                                                   <children>
+                                                                      <Label prefHeight="26.0" prefWidth="417.0" text="File-endings of files (lines of Code):">
+                                                                         <font>
+                                                                            <Font size="18.0" />
+                                                                         </font>
+                                                                      </Label>
+                                                                      <TextField fx:id="tfFileendings" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" promptText="z.B.  *.java; *.fxml; *.cs" />
+                                                                   </children>
+                                                                </HBox>
+                                                                <Label fx:id="lbAlert" prefHeight="29.0" prefWidth="556.0">
+                                                                   <font>
+                                                                      <Font size="18.0" />
+                                                                   </font>
+                                                                </Label>
+                                                <HBox spacing="120.0">
+                                                   <children>
+                                                                    <Button fx:id="btnStart" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
+                                                                    <Button fx:id="btnStop" alignment="CENTER" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                   </children>
+                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                        <CheckBox fx:id="cbAngabe" disable="true" layoutX="2.0" layoutY="115.0" mnemonicParsing="false" />
+                                                        <CheckBox fx:id="cbHome" disable="true" layoutX="2.0" layoutY="160.0" mnemonicParsing="false" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab text="Student-Details">
+                                    <content>
+                                        <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <LineChart fx:id="loc" layoutY="-1.0" legendSide="LEFT" prefHeight="167.0" prefWidth="690.0" title="Lines of Code in Project">
+                                                    <xAxis>
+                                                        <NumberAxis label="Seconds after START" side="BOTTOM" />
+                                                    </xAxis>
+                                                    <yAxis>
+                                                        <NumberAxis label="Lines in File" side="LEFT" />
+                                                    </yAxis>
+                                                </LineChart>
+                                                <ImageView fx:id="ivLiveView" fitHeight="298.0" fitWidth="514.0" layoutX="14.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/loading.gif" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+
+                                <Tab text="Abgabe">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <ImageView fitHeight="114.0" fitWidth="537.0" layoutX="88.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/inArbeit.gif" />
+                                                    </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="331.0" fitWidth="243.0" layoutX="433.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/falseWay.gif" />
+                                                    </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="251.0" fitWidth="274.0" layoutX="14.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/planen.gif" />
+                                                    </image>
+                                                </ImageView>
+                                    <HBox layoutX="41.0" layoutY="39.0" prefHeight="31.0" prefWidth="612.0">
+                                       <children>
+                                          <Label prefHeight="31.0" prefWidth="199.0" text="Meine IP-Addresse:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="tfMyIP_Address" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" />
+                                       </children>
+                                    </HBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

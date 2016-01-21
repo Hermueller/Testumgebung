@@ -3,9 +3,6 @@ package at.htl.remotecontrol;
 import at.htl.remotecontrol.entity.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
@@ -19,12 +16,6 @@ import static org.hamcrest.core.Is.is;
  */
 
 public class StudentTest extends GuiTest{
-
-    TextField tfUsername;
-    TextField tfTeacherIP;
-    PasswordField pfPassword;
-    Button btnLogin;
-    TextField tfPort;
 
     @Override
     protected Parent getRootNode() {
@@ -41,24 +32,20 @@ public class StudentTest extends GuiTest{
 
     @Test
     public void t001_testAttributes() throws IOException, InterruptedException {
-        tfUsername = find("#tfUsername");
-        tfTeacherIP = find("#tfTeacherIP");
-        pfPassword = find("#pfPassword");
-        btnLogin = find("#btnLogin");
-        tfPort = find("#tfPort");
+
+        find("#tfUsername");
+        find("#tfTeacherIP");
+        find("#pfPassword");
+        find("#btnLogin");
+        find("#tfPort");
 
 
 
-        click(tfUsername);
-        type("admin");
-        click(tfTeacherIP);
-        type("localhost");
-        click(tfPort);
-        type("55555");
-        click(pfPassword);
-        type("passme");
-        click(btnLogin);
-
+        click("#tfUsername").type("admin");
+        click("#tfTeacherIP").type("localhost");
+        click("#tfPort").type("5555");
+        click("#pfPassword").type("pwd");
+        click("#btnLogin");
 
         assertThat(Session.getInstance().getPassword(),is("passme"));
 

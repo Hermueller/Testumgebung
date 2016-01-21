@@ -13,7 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -278,6 +279,10 @@ public class Session {
         });
     }
 
+    public List<Student> getStudentsList() {
+        return studentsList;
+    }
+
     /**
      * Notifies the teacher that the student has logged in.
      *
@@ -410,5 +415,23 @@ public class Session {
         return null;
     }
 
+    public void addStudentsFromCsv(File file) throws IOException {
+        BufferedReader bis = new BufferedReader(new InputStreamReader(
+                new FileInputStream(file), Charset.forName("UTF-16")));
+
+        int nameColumn = 0;
+        String line;
+        String[] words = bis.readLine().split(";");
+
+
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals("Familienname")) {
+                nameColumn = i;
+            }
+        }
+        while ((line = bis.readLine()) != null) {
+            Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
+        }
+    }
     //endregion
 }

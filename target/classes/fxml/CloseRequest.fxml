@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+16.12.2015: PHI 045  Erstellen und Anfertigung dieser GUI
+-->
+
+<AnchorPane prefHeight="279.0" prefWidth="431.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <cursor>
+      <Cursor fx:constant="OPEN_HAND" />
+   </cursor>
+   <children>
+      <Label layoutX="21.0" layoutY="23.0" prefHeight="35.0" prefWidth="385.0" text="Haben Sie den Server auch gestoppt?">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="67.0" prefHeight="35.0" prefWidth="385.0" text="Wollen Sie das Fenster wirklich schließen?">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnCancel" layoutX="21.0" layoutY="206.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="138.0" text="Cancel" underline="true">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant color="#8d1919" />
+               </light>
+            </Lighting>
+         </effect>
+      </Button>
+      <Button fx:id="btnJep" defaultButton="true" layoutX="268.0" layoutY="206.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="138.0" text="Jep" underline="true">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant color="#d7e2e4" />
+               </light>
+            </Lighting>
+         </effect>
+      </Button>
+   </children>
+   <effect>
+      <Glow level="1.0" />
+   </effect>
+</AnchorPane>

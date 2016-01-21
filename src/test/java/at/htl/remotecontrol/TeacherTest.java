@@ -3,17 +3,14 @@ package at.htl.remotecontrol;
 import at.htl.remotecontrol.entity.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.is;
 
 /**
  * @timeline Text
@@ -35,26 +32,21 @@ public class TeacherTest extends GuiTest {
     }
 
     @Test
-    public void t001_checkParameters() {
+    public void t001_checkParameters() throws IOException {
 
-        ToggleButton TB_SS_rnd = find("#TB_SS_rnd");
-        TextField tfTimeSS = find("#tfTimeSS");
-        PasswordField tbPassword = find("#tbPassword");
-        Button btnStart = find("#btnStart");
-        Session session = Session.getInstance();
+        click("#tfPort").type("5555");
+        Session.getInstance().addStudentsFromCsv(new File(getClass().getResource("/testFiles/ListeAllerSchueler4AHIF.csv").getPath()));
+        Session.getInstance().setHandOutFile(new File(getClass().getResource("/testFiles/Angabe.zip").getPath()));
+        Session.getInstance().setPath(getClass().getResource("/testFiles/Screenshots").getPath());
+        click("#tbPassword").type("myPassword");
+        click("#tfFileendings").type(".java");
+        click("btnStart");
 
-        session.setPath(System.getProperty("user.home"));
+        assertThat(Session.getInstance().getStudentsList().get(0),is("Herbert"));
 
 
-        click(TB_SS_rnd);
-        click(tfTimeSS);
-        type("3000");
-        click(tbPassword);
-        type("passme");
-        click(btnStart);
 
-        assertThat(session.getInterval(),is(3000L));
-        assertThat(session.getPassword(), is("passme"));
+
     }
 
 }

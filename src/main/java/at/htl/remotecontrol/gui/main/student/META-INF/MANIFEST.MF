@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: at.htl.remotecontrol.gui.main.student.StudentGui
+name: Student
 

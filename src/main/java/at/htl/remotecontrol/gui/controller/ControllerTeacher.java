@@ -6,13 +6,11 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -24,14 +22,12 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.nio.charset.Charset;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
@@ -47,8 +43,6 @@ import java.util.ResourceBundle;
  * 31.12.2015: PHI 010  LineChart überarbeitet, sodass bei der Änderung der ListView-Selection sich auch das Diagramm ändert.
  * 01.01.2016: PHI 010  Fehler in der LineChart verbessert.
  * 06.01.2016: PHI 025  Überarbeitung der Fehler beim Wechsel von der LineChart von einem Schüler zum Anderen.
- * 15.01.2016: PHI 060  Check-Bild bei Error und Erfolg beim Starten des Servers eingefügt.
- * 20.01.2016: PHI 040  Simple- und Advanced-Mode eingefügt. / Zeit wird nun in Sekunden eingegeben.
  */
 public class ControllerTeacher implements Initializable {
 
@@ -56,7 +50,10 @@ public class ControllerTeacher implements Initializable {
     public TextField tfTimeSS, tfPort, tfFileendings, tfMyIP_Address; //tfTimeSS -> Time-interval between screenshots
 
     @FXML
-    public ListView<Button> lvStudents;
+    public PasswordField tbPassword;
+
+    @FXML
+    public ListView<TextField> lvStudents;
 
     @FXML
     public Label lbAlert;
@@ -68,10 +65,10 @@ public class ControllerTeacher implements Initializable {
     public ImageView ivLiveView;    //shows the screenshot
 
     @FXML
-    public Button btnStart, btnStop, btn, btnChange;
+    public Button btnStart, btnStop, btn;
 
     @FXML
-    public AnchorPane apStudentDetail, apOption, apSimple, spOption;
+    public AnchorPane apStudentDetail, apOption, spOption;
 
     @FXML
     public LineChart<Number, Number> loc;
@@ -80,8 +77,7 @@ public class ControllerTeacher implements Initializable {
     public SplitPane splitter;
 
     @FXML
-    public ImageView ivPort, ivAngabe, ivPath, ivTime, ivEnding;
-    //public CheckBox cbAngabe, cbHome;
+    public CheckBox cbAngabe, cbHome;
 
     private Thread server;
     private Threader threader;
@@ -90,44 +86,20 @@ public class ControllerTeacher implements Initializable {
 
     }
 
-    /**
-     * LOAD standard values.
-     * @param location
-     * @param resources
-     */
     public void initialize(URL location, ResourceBundle resources) {
-        //initializeSimple();
-
         lvStudents.setItems(Session.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
 
+        // text in the middle of the textfield
+        lbAlert.setTextAlignment(TextAlignment.CENTER);
+        lbAlert.setAlignment(Pos.CENTER);
+
         setDynamicScreenSize();
         initializeLOC();
-        setOnChangeSize();
-        setFitHeight();
-        showIP_Address();
-        btnStart.setDisable(false);
-        btnStop.setDisable(true);
 
         Session.getInstance().setStartTime(LocalDateTime.now());
-    }
 
-    public void changeMode(ActionEvent event) {
-        apOption.setVisible(!apOption.isVisible());
-        apSimple.setVisible(!apSimple.isVisible());
-        if (apOption.isVisible()) {
-            btnChange.setText("Simple Mode");
-        } else {
-            btnChange.setText("Advanced Mode");
-        }
-    }
-
-    /**
-     * if the SelectedStudent changes, the Chart and ImageView
-     * is cleared.
-     */
-    private void setOnChangeSize() {
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             //   CHANGE LINECHART
             loc.getData().clear();
@@ -142,17 +114,8 @@ public class ControllerTeacher implements Initializable {
             //   CHANGE SCREENSHOT
             ivLiveView.setImage(new Image("images/loading.gif"));
         });
-    }
 
-    /**
-     * sets the size of the images, which are shown after starting/stopping the server
-     */
-    private void setFitHeight() {
-        ivPort.setFitHeight(25);
-        ivAngabe.setFitHeight(25);
-        ivPath.setFitHeight(25);
-        ivTime.setFitHeight(25);
-        ivEnding.setFitHeight(25);
+        showIP_Address();
     }
 
     /**
@@ -171,12 +134,6 @@ public class ControllerTeacher implements Initializable {
         });
         spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
-        });
-        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
-        });
-        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setTopAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefHeight() / 2);
         });
         ivLiveView.setPreserveRatio(true);
         ivLiveView.setSmooth(true);
@@ -201,62 +158,43 @@ public class ControllerTeacher implements Initializable {
     public void startServer(ActionEvent actionEvent) {
         String path = Session.getInstance().getPathOfImages();
         File handOut = Session.getInstance().getHandOutFile();
-        String ssTime = tfTimeSS.getText();
-        boolean isRnd = TB_SS_rnd.isSelected();
-        boolean startable = true;
-
-        if (!ssTime.matches("[0-9]+") && !isRnd) {
-            setMsg(true, "Zeit darf nur Zahlen enthalten!!");
-            setImage(ivTime, false);
-            startable = false;
-        } if (!isRnd && ssTime.length() < 1) {
-            setMsg(true, "Bitte gib einen Zeitwert(in Sek.) an");
-            setImage(ivTime, false);
-            startable = false;
-        } if (path == null) {
-            setMsg(true, "Bitte gib ein Verzeichnis an");
-            setImage(ivPath, false);
-            startable = false;
-        } if (handOut == null) {
-            setMsg(true, "Bitte eine Angabe auswählen!");
-            setImage(ivAngabe, false);
-            startable = false;
-        } if (!tfPort.getText().matches("[0-9]+") && tfPort.getText().length() != 0) {
-            setMsg(true, "ungültiger Port!!");
-            setImage(ivPort, false);
-            startable = false;
-        }
-
-        if (startable) {
-            if (tfPort.getText().matches("[0-9]+")) {
+        if (tfPort.getText().length() > 0) {
+            try {
                 TeacherServer.PORT = Integer.valueOf(tfPort.getText());
+            } catch (Exception exc) {
+                setMsg(true, "ungültiger Port!!");
             }
-            String ending = tfFileendings.getText();
-            if (ending.length() == 0) {
-                ending = "*.java; *.fxml; *.cs; *.xhtml; *.html";
+            if (TeacherServer.PORT > 0) {
+                Session.getInstance().setPassword(tbPassword.getText());
+                //Session.getInstance().setHandOutFile(new File(String.format("%s/angabe.zip",
+                //        Session.getInstance().getPath())));
+                String ssTime = tfTimeSS.getText();
+                boolean isRnd = TB_SS_rnd.isSelected();
+
+                if (path != null && (isRnd || (!isRnd && ssTime.length() > 0)) && handOut != null) {
+                    if (isRnd) {
+                        Session.getInstance().setInterval(new Interval(1000, 30000)); //  wert kleiner, gleich 0 bedeutet Random
+                    } else {
+                        Session.getInstance().setInterval(new Interval(Integer.parseInt(tfTimeSS.getText())));
+                    }
+
+                    String[] endings = tfFileendings.getText().split(";");
+                    Session.getInstance().setEndings(endings);
+
+                    threader = new Threader();
+                    server = new Thread(threader);
+                    server.start();
+                    setMsg(false, "Server lauft");
+                } else if (path == null) {
+                    setMsg(true, "Bitte gib ein Verzeichnis an");
+                } else if (!isRnd && ssTime.length() < 1) {
+                    setMsg(true, "Bitte gib einen Zeitwert(in ms) an");
+                } else if (handOut == null) {
+                    setMsg(true, "Bitte eine Angabe auswählen!");
+                }
             }
-
-            if (isRnd) {
-                Session.getInstance().setInterval(new Interval(1000, 30000));
-            } else {
-                Session.getInstance().setInterval(new Interval(Integer.parseInt(ssTime)));
-            }
-
-            String[] endings = ending.split(";");
-            Session.getInstance().setEndings(endings);
-
-            threader = new Threader();
-            server = new Thread(threader);
-            server.start();
-            btnStart.setDisable(true);
-            btnStop.setDisable(false);
-            setMsg(false, "Server lauft");
-            setImage(ivPort, true);
-            setImage(ivAngabe, true);
-            setImage(ivPath, true);
-            setImage(ivTime, true);
-            setImage(ivEnding, true);
-
+        } else {
+            setMsg(true, "Bitte einen Port angeben");
         }
     }
 
@@ -270,34 +208,14 @@ public class ControllerTeacher implements Initializable {
             if (!server.isInterrupted()) {
                 threader.stop();
                 server.interrupt();
-                setMsg(true, "Server gestoppt");
-                btnStart.setDisable(false);
-                btnStop.setDisable(true);
-                ivAngabe.setImage(null);
-                ivTime.setImage(null);
-                ivEnding.setImage(null);
-                ivPort.setImage(null);
-                ivPath.setImage(null);
+                setMsg(false, "Server gestoppt");
+                cbAngabe.setSelected(false);
+                cbHome.setSelected(false);
             } else {
                 setMsg(true, "Server wurde bereits gestoppt");
             }
         } else {
             setMsg(true, "Server wurde noch nie gestartet");
-        }
-    }
-
-    /**
-     * Shows a green picture if the values were correct from the user
-     * and shows a red picture if the userinput was wrong.
-     * @param element   The Place where the Image will show
-     * @param correct   Was the userinput correct?
-     */
-    private void setImage(ImageView element, boolean correct) {
-        if (correct) {
-            element.setImage(new Image("images/checked.png"));
-        }
-        else {
-            element.setImage(new Image("images/unchecked.png"));
         }
     }
 
@@ -327,10 +245,10 @@ public class ControllerTeacher implements Initializable {
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null) {
             Session.getInstance().setPath(choosedFile.getPath());
-            //cbHome.setSelected(true);
-        } /*else {
+            cbHome.setSelected(true);
+        } else {
             cbHome.setSelected(false);
-        }*/
+        }
     }
 
     /**
@@ -348,10 +266,10 @@ public class ControllerTeacher implements Initializable {
         // Check the user pressed OK, and not Cancel.
         if (yourZip != null) {
             Session.getInstance().setHandOutFile(yourZip);
-            //cbAngabe.setSelected(true);
-        } /*else {
+            cbAngabe.setSelected(true);
+        } else {
             cbAngabe.setSelected(false);
-        }*/
+        }
     }
 
     /**
@@ -388,28 +306,11 @@ public class ControllerTeacher implements Initializable {
         File choosedFile = dc.showOpenDialog(new Stage());
 
         if (choosedFile != null) {
-            BufferedReader bis = new BufferedReader(new InputStreamReader(
-                    new FileInputStream(choosedFile), Charset.forName("UTF-16")));
-
-            int nameColumn = 0;
-            String line;
-            String[] words = bis.readLine().split(";");
-
-
-            for (int i = 0; i < words.length; i++) {
-                if (words[i].equals("Familienname")) {
-                    nameColumn = i;
-                }
-            }
-            while ((line = bis.readLine()) != null) {
-                Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
-            }
+            Session.getInstance().addStudentsFromCsv(choosedFile);
         }
     }
 
-    /**
-     * shows the IP-Address of the Teacher.
-     */
+
     public void showIP_Address() {
         String ip = "";
         try {
