@@ -112,7 +112,6 @@ public class ControllerStudent implements Initializable {
                         tfPath.getText(),
                         port
                 ));
-                client.setIsTestFinished(btnFinished);
                 setMsg(false, "Angemeldet");
                 client.start();
                 loggedIn = true;

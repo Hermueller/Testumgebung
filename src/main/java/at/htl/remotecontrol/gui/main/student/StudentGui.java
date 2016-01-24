@@ -19,7 +19,7 @@ public class StudentGui extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Student.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
+        scene.getStylesheets().add("/styles/TeacherStyle.css");
 
         stage.setTitle("Student");
         stage.setScene(scene);

@@ -21,14 +21,13 @@ import java.net.Socket;
  */
 public class Client {
 
-    private final ObjectOutputStream out;
+    private ObjectOutputStream out;
     private final ObjectInputStream in;
     private final Robot robot;
     private RobotActionQueue jobs;
     private final ProcessorThread processor;
     private final ReaderThread reader;
     private final LoginPackage loginPackage;
-    private ToggleButton isTestFinished;
 
     public Client(LoginPackage loginPackage)
             throws IOException, AWTException {
@@ -39,19 +38,19 @@ public class Client {
         jobs = new RobotActionQueue();
         in = new ObjectInputStream(
                 new BufferedInputStream(socket.getInputStream()));
-        out = new ObjectOutputStream(socket.getOutputStream());
-        out.writeObject(loginPackage);
-        out.flush();
+        setOut(new ObjectOutputStream(socket.getOutputStream()));
+        getOut().writeObject(loginPackage);
+        getOut().flush();
         processor = new ProcessorThread();
         reader = new ReaderThread();
     }
 
-    public void setIsTestFinished(ToggleButton isTestFinished) {
-        this.isTestFinished = isTestFinished;
-    }
-
     public ObjectOutputStream getOut() {
         return out;
+    }
+
+    public void setOut(ObjectOutputStream out) {
+        this.out = out;
     }
 
     /**
@@ -70,17 +69,12 @@ public class Client {
      */
     public boolean handIn() {
         if (processor.isInterrupted() && reader.isInterrupted()) {
-            /*try {
-                out.writeBoolean(true);
-            } catch (IOException e) {
-                System.out.println("sending boolean failed!");
-            }*/
             String zipFileName = "handInFile.zip";
             System.out.println(loginPackage.getDirOfWatch());
             Directory.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/angabe.zip");
             Directory.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/handInFile.zip");
             Directory.zip(loginPackage.getDirOfWatch(), zipFileName);
-            FileStream.send(out, new File(String.format("%s/%s",
+            FileStream.send(getOut(), new File(String.format("%s/%s",
                     loginPackage.getDirOfWatch(), zipFileName)));
             return true;
         }
@@ -133,9 +127,9 @@ public class Client {
                         RobotAction action = jobs.take();
                         Object result = action.execute(robot);
                         if (result != null) {
-                            out.writeObject(result);
-                            out.reset();
-                            out.flush();
+                            getOut().writeObject(result);
+                            getOut().reset();
+                            getOut().flush();
                         }
                     } catch (InterruptedException e) {
                         interrupt();
@@ -153,7 +147,7 @@ public class Client {
      */
     public void closeOut() {
         try {
-            out.close();
+            getOut().close();
         } catch (IOException e) {
             System.out.println("Error by closing of ObjectOutStream!");
         }

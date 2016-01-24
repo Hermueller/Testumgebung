@@ -6,32 +6,29 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
@@ -49,23 +46,25 @@ import java.util.ResourceBundle;
  * 06.01.2016: PHI 025  Überarbeitung der Fehler beim Wechsel von der LineChart von einem Schüler zum Anderen.
  * 15.01.2016: PHI 060  Check-Bild bei Error und Erfolg beim Starten des Servers eingefügt.
  * 20.01.2016: PHI 040  Simple- und Advanced-Mode eingefügt. / Zeit wird nun in Sekunden eingegeben.
+ * 23.01.2016: PHI 020  Tooltip und Version eingeführt.
+ * 24.01.2016: PHI 035  Zeigt den Screenshot im Fullscreen beim Klick und verschwindet beim erneuten Klick. +RandomTimeBugFix
  */
 public class ControllerTeacher implements Initializable {
 
     @FXML
-    public TextField tfTimeSS, tfPort, tfFileendings, tfMyIP_Address; //tfTimeSS -> Time-interval between screenshots
+    public TextField tfTimeSS, tfPort, tfFileendings, tfMyIP_Address;
 
     @FXML
     public ListView<Button> lvStudents;
 
     @FXML
-    public Label lbAlert;
+    public Label lbAlert, lbAngabe, lbPath, lbVersion1, lbVersion2, lbVersion3;
 
     @FXML
-    public ToggleButton TB_SS_rnd;  //ToggleButton to see if 'random' is active
+    public ToggleButton TB_SS_rnd;
 
     @FXML
-    public ImageView ivLiveView;    //shows the screenshot
+    public ImageView ivLiveView;
 
     @FXML
     public Button btnStart, btnStop, btn, btnChange;
@@ -81,7 +80,6 @@ public class ControllerTeacher implements Initializable {
 
     @FXML
     public ImageView ivPort, ivAngabe, ivPath, ivTime, ivEnding;
-    //public CheckBox cbAngabe, cbHome;
 
     private Thread server;
     private Threader threader;
@@ -96,31 +94,79 @@ public class ControllerTeacher implements Initializable {
      * @param resources
      */
     public void initialize(URL location, ResourceBundle resources) {
-        //initializeSimple();
-
         lvStudents.setItems(Session.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
 
         setDynamicScreenSize();
-        initializeLOC();
+        setVersionAnchor();
         setOnChangeSize();
         setFitHeight();
+        setImageClick();
+        initializeLOC();
+        initializeSLOMM();
         showIP_Address();
+
         btnStart.setDisable(false);
         btnStop.setDisable(true);
-
         Session.getInstance().setStartTime(LocalDateTime.now());
     }
 
-    public void changeMode(ActionEvent event) {
-        apOption.setVisible(!apOption.isVisible());
-        apSimple.setVisible(!apSimple.isVisible());
-        if (apOption.isVisible()) {
-            btnChange.setText("Simple Mode");
-        } else {
-            btnChange.setText("Advanced Mode");
-        }
+    //region initialize
+    /**
+     * show the version number always in the bottom right corner.
+     */
+    private void setVersionAnchor() {
+        AnchorPane.setBottomAnchor(lbVersion1, 10.0);
+        AnchorPane.setRightAnchor(lbVersion1, 10.0);
+        AnchorPane.setBottomAnchor(lbVersion2, 10.0);
+        AnchorPane.setRightAnchor(lbVersion2, 10.0);
+        AnchorPane.setBottomAnchor(lbVersion3, 10.0);
+        AnchorPane.setRightAnchor(lbVersion3, 10.0);
+    }
+
+    /**
+     * show screenshot in fullscreen on click.
+     */
+    private void setImageClick() {
+        ivLiveView.setOnMouseClicked(event -> {
+            Stage stage = new Stage();
+            ImageView iv = new ImageView(ivLiveView.getImage());
+            AnchorPane root = new AnchorPane(iv);
+            Scene scene = new Scene(root, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
+            stage.setScene(scene);
+            AnchorPane.setLeftAnchor(iv, (Screen.getPrimary().getBounds().getWidth() - iv.getImage().getWidth())/2);
+            AnchorPane.setTopAnchor(iv, (Screen.getPrimary().getBounds().getHeight() - iv.getImage().getHeight())/2);
+            iv.setOnMouseClicked(event1 -> stage.close());
+            stage.show();
+        });
+    }
+
+    /**
+     * show the path as a tooltip.
+     */
+    private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
+        Tooltip mousePositionToolTip = new Tooltip("");
+        lbPath.setOnMouseMoved(event -> {
+            String msg = Session.getInstance().getPath();
+            if (msg != null) {
+                mousePositionToolTip.setText(msg);
+
+                Node node = (Node) event.getSource();
+                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
+            }
+        });
+        lbAngabe.setOnMouseMoved(event -> {
+            File file = Session.getInstance().getHandOutFile();
+            if (file != null) {
+                mousePositionToolTip.setText(file.getPath());
+
+                Node node = (Node) event.getSource();
+                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
+            }
+        });
+        lbPath.setOnMouseExited(event -> mousePositionToolTip.hide());
+        lbAngabe.setOnMouseExited(event -> mousePositionToolTip.hide());
     }
 
     /**
@@ -160,7 +206,7 @@ public class ControllerTeacher implements Initializable {
      */
     private void setDynamicScreenSize() {
         apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitWidth((double) newValue);
+            ivLiveView.setFitWidth((double) newValue - 10);
             loc.setPrefWidth((double) newValue);
         });
         apStudentDetail.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -191,6 +237,20 @@ public class ControllerTeacher implements Initializable {
 
         loc.setCursor(Cursor.CROSSHAIR);
     }
+
+    /**
+     * shows the IP-Address of the Teacher.
+     */
+    public void showIP_Address() {
+        String ip = "";
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        tfMyIP_Address.setText(ip);
+    }
+    //endregion
 
     /**
      * checks all fields on correctness.
@@ -237,7 +297,7 @@ public class ControllerTeacher implements Initializable {
             }
 
             if (isRnd) {
-                Session.getInstance().setInterval(new Interval(1000, 30000));
+                Session.getInstance().setInterval(new Interval(1, 30));
             } else {
                 Session.getInstance().setInterval(new Interval(Integer.parseInt(ssTime)));
             }
@@ -256,7 +316,7 @@ public class ControllerTeacher implements Initializable {
             setImage(ivPath, true);
             setImage(ivTime, true);
             setImage(ivEnding, true);
-
+            btnChange.setDisable(true);
         }
     }
 
@@ -278,11 +338,27 @@ public class ControllerTeacher implements Initializable {
                 ivEnding.setImage(null);
                 ivPort.setImage(null);
                 ivPath.setImage(null);
+                btnChange.setDisable(false);
             } else {
                 setMsg(true, "Server wurde bereits gestoppt");
             }
         } else {
             setMsg(true, "Server wurde noch nie gestartet");
+        }
+    }
+
+    /**
+     * switching from Simple/Advanced-Mode to the other mode.
+     *
+     * @param event
+     */
+    public void changeMode(ActionEvent event) {
+        apOption.setVisible(!apOption.isVisible());
+        apSimple.setVisible(!apSimple.isVisible());
+        if (apOption.isVisible()) {
+            btnChange.setText("Simple Mode");
+        } else {
+            btnChange.setText("Advanced Mode");
         }
     }
 
@@ -405,18 +481,5 @@ public class ControllerTeacher implements Initializable {
                 Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
             }
         }
-    }
-
-    /**
-     * shows the IP-Address of the Teacher.
-     */
-    public void showIP_Address() {
-        String ip = "";
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        tfMyIP_Address.setText(ip);
     }
 }

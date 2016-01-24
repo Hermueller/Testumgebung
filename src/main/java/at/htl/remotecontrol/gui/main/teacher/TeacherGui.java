@@ -33,7 +33,7 @@ public class TeacherGui extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Teacher.fxml"));
 
         final Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
+        scene.getStylesheets().add("/styles/TeacherStyle.css");
 
         stage.setTitle("Teacher Client");
         stage.setScene(scene);
