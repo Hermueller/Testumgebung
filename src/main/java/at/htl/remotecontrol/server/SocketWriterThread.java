@@ -4,6 +4,8 @@ import at.htl.remotecontrol.actions.*;
 import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 import javafx.scene.chart.XYChart;
 
 import java.io.IOException;
@@ -53,7 +55,7 @@ class SocketWriterThread extends Thread {
      *
      * @param student The student, of the screenshot and LinesOfCode
      */
-    private void startLittleHarvester(Student student) {
+    private void sendLittleHarvester(Student student) {
         jobs.add(new LittleHarvester(student.getName(), student.getPathOfWatch()));
     }
 
@@ -72,7 +74,7 @@ class SocketWriterThread extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        startLittleHarvester(student);
+        sendLittleHarvester(student);
         XYChart.Series<Number, Number> seri = new XYChart.Series<>();
         seri.setName(student.getName() + "/" + LocalTime.now());
 
@@ -86,7 +88,7 @@ class SocketWriterThread extends Thread {
                     RobotAction action = jobs.poll(
                             getWaitTime(), TimeUnit.SECONDS);
                     if (action == null) {
-                        startLittleHarvester(student);
+                        sendLittleHarvester(student);
                     } else {
                         out.writeObject(action);
                         out.reset();
@@ -105,7 +107,16 @@ class SocketWriterThread extends Thread {
 
         // REMOVES the student from the list / marks him in a different color + plays a sound
         Session.getInstance().removeStudent(student.getName());
+
         Session.getInstance().notification();
+        VoiceManager voiceManager = VoiceManager.getInstance();
+        Voice voice = voiceManager.getVoice("kevin16");
+
+        voice.allocate();
+
+        voice.speak("User " + student.getName() + " has logged out.");
+
+        voice.deallocate();
     }
 
 }

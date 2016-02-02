@@ -1,0 +1,7 @@
+.button {
+    -fx-font-weight: bold;
+}
+
+#option {
+    -fx-background-image: url("../images/cyanWall.jpg");
+}

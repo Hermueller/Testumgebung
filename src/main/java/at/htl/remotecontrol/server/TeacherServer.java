@@ -78,6 +78,14 @@ public class TeacherServer {
         System.out.println("finished connecting to " + socket);
     }
 
+    public static int getPORT() {
+        return PORT;
+    }
+
+    public static void setPORT(int PORT) {
+        TeacherServer.PORT = PORT;
+    }
+
     /**
      * It redirects to save and show the screenshot.
      *

@@ -42,7 +42,7 @@ public class Threader implements Runnable {
      */
     public ServerSocket createServerSocket() {
         try {
-            return new ServerSocket(TeacherServer.PORT);
+            return new ServerSocket(TeacherServer.getPORT());
         } catch (IOException e) {
             return null;
         }
@@ -61,7 +61,6 @@ public class Threader implements Runnable {
             e.printStackTrace();
         }
         return true;
-
     }
 
     /**
@@ -77,5 +76,4 @@ public class Threader implements Runnable {
             }
         }
     }
-
 }

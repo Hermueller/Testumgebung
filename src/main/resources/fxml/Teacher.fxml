@@ -26,11 +26,11 @@
                             <tabs>
                                 <Tab text="Optionen">
                                     <content>
-                                        <AnchorPane fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
+                                        <AnchorPane id="option" fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0" stylesheets="@../styles/TeacherStyle.css">
                                             <children>
                                                 <AnchorPane fx:id="apOption" layoutX="84.0" layoutY="121.0" prefHeight="466.0" prefWidth="808.0" AnchorPane.leftAnchor="84.0">
                                                     <children>
-                                                        <VBox layoutX="32.0" layoutY="18.0" prefHeight="437.0" prefWidth="723.0" spacing="20.0">
+                                                        <VBox layoutX="32.0" layoutY="18.0" prefHeight="437.0" prefWidth="732.0" spacing="20.0">
                                                             <children>
                                                                 <HBox prefHeight="26.0" prefWidth="200.0" spacing="20.0">
                                                                    <children>
@@ -59,7 +59,7 @@
                                                                 </HBox>
                                                                 <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                                                     <children>
-                                                                        <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Angabe:">
+                                                                        <Label fx:id="lbAngabe" layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Angabe:">
                                                                             <font>
                                                                                 <Font size="18.0" />
                                                                             </font>
@@ -74,7 +74,7 @@
                                                                 </HBox>
                                                                 <HBox layoutX="25.0" layoutY="57.0" spacing="20.0">
                                                                     <children>
-                                                                        <Label layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Speicherort (Screenshots, Abgaben):">
+                                                                        <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Speicherort (Screenshots, Abgaben):">
                                                                             <font>
                                                                                 <Font size="18.0" />
                                                                             </font>
@@ -144,26 +144,11 @@
                                                     </children>
                                                 </AnchorPane>
                                                 <Button fx:id="btnChange" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="121.0" text="Simple Mode" />
-                                                <Label alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
+                                                <Label fx:id="lbVersion1" alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
                                     <AnchorPane fx:id="apSimple" layoutX="84.0" layoutY="121.0" prefHeight="466.0" prefWidth="808.0" visible="false">
                                        <children>
                                           <VBox layoutX="32.0" layoutY="18.0" prefHeight="437.0" prefWidth="723.0" spacing="20.0">
                                              <children>
-                                                <HBox prefHeight="27.0" prefWidth="262.0" spacing="20.0">
-                                                   <children>
-                                                      <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextField fx:id="tfPort1" prefHeight="31.0" prefWidth="234.0" promptText="5555" />
-                                                      <ImageView fx:id="ivPort1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                         <HBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </HBox.margin>
-                                                      </ImageView>
-                                                   </children>
-                                                </HBox>
                                                 <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                                    <children>
                                                       <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Angabe:">
@@ -220,7 +205,7 @@
                                                       <ImageView fx:id="ivTime1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                                    </children>
                                                    <padding>
-                                                      <Insets bottom="103.0" />
+                                                      <Insets bottom="150.0" />
                                                    </padding>
                                                 </HBox>
                                                 <Label fx:id="lbAlert1" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="718.0">
@@ -254,12 +239,12 @@
                                                         <NumberAxis label="Lines in File" side="LEFT" />
                                                     </yAxis>
                                                 </LineChart>
-                                                <ImageView fx:id="ivLiveView" fitHeight="298.0" fitWidth="514.0" layoutX="14.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fx:id="ivLiveView" fitHeight="508.0" fitWidth="840.0" layoutX="14.0" layoutY="169.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../images/loading.gif" />
                                                     </image>
                                                 </ImageView>
-                                    <Label alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
+                                    <Label fx:id="lbVersion2" alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
                                             </children>
                                         </AnchorPane>
                                     </content>
@@ -269,21 +254,6 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <ImageView fitHeight="114.0" fitWidth="537.0" layoutX="88.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../images/inArbeit.gif" />
-                                                    </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="331.0" fitWidth="243.0" layoutX="433.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../images/falseWay.gif" />
-                                                    </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="251.0" fitWidth="274.0" layoutX="14.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../images/planen.gif" />
-                                                    </image>
-                                                </ImageView>
                                     <HBox layoutX="41.0" layoutY="39.0" prefHeight="31.0" prefWidth="612.0">
                                        <children>
                                           <Label prefHeight="31.0" prefWidth="199.0" text="Meine IP-Addresse:">
@@ -294,7 +264,7 @@
                                           <TextField fx:id="tfMyIP_Address" alignment="CENTER" depthTest="DISABLE" prefHeight="31.0" prefWidth="234.0" />
                                        </children>
                                     </HBox>
-                                    <Label alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
+                                    <Label fx:id="lbVersion3" alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
                                             </children>
                                         </AnchorPane>
                                     </content>
