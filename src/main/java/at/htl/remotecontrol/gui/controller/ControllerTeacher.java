@@ -6,6 +6,7 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
+import at.htl.remotecontrol.timer.TimeSpinner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,6 +30,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
@@ -39,8 +41,6 @@ import java.util.ResourceBundle;
  * 29.11.2015: PHI 025  Angabe-Auswahl + Fehlermeldungen in GUI
  * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
  * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
- * 17.12.2015: PON 040  importPupilList
- * 25.12.2015: PHI 010  teacher wählt *.zip-Datei als Angabe.
  * 31.12.2015: PHI 010  LineChart überarbeitet, sodass bei der Änderung der ListView-Selection sich auch das Diagramm ändert.
  * 01.01.2016: PHI 010  Fehler in der LineChart verbessert.
  * 06.01.2016: PHI 025  Überarbeitung der Fehler beim Wechsel von der LineChart von einem Schüler zum Anderen.
@@ -79,6 +79,9 @@ public class ControllerTeacher implements Initializable {
     public SplitPane splitter;
 
     @FXML
+    public AnchorPane abgabePane;
+
+    @FXML
     public ImageView ivPort, ivAngabe, ivPath, ivTime, ivEnding;
 
     private Thread server;
@@ -106,6 +109,13 @@ public class ControllerTeacher implements Initializable {
         initializeLOC();
         initializeSLOMM();
         showIP_Address();
+        TimeSpinner spinner = new TimeSpinner();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+        spinner.valueProperty().addListener((obs, oldTime, newTime) ->
+                System.out.println(formatter.format(newTime)));
+
+        abgabePane.getChildren().add(spinner);
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);

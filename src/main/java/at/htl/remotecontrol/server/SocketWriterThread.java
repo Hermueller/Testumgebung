@@ -4,8 +4,6 @@ import at.htl.remotecontrol.actions.*;
 import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
 import javafx.scene.chart.XYChart;
 
 import java.io.IOException;
@@ -105,18 +103,6 @@ class SocketWriterThread extends Thread {
         }
         System.out.println("Closing connection to " + student.getName());
 
-        // REMOVES the student from the list / marks him in a different color + plays a sound
-        Session.getInstance().removeStudent(student.getName());
-
-        Session.getInstance().notification();
-        VoiceManager voiceManager = VoiceManager.getInstance();
-        Voice voice = voiceManager.getVoice("kevin16");
-
-        voice.allocate();
-
-        voice.speak("User " + student.getName() + " has logged out.");
-
-        voice.deallocate();
     }
 
 }

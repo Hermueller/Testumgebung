@@ -252,7 +252,7 @@
 
                                 <Tab text="Abgabe">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane fx:id="abgabePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
                                     <HBox layoutX="41.0" layoutY="39.0" prefHeight="31.0" prefWidth="612.0">
                                        <children>

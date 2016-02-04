@@ -8,10 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -33,11 +30,14 @@ public class TeacherGui extends Application {
     public void start(final Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Teacher.fxml"));
 
+
         final Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/TeacherStyle.css");
 
         stage.setTitle("Teacher Client");
         stage.setScene(scene);
+
+
 
         stage.show();
 
@@ -116,6 +116,7 @@ public class TeacherGui extends Application {
         pane.setStyle("-fx-background-color: #808080");
 
         root1.getChildren().add(pane);
+
 
         stage1.setScene(scene1);
         stage1.show();
