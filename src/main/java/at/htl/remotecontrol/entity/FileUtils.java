@@ -27,6 +27,8 @@ import java.util.zip.ZipOutputStream;
  * 15.11.2015: MET 020  extended by createFile(fileName) and exists(fileName)
  * 15.11.2015: MET 070  Implementation of method unzip(...)
  * 02.01.2016: MET 010  added a function which saves byte arrays
+ * 08.02.2016: MET 010  logger
+ * 08.02.2016: MET 010  log
  */
 public class FileUtils {
 
@@ -40,11 +42,11 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (file.exists()) {
-            System.out.println(String.format("Directory %s is already exist!", fileName));
+            log(Level.ERROR, String.format("Directory %s is already exist!", fileName));
         } else if (!file.mkdir()) {
-            System.out.println(String.format("Directory %s failed to create!", fileName));
+            log(Level.ERROR, String.format("Directory %s failed to create!", fileName));
         } else {
-            System.out.println("created directory " + fileName);
+            log(Level.INFO, "created directory " + fileName);
             created = true;
         }
         return created;
@@ -60,14 +62,14 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (file.exists()) {
-            System.out.println(String.format("File %s is already exist!", fileName));
+            log(Level.ERROR, String.format("File %s is already exist!", fileName));
         } else try {
             if (file.createNewFile()) {
-                System.out.println("created file " + fileName);
+                log(Level.INFO, "created file " + fileName);
                 created = true;
             }
         } catch (IOException e) {
-            System.out.println(String.format("File %s failed to create!", fileName));
+            log(Level.ERROR, String.format("File %s failed to create!", fileName));
             e.printStackTrace();
         }
         return created;
@@ -86,7 +88,7 @@ public class FileUtils {
             new FileOutputStream(fileName).write(file);
             saved = true;
         } catch (IOException e) {
-            System.out.println("File failed to save!");
+            log(Level.ERROR, "File failed to save!");
         }
         return saved;
     }
@@ -110,26 +112,26 @@ public class FileUtils {
      */
     public static boolean zip(String fileName, String zipFileName) {
         if (fileName.contains(".zip")) {
-            System.out.println(String.format("%s is already zipped!", fileName));
+            log(Level.INFO, String.format("%s is already zipped!", fileName));
             return true;
         }
         boolean created = false;
         File file = new File(fileName);
         if (!file.exists()) {
-            System.out.println(fileName + " not exist!");
+            log(Level.ERROR, fileName + " not exist!");
         } else if (!zipFileName.contains(".zip")) {
-            System.out.println(zipFileName + " is a invalid filename of an zip archive!");
+            log(Level.ERROR, zipFileName + " is a invalid filename of an zip archive!");
         } else {
-            System.out.println(String.format("creating zip file %s ...", zipFileName));
+            log(Level.INFO, String.format("creating zip file %s ...", zipFileName));
             try {
                 ZipOutputStream zos = new ZipOutputStream(
                         new FileOutputStream(new File(zipFileName)));
                 wrapRecursive(zos, file, fileName);
                 zos.close();
-                System.out.println("finished creating zip archive " + zipFileName);
+                log(Level.INFO, "finished creating zip archive " + zipFileName);
                 created = true;
             } catch (IOException e) {
-                System.out.println("error by zipping " + fileName);
+                log(Level.ERROR, "error by zipping " + fileName);
                 e.printStackTrace();
             }
         }
@@ -251,6 +253,16 @@ public class FileUtils {
             }
         }
         return deleted;
+    }
+
+
+    /**
+     *
+     * @param level
+     * @param message
+     */
+    private static void log(Level level, String message) {
+        LogManager.getLogger().log(level, message);
     }
 
     /**
