@@ -28,7 +28,7 @@ import java.util.zip.ZipOutputStream;
  * 15.11.2015: MET 070  Implementation of method unzip(...)
  * 02.01.2016: MET 010  added a function which saves byte arrays
  * 08.02.2016: MET 010  logger
- * 08.02.2016: MET 010  log
+ * 08.02.2016: MET 010  added logs
  */
 public class FileUtils {
 
