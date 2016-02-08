@@ -1,6 +1,6 @@
 package at.htl.remotecontrol.gui.controller;
 
-import at.htl.remotecontrol.entity.Session;
+import at.htl.remotecontrol.entity.FileUtils;
 import at.htl.remotecontrol.packets.LoginPackage;
 import at.htl.remotecontrol.student.Client;
 import javafx.event.ActionEvent;
@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.Level;
 
 import java.awt.*;
 import java.io.File;
@@ -50,6 +51,7 @@ public class ControllerStudent implements Initializable {
     private boolean loggedIn;
 
     public void initialize(URL location, ResourceBundle resources) {
+        FileUtils.log(this, Level.ERROR, "initialize GUI 2");
         this.loggedIn = false;
         btnLogOut.setDisable(true);
 

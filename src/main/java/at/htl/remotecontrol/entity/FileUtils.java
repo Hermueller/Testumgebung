@@ -1,5 +1,6 @@
 package at.htl.remotecontrol.entity;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
@@ -252,13 +253,8 @@ public class FileUtils {
         return deleted;
     }
 
-    /**
-     *
-     * @param clazz
-     * @param message
-     */
-    public static void log(Class<?> clazz, String message) {
-        LogManager.getLogger(clazz).info(message);
+    public static void log(Object obj, Level level, String message) {
+        LogManager.getLogger(obj.getClass()).log(level, message);
     }
 
 }
