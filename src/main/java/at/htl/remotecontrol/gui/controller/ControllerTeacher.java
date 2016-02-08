@@ -293,7 +293,7 @@ public class ControllerTeacher implements Initializable {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
 
-            FileUtils.log(this, Level.ERROR,"Keine IP Adresse gefunden "+FileUtils.convert(e));
+            FileUtils.log(this, Level.ERROR,"Keine IP Adresse gefunden "+MyUtils.convert(e));
         }
         tfMyIP_Address.setText(ip);
     }

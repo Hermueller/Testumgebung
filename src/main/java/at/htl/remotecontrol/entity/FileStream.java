@@ -34,7 +34,7 @@ public class FileStream {
             FileUtils.log(FileStream.class, Level.INFO,"sending completed: " + file.getName());
             sent = true;
         } catch (IOException e) {
-            FileUtils.log(FileStream.class, Level.ERROR, "cannot send screenshot to teacher"+FileUtils.convert(e));
+            FileUtils.log(FileStream.class, Level.ERROR, "cannot send screenshot to teacher"+MyUtils.convert(e));
         }
         return sent;
     }

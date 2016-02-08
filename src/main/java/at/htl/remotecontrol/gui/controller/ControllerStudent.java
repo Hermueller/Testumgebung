@@ -1,6 +1,7 @@
 package at.htl.remotecontrol.gui.controller;
 
 import at.htl.remotecontrol.entity.FileUtils;
+import at.htl.remotecontrol.entity.MyUtils;
 import at.htl.remotecontrol.packets.LoginPackage;
 import at.htl.remotecontrol.student.Client;
 import javafx.event.ActionEvent;
@@ -121,7 +122,7 @@ public class ControllerStudent implements Initializable {
         } catch (AWTException | IOException e) {
             FileUtils.log(this, Level.ERROR,
                     "Wurde nicht angemeldet überprüfen sie Username, Password, TeacherIP und den Pfad der Screenshots "
-                    + FileUtils.convert(e));
+                    + MyUtils.convert(e));
         }
     }
 

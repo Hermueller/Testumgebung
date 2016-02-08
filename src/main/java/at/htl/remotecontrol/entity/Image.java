@@ -32,7 +32,7 @@ public class Image {
             if (fileName.contains(".jpg"))
                 new FileOutputStream(fileName).write(convertToJpg(img));
         } catch (IOException e) {
-            FileUtils.log(Image.class, Level.ERROR, "Image failed to save"+ FileUtils.convert(e));
+            FileUtils.log(Image.class, Level.ERROR, "Image failed to save"+ MyUtils.convert(e));
         }
     }
 

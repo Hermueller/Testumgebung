@@ -36,7 +36,7 @@ public class Cryptography {
             cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(IV.getBytes(CHARSET_NAME)));
             return new String(cipher.doFinal(plainText.getBytes(CHARSET_NAME)));
         } catch (Exception e) {
-            FileUtils.log(Cryptography.class, Level.ERROR, plainText+" could not encrypt "+FileUtils.convert(e));
+            FileUtils.log(Cryptography.class, Level.ERROR, plainText+" could not encrypt "+MyUtils.convert(e));
         }
         return plainText;
     }
@@ -57,7 +57,7 @@ public class Cryptography {
             cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(IV.getBytes(CHARSET_NAME)));
             return new String(cipher.doFinal(cipherText.getBytes(CHARSET_NAME)));
         } catch (Exception e) {
-            FileUtils.log(Cryptography.class, Level.ERROR, FileUtils.convert(e));
+            FileUtils.log(Cryptography.class, Level.ERROR, MyUtils.convert(e));
         }
         return cipherText;
     }
