@@ -202,6 +202,7 @@ public class Directory {
      * @param paths paths of deleting
      * @return successful
      */
+
     public static boolean deleteAll(LinkedList<String> paths) {
         boolean error = false;
         for (String path : paths)
