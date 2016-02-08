@@ -139,7 +139,7 @@ public class ControllerStudent implements Initializable {
         if (choosedFile != null)
             tfPath.setText(String.format("%s/%s", choosedFile.getPath(), tfUsername.getText()));
         else
-            FileUtils.log(this, Level.ERROR, "gewählter Ordner existiert nicht");
+            FileUtils.log(this, Level.ERROR, "gewählter Ordner existiert nicht ");
 
     }
 
