@@ -2,7 +2,7 @@ package at.htl.remotecontrol.student;
 
 import at.htl.remotecontrol.actions.RobotAction;
 import at.htl.remotecontrol.actions.RobotActionQueue;
-import at.htl.remotecontrol.entity.Directory;
+import at.htl.remotecontrol.entity.FileUtils;
 import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.packets.LoginPackage;
 
@@ -31,7 +31,7 @@ public class Client {
             throws IOException, AWTException {
         this.loginPackage = loginPackage;
         Socket socket = new Socket(loginPackage.getServerIP(), loginPackage.getPort());
-        Directory.createDirectory(loginPackage.getDirOfWatch());
+        FileUtils.createDirectory(loginPackage.getDirOfWatch());
         robot = new Robot();
         jobs = new RobotActionQueue();
         in = new ObjectInputStream(
@@ -69,9 +69,9 @@ public class Client {
         if (processor.isInterrupted() && reader.isInterrupted()) {
             String zipFileName = "handInFile.zip";
             System.out.println(loginPackage.getDirOfWatch());
-            Directory.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/angabe.zip");
-            Directory.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/handInFile.zip");
-            Directory.zip(loginPackage.getDirOfWatch(), zipFileName);
+            FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/angabe.zip");
+            FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/handInFile.zip");
+            FileUtils.zip(loginPackage.getDirOfWatch(), zipFileName);
             FileStream.send(getOut(), new File(String.format("%s/%s",
                     loginPackage.getDirOfWatch(), zipFileName)));
             return true;

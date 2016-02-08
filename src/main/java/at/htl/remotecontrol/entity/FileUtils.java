@@ -25,7 +25,7 @@ import java.util.zip.ZipOutputStream;
  * 15.11.2015: MET 070  Implementation of method unzip(...)
  * 02.01.2016: MET 010  added a function which saves byte arrays
  */
-public class Directory {
+public class FileUtils {
 
     /**
      * creates a empty directory

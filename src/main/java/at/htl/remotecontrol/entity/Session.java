@@ -190,9 +190,9 @@ public class Session {
     public void setPath(String path) {
         this.path = path;
         pathOfImages = path + "/Sceenshots";
-        Directory.createDirectory(pathOfImages);
+        FileUtils.createDirectory(pathOfImages);
         pathOfHandOutFiles = path + "/Abgabe";
-        Directory.createDirectory(pathOfHandOutFiles);
+        FileUtils.createDirectory(pathOfHandOutFiles);
 
         System.out.println(pathOfImages);
     }

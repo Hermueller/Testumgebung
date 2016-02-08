@@ -139,7 +139,6 @@ public class ControllerTeacher implements Initializable {
         Session.getInstance().setStartTime(LocalDateTime.now());
     }
     private LocalTime doSomething(LocalTime newTime, boolean addtime ){
-        Directory directory;
         System.out.println(newTime);
         if(addtime){
             newTime.plusMinutes(10);
