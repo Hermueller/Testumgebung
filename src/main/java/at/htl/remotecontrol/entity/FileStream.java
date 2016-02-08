@@ -25,16 +25,16 @@ public class FileStream {
         boolean sent = false;
         byte[] buffer = new byte[BUFFER_SIZE];
         try {
-            FileUtils.log(FileStream.class, Level.INFO,String.format("sending %s ... ", file.getName()) );
+            FileUtils.log(FileStream.class, Level.INFO, String.format("sending %s ... ", file.getName()));
             InputStream fis = new FileInputStream(file);
             int len;
             while ((len = fis.read(buffer)) > 0)
                 out.write(buffer, 0, len);
             fis.close();
-            FileUtils.log(FileStream.class, Level.INFO,"sending completed: " + file.getName());
+            FileUtils.log(FileStream.class, Level.INFO, "sending completed: " + file.getName());
             sent = true;
         } catch (IOException e) {
-            FileUtils.log(FileStream.class, Level.ERROR, "cannot send screenshot to teacher"+MyUtils.convert(e));
+            FileUtils.log(FileStream.class, Level.ERROR, "cannot send screenshot to teacher" + MyUtils.convert(e));
         }
         return sent;
     }
@@ -50,7 +50,7 @@ public class FileStream {
         boolean received = false;
         File file = new File(path);
         try {
-            FileUtils.log(FileStream.class, Level.INFO,String.format("fetching file %s ... ", file.getName()));
+            FileUtils.log(FileStream.class, Level.INFO, String.format("fetching file %s ... ", file.getName()));
 
             OutputStream fos = new FileOutputStream(file);
             byte[] buffer = new byte[BUFFER_SIZE];
@@ -58,7 +58,7 @@ public class FileStream {
             while ((len = in.read(buffer)) > 0)
                 fos.write(buffer, 0, len);
             fos.close();
-            FileUtils.log(FileStream.class, Level.INFO,"fetching completed: " + file.getName());
+            FileUtils.log(FileStream.class, Level.INFO, "fetching completed: " + file.getName());
             received = true;
         } catch (Exception e) {
             e.printStackTrace();
