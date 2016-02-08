@@ -253,6 +253,12 @@ public class FileUtils {
         return deleted;
     }
 
+    /**
+     *
+     * @param obj
+     * @param level
+     * @param message
+     */
     public static void log(Object obj, Level level, String message) {
         LogManager.getLogger(obj.getClass()).log(level, message);
     }
