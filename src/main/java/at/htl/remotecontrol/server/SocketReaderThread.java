@@ -1,6 +1,5 @@
 package at.htl.remotecontrol.server;
 
-import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.packets.HarvestedPackage;
@@ -44,7 +43,7 @@ class SocketReaderThread extends Thread {
         while (!isInterrupted()) {
             try {
 
-                HarvestedPackage harvestedPackage = (HarvestedPackage)in.readObject();
+                HarvestedPackage harvestedPackage = (HarvestedPackage) in.readObject();
 
                 // save and show Screenshot
                 final BufferedImage image = ImageIO.read(

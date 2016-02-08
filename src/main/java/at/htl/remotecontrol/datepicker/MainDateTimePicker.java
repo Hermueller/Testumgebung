@@ -12,9 +12,9 @@ import javafx.stage.Stage;
 public class MainDateTimePicker extends Application {
 
     @Override
-    public void start ( Stage primaryStage ) {
+    public void start(Stage primaryStage) {
         VBox vBox = new VBox();
-        Scene s =  new Scene(new ScrollPane(vBox), 600, 400);
+        Scene s = new Scene(new ScrollPane(vBox), 600, 400);
         DateTimePicker d = new DateTimePicker();
 
         // Date only
@@ -32,7 +32,7 @@ public class MainDateTimePicker extends Application {
         primaryStage.show();
     }
 
-    public static void main ( String[] args ) {
+    public static void main(String[] args) {
         launch(args);
     }
 }

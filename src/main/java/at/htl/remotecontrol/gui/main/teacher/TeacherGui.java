@@ -38,7 +38,6 @@ public class TeacherGui extends Application {
         stage.setScene(scene);
 
 
-
         stage.show();
 
         Platform.setImplicitExit(false);
