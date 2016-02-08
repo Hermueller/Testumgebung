@@ -1,13 +1,11 @@
 package at.htl.remotecontrol.gui.controller;
 
-import at.htl.remotecontrol.entity.Interval;
-import at.htl.remotecontrol.entity.Session;
-import at.htl.remotecontrol.entity.Student;
-import at.htl.remotecontrol.entity.StudentView;
+import at.htl.remotecontrol.entity.*;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
 import at.htl.remotecontrol.timer.TimeSpinner;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -30,6 +28,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -84,6 +83,12 @@ public class ControllerTeacher implements Initializable {
     @FXML
     public ImageView ivPort, ivAngabe, ivPath, ivTime, ivEnding;
 
+    @FXML
+    public AnchorPane aptime;
+
+    @FXML
+    public Button btnaddtime;
+
     private Thread server;
     private Threader threader;
 
@@ -110,16 +115,42 @@ public class ControllerTeacher implements Initializable {
         initializeSLOMM();
         showIP_Address();
         TimeSpinner spinner = new TimeSpinner();
+        final LocalTime[] time = new LocalTime[1];
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         spinner.valueProperty().addListener((obs, oldTime, newTime) ->
-                System.out.println(formatter.format(newTime)));
+                time[0] = doSomething(newTime, false));
 
-        abgabePane.getChildren().add(spinner);
+        System.out.println("LOCAL TIME  "+time[0]);
+
+        btnaddtime.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                doSomething(time[0], true);
+            }
+        });
+
+
+
+        aptime.getChildren().add(spinner);
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         Session.getInstance().setStartTime(LocalDateTime.now());
+    }
+    private LocalTime doSomething(LocalTime newTime, boolean addtime ){
+        Directory directory;
+        System.out.println(newTime);
+        if(addtime){
+            newTime.plusMinutes(10);
+            System.out.println("NEW TIME "+newTime);
+        }
+
+        if(LocalTime.now() == newTime){
+            System.out.println("ABGABE");
+            //directory.zip(Session.getInstance().getPath());
+        }
+        return newTime;
     }
 
     //region initialize

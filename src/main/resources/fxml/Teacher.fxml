@@ -265,6 +265,13 @@
                                        </children>
                                     </HBox>
                                     <Label fx:id="lbVersion3" alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
+                                    <AnchorPane fx:id="aptime" layoutX="251.0" layoutY="113.0" prefHeight="51.0" prefWidth="235.0" />
+                                    <Label layoutX="41.0" layoutY="111.0" text="Abagezeitpunkt">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="btnaddtime" layoutX="502.0" layoutY="123.0" mnemonicParsing="false" text="+10 min" />
                                             </children>
                                         </AnchorPane>
                                     </content>
