@@ -18,6 +18,7 @@ import java.util.zip.ZipOutputStream;
  * 31.10.2015: MET 025  delete one or more folders
  * 01.11.2015: MET 015  improved deleting directories and provided with messages
  * 01.11.2015: MET 005  Bug found: deleting files nonfunctional
+ * 14.11.2015: MET 040  improving the method zip() and implementation of recursive zipping
  */
 public class Directory {
 
@@ -42,49 +43,66 @@ public class Directory {
     }
 
     /**
-     * compromises a directory and saves it on the same location.
+     * zips directories and files
      *
-     * @param path        Specifies the directory to compromise.
-     * @param zipFileName Specifies the name of the compromised directory.
-     * @return the success of it.
+     * @param fileName    path of source file or directory
+     * @param zipFileName path of zip archive
+     * @return successful
      */
-    public static boolean zip(String path, String zipFileName) {
-        if (path.contains(".zip")) {
-            System.out.println(String.format("Directory %s is already zipped!", path));
+    public static boolean zip(String fileName, String zipFileName) {
+        if (fileName.contains(".zip")) {
+            System.out.println(String.format("%s is already zipped!", fileName));
             return true;
         }
         boolean created = false;
-        File dir = new File(path);
-        if (!dir.isDirectory()) {
-            System.out.println(path + " is a invalid directory");
+        File file = new File(fileName);
+        if (!file.exists()) {
+            System.out.println(fileName + " not exist!");
         } else if (!zipFileName.contains(".zip")) {
             System.out.println(zipFileName + " is a invalid filename of an zip archive!");
         } else {
-            System.out.println(String.format("create zip file %s ...", zipFileName));
-            byte[] buffer = new byte[8192];
+            System.out.println(String.format("creating zip file %s ...", zipFileName));
             try {
-                LinkedList<File> files = getAllFiles(dir);
-                File zipFile = new File(String.format("%s/%s", path, zipFileName));
-                FileOutputStream fos = new FileOutputStream(zipFile);
-                ZipOutputStream zos = new ZipOutputStream(fos);
-                for (File file : files) {
-                    FileInputStream fis = new FileInputStream(file.getPath());
-                    zos.putNextEntry(new ZipEntry(file.getPath().replace(path, "")));
-                    int length;
-                    while ((length = fis.read(buffer)) > 0)
-                        zos.write(buffer, 0, length);
-                    zos.closeEntry();
-                    fis.close();
-                }
+                ZipOutputStream zos = new ZipOutputStream(
+                        new FileOutputStream(new File(zipFileName)));
+                wrapRecursive(zos, file, fileName);
                 zos.close();
-                fos.close();
-                System.out.println("created zip archive");
+                System.out.println("finished creating zip archive " + zipFileName);
                 created = true;
             } catch (IOException e) {
+                System.out.println("error by zipping " + fileName);
                 e.printStackTrace();
             }
         }
         return created;
+    }
+
+    /**
+     * creates a zip archive recursively (files and directories)
+     * Warning: empty folders can not be zipped
+     *
+     * @param zos      ZipOutputStream
+     * @param file     to be zipped file
+     * @param fileName path of zip file
+     */
+    private static void wrapRecursive(
+            ZipOutputStream zos, File file, String fileName) throws IOException {
+        int length;
+        byte[] buffer = new byte[8192];
+        File[] files = file.listFiles();
+        for (File f : files == null ? new File[0] : files) {
+            if (f.isDirectory()) {
+                wrapRecursive(zos, f, fileName);
+            } else {
+                FileInputStream fis = new FileInputStream(f.getPath());
+                zos.putNextEntry(new ZipEntry(f.getPath().replace(fileName, "")));
+                while ((length = fis.read(buffer)) > 0)
+                    zos.write(buffer, 0, length);
+                zos.closeEntry();
+                fis.close();
+                System.out.println(String.format("  %s added", f.getPath()));
+            }
+        }
     }
 
     /**
