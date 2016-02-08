@@ -19,6 +19,7 @@ import java.util.zip.ZipOutputStream;
  * 01.11.2015: MET 015  improved deleting directories and provided with messages
  * 01.11.2015: MET 005  Bug found: deleting files nonfunctional
  * 14.11.2015: MET 040  improving the method zip() and implementation of recursive zipping
+ * 14.11.2015: MET 010  corrected deleting files or directories
  */
 public class Directory {
 
@@ -127,17 +128,16 @@ public class Directory {
     }
 
     /**
-     * deletes all files from the list
+     * deletes a list of paths
      *
-     * @param paths Specifies the list of the files to delete
-     * @return the success of it
+     * @param paths paths of deleting
+     * @return successful
      */
     public static boolean deleteAll(LinkedList<String> paths) {
         boolean error = false;
-        for (String path : paths) {
+        for (String path : paths)
             if (!delete(path))
                 error = true;
-        }
         if (error) {
             System.out.println("not all paths are deleted");
             return false;
@@ -148,24 +148,25 @@ public class Directory {
     }
 
     /**
-     * delete a file.
+     * deletes files and directories
      *
-     * @param path Specifies the file to delete
-     * @return the success of it
+     * @param fileName path of deleting
+     * @return successful
      */
-    public static boolean delete(String path) {
+    public static boolean delete(String fileName) {
         boolean deleted = false;
-        File[] files = new File(path).listFiles();
-        if (files != null) {
-            for (File file : files) {
-                if (file.isDirectory() && !delete(file.getAbsolutePath())) {
-                    System.out.println(file.getPath() + " not deleted");
-                } else if (!file.delete()) {
-                    System.out.println(file.getPath() + " not deleted");
-                } else {
-                    System.out.println(file.getPath() + " deleted");
-                    deleted = true;
-                }
+        File file = new File(fileName);
+        if (!file.exists()) {
+            System.out.println(fileName + " not exist!");
+        } else {
+            File[] files = file.listFiles();
+            for (File f : files == null ? new File[0] : files)
+                delete(f.getPath());
+            if (file.delete()) {
+                System.out.println(file.getPath() + " deleted");
+                deleted = true;
+            } else {
+                System.out.println(file.getPath() + " not deleted");
             }
         }
         return deleted;
