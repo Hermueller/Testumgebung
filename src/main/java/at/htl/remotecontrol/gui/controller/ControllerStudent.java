@@ -119,7 +119,9 @@ public class ControllerStudent implements Initializable {
                 loggedIn = true;
             }
         } catch (AWTException | IOException e) {
-            e.printStackTrace();
+            FileUtils.log(this, Level.ERROR,
+                    "Wurde nicht angemeldet überprüfen sie Username, Password, TeacherIP und den Pfad der Screenshots "
+                    + FileUtils.convert(e));
         }
     }
 
@@ -136,6 +138,8 @@ public class ControllerStudent implements Initializable {
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null)
             tfPath.setText(String.format("%s/%s", choosedFile.getPath(), tfUsername.getText()));
+        else
+            FileUtils.log(this, Level.ERROR, "gewählter Ordner existiert nicht");
 
     }
 
