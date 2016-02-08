@@ -1,13 +1,11 @@
 package at.htl.remotecontrol.server;
 
-import at.htl.remotecontrol.entity.Image;
-import at.htl.remotecontrol.entity.Session;
-import at.htl.remotecontrol.entity.Student;
-import at.htl.remotecontrol.entity.StudentView;
+import at.htl.remotecontrol.entity.*;
 import at.htl.remotecontrol.packets.LoginPackage;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.Level;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -47,7 +45,7 @@ public class TeacherServer {
         ObjectInputStream in = new ObjectInputStream(
                 new BufferedInputStream(
                         socket.getInputStream()));
-        System.out.println("waiting for student name ...");
+        FileUtils.log(this, Level.INFO,"waiting for student name ...");
 
         LoginPackage packet = (LoginPackage) in.readObject();
 
@@ -61,7 +59,7 @@ public class TeacherServer {
             student = new Student(packet.getUserName(), packet.getDirOfWatch());
             Session.getInstance().addStudent(student);
         }
-        System.out.println("I got the Package: " + packet.getDirOfWatch());
+        FileUtils.log(this,Level.INFO,"I got the Package: " + packet.getDirOfWatch());
         Session.getInstance().loginStudent(student);
 
         reader = new SocketReaderThread(student, in, this);
@@ -75,7 +73,7 @@ public class TeacherServer {
         reader.start();
         writer.start();
 
-        System.out.println("finished connecting to " + socket);
+        FileUtils.log(this,Level.INFO,"finished connecting to " + socket);
     }
 
     public static int getPORT() {

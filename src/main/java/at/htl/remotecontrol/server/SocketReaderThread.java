@@ -83,8 +83,7 @@ class SocketReaderThread extends Thread {
         try {
             in.close();
         } catch (IOException e) {
-            File
-            System.out.println("Error by closing of ObjectInputStream!");
+            FileUtils.log(this,Level.ERROR,"Error by closing of ObjectInputStream!"+MyUtils.convert(e));
         }
     }
 }
