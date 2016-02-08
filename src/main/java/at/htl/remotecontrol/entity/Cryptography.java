@@ -1,5 +1,7 @@
 package at.htl.remotecontrol.entity;
 
+import org.apache.logging.log4j.Level;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -7,6 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * @timeline Text
  * 06.11.2015: MET 060  Class created
+ * 08.02.2016: GNA 005  Added Errors to log File
  */
 public class Cryptography {
 
@@ -33,7 +36,7 @@ public class Cryptography {
             cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(IV.getBytes(CHARSET_NAME)));
             return new String(cipher.doFinal(plainText.getBytes(CHARSET_NAME)));
         } catch (Exception e) {
-            System.out.println(plainText + " could not encrypt");
+            FileUtils.log(Cryptography.class, Level.ERROR, plainText+" could not encrypt "+FileUtils.convert(e));
         }
         return plainText;
     }
@@ -54,7 +57,7 @@ public class Cryptography {
             cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(IV.getBytes(CHARSET_NAME)));
             return new String(cipher.doFinal(cipherText.getBytes(CHARSET_NAME)));
         } catch (Exception e) {
-            System.out.println(cipherText + " could not decrypt");
+            FileUtils.log(Cryptography.class, Level.ERROR, FileUtils.convert(e));
         }
         return cipherText;
     }

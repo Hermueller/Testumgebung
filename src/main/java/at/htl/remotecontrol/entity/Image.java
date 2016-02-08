@@ -1,5 +1,7 @@
 package at.htl.remotecontrol.entity;
 
+import org.apache.logging.log4j.Level;
+
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -7,6 +9,7 @@ import javax.imageio.ImageWriter;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -14,6 +17,7 @@ import java.io.IOException;
  * @timeline Text
  * 26.10.2015: MET 001  Klasse erstellt
  * 30.10.2015: MET 015  Speichern von Images verbessert
+ * 08.02.2016: GNA 005  Added Errors in LogFile
  */
 public class Image {
 
@@ -28,8 +32,7 @@ public class Image {
             if (fileName.contains(".jpg"))
                 new FileOutputStream(fileName).write(convertToJpg(img));
         } catch (IOException e) {
-            System.out.println("Image failed to save!");
-            System.out.println(e.getMessage());
+            FileUtils.log(Image.class, Level.ERROR, "Image failed to save"+ FileUtils.convert(e));
         }
     }
 

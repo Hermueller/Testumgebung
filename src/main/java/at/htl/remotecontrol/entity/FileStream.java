@@ -1,11 +1,14 @@
 package at.htl.remotecontrol.entity;
 
+import org.apache.logging.log4j.Level;
+
 import java.io.*;
 
 /**
  * @timeline Text
  * 01.11.2015: MET 001  Klasse erstellt
  * 01.11.2015: MET 040  Senden und Empfangen von Dateien
+ * 08.02.2016: GNA 020  Errors und Infos in LogFile gespeichert
  */
 public class FileStream {
 
@@ -22,16 +25,16 @@ public class FileStream {
         boolean sent = false;
         byte[] buffer = new byte[BUFFER_SIZE];
         try {
-            System.out.println(String.format("sending %s ... ", file.getName()));
+            FileUtils.log(FileStream.class, Level.INFO,String.format("sending %s ... ", file.getName()) );
             InputStream fis = new FileInputStream(file);
             int len;
             while ((len = fis.read(buffer)) > 0)
                 out.write(buffer, 0, len);
             fis.close();
-            System.out.println("sending completed: " + file.getName());
+            FileUtils.log(FileStream.class, Level.INFO,"sending completed: " + file.getName());
             sent = true;
         } catch (IOException e) {
-            e.printStackTrace();
+            FileUtils.log(FileStream.class, Level.ERROR, "cannot send screenshot to teacher"+FileUtils.convert(e));
         }
         return sent;
     }
@@ -47,14 +50,15 @@ public class FileStream {
         boolean received = false;
         File file = new File(path);
         try {
-            System.out.println(String.format("fetching file %s ... ", file.getName()));
+            FileUtils.log(FileStream.class, Level.INFO,String.format("fetching file %s ... ", file.getName()));
+
             OutputStream fos = new FileOutputStream(file);
             byte[] buffer = new byte[BUFFER_SIZE];
             int len;
             while ((len = in.read(buffer)) > 0)
                 fos.write(buffer, 0, len);
             fos.close();
-            System.out.println("fetching completed: " + file.getName());
+            FileUtils.log(FileStream.class, Level.INFO,"fetching completed: " + file.getName());
             received = true;
         } catch (Exception e) {
             e.printStackTrace();

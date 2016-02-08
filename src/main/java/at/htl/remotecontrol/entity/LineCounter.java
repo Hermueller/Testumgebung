@@ -1,5 +1,7 @@
 package at.htl.remotecontrol.entity;
 
+import org.apache.logging.log4j.Level;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,7 +31,7 @@ public class LineCounter {
                 lines = br.lines().count();
             }
         } catch (Exception exc) {
-            System.out.println("File konnte nicht gelesen werden!!");
+            FileUtils.log(this, Level.ERROR,"File konnte nicht gelesen werden!!"+ FileUtils.convert(exc));
         }
 
         return lines;
