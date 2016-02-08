@@ -21,6 +21,8 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.util.Throwables;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -290,7 +292,8 @@ public class ControllerTeacher implements Initializable {
         try {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+
+            FileUtils.log(this, Level.ERROR,FileUtils.convert(e));
         }
         tfMyIP_Address.setText(ip);
     }
