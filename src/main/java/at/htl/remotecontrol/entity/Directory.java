@@ -23,24 +23,25 @@ import java.util.zip.ZipOutputStream;
  * 14.11.2015: MET 010  corrected deleting files or directories
  * 15.11.2015: MET 020  extended by createFile(fileName) and exists(fileName)
  * 15.11.2015: MET 070  Implementation of method unzip(...)
+ * 02.01.2016: MET 010  added a function which saves byte arrays
  */
 public class Directory {
 
     /**
-     * create a directory on the computer/laptop.
+     * creates a empty directory
      *
-     * @param path Specifies the name of the directory and
-     *             the location of the directory.
-     * @return the success of it.
+     * @param fileName path of directory
+     * @return successful
      */
-    public static boolean createDirectory(String path) {
+    public static boolean createDirectory(String fileName) {
         boolean created = false;
-        File dir = new File(path);
-        if (dir.exists()) {
-            System.out.println(String.format("Directory %s already exists!", path));
-        } else if (!dir.mkdir()) {
-            System.out.println(String.format("Directory %s can't be created!", path));
+        File file = new File(fileName);
+        if (file.exists()) {
+            System.out.println(String.format("Directory %s is already exist!", fileName));
+        } else if (!file.mkdir()) {
+            System.out.println(String.format("Directory %s failed to create!", fileName));
         } else {
+            System.out.println("created directory " + fileName);
             created = true;
         }
         return created;
@@ -63,10 +64,38 @@ public class Directory {
                 created = true;
             }
         } catch (IOException e) {
-            System.out.println(String.format("File %s failed to createDirectory!", fileName));
+            System.out.println(String.format("File %s failed to create!", fileName));
             e.printStackTrace();
         }
         return created;
+    }
+
+    /**
+     * stores a byte array as a file on the hard disk
+     *
+     * @param file     to be saved file
+     * @param fileName path with filename (e.g. .../directory/file.pdf)
+     * @return successful
+     */
+    public static boolean saveAsFile(byte[] file, String fileName) {
+        boolean saved = false;
+        try {
+            new FileOutputStream(fileName).write(file);
+            saved = true;
+        } catch (IOException e) {
+            System.out.println("File failed to save!");
+        }
+        return saved;
+    }
+
+    /**
+     * checks whether a file or a directory exists
+     *
+     * @param fileName path of a file or directory
+     * @return exists
+     */
+    public static boolean exists(String fileName) {
+        return new File(fileName).exists();
     }
 
     /**
@@ -175,26 +204,6 @@ public class Directory {
         return finished;
     }
 
-    /**
-     * gets all Files in a directory.
-     *
-     * @param dir Specifies the directory of the files.
-     * @return all files in the directory.
-     */
-    private static LinkedList<File> getAllFiles(File dir) {
-        LinkedList<File> allFiles = new LinkedList<File>();
-        File[] files = dir.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    allFiles.addAll(getAllFiles(file));
-                } else {
-                    allFiles.add(file);
-                }
-            }
-        }
-        return allFiles;
-    }
 
     /**
      * deletes a list of paths
@@ -202,7 +211,6 @@ public class Directory {
      * @param paths paths of deleting
      * @return successful
      */
-
     public static boolean deleteAll(LinkedList<String> paths) {
         boolean error = false;
         for (String path : paths)
