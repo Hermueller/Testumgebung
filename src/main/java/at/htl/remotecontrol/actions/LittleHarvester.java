@@ -14,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+
 /**
  * Liest die Zeilen of Code und erstellt Screenshots bei dem PC
  * des Students und sendet diese verpackt in einem Package zurück.

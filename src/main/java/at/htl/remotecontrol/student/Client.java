@@ -4,9 +4,7 @@ import at.htl.remotecontrol.actions.RobotAction;
 import at.htl.remotecontrol.actions.RobotActionQueue;
 import at.htl.remotecontrol.entity.Directory;
 import at.htl.remotecontrol.entity.FileStream;
-import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.packets.LoginPackage;
-import javafx.scene.control.ToggleButton;
 
 import java.awt.*;
 import java.io.*;
@@ -33,7 +31,7 @@ public class Client {
             throws IOException, AWTException {
         this.loginPackage = loginPackage;
         Socket socket = new Socket(loginPackage.getServerIP(), loginPackage.getPort());
-        Directory.create(loginPackage.getDirOfWatch());
+        Directory.createDirectory(loginPackage.getDirOfWatch());
         robot = new Robot();
         jobs = new RobotActionQueue();
         in = new ObjectInputStream(

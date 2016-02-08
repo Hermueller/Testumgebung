@@ -8,8 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -17,8 +15,8 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @timeline Text
@@ -192,9 +190,9 @@ public class Session {
     public void setPath(String path) {
         this.path = path;
         pathOfImages = path + "/Sceenshots";
-        Directory.create(pathOfImages);
+        Directory.createDirectory(pathOfImages);
         pathOfHandOutFiles = path + "/Abgabe";
-        Directory.create(pathOfHandOutFiles);
+        Directory.createDirectory(pathOfHandOutFiles);
 
         System.out.println(pathOfImages);
     }
@@ -234,7 +232,6 @@ public class Session {
     }*/
 
     /**
-     *
      * @return the last series from the chart.
      */
     public XYChart.Series<Number, Number> getLastSeries(Student st) {
@@ -252,7 +249,7 @@ public class Session {
 
     /**
      *
-     * @return  the series from the students. (all of them).
+     * @return the series from the students. (all of them).
      */
     /*public List<XYChart.Series<Number, Number>> getSeries() {
         return series;
@@ -281,7 +278,7 @@ public class Session {
     /**
      * Notifies the teacher that the student has logged in.
      *
-     * @param student   the student who logged in.
+     * @param student the student who logged in.
      */
     public void loginStudent(final Student student) {
         Platform.runLater(() -> {
@@ -297,7 +294,8 @@ public class Session {
     /**
      * Notifies the Teacher that the student has finished the test.
      * Colors him green in the list.
-     * @param student   the student who finished the test.
+     *
+     * @param student the student who finished the test.
      */
     public void finishStudent(final Student student) {
         Platform.runLater(() -> {

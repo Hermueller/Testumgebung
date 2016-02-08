@@ -14,8 +14,9 @@ public class TimeShower extends StackPane {
 
     /**
      * a node which displays a value on hover, but is otherwise empty
-     * @param priorValue    value before the actual value
-     * @param value         actual value (to add)
+     *
+     * @param priorValue value before the actual value
+     * @param value      actual value (to add)
      */
     public TimeShower(Long priorValue, Long value, String time) {
         setPrefSize(15, 15);
@@ -34,11 +35,11 @@ public class TimeShower extends StackPane {
     }
 
     /**
-     * create label with color and value
+     * createDirectory label with color and value
      *
-     * @param priorValue    value before the actual value
-     * @param value         actual value (to add)
-     * @return      the colored label (with value)
+     * @param priorValue value before the actual value
+     * @param value      actual value (to add)
+     * @return the colored label (with value)
      */
     private Label createTimeShowerData(Long priorValue, Long value, String time) {
         if (time.split("T").length > 1) {

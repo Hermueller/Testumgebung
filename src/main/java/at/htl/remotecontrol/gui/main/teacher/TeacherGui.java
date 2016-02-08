@@ -38,7 +38,6 @@ public class TeacherGui extends Application {
         stage.setScene(scene);
 
 
-
         stage.show();
 
         Platform.setImplicitExit(false);
@@ -60,7 +59,7 @@ public class TeacherGui extends Application {
      * @param stage Specialises the root-window of the program.
      */
     public void askCancel(Stage stage) {
-        //create Window
+        //createDirectory Window
         Stage stage1 = new Stage();
         stage1.setResizable(false);
         AnchorPane root1 = new AnchorPane();
