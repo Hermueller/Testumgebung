@@ -3,7 +3,10 @@ package at.htl.remotecontrol.entity;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -39,7 +42,7 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (file.exists()) {
-            log(Level.ERROR, String.format("Directory %s is already exist!", fileName));
+            log(Level.WARN, String.format("Directory %s is already exist!", fileName));
         } else if (!file.mkdir()) {
             log(Level.ERROR, String.format("Directory %s failed to create!", fileName));
         } else {
@@ -59,7 +62,7 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (file.exists()) {
-            log(Level.ERROR, String.format("File %s is already exist!", fileName));
+            log(Level.WARN, String.format("File %s is already exist!", fileName));
         } else try {
             if (file.createNewFile()) {
                 log(Level.INFO, "created file " + fileName);
@@ -109,7 +112,7 @@ public class FileUtils {
      */
     public static boolean zip(String fileName, String zipFileName) {
         if (fileName.contains(".zip")) {
-            log(Level.INFO, String.format("%s is already zipped!", fileName));
+            log(Level.WARN, String.format("%s is already zipped!", fileName));
             return true;
         }
         boolean created = false;
@@ -158,7 +161,7 @@ public class FileUtils {
                     zos.write(buffer, 0, length);
                 zos.closeEntry();
                 fis.close();
-                System.out.println(String.format("  %s added", f.getPath()));
+                log(Level.INFO, String.format("  %s added", f.getPath()));
             }
         }
     }
@@ -173,9 +176,9 @@ public class FileUtils {
     public static boolean unzip(String zipFileName, String fileName) {
         boolean finished = false;
         if (!zipFileName.contains(".zip")) {
-            System.out.println(String.format("Directory %s is already exist!", fileName));
+            log(Level.ERROR, fileName + " can not be unzip!");
         } else if (new File(fileName).exists()) {
-            System.out.println(fileName);
+            log(Level.ERROR, String.format("Directory %s is already exist!", fileName));
         } else {
             createDirectory(fileName);
             int length;
@@ -185,7 +188,7 @@ public class FileUtils {
                 ZipEntry ze = zis.getNextEntry();
                 while (ze != null) {
                     File newFile = new File(fileName + File.separator + ze.getName());
-                    System.out.println("Unzipping to " + newFile.getAbsolutePath());
+                    log(Level.INFO, "Unzipping to " + newFile.getAbsolutePath());
                     createDirectory(newFile.getParent());
                     FileOutputStream fos = new FileOutputStream(newFile);
                     while ((length = zis.read(buffer)) > 0)
@@ -196,10 +199,10 @@ public class FileUtils {
                 }
                 zis.closeEntry();
                 zis.close();
-                System.out.println("finished unzipping " + zipFileName);
+                log(Level.INFO, "finished unzipping " + zipFileName);
                 finished = true;
             } catch (IOException e) {
-                System.out.println("error by unzipping " + zipFileName);
+                log(Level.ERROR, "error by unzipping " + zipFileName);
                 e.printStackTrace();
             }
         }
@@ -219,10 +222,10 @@ public class FileUtils {
             if (!delete(path))
                 error = true;
         if (error) {
-            System.out.println("not all paths are deleted");
+            log(Level.ERROR, "not all paths are deleted");
             return false;
         } else {
-            System.out.println("given paths are deleted");
+            log(Level.INFO, "given paths are deleted");
             return true;
         }
     }
@@ -237,16 +240,16 @@ public class FileUtils {
         boolean deleted = false;
         File file = new File(fileName);
         if (!file.exists()) {
-            System.out.println(fileName + " not exist!");
+            log(Level.ERROR, fileName + " not exist!");
         } else {
             File[] files = file.listFiles();
             for (File f : files == null ? new File[0] : files)
                 delete(f.getPath());
             if (file.delete()) {
-                System.out.println(file.getPath() + " deleted");
+                log(Level.INFO, file.getPath() + " deleted");
                 deleted = true;
             } else {
-                System.out.println(file.getPath() + " not deleted");
+                log(Level.ERROR, file.getPath() + " not deleted");
             }
         }
         return deleted;
@@ -270,15 +273,6 @@ public class FileUtils {
      */
     public static void log(Object obj, Level level, String message) {
         LogManager.getLogger(obj.getClass()).log(level, message);
-    }
-
-    public static String convert(Exception e){
-        Writer writer = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(writer);
-        e.printStackTrace(printWriter);
-        String s = writer.toString();
-        return s;
-
     }
 
 }
