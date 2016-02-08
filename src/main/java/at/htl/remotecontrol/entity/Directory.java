@@ -9,16 +9,15 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * @timeline Text
- * 29.10.2015: GNA 020  Erstellen von Verzeichnissen
- * 30.10.2015: MET 001  Klasse erstellt
- * 30.10.2015: MET 045  Funktion für das zippen von Ordnern
- * 31.10.2015: MET 005  Funktion "Erstellen von Ordnern" mit Meldungen versehen
- * 31.10.2015: MET 010  Mothode "getAllPaths" implementiert
- * 31.10.2015: MET 030  Zippen von Ordnern korrigiert und mit Meldungen versehen
- * 31.10.2015: MET 025  einen oder mehrere Ordner löschen
- * 01.11.2015: MET 020  Löschen von Verzeichnissen verbessert und mit Meldungen versehen
- * 01.11.2015: MET 005  Bug festgestellt: Löschen von Dateien nicht funktionsfähig
+ * @timeline .
+ * 29.10.2015: GNA 020  creating files and directories
+ * 30.10.2015: MET 001  created class
+ * 30.10.2015: MET 045  implementation of zipping files and directories
+ * 31.10.2015: MET 005  Function "creating files" provided with messages
+ * 31.10.2015: MET 030  corrected zipping folders and files and provided with messages
+ * 31.10.2015: MET 025  delete one or more folders
+ * 01.11.2015: MET 015  improved deleting directories and provided with messages
+ * 01.11.2015: MET 005  Bug found: deleting files nonfunctional
  */
 public class Directory {
 
