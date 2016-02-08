@@ -1,5 +1,7 @@
 package at.htl.remotecontrol.entity;
 
+import org.apache.logging.log4j.LogManager;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -248,6 +250,15 @@ public class FileUtils {
             }
         }
         return deleted;
+    }
+
+    /**
+     *
+     * @param clazz
+     * @param message
+     */
+    public static void log(Class<?> clazz, String message) {
+        LogManager.getLogger(clazz).info(message);
     }
 
 }
