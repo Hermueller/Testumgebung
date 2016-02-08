@@ -4,7 +4,9 @@ import at.htl.remotecontrol.actions.RobotAction;
 import at.htl.remotecontrol.actions.RobotActionQueue;
 import at.htl.remotecontrol.entity.FileUtils;
 import at.htl.remotecontrol.entity.FileStream;
+import at.htl.remotecontrol.entity.MyUtils;
 import at.htl.remotecontrol.packets.LoginPackage;
+import org.apache.logging.log4j.Level;
 
 import java.awt.*;
 import java.io.*;
@@ -16,6 +18,7 @@ import java.net.Socket;
  * 31.10.2015: MET 075  Funktion "Angabe herunterladen" implementiert
  * 01.11.2015: MET 015  überwachter Ordner automatisch gezippt abgeben
  * 01.11.2015: MET 005  Bug festgestellt: Abgabe nur unmittelbar nach Login
+ * 08.02.2016: GNA 005  Added Errors to LogFile
  */
 public class Client {
 
@@ -91,13 +94,13 @@ public class Client {
                         jobs.add(action);
                         System.out.println("jobs = " + jobs);
                     } else {
-                        System.out.println("Discarding duplicate request");
+                        FileUtils.log(this, Level.ERROR,"Discarding duplicate request");
                     }
                 }
             } catch (EOFException eof) {
-                System.out.println("Connection closed");
+                FileUtils.log(this, Level.ERROR,"Connection closed"+MyUtils.convert(eof));
             } catch (Exception ex) {
-                System.out.println("Send Boolean");
+                FileUtils.log(this,Level.ERROR,"Send Boolean" + MyUtils.convert(ex));
                 /*try {
                     out.writeBoolean(isTestFinished.isSelected());
                 } catch (IOException e) {
@@ -135,7 +138,7 @@ public class Client {
                     }
                 }
             } catch (IOException e) {
-                System.out.println("Connection closed (" + e + ')');
+                FileUtils.log(this,Level.ERROR,"Connection closed" + MyUtils.convert(e));
             }
         }
     }
@@ -147,7 +150,7 @@ public class Client {
         try {
             getOut().close();
         } catch (IOException e) {
-            System.out.println("Error by closing of ObjectOutStream!");
+            FileUtils.log(this,Level.ERROR,"Error by closing of ObjectOutStream!" +MyUtils.convert(e));
         }
     }
 

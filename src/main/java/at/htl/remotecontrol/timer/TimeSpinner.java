@@ -1,7 +1,9 @@
 package at.htl.remotecontrol.timer;
 
 /**
- * Created by Gnadlinger on 04.02.2016.
+ * @timeline .
+ * 21.01.2016: GNA 001  Class created
+ * 08.02.2016: GNA 250  Implementation of TimeSpinner which is not implemented in JavaFX
  */
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
