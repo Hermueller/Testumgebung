@@ -16,7 +16,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.InputEvent;
 import javafx.util.StringConverter;
 
-//made by Knatsch =D
 
 public class TimeSpinner extends Spinner<LocalTime> {
 
