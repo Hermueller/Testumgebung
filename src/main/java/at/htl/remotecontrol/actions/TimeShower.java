@@ -34,7 +34,7 @@ public class TimeShower extends StackPane {
     }
 
     /**
-     * create label with color and value
+     * createDirectory label with color and value
      *
      * @param priorValue    value before the actual value
      * @param value         actual value (to add)

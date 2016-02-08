@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -21,6 +22,7 @@ import java.util.zip.ZipOutputStream;
  * 14.11.2015: MET 040  improving the method zip() and implementation of recursive zipping
  * 14.11.2015: MET 010  corrected deleting files or directories
  * 15.11.2015: MET 020  extended by createFile(fileName) and exists(fileName)
+ * 15.11.2015: MET 070  Implementation of method unzip(...)
  */
 public class Directory {
 
@@ -31,7 +33,7 @@ public class Directory {
      *             the location of the directory.
      * @return the success of it.
      */
-    public static boolean create(String path) {
+    public static boolean createDirectory(String path) {
         boolean created = false;
         File dir = new File(path);
         if (dir.exists()) {
@@ -61,7 +63,7 @@ public class Directory {
                 created = true;
             }
         } catch (IOException e) {
-            System.out.println(String.format("File %s failed to create!", fileName));
+            System.out.println(String.format("File %s failed to createDirectory!", fileName));
             e.printStackTrace();
         }
         return created;
@@ -128,6 +130,49 @@ public class Directory {
                 System.out.println(String.format("  %s added", f.getPath()));
             }
         }
+    }
+
+    /**
+     * unzips files and directories
+     *
+     * @param zipFileName path of zip archive
+     * @param fileName    path of target directory
+     * @return successful
+     */
+    public static boolean unzip(String zipFileName, String fileName) {
+        boolean finished = false;
+        if (!zipFileName.contains(".zip")) {
+            System.out.println(String.format("Directory %s is already exist!", fileName));
+        } else if (new File(fileName).exists()) {
+            System.out.println(fileName);
+        } else {
+            createDirectory(fileName);
+            int length;
+            byte[] buffer = new byte[8192];
+            try {
+                ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFileName));
+                ZipEntry ze = zis.getNextEntry();
+                while (ze != null) {
+                    File newFile = new File(fileName + File.separator + ze.getName());
+                    System.out.println("Unzipping to " + newFile.getAbsolutePath());
+                    createDirectory(newFile.getParent());
+                    FileOutputStream fos = new FileOutputStream(newFile);
+                    while ((length = zis.read(buffer)) > 0)
+                        fos.write(buffer, 0, length);
+                    fos.close();
+                    zis.closeEntry();
+                    ze = zis.getNextEntry();
+                }
+                zis.closeEntry();
+                zis.close();
+                System.out.println("finished unzipping " + zipFileName);
+                finished = true;
+            } catch (IOException e) {
+                System.out.println("error by unzipping " + zipFileName);
+                e.printStackTrace();
+            }
+        }
+        return finished;
     }
 
     /**

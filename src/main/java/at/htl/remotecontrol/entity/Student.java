@@ -48,7 +48,7 @@ public class Student {
 
     private void setPathOfImages(String path) {
         path = String.format("%s/%s", path, name);
-        if (Directory.create(path))
+        if (Directory.createDirectory(path))
             this.pathOfImages = path;
     }
 

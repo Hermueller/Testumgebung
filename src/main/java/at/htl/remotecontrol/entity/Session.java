@@ -8,8 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -192,9 +190,9 @@ public class Session {
     public void setPath(String path) {
         this.path = path;
         pathOfImages = path + "/Sceenshots";
-        Directory.create(pathOfImages);
+        Directory.createDirectory(pathOfImages);
         pathOfHandOutFiles = path + "/Abgabe";
-        Directory.create(pathOfHandOutFiles);
+        Directory.createDirectory(pathOfHandOutFiles);
 
         System.out.println(pathOfImages);
     }
