@@ -6,6 +6,7 @@ import at.htl.remotecontrol.entity.Directory;
 import at.htl.remotecontrol.entity.FileStream;
 import at.htl.remotecontrol.entity.Session;
 import at.htl.remotecontrol.packets.LoginPackage;
+import javafx.scene.control.ToggleButton;
 
 import java.awt.*;
 import java.io.*;
@@ -20,7 +21,7 @@ import java.net.Socket;
  */
 public class Client {
 
-    private final ObjectOutputStream out;
+    private ObjectOutputStream out;
     private final ObjectInputStream in;
     private final Robot robot;
     private RobotActionQueue jobs;
@@ -37,11 +38,19 @@ public class Client {
         jobs = new RobotActionQueue();
         in = new ObjectInputStream(
                 new BufferedInputStream(socket.getInputStream()));
-        out = new ObjectOutputStream(socket.getOutputStream());
-        out.writeObject(loginPackage);
-        out.flush();
+        setOut(new ObjectOutputStream(socket.getOutputStream()));
+        getOut().writeObject(loginPackage);
+        getOut().flush();
         processor = new ProcessorThread();
         reader = new ReaderThread();
+    }
+
+    public ObjectOutputStream getOut() {
+        return out;
+    }
+
+    public void setOut(ObjectOutputStream out) {
+        this.out = out;
     }
 
     /**
@@ -59,15 +68,13 @@ public class Client {
      * @return the success of it
      */
     public boolean handIn() {
-        //System.out.println("DELETED DIRECTORY");
-        //Directory.delete(loginPacket.getDirOfWatch() + "/" + loginPacket.getUserName());//loginPacket.getDirOfWatch() + "/angabe.zip");
         if (processor.isInterrupted() && reader.isInterrupted()) {
             String zipFileName = "handInFile.zip";
             System.out.println(loginPackage.getDirOfWatch());
-            Directory.delete(loginPackage.getDirOfWatch() + "/angabe.zip");
-            Directory.delete(loginPackage.getDirOfWatch() + "handInFile.zip");
+            Directory.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/angabe.zip");
+            Directory.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/handInFile.zip");
             Directory.zip(loginPackage.getDirOfWatch(), zipFileName);
-            FileStream.send(out, new File(String.format("%s/%s",
+            FileStream.send(getOut(), new File(String.format("%s/%s",
                     loginPackage.getDirOfWatch(), zipFileName)));
             return true;
         }
@@ -92,7 +99,12 @@ public class Client {
             } catch (EOFException eof) {
                 System.out.println("Connection closed");
             } catch (Exception ex) {
-                System.out.println("Connection closed abruptly: " + ex);
+                System.out.println("Send Boolean");
+                /*try {
+                    out.writeBoolean(isTestFinished.isSelected());
+                } catch (IOException e) {
+                    System.out.println("Can't send Boolean: " + e);
+                }*/
             }
         }
     }
@@ -115,9 +127,9 @@ public class Client {
                         RobotAction action = jobs.take();
                         Object result = action.execute(robot);
                         if (result != null) {
-                            out.writeObject(result);
-                            out.reset();
-                            out.flush();
+                            getOut().writeObject(result);
+                            getOut().reset();
+                            getOut().flush();
                         }
                     } catch (InterruptedException e) {
                         interrupt();
@@ -135,7 +147,7 @@ public class Client {
      */
     public void closeOut() {
         try {
-            out.close();
+            getOut().close();
         } catch (IOException e) {
             System.out.println("Error by closing of ObjectOutStream!");
         }
@@ -152,12 +164,9 @@ public class Client {
      * student logs out -> stop all streams from this student.
      */
     public void stop() {
-        Session.getInstance().removeStudent(loginPackage.getUserName());
+        //Session.getInstance().removeStudent(loginPackage.getUserName());
         processor.interrupt();
         reader.interrupt();
-        boolean check = handIn();
-        System.out.println("ERFOLGREICH ==> " + check);
-        closeOut();
     }
 
 }

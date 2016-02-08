@@ -8,18 +8,19 @@ import javafx.scene.paint.Color;
 /**
  * @timeline Text
  * 02.01.2016: PHI 055  Klasse implementiert. Farbe ermöglicht.
+ * 14.01.2016: PHI 010  Statt den Lines of Code wird jetzt die Uhrzeit angezeigt.
  */
-public class HoveredThresholdNode extends StackPane {
+public class TimeShower extends StackPane {
 
     /**
      * a node which displays a value on hover, but is otherwise empty
      * @param priorValue    value before the actual value
      * @param value         actual value (to add)
      */
-    public HoveredThresholdNode(Long priorValue, Long value) {
+    public TimeShower(Long priorValue, Long value, String time) {
         setPrefSize(15, 15);
 
-        final Label label = createDataThresholdLabel(priorValue, value);
+        final Label label = createTimeShowerData(priorValue, value, time);
 
         setOnMouseEntered(mouseEvent -> {
             getChildren().setAll(label);
@@ -39,8 +40,11 @@ public class HoveredThresholdNode extends StackPane {
      * @param value         actual value (to add)
      * @return      the colored label (with value)
      */
-    private Label createDataThresholdLabel(Long priorValue, Long value) {
-        final Label label = new Label(value + "");
+    private Label createTimeShowerData(Long priorValue, Long value, String time) {
+        if (time.split("T").length > 1) {
+            time = time.split("T")[1];
+        }
+        final Label label = new Label(time + "");
         label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
         label.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
 

@@ -53,7 +53,7 @@ class SocketWriterThread extends Thread {
      *
      * @param student The student, of the screenshot and LinesOfCode
      */
-    private void startLittleHarvester(Student student) {
+    private void sendLittleHarvester(Student student) {
         jobs.add(new LittleHarvester(student.getName(), student.getPathOfWatch()));
     }
 
@@ -72,7 +72,7 @@ class SocketWriterThread extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        startLittleHarvester(student);
+        sendLittleHarvester(student);
         XYChart.Series<Number, Number> seri = new XYChart.Series<>();
         seri.setName(student.getName() + "/" + LocalTime.now());
 
@@ -84,9 +84,9 @@ class SocketWriterThread extends Thread {
             while (!isInterrupted()) {
                 try {
                     RobotAction action = jobs.poll(
-                            getWaitTime(), TimeUnit.MILLISECONDS);
+                            getWaitTime(), TimeUnit.SECONDS);
                     if (action == null) {
-                        startLittleHarvester(student);
+                        sendLittleHarvester(student);
                     } else {
                         out.writeObject(action);
                         out.reset();
@@ -103,9 +103,6 @@ class SocketWriterThread extends Thread {
         }
         System.out.println("Closing connection to " + student.getName());
 
-        // REMOVES the student from the list / marks him in a different color + plays a sound
-        Session.getInstance().removeStudent(student.getName());
-        Session.getInstance().notification();
     }
 
 }

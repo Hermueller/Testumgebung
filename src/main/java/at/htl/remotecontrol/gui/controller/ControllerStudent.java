@@ -41,10 +41,10 @@ public class ControllerStudent implements Initializable {
     Button btnLogin, btnLogOut, btnfilePath;
 
     @FXML
-    public Label lbAlert;
+    Label lbAlert;
 
     @FXML
-    ToggleButton tbSwitch;
+    ToggleButton btnFinished;
 
     private Client client;
     private boolean loggedIn;
@@ -80,13 +80,6 @@ public class ControllerStudent implements Initializable {
         boolean ready = true;
         int port = 0;
 
-        for (TextField tf : Session.getInstance().getObservableList()) {
-            System.out.println(tf.getText());
-            if (tf.getText().equals(tfUsername.getText())) {
-                setMsg(true, "Studentname " + tfUsername.getText() + " is already in use !!");
-            }
-        }
-
         if (tfUsername.getText().length() <= 0) {
             setMsg(true, "Name bitte angeben");
             ready = false;
@@ -119,7 +112,6 @@ public class ControllerStudent implements Initializable {
                         tfPath.getText(),
                         port
                 ));
-                //TeacherServer.PORT = port;
                 setMsg(false, "Angemeldet");
                 client.start();
                 loggedIn = true;
@@ -146,13 +138,27 @@ public class ControllerStudent implements Initializable {
     }
 
     /**
-     * @param event
+     * sends the finished test to the teacher.
      */
-    public void handIn(ActionEvent event) {
+    public void handIn() {
         if (client.handIn()) {
             lbAlert.setText("Datei gezippt abgegeben");
         } else {
             lbAlert.setText("hand in error");
+        }
+    }
+
+    /**
+     * colors the logout-button to see easier if the finished test will
+     * be sent on logout.
+     *
+     * @param event Information from the click on the ToggleButton.
+     */
+    public void handleSelect(ActionEvent event) {
+        if (((ToggleButton)event.getSource()).isSelected()) {
+            btnLogOut.setStyle("-fx-background-color: lawngreen");
+        } else {
+            btnLogOut.setStyle("-fx-background-color: crimson");
         }
     }
 
@@ -162,12 +168,16 @@ public class ControllerStudent implements Initializable {
      * @param actionEvent Information from the click on the button.
      */
     public void logOut(ActionEvent actionEvent) {
-        btnLogin.setDisable(false);
-        btnLogOut.setDisable(true);
         if (loggedIn) {
             client.stop();
             loggedIn = false;
+            btnLogin.setDisable(false);
+            btnLogOut.setDisable(true);
         }
+        if (btnFinished.isSelected()) {
+            handIn();
+        }
+        client.closeOut();
         setMsg(false, "Abgemeldet");
     }
 

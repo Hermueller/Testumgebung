@@ -8,10 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -25,6 +22,7 @@ import javafx.stage.Stage;
  * 10.12.2015: PHI 005  Hinzufügen von Checkboxen, die angeben, ob etwas Ausgewählt wurde oder nicht
  * 16.12.2015: PHI 135  Beim Schließen des Fenster eine Abfrage erstellt
  * 22.12.2015: PHI 010  Optische Fehler in der GUI ausgebessert.
+ * 31.01.2015: PHI 001  bugfix (Schließen des Fensters)
  */
 public class TeacherGui extends Application {
 
@@ -32,11 +30,14 @@ public class TeacherGui extends Application {
     public void start(final Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Teacher.fxml"));
 
+
         final Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
+        scene.getStylesheets().add("/styles/TeacherStyle.css");
 
         stage.setTitle("Teacher Client");
         stage.setScene(scene);
+
+
 
         stage.show();
 
@@ -61,6 +62,7 @@ public class TeacherGui extends Application {
     public void askCancel(Stage stage) {
         //create Window
         Stage stage1 = new Stage();
+        stage1.setResizable(false);
         AnchorPane root1 = new AnchorPane();
         Scene scene1 = new Scene(root1, 431, 279);
 
@@ -91,14 +93,6 @@ public class TeacherGui extends Application {
         cancel.setPrefWidth(138);
         cancel.setUnderline(true);
 
-        final Light.Distant light = new Light.Distant();
-        light.setAzimuth(-135.0);
-        light.setColor(Color.valueOf("#861c24"));
-        final Lighting lighting = new Lighting();
-        lighting.setLight(light);
-        lighting.setSurfaceScale(9.0);
-        cancel.setEffect(lighting);
-
         //quit the window
         Button ok = new Button("OKEY");
         ok.setLayoutX(268);
@@ -108,27 +102,21 @@ public class TeacherGui extends Application {
         ok.setUnderline(true);
         ok.setDefaultButton(true);
 
-        //set effects
-        final Light.Distant light1 = new Light.Distant();
-        light1.setAzimuth(-135.0);
-        light1.setColor(Color.valueOf("#d7e2e4"));
-        final Lighting lighting1 = new Lighting();
-        lighting1.setLight(light1);
-        lighting1.setSurfaceScale(9.0);
-        ok.setEffect(lighting1);
-
         //on click close
         cancel.setOnAction(cancelEvent -> stage1.close());
 
         ok.setOnAction(okEvent -> {
             stage1.close();
             stage.close();
+            Platform.exit();
+            System.exit(0);
         });
 
         pane.getChildren().addAll(text, text2, cancel, ok);
         pane.setStyle("-fx-background-color: #808080");
 
         root1.getChildren().add(pane);
+
 
         stage1.setScene(scene1);
         stage1.show();

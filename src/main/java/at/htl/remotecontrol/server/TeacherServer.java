@@ -6,6 +6,7 @@ import at.htl.remotecontrol.entity.Student;
 import at.htl.remotecontrol.entity.StudentView;
 import at.htl.remotecontrol.packets.LoginPackage;
 import javafx.application.Platform;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.awt.image.BufferedImage;
@@ -77,6 +78,14 @@ public class TeacherServer {
         System.out.println("finished connecting to " + socket);
     }
 
+    public static int getPORT() {
+        return PORT;
+    }
+
+    public static void setPORT(int PORT) {
+        TeacherServer.PORT = PORT;
+    }
+
     /**
      * It redirects to save and show the screenshot.
      *
@@ -100,7 +109,7 @@ public class TeacherServer {
      */
     public void showImage(final String fileName, final Student student) {
         Platform.runLater(() -> {
-            TextField selected = (TextField) StudentView.getInstance().getLv()
+            Button selected = (Button) StudentView.getInstance().getLv()
                     .getSelectionModel().getSelectedItem();
             if (selected != null) {
                 //ist der Screenshot vom ausgewählten Studenten?

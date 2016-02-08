@@ -1,18 +1,21 @@
 package at.htl.remotecontrol.entity;
 
-import at.htl.remotecontrol.actions.HoveredThresholdNode;
+import at.htl.remotecontrol.actions.TimeShower;
 import at.htl.remotecontrol.packets.HandOutPackage;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.LinkedList;
@@ -44,7 +47,8 @@ import java.util.LinkedList;
 public class Session {
 
     private static Session instance = null;
-    private ObservableList<TextField> students;
+
+    private ObservableList<Button> students;
     private List<Student> studentsList = new LinkedList<>();
     private File handOutFile;
     private LocalDateTime startTime;
@@ -61,7 +65,7 @@ public class Session {
 
     protected Session() {
         students = FXCollections.observableList(new LinkedList<>());
-        endings = ("*.java; *.fxml").split(";");
+        endings = ("*.java; *.fxml; *.css; *.xhtml; *.html").split(";");
     }
 
     public static Session getInstance() {
@@ -76,7 +80,7 @@ public class Session {
     /**
      * @return the list of students.
      */
-    public ObservableList<TextField> getObservableList() {
+    public ObservableList<Button> getObservableList() {
         return students;
     }
 
@@ -266,23 +270,40 @@ public class Session {
     public void addStudent(final Student student) {
         studentsList.add(student);
         Platform.runLater(() -> {
-            TextField tf = new TextField(student.getName());
-            tf.setEditable(false);
-            tf.setStyle("-fx-background-color: crimson");
-            students.add(tf);
+            Button btn = new Button(student.getName());
+            btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
+            btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
+            btn.setStyle("-fx-background-color: crimson");
+            students.add(btn);
         });
     }
 
     /**
      * Notifies the teacher that the student has logged in.
      *
-     * @param student   the student which logged in.
+     * @param student   the student who logged in.
      */
     public void loginStudent(final Student student) {
         Platform.runLater(() -> {
-            for (TextField tf : students) {
-                if (tf.getText().equals(student.getName())) {
-                    tf.setStyle("-fx-background-color: greenyellow");
+            for (Button btn : students) {
+                if (btn.getText().equals(student.getName())) {
+                    btn.setStyle("-fx-background-color: yellow");
+                    break;
+                }
+            }
+        });
+    }
+
+    /**
+     * Notifies the Teacher that the student has finished the test.
+     * Colors him green in the list.
+     * @param student   the student who finished the test.
+     */
+    public void finishStudent(final Student student) {
+        Platform.runLater(() -> {
+            for (Button btn : students) {
+                if (btn.getText().equals(student.getName())) {
+                    btn.setStyle("-fx-background-color: lawngreen");
                     break;
                 }
             }
@@ -296,10 +317,9 @@ public class Session {
      */
     public void removeStudent(final String studentName) {
         Platform.runLater(() -> {
-            for (TextField tf : students) {
-                if (tf.getText().equals(studentName)) {
-                    //students.remove(tf);
-                    tf.setStyle("-fx-background-color: #996adc");
+            for (Button btn : students) {
+                if (btn.getText().equals(studentName)) {
+                    btn.setStyle("-fx-background-color: crimson");
                     break;
                 }
             }
@@ -313,13 +333,13 @@ public class Session {
      * @param student Specialises the student who owes the file of code.
      */
     public void addValue(Long _loc, Student student, Long priorValue) {
-        //startzeit festlegen
+        //set start-time
         if (starting == null) {
             starting = LocalDateTime.now();
         }
         LocalDateTime now = starting;
 
-        //zeit in sekunden ausrechnen
+        //calculate time in seconds
         Long _hours = now.until(LocalDateTime.now(), ChronoUnit.HOURS);
         now = now.plusHours(_hours);
 
@@ -330,29 +350,31 @@ public class Session {
 
         Long _time = _seconds + _minutes * 60 + _hours * 60 * 60;
 
-        //punkt im diagramm speichern
-        //student.addLoC(_loc, _time);
-
+        //saves values to the student
         Student toModify = findStudentByName(student.getName());
         toModify.addLoC_Time(_loc, _time);
         toModify.addValueToLast(_loc, _time, priorValue);
 
-        //punkt in diagramm anzeigen
+        //show point in the chart
         Platform.runLater(() -> {
-            TextField selected = (TextField) StudentView.getInstance().getLv()
+            Button selected = (Button) StudentView.getInstance().getLv()
                     .getSelectionModel().getSelectedItem();
             if (selected != null) {
-                //ist es vom ausgewählten Studenten?
+                //if the student is in the Live-View -> show new point
                 if (student.getName().equals(selected.getText())) {
                     XYChart.Series<Number, Number> actual = getLastSeries(student);
                     chart.getData().remove(actual);
 
-                    //der Wert sollte angezeigt werden, wenn man mit der Maus hinfährt.
+                    //show time if the cursor is located on this point
                     XYChart.Data<Number, Number> data = new XYChart.Data<>(_time, _loc);
                     data.setNode(
-                            new HoveredThresholdNode(
+                            new TimeShower(
                                     priorValue,
-                                    _loc
+                                    _loc,
+                                    LocalDateTime.now()
+                                            .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                                            .split("T")[1]
+                                            .split("\\.")[0]
                             )
                     );
                     actual.getData().add(data);

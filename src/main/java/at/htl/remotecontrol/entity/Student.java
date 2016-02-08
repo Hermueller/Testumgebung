@@ -1,9 +1,11 @@
 package at.htl.remotecontrol.entity;
 
-import at.htl.remotecontrol.actions.HoveredThresholdNode;
+import at.htl.remotecontrol.actions.TimeShower;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -72,9 +74,13 @@ public class Student {
 
             XYChart.Data<Number, Number> data = new XYChart.Data<>(time, loc);
             data.setNode(
-                    new HoveredThresholdNode(
+                    new TimeShower(
                             priorValue,
-                            loc
+                            loc,
+                            LocalDateTime.now()
+                                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                                    .split("T")[1]
+                                    .split("\\.")[0]
                     )
             );
             actual.getData().add(data);
