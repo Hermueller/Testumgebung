@@ -20,6 +20,7 @@ import java.util.zip.ZipOutputStream;
  * 01.11.2015: MET 005  Bug found: deleting files nonfunctional
  * 14.11.2015: MET 040  improving the method zip() and implementation of recursive zipping
  * 14.11.2015: MET 010  corrected deleting files or directories
+ * 15.11.2015: MET 020  extended by createFile(fileName) and exists(fileName)
  */
 public class Directory {
 
@@ -39,6 +40,29 @@ public class Directory {
             System.out.println(String.format("Directory %s can't be created!", path));
         } else {
             created = true;
+        }
+        return created;
+    }
+
+    /**
+     * creates a empty
+     *
+     * @param fileName path of file
+     * @return successful
+     */
+    public static boolean createFile(String fileName) {
+        boolean created = false;
+        File file = new File(fileName);
+        if (file.exists()) {
+            System.out.println(String.format("File %s is already exist!", fileName));
+        } else try {
+            if (file.createNewFile()) {
+                System.out.println("created file " + fileName);
+                created = true;
+            }
+        } catch (IOException e) {
+            System.out.println(String.format("File %s failed to create!", fileName));
+            e.printStackTrace();
         }
         return created;
     }
