@@ -32,6 +32,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+
+
 /**
  * @timeline Text
  * 15.10.2015: PHI 035  Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
@@ -116,6 +118,8 @@ public class ControllerTeacher implements Initializable {
         showIP_Address();
         TimeSpinner spinner = new TimeSpinner();
         final LocalTime[] time = new LocalTime[1];
+
+
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         spinner.valueProperty().addListener((obs, oldTime, newTime) ->
