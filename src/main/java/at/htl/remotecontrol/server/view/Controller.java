@@ -45,6 +45,8 @@ import java.util.ResourceBundle;
  * 29.11.2015: PHI 025  Angabe-Auswahl + Fehlermeldungen in GUI
  * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
  * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
+ * 17.12.2015: PON 120  function "importPupilList" for importing student lists
+ * 17.12.2015: PON 005  bug found: exception Handling missing, registration of pupils
  * 31.12.2015: PHI 010  LineChart überarbeitet, sodass bei der Änderung der ListView-Selection sich auch das Diagramm ändert.
  * 01.01.2016: PHI 010  Fehler in der LineChart verbessert.
  * 06.01.2016: PHI 025  Überarbeitung der Fehler beim Wechsel von der LineChart von einem Schüler zum Anderen.
@@ -518,7 +520,6 @@ public class Controller implements Initializable {
             int nameColumn = 0;
             String line;
             String[] words = bis.readLine().split(";");
-
 
             for (int i = 0; i < words.length; i++) {
                 if (words[i].equals("Familienname")) {

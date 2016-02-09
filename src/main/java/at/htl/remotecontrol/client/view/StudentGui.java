@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 /**
  * @timeline Text
+ * 01.10.2015: GNA 130  configured prototype and created first working version
  * 18.10.2015: PHI 065  Implementieren der Gui
  * 05.11.2015: PON 010  Reparatur der Datei
  * 29.11.2015: PHI 035  Strukturierung bei der Ansicht geändert

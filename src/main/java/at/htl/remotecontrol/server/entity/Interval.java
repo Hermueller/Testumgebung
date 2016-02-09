@@ -1,8 +1,9 @@
 package at.htl.remotecontrol.server.entity;
 
 /**
- * @timeline Text
- * 30.10.2015: MET 015  Klasse für Zeitspanne zwischen Screenshots erstellt
+ * @timeline .
+ * 30.10.2015: MET 005  created class for time between screenshots
+ * 20.11.2015: MET 005  extended by toString() and a factor for getValue()
  */
 public class Interval {
 
@@ -10,46 +11,52 @@ public class Interval {
     private long min;
     private long max;
     private boolean random;
+    private long factor;
 
-    /**
-     * FIX interval between screenshots.
-     *
-     * @param value the fix time between the screenshots.
-     */
-    public Interval(long value) {
-        this.value = value;
-        this.random = false;
+    private Interval(boolean random) {
+        this.random = random;
+        this.factor = 1;
     }
 
-    /**
-     * RANDOM interval between screenshots.
-     *
-     * @param min the minimum time interval between screenshots.
-     * @param max the maximum time interval between screenshots.
-     */
+    public Interval(long value) {
+        this(false);
+        this.value = value;
+    }
+
     public Interval(long min, long max) {
+        this(true);
         this.min = min;
         this.max = max;
-        this.random = true;
     }
 
-    //region Getter And Setter
+    //region Getter and Setter
 
     /**
-     * how much time to the next screenshot.
-     *
-     * @return the time to wait for the next screenshot.
+     * @return fixed value or random value between min and max
      */
     public long getValue() {
-        if (isRandom())
-            return (int) (Math.random() * ((max - min) + 1)) + min;
-        return value;
+        return (random ?
+                (int) (Math.random() * ((max - min) + 1)) + min
+                : value)
+                * factor;
     }
 
     public boolean isRandom() {
         return random;
     }
 
+    public long getFactor() {
+        return factor;
+    }
+
+    public void setFactor(long factor) {
+        this.factor = factor;
+    }
     //endregion
+
+    @Override
+    public String toString() {
+        return "value = " + getValue();
+    }
 
 }

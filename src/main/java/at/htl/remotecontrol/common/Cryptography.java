@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @timeline Text
  * 06.11.2015: MET 001  creating class
  * 06.11.2015: MET 060  implements encrypting and decrypting
- * 08.02.2016: GNA 005  added Errors to log file
+ * 08.02.2016: GNA 005  added errors to log file
  */
 public class Cryptography {
 

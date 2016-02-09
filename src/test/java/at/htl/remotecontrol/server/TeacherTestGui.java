@@ -16,11 +16,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
- * @timeline Text
- * 19.10.2015: PHI 030  einfüger der Tests:
- * 12.11.2015: PON 020  Implementierung des ParameterTests.
+ * @timeline .
+ * 12.11.2015: PON 001  created test class
+ * 12.11.2015: PON 070  implemented parameter tests
  */
-public class TeacherTest extends GuiTest {
+public class TeacherTestGui extends GuiTest {
 
     @Override
     protected Parent getRootNode() {
@@ -44,7 +44,6 @@ public class TeacherTest extends GuiTest {
         Session session = Session.getInstance();
 
         session.setPath(System.getProperty("user.home"));
-
 
         click(TB_SS_rnd);
         click(tfTimeSS);

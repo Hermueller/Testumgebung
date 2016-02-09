@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 /**
  * @timeline Text
+ * 01.10.2015: PON 130  configured prototype and created first working version
  * 15.10.2015: PHI 001  Implementieren der GUI
  * 19.10.2015: PHI 055  Liste der verbundenen Studenten
  * 24.10.2015: PHI 005  Implementieren der 'Ordner auswahl'

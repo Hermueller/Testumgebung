@@ -15,10 +15,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
- * 12.11.2015: PON 045  Erstellen der Klasse und implementieren einer Testmethode
+ * @timeline .
+ * 12.11.2015: PON 001  created test class
+ * 12.11.2015: PON 050  implemented TestFX test methods
  */
-
-public class StudentTest extends GuiTest{
+public class StudentTestGui extends GuiTest {
 
     TextField tfUsername;
     TextField tfTeacherIP;
@@ -38,7 +39,6 @@ public class StudentTest extends GuiTest{
         return parent;
     }
 
-
     @Test
     public void t001_testAttributes() throws IOException, InterruptedException {
         tfUsername = find("#tfUsername");
@@ -46,8 +46,6 @@ public class StudentTest extends GuiTest{
         pfPassword = find("#pfPassword");
         btnLogin = find("#btnLogin");
         tfPort = find("#tfPort");
-
-
 
         click(tfUsername);
         type("admin");
@@ -59,12 +57,7 @@ public class StudentTest extends GuiTest{
         type("passme");
         click(btnLogin);
 
-
-        assertThat(Session.getInstance().getPassword(),is("passme"));
-
-
-
+        assertThat(Session.getInstance().getPassword(), is("passme"));
     }
-
 
 }
