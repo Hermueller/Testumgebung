@@ -14,7 +14,6 @@ import static org.junit.Assert.assertTrue;
  * 14.11.2015: MET 020  test: creating of folders and files
  * 14.11.2015: MET 002  test: delete directory
  * 15.11.2015: MET 005  test: zipping and unzipping
- *
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FileUtilsTest {
