@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/../..</output-path>
     <root id="archive" name="Shinigami.jar">
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/gui/main/teacher/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/view/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="RemoteControl" />
     </root>

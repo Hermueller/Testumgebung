@@ -4,7 +4,7 @@
     <root id="archive" name="Ebisu.jar">
       <element id="module-output" name="RemoteControl" />
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/gui/main/student/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/view/META-INF/MANIFEST.MF" />
       </element>
     </root>
   </artifact>

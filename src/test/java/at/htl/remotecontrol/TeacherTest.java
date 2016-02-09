@@ -1,6 +1,6 @@
 package at.htl.remotecontrol;
 
-import at.htl.remotecontrol.entity.Session;
+import at.htl.remotecontrol.common.entity.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;

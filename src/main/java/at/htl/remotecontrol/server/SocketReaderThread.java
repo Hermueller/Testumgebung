@@ -1,10 +1,10 @@
 package at.htl.remotecontrol.server;
 
-import at.htl.remotecontrol.entity.FileUtils;
-import at.htl.remotecontrol.entity.MyUtils;
-import at.htl.remotecontrol.entity.Session;
-import at.htl.remotecontrol.entity.Student;
-import at.htl.remotecontrol.packets.HarvestedPackage;
+import at.htl.remotecontrol.common.io.FileUtils;
+import at.htl.remotecontrol.common.entity.MyUtils;
+import at.htl.remotecontrol.common.entity.Session;
+import at.htl.remotecontrol.common.entity.Student;
+import at.htl.remotecontrol.common.trasfer.HarvestedPackage;
 import org.apache.logging.log4j.Level;
 
 import javax.imageio.ImageIO;
@@ -25,13 +25,13 @@ class SocketReaderThread extends Thread {
 
     private final Student student;
     private final ObjectInputStream in;
-    private final TeacherServer server;
+    private final Server server;
 
     private long priorValue = 0;
 
     public SocketReaderThread(Student student,
                               ObjectInputStream in,
-                              TeacherServer server) {
+                              Server server) {
         super("Reader from " + student.getName());
         this.student = student;
         this.in = in;
@@ -68,7 +68,7 @@ class SocketReaderThread extends Thread {
                 System.out.println("I GOT " + fetchTest);
                 if (fetchTest) {
                     FileStream.receive(in, String.format("%s/%s.zip",
-                            Session.getInstance().getPathOfHandInFiles(), student.getName()));
+                            Session.getInstance().getPathOfHandInFiles(), client.getName()));
                 }*/
                 server.shutdown();
                 return;

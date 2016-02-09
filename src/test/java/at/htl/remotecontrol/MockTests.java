@@ -1,7 +1,7 @@
 package at.htl.remotecontrol;
 
-import at.htl.remotecontrol.gui.Threader;
-import at.htl.remotecontrol.server.TeacherServer;
+import at.htl.remotecontrol.server.Threader;
+import at.htl.remotecontrol.server.Server;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -9,16 +9,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.junit.Assert.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
 
 /**
  * @timeline Text
@@ -32,12 +28,12 @@ public class MockTests {
     Threader threader;
 
     @Mock
-    TeacherServer ts;
+    Server ts;
 
 
     @Before
     public void setUp() {
-        TeacherServer.setPORT(50555);
+        Server.setPORT(50555);
         threader = new Threader() {
             @Override
             public boolean createTeacherServer(Socket socket) {

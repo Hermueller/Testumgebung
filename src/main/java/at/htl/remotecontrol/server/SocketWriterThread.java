@@ -1,9 +1,11 @@
 package at.htl.remotecontrol.server;
 
-import at.htl.remotecontrol.actions.LittleHarvester;
-import at.htl.remotecontrol.actions.RobotAction;
-import at.htl.remotecontrol.actions.RobotActionQueue;
-import at.htl.remotecontrol.entity.*;
+import at.htl.remotecontrol.common.actions.LittleHarvester;
+import at.htl.remotecontrol.common.actions.RobotAction;
+import at.htl.remotecontrol.common.actions.RobotActionQueue;
+import at.htl.remotecontrol.common.io.FileStream;
+import at.htl.remotecontrol.common.io.FileUtils;
+import at.htl.remotecontrol.common.entity.*;
 import javafx.scene.chart.XYChart;
 import org.apache.logging.log4j.Level;
 
@@ -52,7 +54,7 @@ class SocketWriterThread extends Thread {
      * The Screenshot from the Student.
      * Counts the Lines of Code from the Student.
      *
-     * @param student The student, of the screenshot and LinesOfCode
+     * @param student The client, of the screenshot and LinesOfCode
      */
     private void sendLittleHarvester(Student student) {
         jobs.add(new LittleHarvester(student.getName(), student.getPathOfWatch()));
