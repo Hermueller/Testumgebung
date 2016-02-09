@@ -1,4 +1,4 @@
-package at.htl.remotecontrol;
+package at.htl.remotecontrol.client;
 
 import at.htl.remotecontrol.common.entity.Session;
 import javafx.fxml.FXMLLoader;
