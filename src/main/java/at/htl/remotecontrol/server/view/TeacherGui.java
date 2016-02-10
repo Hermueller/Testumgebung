@@ -29,6 +29,7 @@ import javafx.stage.Stage;
  * 22.12.2015: PHI 010  Optische Fehler in der GUI ausgebessert.
  * 31.01.2015: PHI 001  bugfix (Schließen des Fensters)
  */
+
 public class TeacherGui extends Application {
 
     @Override
