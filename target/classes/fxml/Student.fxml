@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerStudent">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.client.view.Controller">
     <children>
       <VBox layoutX="172.0" layoutY="26.0" spacing="20.0">
          <children>
@@ -50,12 +50,11 @@
               <Button fx:id="btnLogOut" layoutX="282.0" layoutY="286.0" onAction="#logOut" prefHeight="35.0" prefWidth="156.0" text="Log Out" />
          </children>
       </HBox>
-      <HBox layoutX="31.0" layoutY="173.0" />
-      <ToggleButton fx:id="tbSwitch" layoutX="317.0" layoutY="258.0" mnemonicParsing="false" text="Abgeben" />
       <Label fx:id="lbAlert" layoutX="19.0" layoutY="359.0" prefHeight="26.0" prefWidth="766.0" text="">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <ToggleButton fx:id="btnFinished" layoutX="318.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleSelect" text="Abgeben" />
     </children>
 </AnchorPane>

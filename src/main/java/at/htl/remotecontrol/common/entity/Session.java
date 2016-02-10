@@ -44,6 +44,7 @@ import java.util.List;
  * 01.01.2016: PHI 055  Fehler im Chart und der Schülerspeicherung verbessert.
  * 02.01.2016: PHI 005  "Hover" implementiert.
  * 06.01.2016: PHI 045  Fehler bei "Series"-Speicherung behoben und geändert. Kommunizierung mit Schüler eingebunden.
+ * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
  */
 public class Session {
 
@@ -269,6 +270,8 @@ public class Session {
      */
     public void addStudent(final Student student) {
         studentsList.add(student);
+
+        if(StudentView.getInstance().getLv() != null)
         Platform.runLater(() -> {
             Button btn = new Button(student.getName());
             btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));

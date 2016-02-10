@@ -1,7 +1,7 @@
 package at.htl.remotecontrol;
 
-import at.htl.remotecontrol.server.Threader;
 import at.htl.remotecontrol.server.Server;
+import at.htl.remotecontrol.server.Threader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -13,8 +13,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 import java.net.Socket;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @timeline Text
