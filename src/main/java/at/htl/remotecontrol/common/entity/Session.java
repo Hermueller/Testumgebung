@@ -45,6 +45,7 @@ import java.util.List;
  * 02.01.2016: PHI 005  "Hover" implementiert.
  * 06.01.2016: PHI 045  Fehler bei "Series"-Speicherung behoben und geändert. Kommunizierung mit Schüler eingebunden.
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
+ * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
  */
 public class Session {
 
@@ -193,7 +194,7 @@ public class Session {
      */
     public void setPath(String path) {
         this.path = path;
-        pathOfImages = path + "/Sceenshots";
+        pathOfImages = path + "/Screenshots";
         FileUtils.createDirectory(pathOfImages);
         pathOfHandOutFiles = path + "/Abgabe";
         FileUtils.createDirectory(pathOfHandOutFiles);
