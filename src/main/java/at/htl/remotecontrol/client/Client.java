@@ -14,10 +14,11 @@ import java.net.Socket;
 
 /**
  * @timeline Text
- * 26.10.2015: MET 002  Klasse von Student auf Client umbenannt
- * 31.10.2015: MET 075  Funktion "Angabe herunterladen" implementiert
- * 01.11.2015: MET 015  überwachter Ordner automatisch gezippt abgeben
- * 01.11.2015: MET 005  Bug festgestellt: Abgabe nur unmittelbar nach Login
+ * 24.10.2015: PON 010  students can log out - thereby no longer be sent screenshots
+ * 26.10.2015: MET 002  renamed this class from "Student" to "Client"
+ * 31.10.2015: MET 075  function "download specification" implemented
+ * 01.11.2015: MET 015  hand in a watched folder automatically zipped
+ * 01.11.2015: MET 005  Bug found: hand in only immediately after login
  * 08.02.2016: GNA 005  Added Errors to LogFile
  */
 public class Client {

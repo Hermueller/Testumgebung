@@ -25,10 +25,13 @@ import java.util.ResourceBundle;
 
 /**
  * @timeline Text
+ * 15.10.2015  PON 001  created class
  * 18.10.2015: PHI 030  Einfügen eines Login's mit Werteübergabe
- * 30.10.2015: MET 010  Login/Logout erweitert
+ * 24.10.2015: PON 005  added logout method
+ * 30.10.2015: MET 010  Login/Logout expanded
  * 31.10.2015: MET 020  Erstellen von Client-Paketen und deren Übermittlung an Client
- * 19.11.2015: PON 010  Port hinzugefügt
+ * 06.11.2015: PON 010  expansion to the password field
+ * 19.11.2015: PON 010  added port
  * 29.11.2015: PHI 040  Fehlermeldungen in GUI
  */
 public class Controller implements Initializable {

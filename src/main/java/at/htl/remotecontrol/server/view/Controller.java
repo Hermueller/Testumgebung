@@ -35,18 +35,19 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-
-
 /**
  * @timeline Text
  * 15.10.2015: PHI 035  Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
- * 24.10.2015: PON 020  DirectoryChooser für die Screenshots
+ * 19.10.2015: PON 020  list of connected pupils
+ * 24.10.2015: PON 020  teachers can now select the folder where the screenshots are saved
  * 26.10.2015: PHI 050  Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
+ * 05.11.2015: PON 015  implemented selecting of specification file
+ * 06.11.2015: PON 002  expansion to the password field
  * 29.11.2015: PHI 025  Angabe-Auswahl + Fehlermeldungen in GUI
  * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
  * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
  * 17.12.2015: PON 120  function "importPupilList" for importing student lists
- * 17.12.2015: PON 005  bug found: exception Handling missing, registration of pupils
+ * 17.12.2015: PON 005  Bug found: exception Handling missing, registration of pupils
  * 31.12.2015: PHI 010  LineChart überarbeitet, sodass bei der Änderung der ListView-Selection sich auch das Diagramm ändert.
  * 01.01.2016: PHI 010  Fehler in der LineChart verbessert.
  * 06.01.2016: PHI 025  Überarbeitung der Fehler beim Wechsel von der LineChart von einem Schüler zum Anderen.

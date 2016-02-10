@@ -14,11 +14,14 @@ import javafx.stage.Stage;
 /**
  * @timeline Text
  * 01.10.2015: PON 130  configured prototype and created first working version
+ * 08.10.2015: PON 001  created class
+ * 15.10.2015: PON 060  established repository for the project
+ * 15.10.2015: PON 040  created GUI for the teacher
  * 15.10.2015: PHI 001  Implementieren der GUI
  * 19.10.2015: PHI 055  Liste der verbundenen Studenten
  * 24.10.2015: PHI 005  Implementieren der 'Ordner auswahl'
  * 26.10.2015: PHI 060  Erweitern der Fehlermeldungsausgabe und Tabs, Optionen, Live-View und weitere Optionen hinzugefügt
- * 05.11.2015: PON 005  Reparatur der Datei
+ * 05.11.2015: PON 020  repair of this file
  * 07.12.2015: PHI 020  Fixe Größe der Liste von den verbundenen Studenten
  * 10.12.2015: PHI 005  Hinzufügen von Checkboxen, die angeben, ob etwas Ausgewählt wurde oder nicht
  * 16.12.2015: PHI 135  Beim Schließen des Fenster eine Abfrage erstellt
@@ -31,13 +34,11 @@ public class TeacherGui extends Application {
     public void start(final Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Teacher.fxml"));
 
-
         final Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/TeacherStyle.css");
 
         stage.setTitle("Teacher Client");
         stage.setScene(scene);
-
 
         stage.show();
 
