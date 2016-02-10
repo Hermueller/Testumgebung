@@ -231,7 +231,7 @@
                                     <content>
                                         <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <LineChart fx:id="loc" layoutY="-1.0" legendSide="LEFT" prefHeight="167.0" prefWidth="690.0" title="Lines of Code in Project">
+                                                <LineChart fx:id="loc" layoutX="7.0" layoutY="2.0" legendSide="LEFT" prefHeight="229.0" prefWidth="987.0" title="Lines of Code in Project">
                                                     <xAxis>
                                                         <NumberAxis label="Seconds after START" side="BOTTOM" />
                                                     </xAxis>
@@ -239,12 +239,8 @@
                                                         <NumberAxis label="Lines in File" side="LEFT" />
                                                     </yAxis>
                                                 </LineChart>
-                                                <ImageView fx:id="ivLiveView" fitHeight="508.0" fitWidth="840.0" layoutX="14.0" layoutY="169.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../images/loading.gif" />
-                                                    </image>
-                                                </ImageView>
                                     <Label fx:id="lbVersion2" alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
+                                    <ImageView fitHeight="325.0" fitWidth="750.0" layoutX="108.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true" />
                                             </children>
                                         </AnchorPane>
                                     </content>
