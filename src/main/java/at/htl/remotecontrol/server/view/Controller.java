@@ -5,7 +5,7 @@ import at.htl.remotecontrol.common.entity.*;
 import at.htl.remotecontrol.server.Threader;
 import at.htl.remotecontrol.server.Server;
 import at.htl.remotecontrol.server.entity.Interval;
-import at.htl.remotecontrol.common.TimeSpinner;
+//import at.htl.remotecontrol.common.TimeSpinner;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -62,8 +62,6 @@ public class Controller implements Initializable {
     @FXML
     public TextField tfTimeSS, tfPort, tfFileendings, tfMyIP_Address;
 
-
-
     @FXML
     public ListView<Button> lvStudents;
 
@@ -74,31 +72,19 @@ public class Controller implements Initializable {
     public ToggleButton TB_SS_rnd;
 
     @FXML
-    public ImageView ivLiveView;
+    public ImageView ivLiveView, ivPort, ivAngabe, ivPath, ivTime, ivEnding;
 
     @FXML
-    public Button btnStart, btnStop, btn, btnChange;
+    public Button btnStart, btnStop, btn, btnChange, btnaddtime;
 
     @FXML
-    public AnchorPane apStudentDetail, apOption, apSimple, spOption;
+    public AnchorPane apStudentDetail, apOption, apSimple, spOption, abgabePane, aptime;
 
     @FXML
     public LineChart<Number, Number> loc;
 
     @FXML
     public SplitPane splitter;
-
-    @FXML
-    public AnchorPane abgabePane;
-
-    @FXML
-    public ImageView ivPort, ivAngabe, ivPath, ivTime, ivEnding;
-
-    @FXML
-    public AnchorPane aptime;
-
-    @FXML
-    public Button btnaddtime;
 
     private Thread server;
     private Threader threader;
@@ -128,22 +114,13 @@ public class Controller implements Initializable {
         TimeSpinner spinner = new TimeSpinner();
         final LocalTime[] time = new LocalTime[1];
 
-
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         spinner.valueProperty().addListener((obs, oldTime, newTime) ->
                 time[0] = doSomething(newTime, false));
 
         System.out.println("LOCAL TIME  "+time[0]);
 
-        btnaddtime.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                doSomething(time[0], true);
-            }
-        });
-
-
+        btnaddtime.setOnAction(event -> doSomething(time[0], true));
 
         aptime.getChildren().add(spinner);
 
@@ -151,6 +128,7 @@ public class Controller implements Initializable {
         btnStop.setDisable(true);
         Session.getInstance().setStartTime(LocalDateTime.now());
     }
+
     private LocalTime doSomething(LocalTime newTime, boolean addtime ){
         System.out.println(newTime);
         if(addtime){

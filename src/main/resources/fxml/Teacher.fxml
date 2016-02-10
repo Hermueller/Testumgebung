@@ -240,7 +240,7 @@
                                                     </yAxis>
                                                 </LineChart>
                                     <Label fx:id="lbVersion2" alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
-                                    <ImageView fitHeight="325.0" fitWidth="750.0" layoutX="108.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ivLiveView" fitHeight="325.0" fitWidth="750.0" layoutX="108.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true" />
                                             </children>
                                         </AnchorPane>
                                     </content>
