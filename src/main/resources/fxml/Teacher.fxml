@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1213.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.gui.controller.ControllerTeacher">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1213.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.server.view.Controller">
     <children>
         <SplitPane fx:id="splitter" dividerPositions="0.29797979797979796" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -252,7 +252,7 @@
 
                                 <Tab text="Abgabe">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane fx:id="abgabePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
                                     <HBox layoutX="41.0" layoutY="39.0" prefHeight="31.0" prefWidth="612.0">
                                        <children>
@@ -265,6 +265,13 @@
                                        </children>
                                     </HBox>
                                     <Label fx:id="lbVersion3" alignment="CENTER_RIGHT" layoutX="840.0" layoutY="690.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
+                                    <AnchorPane fx:id="aptime" layoutX="251.0" layoutY="113.0" prefHeight="51.0" prefWidth="235.0" />
+                                    <Label layoutX="41.0" layoutY="111.0" text="Abagezeitpunkt">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="btnaddtime" layoutX="502.0" layoutY="123.0" mnemonicParsing="false" text="+10 min" />
                                             </children>
                                         </AnchorPane>
                                     </content>

@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: at.htl.remotecontrol.client.view.StudentGui
+Main-Class: at.htl.remotecontrol.server.view.TeacherGui
+

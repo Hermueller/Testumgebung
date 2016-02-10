@@ -1,12 +1,13 @@
 package at.htl.remotecontrol.server;
 
-import at.htl.remotecontrol.actions.*;
-import at.htl.remotecontrol.entity.FileStream;
-import at.htl.remotecontrol.entity.Session;
-import at.htl.remotecontrol.entity.Student;
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
+import at.htl.remotecontrol.common.actions.LittleHarvester;
+import at.htl.remotecontrol.common.actions.RobotAction;
+import at.htl.remotecontrol.common.actions.RobotActionQueue;
+import at.htl.remotecontrol.common.io.FileStream;
+import at.htl.remotecontrol.common.io.FileUtils;
+import at.htl.remotecontrol.common.entity.*;
 import javafx.scene.chart.XYChart;
+import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -53,7 +54,7 @@ class SocketWriterThread extends Thread {
      * The Screenshot from the Student.
      * Counts the Lines of Code from the Student.
      *
-     * @param student The student, of the screenshot and LinesOfCode
+     * @param student The client, of the screenshot and LinesOfCode
      */
     private void sendLittleHarvester(Student student) {
         jobs.add(new LittleHarvester(student.getName(), student.getPathOfWatch()));
@@ -101,22 +102,10 @@ class SocketWriterThread extends Thread {
             }
             out.close();
         } catch (IOException e) {
-            System.out.println("Connection to " + student.getName() + " closed (" + e + ')');
+            FileUtils.log(this, Level.ERROR,"Connection to " + student.getName() + " closed" + MyUtils.convert(e));
         }
-        System.out.println("Closing connection to " + student.getName());
+        FileUtils.log(this,Level.INFO,"Closing connection to " + student.getName());
 
-        // REMOVES the student from the list / marks him in a different color + plays a sound
-        Session.getInstance().removeStudent(student.getName());
-
-        Session.getInstance().notification();
-        VoiceManager voiceManager = VoiceManager.getInstance();
-        Voice voice = voiceManager.getVoice("kevin16");
-
-        voice.allocate();
-
-        voice.speak("User " + student.getName() + " has logged out.");
-
-        voice.deallocate();
     }
 
 }

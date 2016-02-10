@@ -1,9 +1,11 @@
 package at.htl.remotecontrol.server;
 
-import at.htl.remotecontrol.entity.FileStream;
-import at.htl.remotecontrol.entity.Session;
-import at.htl.remotecontrol.entity.Student;
-import at.htl.remotecontrol.packets.HarvestedPackage;
+import at.htl.remotecontrol.common.io.FileUtils;
+import at.htl.remotecontrol.common.entity.MyUtils;
+import at.htl.remotecontrol.common.entity.Session;
+import at.htl.remotecontrol.common.entity.Student;
+import at.htl.remotecontrol.common.trasfer.HarvestedPackage;
+import org.apache.logging.log4j.Level;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,13 +25,13 @@ class SocketReaderThread extends Thread {
 
     private final Student student;
     private final ObjectInputStream in;
-    private final TeacherServer server;
+    private final Server server;
 
     private long priorValue = 0;
 
     public SocketReaderThread(Student student,
                               ObjectInputStream in,
-                              TeacherServer server) {
+                              Server server) {
         super("Reader from " + student.getName());
         this.student = student;
         this.in = in;
@@ -44,7 +46,7 @@ class SocketReaderThread extends Thread {
         while (!isInterrupted()) {
             try {
 
-                HarvestedPackage harvestedPackage = (HarvestedPackage)in.readObject();
+                HarvestedPackage harvestedPackage = (HarvestedPackage) in.readObject();
 
                 // save and show Screenshot
                 final BufferedImage image = ImageIO.read(
@@ -56,7 +58,7 @@ class SocketReaderThread extends Thread {
                 priorValue = harvestedPackage.getLoc();
 
             } catch (Exception ex) {
-                System.out.println("canceled");
+                FileUtils.log(this, Level.ERROR, "canceled "+MyUtils.convert(ex));
                 /*boolean fetchTest = false;
                 try {
                     fetchTest = in.readBoolean();
@@ -66,7 +68,7 @@ class SocketReaderThread extends Thread {
                 System.out.println("I GOT " + fetchTest);
                 if (fetchTest) {
                     FileStream.receive(in, String.format("%s/%s.zip",
-                            Session.getInstance().getPathOfHandInFiles(), student.getName()));
+                            Session.getInstance().getPathOfHandInFiles(), client.getName()));
                 }*/
                 server.shutdown();
                 return;
@@ -81,7 +83,7 @@ class SocketReaderThread extends Thread {
         try {
             in.close();
         } catch (IOException e) {
-            System.out.println("Error by closing of ObjectInputStream!");
+            FileUtils.log(this,Level.ERROR,"Error by closing of ObjectInputStream!"+MyUtils.convert(e));
         }
     }
 }
