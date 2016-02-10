@@ -13,7 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -43,6 +44,8 @@ import java.util.List;
  * 01.01.2016: PHI 055  Fehler im Chart und der Schülerspeicherung verbessert.
  * 02.01.2016: PHI 005  "Hover" implementiert.
  * 06.01.2016: PHI 045  Fehler bei "Series"-Speicherung behoben und geändert. Kommunizierung mit Schüler eingebunden.
+ * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
+ * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
  */
 public class Session {
 
@@ -191,7 +194,7 @@ public class Session {
      */
     public void setPath(String path) {
         this.path = path;
-        pathOfImages = path + "/Sceenshots";
+        pathOfImages = path + "/Screenshots";
         FileUtils.createDirectory(pathOfImages);
         pathOfHandOutFiles = path + "/Abgabe";
         FileUtils.createDirectory(pathOfHandOutFiles);
@@ -268,6 +271,8 @@ public class Session {
      */
     public void addStudent(final Student student) {
         studentsList.add(student);
+
+        if(StudentView.getInstance().getLv() != null)
         Platform.runLater(() -> {
             Button btn = new Button(student.getName());
             btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
@@ -275,6 +280,10 @@ public class Session {
             btn.setStyle("-fx-background-color: crimson");
             students.add(btn);
         });
+    }
+
+    public List<Student> getStudentsList() {
+        return studentsList;
     }
 
     /**
@@ -410,5 +419,23 @@ public class Session {
         return null;
     }
 
+    public void addStudentsFromCsv(File file) throws IOException {
+        BufferedReader bis = new BufferedReader(new InputStreamReader(
+                new FileInputStream(file), Charset.forName("UTF-16")));
+
+        int nameColumn = 0;
+        String line;
+        String[] words = bis.readLine().split(";");
+
+
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals("Familienname")) {
+                nameColumn = i;
+            }
+        }
+        while ((line = bis.readLine()) != null) {
+            Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
+        }
+    }
     //endregion
 }
