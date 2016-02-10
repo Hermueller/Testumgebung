@@ -61,8 +61,6 @@ public class Controller implements Initializable {
     @FXML
     public TextField tfTimeSS, tfPort, tfFileendings, tfMyIP_Address;
 
-
-
     @FXML
     public ListView<Button> lvStudents;
 
