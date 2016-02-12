@@ -1,13 +1,15 @@
 package at.htl.remotecontrol.server.view;
 
+import at.htl.remotecontrol.common.TimeSpinner;
+import at.htl.remotecontrol.common.entity.MyUtils;
+import at.htl.remotecontrol.common.entity.Session;
+import at.htl.remotecontrol.common.entity.Student;
+import at.htl.remotecontrol.common.entity.StudentView;
 import at.htl.remotecontrol.common.io.FileUtils;
-import at.htl.remotecontrol.common.entity.*;
-import at.htl.remotecontrol.server.Threader;
 import at.htl.remotecontrol.server.Server;
+import at.htl.remotecontrol.server.Threader;
 import at.htl.remotecontrol.server.entity.Interval;
-//import at.htl.remotecontrol.common.TimeSpinner;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -34,6 +36,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+
+//import at.htl.remotecontrol.common.TimeSpinner;
 
 /**
  * @timeline Text

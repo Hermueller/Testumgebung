@@ -2,9 +2,9 @@ package at.htl.remotecontrol.client;
 
 import at.htl.remotecontrol.common.actions.RobotAction;
 import at.htl.remotecontrol.common.actions.RobotActionQueue;
-import at.htl.remotecontrol.common.io.FileUtils;
-import at.htl.remotecontrol.common.io.FileStream;
 import at.htl.remotecontrol.common.entity.MyUtils;
+import at.htl.remotecontrol.common.io.FileStream;
+import at.htl.remotecontrol.common.io.FileUtils;
 import at.htl.remotecontrol.common.trasfer.LoginPackage;
 import org.apache.logging.log4j.Level;
 
@@ -95,13 +95,13 @@ public class Client {
                         jobs.add(action);
                         System.out.println("jobs = " + jobs);
                     } else {
-                        FileUtils.log(this, Level.ERROR,"Discarding duplicate request");
+                        FileUtils.log(this, Level.ERROR, "Discarding duplicate request");
                     }
                 }
             } catch (EOFException eof) {
-                FileUtils.log(this, Level.ERROR,"Connection closed"+MyUtils.convert(eof));
+                FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.convert(eof));
             } catch (Exception ex) {
-                FileUtils.log(this,Level.ERROR,"Send Boolean" + MyUtils.convert(ex));
+                FileUtils.log(this, Level.ERROR, "Send Boolean" + MyUtils.convert(ex));
                 /*try {
                     out.writeBoolean(isTestFinished.isSelected());
                 } catch (IOException e) {
@@ -139,7 +139,7 @@ public class Client {
                     }
                 }
             } catch (IOException e) {
-                FileUtils.log(this,Level.ERROR,"Connection closed" + MyUtils.convert(e));
+                FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.convert(e));
             }
         }
     }
@@ -151,7 +151,7 @@ public class Client {
         try {
             getOut().close();
         } catch (IOException e) {
-            FileUtils.log(this,Level.ERROR,"Error by closing of ObjectOutStream!" +MyUtils.convert(e));
+            FileUtils.log(this, Level.ERROR, "Error by closing of ObjectOutStream!" + MyUtils.convert(e));
         }
     }
 

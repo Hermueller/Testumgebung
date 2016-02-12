@@ -1,9 +1,9 @@
 package at.htl.remotecontrol.client.view;
 
-import at.htl.remotecontrol.common.io.FileUtils;
-import at.htl.remotecontrol.common.entity.MyUtils;
-import at.htl.remotecontrol.common.trasfer.LoginPackage;
 import at.htl.remotecontrol.client.Client;
+import at.htl.remotecontrol.common.entity.MyUtils;
+import at.htl.remotecontrol.common.io.FileUtils;
+import at.htl.remotecontrol.common.trasfer.LoginPackage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 
 /**
  * @timeline Text
- * 15.10.2015  PON 001  created class
+ * 15.10.2015:  PON 001  created class
  * 18.10.2015: PHI 030  Einfügen eines Login's mit Werteübergabe
  * 24.10.2015: PON 005  added logout method
  * 30.10.2015: MET 010  Login/Logout expanded
@@ -125,7 +125,7 @@ public class Controller implements Initializable {
         } catch (AWTException | IOException e) {
             FileUtils.log(this, Level.ERROR,
                     "Wurde nicht angemeldet überprüfen sie Username, Password, TeacherIP und den Pfad der Screenshots "
-                    + MyUtils.convert(e));
+                            + MyUtils.convert(e));
         }
     }
 
@@ -165,7 +165,7 @@ public class Controller implements Initializable {
      * @param event Information from the click on the ToggleButton.
      */
     public void handleSelect(ActionEvent event) {
-        if (((ToggleButton)event.getSource()).isSelected()) {
+        if (((ToggleButton) event.getSource()).isSelected()) {
             btnLogOut.setStyle("-fx-background-color: lawngreen");
         } else {
             btnLogOut.setStyle("-fx-background-color: crimson");

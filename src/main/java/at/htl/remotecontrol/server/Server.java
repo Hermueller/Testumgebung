@@ -1,7 +1,9 @@
 package at.htl.remotecontrol.server;
 
+import at.htl.remotecontrol.common.entity.Session;
+import at.htl.remotecontrol.common.entity.Student;
+import at.htl.remotecontrol.common.entity.StudentView;
 import at.htl.remotecontrol.common.io.FileUtils;
-import at.htl.remotecontrol.common.entity.*;
 import at.htl.remotecontrol.common.trasfer.LoginPackage;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -95,7 +97,7 @@ public class Server {
                 Session.getInstance().getPathOfImages() + "/" + student.getName(),
                 student.getName(),
                 LocalDateTime.now());
-        Image.save(image, path);
+        //ScreenShot.save(image, path);
         showImage(path, student);
     }
 

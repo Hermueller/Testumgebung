@@ -26,6 +26,7 @@
     <orderEntry type="library" name="en_us" level="application" />
     <orderEntry type="library" name="cmulex" level="application" />
     <orderEntry type="library" name="cmu_us_kal" level="application" />
+    <orderEntry type="library" scope="TEST" name="Maven: commons-io:commons-io:2.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.loadui:testFx:3.1.0" level="project" />

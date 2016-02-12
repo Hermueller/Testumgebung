@@ -19,7 +19,6 @@ import static org.hamcrest.core.Is.is;
  * 10.02.2016: PON 010  test if directorys were created
  * 10.02.2016: PON 005  added deleteDirecotrys method
  * 10.02.2016: PON 010  test findStudentByName
- *
  */
 public class SessionTest {
 
@@ -31,8 +30,8 @@ public class SessionTest {
 
     @BeforeClass
     public static void init() throws IOException {
-        dic = FileUtils.getFile("src","test", "resources", "Dirs");
-        ang = FileUtils.getFile("src","test", "resources", "Angabe.zip");
+        dic = FileUtils.getFile("src", "test", "resources", "Dirs");
+        ang = FileUtils.getFile("src", "test", "resources", "Angabe.zip");
         session.setPath(dic.getPath());
         session.addStudentsFromCsv(FileUtils.getFile("src", "test", "resources", "ListeSchueler4AHIF.csv"));
         session.setHandOutFile(ang);
@@ -44,7 +43,7 @@ public class SessionTest {
     public void testFindStudentByName() throws Exception {
         String expected = "Forster";
         String actual = session.findStudentByName("Forster").getName();
-        assertThat(actual,is(expected));
+        assertThat(actual, is(expected));
     }
 
     @Test
