@@ -7,19 +7,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="1.11.29.021 - &#10;&#10;&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/io/ScreenShot.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dictionaries/patrickpohn.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/entity/Image.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Ebisu.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Ebisu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Shinigami.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Shinigami.xml" />
+    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/ScreenShotTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/entity/SessionTest.java" afterPath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/SessionTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RemoteControl.iml" afterPath="$PROJECT_DIR$/RemoteControl.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/Client.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/view/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/view/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/Server.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/view/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/view/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/entity/SessionTest.java" afterPath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/entity/SessionTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -61,21 +56,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ScreenShot.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ScreenShot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/io/ScreenShot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35502958">
-              <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ScreenShotTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/ScreenShotTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.9045643">
+              <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-30.625">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="SessionTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/entity/SessionTest.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/SessionTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="false" />
               </folding>
@@ -171,7 +186,6 @@
         <option value="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/gui/main/teacher/TeacherGui.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/entity/LineCounter.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/gui/main/student/META-INF/MANIFEST.MF" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/gui/main/teacher/META-INF/MANIFEST.MF" />
         <option value="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/StudentTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/entity/Session.java" />
@@ -184,6 +198,11 @@
         <option value="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/TimeSpinner.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/view/Controller.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/Server.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/Screen.java" />
+        <option value="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/io/ScreenShotTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/SessionTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/ScreenShotTest.java" />
       </list>
     </option>
   </component>
@@ -356,40 +375,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RemoteControl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Testumgebung" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="remotecontrol" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1000,7 +985,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="at.htl.remotecontrol.common.io" />
       <recent name="at.htl.remotecontrol.common.entity" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="at.htl.remotecontrol.common" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="at.htl.remotecontrol.common" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -1010,45 +1002,19 @@
       <recent name="$PROJECT_DIR$/src/main/resources/testFiles" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.IntervalTest">
+  <component name="RunManager" selected="JUnit.ScreenShotTest">
     <configuration default="false" name="SessionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="at.htl.remotecontrol.common.entity.*" />
+          <option name="PATTERN" value="at.htl.remotecontrol.common.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="RemoteControl" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="at.htl.remotecontrol.common.entity" />
-      <option name="MAIN_CLASS_NAME" value="at.htl.remotecontrol.common.entity.SessionTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="TeacherTestGui" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="at.htl.remotecontrol.server.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="RemoteControl" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="at.htl.remotecontrol.server" />
-      <option name="MAIN_CLASS_NAME" value="at.htl.remotecontrol.server.TeacherTestGui" />
+      <option name="PACKAGE_NAME" value="at.htl.remotecontrol.common" />
+      <option name="MAIN_CLASS_NAME" value="at.htl.remotecontrol.common.SessionTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -1115,6 +1081,32 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="at.htl.remotecontrol.server" />
       <option name="MAIN_CLASS_NAME" value="at.htl.remotecontrol.server.IntervalTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="ScreenShotTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="at.htl.remotecontrol.common.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="RemoteControl" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="at.htl.remotecontrol.common" />
+      <option name="MAIN_CLASS_NAME" value="at.htl.remotecontrol.common.ScreenShotTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -1549,7 +1541,7 @@
     <configuration default="false" name="at.htl.remotecontrol.common.entity in RemoteControl" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="at.htl.remotecontrol.common.entity.*" />
+          <option name="PATTERN" value="at.htl.remotecontrol.common.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -1575,18 +1567,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="JUnit.at.htl.remotecontrol.common.entity in RemoteControl" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.SessionTest" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.TeacherTestGui" />
-      <item index="3" class="java.lang.String" itemvalue="Application.StudentGui" />
-      <item index="4" class="java.lang.String" itemvalue="Application.TeacherGui" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.IntervalTest" />
+      <item index="2" class="java.lang.String" itemvalue="Application.StudentGui" />
+      <item index="3" class="java.lang.String" itemvalue="Application.TeacherGui" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.IntervalTest" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.ScreenShotTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.IntervalTest" />
-        <item index="1" class="java.lang.String" itemvalue="Application.StudentGui" />
-        <item index="2" class="java.lang.String" itemvalue="Application.TeacherGui" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.SessionTest" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.TeacherTestGui" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.ScreenShotTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.IntervalTest" />
+        <item index="2" class="java.lang.String" itemvalue="Application.StudentGui" />
+        <item index="3" class="java.lang.String" itemvalue="Application.TeacherGui" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.SessionTest" />
       </list>
     </recent_temporary>
   </component>
@@ -1636,7 +1628,7 @@
       <workItem from="1455115898856" duration="3797000" />
       <workItem from="1455120447636" duration="9000" />
       <workItem from="1455131382530" duration="2031000" />
-      <workItem from="1455259456850" duration="199000" />
+      <workItem from="1455259456850" duration="1058000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
       <created>1446721170116</created>
@@ -1740,21 +1732,27 @@
       <option name="project" value="LOCAL" />
       <updated>1455131914015</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="1.11.29.021 - Improved &quot;ScreenShot&quot; functions">
+      <created>1455259686619</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1455259686619</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
     <history-entry file="IntervalTest - 2016.02.12 at 07h 45m 49s.xml">
       <configuration name="IntervalTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionTest - 2016.02.10 at 16h 18m 24s.xml">
-      <configuration name="SessionTest" configurationId="JUnit" />
+    <history-entry file="IntervalTest - 2016.02.12 at 07h 58m 07s.xml">
+      <configuration name="IntervalTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionTest - 2016.02.10 at 16h 18m 53s.xml">
-      <configuration name="SessionTest" configurationId="JUnit" />
+    <history-entry file="ScreenShotTest - 2016.02.12 at 07h 58m 26s.xml">
+      <configuration name="ScreenShotTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionTest - 2016.02.10 at 16h 21m 02s.xml">
-      <configuration name="SessionTest" configurationId="JUnit" />
+    <history-entry file="ScreenShotTest - 2016.02.12 at 08h 00m 49s.xml">
+      <configuration name="ScreenShotTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="SessionTest - 2016.02.10 at 16h 24m 47s.xml">
       <configuration name="SessionTest" configurationId="JUnit" />
@@ -1776,7 +1774,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57542000" />
+    <option name="totallyTimeSpent" value="58401000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1789,7 +1787,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1798,12 +1796,12 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2755682" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32670453" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2755682" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3252841" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21728595" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21728595" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1842,7 +1840,8 @@
     <MESSAGE value="1.3.2.013 - SessionTest&#10;&#10;Klasse wurde erstellt &#10;Import über CSV datei wurde getestet&#10;Um Fehler zu vermeiden wird die ListView auf null überprüft&#10;&#10;&#10;" />
     <MESSAGE value="1.3.2.014 - SessionTest&#10;&#10;Some more tests&#10;&#10;&#10;" />
     <MESSAGE value="1.11.28.014 - removed unnecessary code&#10;&#10;removed the error_log (500 lines)&#10;&#10;&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.11.28.014 - removed unnecessary code&#10;&#10;removed the error_log (500 lines)&#10;&#10;&#10;" />
+    <MESSAGE value="1.11.29.021 - Improved &quot;ScreenShot&quot; functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.11.29.021 - Improved &quot;ScreenShot&quot; functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1887,7 +1886,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/entity/SessionTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/SessionTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
@@ -1955,7 +1954,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/entity/SessionTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/SessionTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1983,14 +1982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="21" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -2207,32 +2198,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/entity/SessionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/FileUtilsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/server/IntervalTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2259,10 +2224,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-30.625">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/server/IntervalTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/io/ScreenShot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35502958">
-          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/FileUtilsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/SessionTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/ScreenShotTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9045643">
+          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
           <folding />
         </state>
       </provider>

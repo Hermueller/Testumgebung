@@ -1,5 +1,6 @@
-package at.htl.remotecontrol.common.entity;
+package at.htl.remotecontrol.common;
 
+import at.htl.remotecontrol.common.entity.Session;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
