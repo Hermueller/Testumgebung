@@ -8,59 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/view/META-INF/MANIFEST.MF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/META-INF/MANIFEST.MF" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/view/META-INF/MANIFEST.MF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/view/META-INF/MANIFEST.MF" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/RemoteControl.iml" afterPath="$PROJECT_DIR$/TimeMonitoring.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/Client.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/Client.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/Exam.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/Exam.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/view/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/view/Controller.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/client/view/StudentGui.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/view/StudentGui.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/Cryptography.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/Cryptography.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/LineCounter.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/LineCounter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/MyUtils.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/MyUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/Pupil.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/Pupil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/Student.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/Student.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/TimeSpinner.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/TimeSpinner.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/actions/LittleHarvester.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/LittleHarvester.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/actions/RobotAction.class" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/RobotAction.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/actions/RobotAction.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/RobotAction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/actions/RobotActionQueue.class" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/RobotActionQueue.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/actions/RobotActionQueue.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/RobotActionQueue.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/actions/TimeShower.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/TimeShower.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/fx/FxUtils.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/fx/FxUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/fx/StudentView.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/fx/StudentView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/io/FileStream.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/io/FileStream.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/io/FileUtils.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/io/FileUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/io/ScreenShot.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/io/ScreenShot.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/trasfer/HandInPackage.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/HandInPackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/trasfer/HandOutPackage.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/HandOutPackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/trasfer/HarvestedPackage.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/HarvestedPackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/trasfer/LoginPackage.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/LoginPackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/common/trasfer/ResponsePackage.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/ResponsePackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/Server.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/Server.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/Settings.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/Settings.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/SocketReaderThread.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/SocketReaderThread.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/SocketWriterThread.class" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/SocketWriterThread.class" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/SocketWriterThread.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/SocketWriterThread.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/Threader.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/Threader.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/entity/Interval.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/entity/Interval.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/view/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/Controller.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/remotecontrol/server/view/TeacherGui.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/TeacherGui.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/MockTests.java" afterPath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/MockTests.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/client/StudentTestGui.java" afterPath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/client/StudentTestGui.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/FileUtilsTest.java" afterPath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/common/FileUtilsTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/ScreenShotTest.java" afterPath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/common/ScreenShotTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/common/SettingsTest.java" afterPath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/common/SettingsTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/server/IntervalTest.java" afterPath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/server/IntervalTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/remotecontrol/server/TeacherTestGui.java" afterPath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/server/TeacherTestGui.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Ebisu.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Ebisu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Shinigami.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Shinigami.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/fxml/Student.fxml" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Student.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/fxml/Teacher.fxml" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Teacher.fxml" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -175,8 +123,8 @@
       <file leaf-file-name="StudentGui.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/view/StudentGui.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.60402685">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.66442955">
+              <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -989,7 +937,7 @@
       <workItem from="1455131382530" duration="2031000" />
       <workItem from="1455259456850" duration="1206000" />
       <workItem from="1455275494434" duration="179000" />
-      <workItem from="1455272255722" duration="6783000" />
+      <workItem from="1455272255722" duration="6892000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
       <created>1446721170116</created>
@@ -1123,7 +1071,13 @@
       <option name="project" value="LOCAL" />
       <updated>1455280023906</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="1.11.29.026 - New designation">
+      <created>1455280444164</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1455280444164</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1159,7 +1113,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65511000" />
+    <option name="totallyTimeSpent" value="65620000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1179,14 +1133,14 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32386363" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3252841" sideWeight="0.5129241" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3252841" sideWeight="0.5129241" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3650568" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3252841" sideWeight="0.48707592" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21728595" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21728595" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.49676898" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1231,7 +1185,9 @@
     <MESSAGE value="1.11.29.024 - New design for the Student-GUI&#10;&#10;and sets repository for tests." />
     <MESSAGE value="1.11.29.024 - Formatting of comments for the time line" />
     <MESSAGE value="1.11.29.025 - Formatting of comments for the time line" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.11.29.025 - Formatting of comments for the time line" />
+    <MESSAGE value="1.11.29.025 - New designation" />
+    <MESSAGE value="1.11.29.026 - New designation" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.11.29.026 - New designation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1665,8 +1621,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/view/StudentGui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60402685">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.66442955">
+          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
           <folding />
         </state>
       </provider>
