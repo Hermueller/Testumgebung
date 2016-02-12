@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RemoteControl.iml" filepath="$PROJECT_DIR$/RemoteControl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TimeMonitoring.iml" filepath="$PROJECT_DIR$/TimeMonitoring.iml" />
     </modules>
   </component>
 </project>

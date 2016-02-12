@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: at.htl.timemonitoring.client.view.StudentGui
+Main-Class: at.htl.timemonitoring.server.view.TeacherGui
+
