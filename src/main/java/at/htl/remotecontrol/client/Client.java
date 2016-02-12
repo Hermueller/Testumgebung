@@ -1,8 +1,8 @@
 package at.htl.remotecontrol.client;
 
+import at.htl.remotecontrol.common.MyUtils;
 import at.htl.remotecontrol.common.actions.RobotAction;
 import at.htl.remotecontrol.common.actions.RobotActionQueue;
-import at.htl.remotecontrol.common.MyUtils;
 import at.htl.remotecontrol.common.io.FileStream;
 import at.htl.remotecontrol.common.io.FileUtils;
 import at.htl.remotecontrol.common.trasfer.LoginPackage;
@@ -13,7 +13,7 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * @timeline Text
+ * @timeline .
  * 24.10.2015: PON 010  students can log out - thereby no longer be sent screenshots
  * 26.10.2015: MET 002  renamed this class from "Student" to "Client"
  * 31.10.2015: MET 075  function "download specification" implemented

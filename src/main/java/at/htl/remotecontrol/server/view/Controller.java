@@ -1,12 +1,12 @@
 package at.htl.remotecontrol.server.view;
 
-import at.htl.remotecontrol.common.TimeSpinner;
 import at.htl.remotecontrol.common.MyUtils;
-import at.htl.remotecontrol.server.Settings;
 import at.htl.remotecontrol.common.Student;
+import at.htl.remotecontrol.common.TimeSpinner;
 import at.htl.remotecontrol.common.fx.StudentView;
 import at.htl.remotecontrol.common.io.FileUtils;
 import at.htl.remotecontrol.server.Server;
+import at.htl.remotecontrol.server.Settings;
 import at.htl.remotecontrol.server.Threader;
 import at.htl.remotecontrol.server.entity.Interval;
 import javafx.event.ActionEvent;
@@ -37,10 +37,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-//import at.htl.remotecontrol.common.TimeSpinner;
-
 /**
  * @timeline Text
+ * 15.10.2015: GNA 001  created class
  * 15.10.2015: PHI 035  Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
  * 19.10.2015: PON 020  list of connected pupils
  * 24.10.2015: PON 020  teachers can now select the folder where the screenshots are saved
@@ -100,6 +99,7 @@ public class Controller implements Initializable {
 
     /**
      * LOAD standard values.
+     *
      * @param location
      * @param resources
      */
@@ -123,7 +123,7 @@ public class Controller implements Initializable {
         spinner.valueProperty().addListener((obs, oldTime, newTime) ->
                 time[0] = doSomething(newTime, false));
 
-        System.out.println("LOCAL TIME  "+time[0]);
+        System.out.println("LOCAL TIME  " + time[0]);
 
         btnaddtime.setOnAction(event -> doSomething(time[0], true));
 
@@ -134,14 +134,14 @@ public class Controller implements Initializable {
         Settings.getInstance().setStartTime(LocalDateTime.now());
     }
 
-    private LocalTime doSomething(LocalTime newTime, boolean addtime ){
+    private LocalTime doSomething(LocalTime newTime, boolean addtime) {
         System.out.println(newTime);
-        if(addtime){
+        if (addtime) {
             newTime.plusMinutes(10);
-            System.out.println("NEW TIME "+newTime);
+            System.out.println("NEW TIME " + newTime);
         }
 
-        if(LocalTime.now() == newTime){
+        if (LocalTime.now() == newTime) {
             System.out.println("ABGABE");
             //directory.zip(Session.getInstance().getPath());
         }
@@ -149,6 +149,7 @@ public class Controller implements Initializable {
     }
 
     //region initialize
+
     /**
      * show the version number always in the bottom right corner.
      */
@@ -171,8 +172,8 @@ public class Controller implements Initializable {
             AnchorPane root = new AnchorPane(iv);
             Scene scene = new Scene(root, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
             stage.setScene(scene);
-            AnchorPane.setLeftAnchor(iv, (Screen.getPrimary().getBounds().getWidth() - iv.getImage().getWidth())/2);
-            AnchorPane.setTopAnchor(iv, (Screen.getPrimary().getBounds().getHeight() - iv.getImage().getHeight())/2);
+            AnchorPane.setLeftAnchor(iv, (Screen.getPrimary().getBounds().getWidth() - iv.getImage().getWidth()) / 2);
+            AnchorPane.setTopAnchor(iv, (Screen.getPrimary().getBounds().getHeight() - iv.getImage().getHeight()) / 2);
             iv.setOnMouseClicked(event1 -> stage.close());
             stage.show();
         });
@@ -283,7 +284,7 @@ public class Controller implements Initializable {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
 
-            FileUtils.log(this, Level.ERROR,"Keine IP Adresse gefunden "+MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR, "Keine IP Adresse gefunden " + MyUtils.exToStr(e));
         }
         tfMyIP_Address.setText(ip);
     }
@@ -306,19 +307,23 @@ public class Controller implements Initializable {
             setMsg(true, "Zeit darf nur Zahlen enthalten!!");
             setImage(ivTime, false);
             startable = false;
-        } if (!isRnd && ssTime.length() < 1) {
+        }
+        if (!isRnd && ssTime.length() < 1) {
             setMsg(true, "Bitte gib einen Zeitwert(in Sek.) an");
             setImage(ivTime, false);
             startable = false;
-        } if (path == null) {
+        }
+        if (path == null) {
             setMsg(true, "Bitte gib ein Verzeichnis an");
             setImage(ivPath, false);
             startable = false;
-        } if (handOut == null) {
+        }
+        if (handOut == null) {
             setMsg(true, "Bitte eine Angabe auswählen!");
             setImage(ivAngabe, false);
             startable = false;
-        } if (!tfPort.getText().matches("[0-9]+") && tfPort.getText().length() != 0) {
+        }
+        if (!tfPort.getText().matches("[0-9]+") && tfPort.getText().length() != 0) {
             setMsg(true, "ungültiger Port!!");
             setImage(ivPort, false);
             startable = false;
@@ -402,14 +407,14 @@ public class Controller implements Initializable {
     /**
      * Shows a green picture if the values were correct from the user
      * and shows a red picture if the userinput was wrong.
-     * @param element   The Place where the Image will show
-     * @param correct   Was the userinput correct?
+     *
+     * @param element The Place where the Image will show
+     * @param correct Was the userinput correct?
      */
     private void setImage(ImageView element, boolean correct) {
         if (correct) {
             element.setImage(new Image("images/checked.png"));
-        }
-        else {
+        } else {
             element.setImage(new Image("images/unchecked.png"));
         }
     }

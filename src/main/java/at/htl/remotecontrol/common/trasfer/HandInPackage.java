@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 /**
  * @timeline Text
- * 31.10.2015: MET 005  Klasse erstellt
+ * 31.10.2015: MET 005  created class
  */
 public class HandInPackage implements Serializable {
 

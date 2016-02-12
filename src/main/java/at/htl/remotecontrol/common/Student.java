@@ -12,8 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @timeline Text
- * 26.10.2015: MET 001  Klasse erstellt
+ * @timeline .
+ * 26.10.2015: MET 001  crated class
  * 26.10.2015: MET 005  Name des Schülers, Verzeichnis der Screenshots
  * 31.10.2015: MET 005  Funktion für Verzeichnis der Screenshots verbessert
  * 31.12.2015: PHI 001  Getter und Setter für locs und times erstellt.

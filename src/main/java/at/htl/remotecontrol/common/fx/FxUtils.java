@@ -11,7 +11,7 @@ import java.io.File;
  * @timeline .
  * 03.01.2016: MET 001  created class
  * 03.01.2016: MET 020  improved selection of folders and files: chooseDirectory() and chooseFile()
- * 03.01.2016: MET 003
+ * 03.01.2016: MET 003  made setMsg() statically available
  */
 public class FxUtils {
 

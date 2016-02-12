@@ -19,7 +19,7 @@ import java.util.Arrays;
  * Liest die Zeilen of Code und erstellt Screenshots bei dem PC
  * des Students und sendet diese verpackt in einem Package zurück.
  *
- * @timeline Text
+ * @timeline .
  * 13.01.2016: PHI 055  Es werden neben Screenshots auch die Lines of Code eingelesen und versendet.
  */
 public class LittleHarvester implements RobotAction {

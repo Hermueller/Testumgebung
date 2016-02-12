@@ -6,7 +6,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 /**
- * @timeline Text
+ * @timeline .
  * 02.01.2016: PHI 055  Klasse implementiert. Farbe ermöglicht.
  * 14.01.2016: PHI 010  Statt den Lines of Code wird jetzt die Uhrzeit angezeigt.
  */

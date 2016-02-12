@@ -4,7 +4,7 @@ package at.htl.remotecontrol.common.trasfer;
 import java.io.Serializable;
 
 /**
- * @timeline Text
+ * @timeline .
  * 13.01.2016: PHI 001  Erstellen der Serializable-Klasse.
  */
 public class HarvestedPackage implements Serializable {

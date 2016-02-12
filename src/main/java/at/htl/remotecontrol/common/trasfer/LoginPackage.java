@@ -3,7 +3,7 @@ package at.htl.remotecontrol.common.trasfer;
 import java.io.Serializable;
 
 /**
- * @timeline Text
+ * @timeline .
  * 31.10.2015: MET 005  created class
  * 19.11.2015: PON 002  added port
  */

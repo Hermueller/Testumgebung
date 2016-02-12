@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  * SocketReaderThread und der SocketWriterThread erzeugt, mit denen dann die
  * Netzwerkkommunikation ermöglicht ist.
  *
- * @timeline Text
+ * @timeline .
  * 21.10.2015: PHI 020  Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
  * 26.10.2015: MET 010  Verbesserung der Methode saveImage()
  * 27.10.2015: PHI 080  Live ÜberwachungsBild wird gesetzt
@@ -46,7 +46,7 @@ public class Server {
         ObjectInputStream in = new ObjectInputStream(
                 new BufferedInputStream(
                         socket.getInputStream()));
-        FileUtils.log(this, Level.INFO,"waiting for client name ...");
+        FileUtils.log(this, Level.INFO, "waiting for client name ...");
 
         LoginPackage packet = (LoginPackage) in.readObject();
 
@@ -60,7 +60,7 @@ public class Server {
             student = new Student(packet.getUserName(), packet.getDirOfWatch());
             Settings.getInstance().addStudent(student);
         }
-        FileUtils.log(this,Level.INFO,"I got the Package: " + packet.getDirOfWatch());
+        FileUtils.log(this, Level.INFO, "I got the Package: " + packet.getDirOfWatch());
         Settings.getInstance().loginStudent(student);
 
         reader = new SocketReaderThread(student, in, this);
@@ -74,7 +74,7 @@ public class Server {
         reader.start();
         writer.start();
 
-        FileUtils.log(this,Level.INFO,"finished connecting to " + socket);
+        FileUtils.log(this, Level.INFO, "finished connecting to " + socket);
     }
 
     public static int getPORT() {

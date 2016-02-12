@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * @timeline Text
- * 31.10.2015: MET 003  Klasse erstellt
+ * 31.10.2015: MET 001  created class
+ * 31.10.2016: MET 002  added field "value"
  */
 public class ResponsePackage implements Serializable {
 

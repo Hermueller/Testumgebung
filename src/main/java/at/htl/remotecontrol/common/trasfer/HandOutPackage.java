@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * "Client" bzw. für den Schüler relevant sind.
  *
  * @timeline Text
- * 31.10.2015: MET 005  Klasse erstellt
+ * 31.10.2015: MET 005  created class
  */
 public class HandOutPackage implements Serializable {
 

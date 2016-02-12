@@ -6,9 +6,9 @@ import org.apache.logging.log4j.Level;
 import java.io.*;
 
 /**
- * @timeline Text
- * 01.11.2015: MET 001  Klasse erstellt
- * 01.11.2015: MET 040  Senden und Empfangen von Dateien
+ * @timeline .
+ * 01.11.2015: MET 001  created class
+ * 01.11.2015: MET 040  sending and receiving files
  * 08.02.2016: GNA 020  Errors und Infos in LogFile gespeichert
  */
 public class FileStream {

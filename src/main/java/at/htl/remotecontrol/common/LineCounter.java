@@ -9,7 +9,8 @@ import java.io.File;
 import java.io.FileReader;
 
 /**
- * @timeline Text
+ * @timeline .
+ * 10.12.2015: PHI 001  created class
  * 10.12.2015: PHI 055  Anlegen der Grundfunktionen und implementieren dieser in andere Klassen(z.B. SocketWriterThread)
  * 11.12.2015: PHI 045  Errechnen von ALLEN zeilen im Projekt NUR im Startverzeichnis, das beim Login erstellt wurde.
  */

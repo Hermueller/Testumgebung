@@ -1,7 +1,7 @@
 package at.htl.remotecontrol.server;
 
-import at.htl.remotecontrol.common.actions.TimeShower;
 import at.htl.remotecontrol.common.Student;
+import at.htl.remotecontrol.common.actions.TimeShower;
 import at.htl.remotecontrol.common.fx.StudentView;
 import at.htl.remotecontrol.common.io.FileUtils;
 import at.htl.remotecontrol.common.trasfer.HandOutPackage;
@@ -274,14 +274,14 @@ public class Settings {
     public void addStudent(final Student student) {
         studentsList.add(student);
 
-        if(StudentView.getInstance().getLv() != null)
-        Platform.runLater(() -> {
-            Button btn = new Button(student.getName());
-            btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
-            btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
-            btn.setStyle("-fx-background-color: crimson");
-            students.add(btn);
-        });
+        if (StudentView.getInstance().getLv() != null)
+            Platform.runLater(() -> {
+                Button btn = new Button(student.getName());
+                btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
+                btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
+                btn.setStyle("-fx-background-color: crimson");
+                students.add(btn);
+            });
     }
 
     public List<Student> getStudentsList() {

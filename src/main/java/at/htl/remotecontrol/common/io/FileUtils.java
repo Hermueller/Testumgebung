@@ -257,7 +257,6 @@ public class FileUtils {
 
 
     /**
-     *
      * @param level
      * @param message
      */
@@ -266,7 +265,6 @@ public class FileUtils {
     }
 
     /**
-     *
      * @param obj
      * @param level
      * @param message

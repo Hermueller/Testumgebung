@@ -17,7 +17,8 @@ import java.io.ObjectInputStream;
  * und reicht sie dann an dem TeacherServer weiter, der sie auch
  * sofort anzeigt.
  *
- * @timeline Text
+ * @timeline .
+ *
  * 31.10.2015: MET 010  Änderung
  */
 class SocketReaderThread extends Thread {
