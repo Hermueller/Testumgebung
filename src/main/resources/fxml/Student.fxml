@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="btnTestConection" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.remotecontrol.client.view.Controller">
     <children>
-        <GridPane layoutX="62.0" layoutY="50.0" prefHeight="150.0">
+        <GridPane layoutX="62.0" layoutY="50.0" prefHeight="150.0" stylesheets="@../styles/StudentStyle.css">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
@@ -70,7 +70,7 @@
                     </children>
                 </GridPane>
                 <TextField fx:id="tfPathOfProject" promptText="/local/TestC01/Mustermann" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Button fx:id="btnChooseDirectory" mnemonicParsing="false" onAction="#chooseDirectory" text="Auswählen" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                <Button fx:id="btnChooseDirectory" mnemonicParsing="false" onAction="#chooseProjectDirectory" text="Auswählen" GridPane.columnIndex="2" GridPane.rowIndex="3">
                     <GridPane.margin>
                         <Insets left="10.0" />
                     </GridPane.margin>
@@ -84,10 +84,15 @@
         </GridPane>
         <Button fx:id="btnLogin" layoutX="166.0" layoutY="217.0" mnemonicParsing="false" onAction="#login" text="Anmelden" />
         <Button fx:id="btnLogout" layoutX="323.0" layoutY="217.0" mnemonicParsing="false" onAction="#logout" text="Abmelden" />
-        <Text layoutX="143.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zusatz: Dauer (+ Endzeit), Chat mit Lehrer">
+        <Text layoutX="143.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zusatz: Dauer (+ Endzeit), Chat mit Lehrer">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>
         </Text>
+        <Label fx:id="lbAlert" alignment="CENTER" layoutX="25.0" layoutY="353.0" prefHeight="25.0" prefWidth="550.0" text="" textAlignment="CENTER">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>
