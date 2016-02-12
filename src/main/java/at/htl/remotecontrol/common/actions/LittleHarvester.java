@@ -1,6 +1,6 @@
 package at.htl.remotecontrol.common.actions;
 
-import at.htl.remotecontrol.common.entity.LineCounter;
+import at.htl.remotecontrol.common.LineCounter;
 import at.htl.remotecontrol.common.trasfer.HarvestedPackage;
 
 import javax.imageio.IIOImage;

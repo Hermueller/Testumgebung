@@ -1,4 +1,4 @@
-package at.htl.remotecontrol.common.entity;
+package at.htl.remotecontrol.common.fx;
 
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;

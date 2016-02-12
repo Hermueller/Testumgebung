@@ -1,11 +1,12 @@
 package at.htl.remotecontrol.server;
 
+import at.htl.remotecontrol.common.MyUtils;
+import at.htl.remotecontrol.common.Student;
 import at.htl.remotecontrol.common.actions.LittleHarvester;
 import at.htl.remotecontrol.common.actions.RobotAction;
 import at.htl.remotecontrol.common.actions.RobotActionQueue;
 import at.htl.remotecontrol.common.io.FileStream;
 import at.htl.remotecontrol.common.io.FileUtils;
-import at.htl.remotecontrol.common.entity.*;
 import javafx.scene.chart.XYChart;
 import org.apache.logging.log4j.Level;
 
@@ -46,7 +47,7 @@ class SocketWriterThread extends Thread {
      * @return the time to wait.
      */
     public long getWaitTime() {
-        return Session.getInstance().getInterval();
+        return Settings.getInstance().getInterval();
     }
 
     /**
@@ -65,7 +66,7 @@ class SocketWriterThread extends Thread {
      * sends the test-file to the students.
      */
     public void handOut() {
-        FileStream.send(out, Session.getInstance().getHandOutFile());
+        FileStream.send(out, Settings.getInstance().getHandOutFile());
     }
 
     public void run() {
@@ -79,7 +80,7 @@ class SocketWriterThread extends Thread {
         XYChart.Series<Number, Number> seri = new XYChart.Series<>();
         seri.setName(student.getName() + "/" + LocalTime.now());
 
-        Session.getInstance()
+        Settings.getInstance()
                 .findStudentByName(student.getName())
                 .addSeries(seri);
 
@@ -102,7 +103,7 @@ class SocketWriterThread extends Thread {
             }
             out.close();
         } catch (IOException e) {
-            FileUtils.log(this, Level.ERROR,"Connection to " + student.getName() + " closed" + MyUtils.convert(e));
+            FileUtils.log(this, Level.ERROR,"Connection to " + student.getName() + " closed" + MyUtils.exToStr(e));
         }
         FileUtils.log(this,Level.INFO,"Closing connection to " + student.getName());
 

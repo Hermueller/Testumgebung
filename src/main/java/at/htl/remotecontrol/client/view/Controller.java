@@ -1,7 +1,8 @@
 package at.htl.remotecontrol.client.view;
 
 import at.htl.remotecontrol.client.Client;
-import at.htl.remotecontrol.common.entity.MyUtils;
+import at.htl.remotecontrol.common.MyUtils;
+import at.htl.remotecontrol.common.fx.FxUtils;
 import at.htl.remotecontrol.common.io.FileUtils;
 import at.htl.remotecontrol.common.trasfer.LoginPackage;
 import javafx.event.ActionEvent;
@@ -10,8 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -25,31 +26,45 @@ import java.util.ResourceBundle;
 
 /**
  * @timeline Text
- * 15.10.2015:  PON 001  created class
- * 18.10.2015: PHI 030  Einfügen eines Login's mit Werteübergabe
+ * 15.10.2015: PON 001  created class
+ * 18.10.2015: PHI 030  created login with text boxes
+ * 14.10.2015: MET 030  new GUI design and created function setControls(value)
  * 24.10.2015: PON 005  added logout method
- * 30.10.2015: MET 010  Login/Logout expanded
- * 31.10.2015: MET 020  Erstellen von Client-Paketen und deren Übermittlung an Client
+ * 30.10.2015: MET 010  expanded to login and logout
+ * 31.10.2015: MET 020  creating Client packages and submitting them to client
  * 06.11.2015: PON 010  expansion to the password field
- * 19.11.2015: PON 010  added port
- * 29.11.2015: PHI 040  Fehlermeldungen in GUI
+ * 19.11.2015: PON 015  GUI extended by the TextField "Port" and implements corresponding functions
+ * 29.11.2015: PHI 040  display of messages in the GUI with setMsg()
+ * 03.01.2016: MET 005  setMsg() improved by using FxUtils
  */
 public class Controller implements Initializable {
 
+    //region Controls
     @FXML
-    TextField tfUsername, tfTeacherIP, tfPath, tfPort;
-
+    TextField tfServerIP;
     @FXML
-    PasswordField pfPassword;
-
+    TextField tfPort;
     @FXML
-    Button btnLogin, btnLogOut, btnfilePath;
-
+    TextField tfEnrolmentID;
+    @FXML
+    TextField tfCatalogNumber;
+    @FXML
+    TextField tfFirstName;
+    @FXML
+    TextField tfLastName;
+    @FXML
+    TextField tfPathOfProject;
+    @FXML
+    Button btnTestConnection;
+    @FXML
+    Button btnChooseDirectory;
+    @FXML
+    Button btnLogin;
+    @FXML
+    Button btnLogout;
     @FXML
     Label lbAlert;
-
-    @FXML
-    ToggleButton btnFinished;
+    //endregion
 
     private Client client;
     private boolean loggedIn;
@@ -57,24 +72,11 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         FileUtils.log(this, Level.ERROR, "initialize GUI 2");
         this.loggedIn = false;
-        btnLogOut.setDisable(true);
+        btnLogout.setDisable(true);
 
         // Text in Textfeld mittig setzen
         lbAlert.setTextAlignment(TextAlignment.CENTER);
         lbAlert.setAlignment(Pos.CENTER);
-    }
-
-    /**
-     * sets an message on the screen of the client.
-     *
-     * @param error TRUE if it is an error-message and
-     *              FALSE if it is a success-message.
-     * @param msg   Specifies the message to show.
-     */
-    private void setMsg(boolean error, String msg) {
-        String color = (error ? "red" : "limegreen");
-        lbAlert.setText(msg);
-        lbAlert.setStyle("-fx-background-color: " + color);
     }
 
     /**
@@ -125,7 +127,7 @@ public class Controller implements Initializable {
         } catch (AWTException | IOException e) {
             FileUtils.log(this, Level.ERROR,
                     "Wurde nicht angemeldet überprüfen sie Username, Password, TeacherIP und den Pfad der Screenshots "
-                            + MyUtils.convert(e));
+                            + MyUtils.exToStr(e));
         }
     }
 
@@ -189,6 +191,17 @@ public class Controller implements Initializable {
         }
         client.closeOut();
         setMsg(false, "Abgemeldet");
+    }
+
+    /**
+     * Sets an message on the screen of the student.
+     *
+     * @param text  specifies the message to show
+     * @param error TRUE   if it is an error-message
+     *              FALSE  if it is a success-message
+     */
+    private void setMsg(String text, boolean error) {
+        FxUtils.setMsg(lbAlert, text, error);
     }
 
 }

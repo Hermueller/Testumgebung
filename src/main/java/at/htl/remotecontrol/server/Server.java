@@ -1,8 +1,7 @@
 package at.htl.remotecontrol.server;
 
-import at.htl.remotecontrol.common.entity.Session;
-import at.htl.remotecontrol.common.entity.Student;
-import at.htl.remotecontrol.common.entity.StudentView;
+import at.htl.remotecontrol.common.Student;
+import at.htl.remotecontrol.common.fx.StudentView;
 import at.htl.remotecontrol.common.io.FileUtils;
 import at.htl.remotecontrol.common.trasfer.LoginPackage;
 import javafx.application.Platform;
@@ -52,17 +51,17 @@ public class Server {
         LoginPackage packet = (LoginPackage) in.readObject();
 
         Student student;
-        if (Session.getInstance().findStudentByName(packet.getUserName()) != null) {
-            student = Session.getInstance().findStudentByName(packet.getUserName());
+        if (Settings.getInstance().findStudentByName(packet.getUserName()) != null) {
+            student = Settings.getInstance().findStudentByName(packet.getUserName());
             if (student.getPathOfWatch() == null) {
                 student.setPathOfWatch(packet.getDirOfWatch());
             }
         } else {
             student = new Student(packet.getUserName(), packet.getDirOfWatch());
-            Session.getInstance().addStudent(student);
+            Settings.getInstance().addStudent(student);
         }
         FileUtils.log(this,Level.INFO,"I got the Package: " + packet.getDirOfWatch());
-        Session.getInstance().loginStudent(student);
+        Settings.getInstance().loginStudent(student);
 
         reader = new SocketReaderThread(student, in, this);
         writer = new SocketWriterThread(student, out);
@@ -94,7 +93,7 @@ public class Server {
      */
     public void saveImage(BufferedImage image, Student student) {
         String path = String.format("%s/%s-%s.jpg",
-                Session.getInstance().getPathOfImages() + "/" + student.getName(),
+                Settings.getInstance().getPathOfImages() + "/" + student.getName(),
                 student.getName(),
                 LocalDateTime.now());
         //ScreenShot.save(image, path);

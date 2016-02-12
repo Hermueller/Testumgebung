@@ -2,7 +2,7 @@ package at.htl.remotecontrol.client;
 
 import at.htl.remotecontrol.common.actions.RobotAction;
 import at.htl.remotecontrol.common.actions.RobotActionQueue;
-import at.htl.remotecontrol.common.entity.MyUtils;
+import at.htl.remotecontrol.common.MyUtils;
 import at.htl.remotecontrol.common.io.FileStream;
 import at.htl.remotecontrol.common.io.FileUtils;
 import at.htl.remotecontrol.common.trasfer.LoginPackage;
@@ -99,9 +99,9 @@ public class Client {
                     }
                 }
             } catch (EOFException eof) {
-                FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.convert(eof));
+                FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.exToStr(eof));
             } catch (Exception ex) {
-                FileUtils.log(this, Level.ERROR, "Send Boolean" + MyUtils.convert(ex));
+                FileUtils.log(this, Level.ERROR, "Send Boolean" + MyUtils.exToStr(ex));
                 /*try {
                     out.writeBoolean(isTestFinished.isSelected());
                 } catch (IOException e) {
@@ -139,7 +139,7 @@ public class Client {
                     }
                 }
             } catch (IOException e) {
-                FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.convert(e));
+                FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.exToStr(e));
             }
         }
     }
@@ -151,7 +151,7 @@ public class Client {
         try {
             getOut().close();
         } catch (IOException e) {
-            FileUtils.log(this, Level.ERROR, "Error by closing of ObjectOutStream!" + MyUtils.convert(e));
+            FileUtils.log(this, Level.ERROR, "Error by closing of ObjectOutStream!" + MyUtils.exToStr(e));
         }
     }
 

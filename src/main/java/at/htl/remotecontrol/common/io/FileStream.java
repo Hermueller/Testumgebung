@@ -1,6 +1,6 @@
 package at.htl.remotecontrol.common.io;
 
-import at.htl.remotecontrol.common.entity.MyUtils;
+import at.htl.remotecontrol.common.MyUtils;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
@@ -35,7 +35,7 @@ public class FileStream {
             FileUtils.log(FileStream.class, Level.INFO, "sending completed: " + file.getName());
             sent = true;
         } catch (IOException e) {
-            FileUtils.log(FileStream.class, Level.ERROR, "cannot send screenshot to teacher" + MyUtils.convert(e));
+            FileUtils.log(FileStream.class, Level.ERROR, "cannot send screenshot to teacher" + MyUtils.exToStr(e));
         }
         return sent;
     }

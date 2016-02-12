@@ -1,10 +1,10 @@
 package at.htl.remotecontrol.server.view;
 
 import at.htl.remotecontrol.common.TimeSpinner;
-import at.htl.remotecontrol.common.entity.MyUtils;
-import at.htl.remotecontrol.common.entity.Session;
-import at.htl.remotecontrol.common.entity.Student;
-import at.htl.remotecontrol.common.entity.StudentView;
+import at.htl.remotecontrol.common.MyUtils;
+import at.htl.remotecontrol.server.Settings;
+import at.htl.remotecontrol.common.Student;
+import at.htl.remotecontrol.common.fx.StudentView;
 import at.htl.remotecontrol.common.io.FileUtils;
 import at.htl.remotecontrol.server.Server;
 import at.htl.remotecontrol.server.Threader;
@@ -47,6 +47,7 @@ import java.util.ResourceBundle;
  * 26.10.2015: PHI 050  Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
  * 05.11.2015: PON 015  implemented selecting of specification file
  * 06.11.2015: PON 002  expansion to the password field
+ * 12.11.2015: PON 002  save password in the repository
  * 29.11.2015: PHI 025  Angabe-Auswahl + Fehlermeldungen in GUI
  * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
  * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
@@ -103,7 +104,7 @@ public class Controller implements Initializable {
      * @param resources
      */
     public void initialize(URL location, ResourceBundle resources) {
-        lvStudents.setItems(Session.getInstance().getObservableList());
+        lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
 
@@ -130,7 +131,7 @@ public class Controller implements Initializable {
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
-        Session.getInstance().setStartTime(LocalDateTime.now());
+        Settings.getInstance().setStartTime(LocalDateTime.now());
     }
 
     private LocalTime doSomething(LocalTime newTime, boolean addtime ){
@@ -183,7 +184,7 @@ public class Controller implements Initializable {
     private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
         Tooltip mousePositionToolTip = new Tooltip("");
         lbPath.setOnMouseMoved(event -> {
-            String msg = Session.getInstance().getPath();
+            String msg = Settings.getInstance().getPath();
             if (msg != null) {
                 mousePositionToolTip.setText(msg);
 
@@ -192,7 +193,7 @@ public class Controller implements Initializable {
             }
         });
         lbAngabe.setOnMouseMoved(event -> {
-            File file = Session.getInstance().getHandOutFile();
+            File file = Settings.getInstance().getHandOutFile();
             if (file != null) {
                 mousePositionToolTip.setText(file.getPath());
 
@@ -213,7 +214,7 @@ public class Controller implements Initializable {
             //   CHANGE LINECHART
             loc.getData().clear();
 
-            Student st = Session.getInstance().findStudentByName(newValue.getText());
+            Student st = Settings.getInstance().findStudentByName(newValue.getText());
             if (st.getSeries() != null) {
                 for (XYChart.Series<Number, Number> actualSeries : st.getSeries()) {
                     loc.getData().add(actualSeries);
@@ -268,7 +269,7 @@ public class Controller implements Initializable {
      * edits the chart and saves it in a singleton-class.
      */
     private void initializeLOC() {
-        Session.getInstance().setChart(loc);
+        Settings.getInstance().setChart(loc);
 
         loc.setCursor(Cursor.CROSSHAIR);
     }
@@ -282,7 +283,7 @@ public class Controller implements Initializable {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
 
-            FileUtils.log(this, Level.ERROR,"Keine IP Adresse gefunden "+MyUtils.convert(e));
+            FileUtils.log(this, Level.ERROR,"Keine IP Adresse gefunden "+MyUtils.exToStr(e));
         }
         tfMyIP_Address.setText(ip);
     }
@@ -295,8 +296,8 @@ public class Controller implements Initializable {
      * @param actionEvent Information from the click on the button.
      */
     public void startServer(ActionEvent actionEvent) {
-        String path = Session.getInstance().getPathOfImages();
-        File handOut = Session.getInstance().getHandOutFile();
+        String path = Settings.getInstance().getPathOfImages();
+        File handOut = Settings.getInstance().getHandOutFile();
         String ssTime = tfTimeSS.getText();
         boolean isRnd = TB_SS_rnd.isSelected();
         boolean startable = true;
@@ -333,13 +334,13 @@ public class Controller implements Initializable {
             }
 
             if (isRnd) {
-                Session.getInstance().setInterval(new Interval(1, 30));
+                Settings.getInstance().setInterval(new Interval(1, 30));
             } else {
-                Session.getInstance().setInterval(new Interval(Integer.parseInt(ssTime)));
+                Settings.getInstance().setInterval(new Interval(Integer.parseInt(ssTime)));
             }
 
             String[] endings = ending.split(";");
-            Session.getInstance().setEndings(endings);
+            Settings.getInstance().setEndings(endings);
 
             threader = new Threader();
             server = new Thread(threader);
@@ -438,7 +439,7 @@ public class Controller implements Initializable {
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null) {
-            Session.getInstance().setPath(choosedFile.getPath());
+            Settings.getInstance().setPath(choosedFile.getPath());
             //cbHome.setSelected(true);
         } /*else {
             cbHome.setSelected(false);
@@ -459,7 +460,7 @@ public class Controller implements Initializable {
 
         // Check the user pressed OK, and not Cancel.
         if (yourZip != null) {
-            Session.getInstance().setHandOutFile(yourZip);
+            Settings.getInstance().setHandOutFile(yourZip);
             //cbAngabe.setSelected(true);
         } /*else {
             cbAngabe.setSelected(false);
@@ -513,7 +514,7 @@ public class Controller implements Initializable {
                 }
             }
             while ((line = bis.readLine()) != null) {
-                Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
+                Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
             }
         }
     }

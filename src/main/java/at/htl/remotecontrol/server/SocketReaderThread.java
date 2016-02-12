@@ -1,9 +1,8 @@
 package at.htl.remotecontrol.server;
 
 import at.htl.remotecontrol.common.io.FileUtils;
-import at.htl.remotecontrol.common.entity.MyUtils;
-import at.htl.remotecontrol.common.entity.Session;
-import at.htl.remotecontrol.common.entity.Student;
+import at.htl.remotecontrol.common.MyUtils;
+import at.htl.remotecontrol.common.Student;
 import at.htl.remotecontrol.common.trasfer.HarvestedPackage;
 import org.apache.logging.log4j.Level;
 
@@ -54,11 +53,11 @@ class SocketReaderThread extends Thread {
                 server.saveImage(image, student);
 
                 //save and show Lines of Code
-                Session.getInstance().addValue(harvestedPackage.getLoc(), student, priorValue);
+                Settings.getInstance().addValue(harvestedPackage.getLoc(), student, priorValue);
                 priorValue = harvestedPackage.getLoc();
 
             } catch (Exception ex) {
-                FileUtils.log(this, Level.ERROR, "canceled "+MyUtils.convert(ex));
+                FileUtils.log(this, Level.ERROR, "canceled "+MyUtils.exToStr(ex));
                 /*boolean fetchTest = false;
                 try {
                     fetchTest = in.readBoolean();
@@ -83,7 +82,7 @@ class SocketReaderThread extends Thread {
         try {
             in.close();
         } catch (IOException e) {
-            FileUtils.log(this,Level.ERROR,"Error by closing of ObjectInputStream!"+MyUtils.convert(e));
+            FileUtils.log(this,Level.ERROR,"Error by closing of ObjectInputStream!"+MyUtils.exToStr(e));
         }
     }
 }

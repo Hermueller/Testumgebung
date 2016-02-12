@@ -1,6 +1,6 @@
 package at.htl.remotecontrol.common;
 
-import at.htl.remotecontrol.common.entity.Session;
+import at.htl.remotecontrol.server.Settings;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -21,9 +21,9 @@ import static org.hamcrest.core.Is.is;
  * 10.02.2016: PON 005  added deleteDirecotrys method
  * 10.02.2016: PON 010  test findStudentByName
  */
-public class SessionTest {
+public class SettingsTest {
 
-    public static Session session = Session.getInstance();
+    public static Settings settings = Settings.getInstance();
 
     public static File dic;
     public static File ang;
@@ -33,27 +33,25 @@ public class SessionTest {
     public static void init() throws IOException {
         dic = FileUtils.getFile("src", "test", "resources", "Dirs");
         ang = FileUtils.getFile("src", "test", "resources", "Angabe.zip");
-        session.setPath(dic.getPath());
-        session.addStudentsFromCsv(FileUtils.getFile("src", "test", "resources", "ListeSchueler4AHIF.csv"));
-        session.setHandOutFile(ang);
-
-
+        settings.setPath(dic.getPath());
+        settings.addStudentsFromCsv(FileUtils.getFile("src", "test", "resources", "ListeSchueler4AHIF.csv"));
+        settings.setHandOutFile(ang);
     }
 
     @Test
     public void testFindStudentByName() throws Exception {
         String expected = "Forster";
-        String actual = session.findStudentByName("Forster").getName();
+        String actual = settings.findStudentByName("Forster").getName();
         assertThat(actual, is(expected));
     }
 
     @Test
     public void testAddStudentsFromCsv() throws Exception {
 
-        assertThat(session.getStudentsList().get(0).getName(), is("Forster"));
-        assertThat(session.getStudentsList().get(1).getName(), is("Froschauer"));
-        assertThat(session.getStudentsList().get(10).getName(), is("Krannich"));
-        assertThat(session.getStudentsList().get(20).getName(), is("Tanzer"));
+        assertThat(settings.getStudentsList().get(0).getName(), is("Forster"));
+        assertThat(settings.getStudentsList().get(1).getName(), is("Froschauer"));
+        assertThat(settings.getStudentsList().get(10).getName(), is("Krannich"));
+        assertThat(settings.getStudentsList().get(20).getName(), is("Tanzer"));
 
         File screenShotsFile = new File(dic.getPath() + "/Screenshots");
 
@@ -70,6 +68,5 @@ public class SessionTest {
         FileUtils.deleteDirectory(dic);
         dic.mkdir();
     }
-
 
 }

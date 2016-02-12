@@ -1,6 +1,7 @@
-package at.htl.remotecontrol.common.entity;
+package at.htl.remotecontrol.common;
 
 import at.htl.remotecontrol.common.io.FileUtils;
+import at.htl.remotecontrol.server.Settings;
 import org.apache.logging.log4j.Level;
 
 import java.io.BufferedReader;
@@ -32,7 +33,7 @@ public class LineCounter {
                 lines = br.lines().count();
             }
         } catch (Exception exc) {
-            FileUtils.log(this, Level.ERROR,"File konnte nicht gelesen werden!!"+ MyUtils.convert(exc));
+            FileUtils.log(this, Level.ERROR,"File konnte nicht gelesen werden!!"+ MyUtils.exToStr(exc));
         }
 
         return lines;
@@ -54,7 +55,7 @@ public class LineCounter {
             if (fileEntry.isDirectory()) {
                 allLines += countLinesInFilesFromFolder(fileEntry);
             } else {
-                for (String ending : Session.getInstance().getEndings()) {
+                for (String ending : Settings.getInstance().getEndings()) {
                     if (fileEntry.getName().endsWith("." + ending.split("\\.")[1])) {
                         allLines += countLines(fileEntry.getPath());
                     }

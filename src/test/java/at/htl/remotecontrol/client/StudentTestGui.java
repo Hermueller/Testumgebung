@@ -1,6 +1,6 @@
 package at.htl.remotecontrol.client;
 
-import at.htl.remotecontrol.common.entity.Session;
+import at.htl.remotecontrol.server.Settings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -29,14 +29,14 @@ public class StudentTestGui extends GuiTest {
 
     @Override
     protected Parent getRootNode() {
-        Parent parent = null;
+        Parent parent;
         try {
             parent = FXMLLoader.load(getClass().getResource("/fxml/Student.fxml"));
             return parent;
         } catch (IOException ex) {
             System.err.println("Error: " + ex.getMessage());
         }
-        return parent;
+        return null;
     }
 
     @Test
@@ -57,7 +57,7 @@ public class StudentTestGui extends GuiTest {
         type("passme");
         click(btnLogin);
 
-        assertThat(Session.getInstance().getPassword(), is("passme"));
+        assertThat(Settings.getInstance().getPassword(), is("passme"));
     }
 
 }

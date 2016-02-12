@@ -1,7 +1,8 @@
-package at.htl.remotecontrol.common.entity;
+package at.htl.remotecontrol.common;
 
 import at.htl.remotecontrol.common.actions.TimeShower;
 import at.htl.remotecontrol.common.io.FileUtils;
+import at.htl.remotecontrol.server.Settings;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 
@@ -31,7 +32,7 @@ public class Student {
     public Student(String name, String pathOfWatch) {
         this.name = name;
         this.pathOfWatch = pathOfWatch;
-        setPathOfImages(Session.getInstance().getPathOfImages());
+        setPathOfImages(Settings.getInstance().getPathOfImages());
     }
 
     //region Getter and Setter
@@ -90,7 +91,7 @@ public class Student {
 
     public void setPathOfWatch(String pathOfWatch) {
         this.pathOfWatch = pathOfWatch;
-        setPathOfImages(Session.getInstance().getPathOfImages());
+        setPathOfImages(Settings.getInstance().getPathOfImages());
     }
 
     //endregion

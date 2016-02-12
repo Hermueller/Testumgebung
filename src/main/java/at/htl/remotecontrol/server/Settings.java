@@ -1,6 +1,8 @@
-package at.htl.remotecontrol.common.entity;
+package at.htl.remotecontrol.server;
 
 import at.htl.remotecontrol.common.actions.TimeShower;
+import at.htl.remotecontrol.common.Student;
+import at.htl.remotecontrol.common.fx.StudentView;
 import at.htl.remotecontrol.common.io.FileUtils;
 import at.htl.remotecontrol.common.trasfer.HandOutPackage;
 import at.htl.remotecontrol.server.entity.Interval;
@@ -22,18 +24,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @timeline Text
- * 15.10.2015: GNA 001  Klasse erstellt
+ * @timeline .
+ * 15.10.2015: GNA 001  created class (name: "Time")
  * 15.10.2015: GNA 010  Verwaltung der Gui-Eingabewerte inplementiert
- * 19.10.2015: PHI 015  Erweiterung um eine Liste der verbundenen Studenten
- * 24.10.2015: PHI 003  extension to the string "pathOfImages"
- * 26.10.2015: MET 005  Singleton-Pattern korrigiert und Klasse von Time auf Session umbenannt
- * 26.10.2015: MET 003  ObservableList von Studenten statt von String
- * 27.10.2015: PHI 035  Students werden nach dem Logout von der Liste entfernt
- * 30.10.2015: PHI 030  fixe/zufällige Zeitspanne zwischen Screenshots erstellt
- * 30.10.2015: MET 005  fixe/zufällige Zeitspanne zwischen Screenshots erstellt
- * 31.10.2015: MET 010  Funktion implementiert: Testbeginn und Testende festlegen
- * 31.10.2015: MET 005  Erweiterung um handOutFile und getHandOutPacket()
+ * 19.10.2015: PHI 015  extended by a list of connected Students (String)
+ * 24.10.2015: PHI 003  extended to the String "pathOfImages" (location of the test)
+ * 26.10.2015: MET 005  Singleton-Pattern corrected and renamed class from "Time" to "Setting"
+ * 26.10.2015: MET 003  list of students instead of String (better because storage options)
+ * 27.10.2015: PHI 035  adding and deleting of "Pupils"
+ * 30.10.2015: PHI 030  implemented random time between screenshots
+ * 30.10.2015: MET 005  created fixed/random "Interval" between screenshots
+ * 31.10.2015: MET 010  functionS implemented: set test start and test end
+ * 31.10.2015: MET 005  expansion to handOutFile and getHandOutPacket ()
  * 06.11.2015: PON 005  extension by password
  * 29.11.2015: PHI 040  Hinzufügen und Entfernen von Studenten geändert (farbige)TestField
  * 10.12.2015: PHI 025  Einbinden von Funktionen, die für die Lines of Code benötigt werden
@@ -47,9 +49,9 @@ import java.util.List;
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
  * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
  */
-public class Session {
+public class Settings {
 
-    private static Session instance = null;
+    private static Settings instance = null;
 
     private ObservableList<Button> students;
     private List<Student> studentsList = new LinkedList<>();
@@ -66,14 +68,14 @@ public class Session {
     private String[] endings;
     private MediaPlayer mediaPlayer = null;
 
-    protected Session() {
+    protected Settings() {
         students = FXCollections.observableList(new LinkedList<>());
         endings = ("*.java; *.fxml; *.css; *.xhtml; *.html").split(";");
     }
 
-    public static Session getInstance() {
+    public static Settings getInstance() {
         if (instance == null) {
-            instance = new Session();
+            instance = new Settings();
         }
         return instance;
     }
@@ -434,7 +436,7 @@ public class Session {
             }
         }
         while ((line = bis.readLine()) != null) {
-            Session.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
+            Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
         }
     }
     //endregion

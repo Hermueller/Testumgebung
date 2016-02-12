@@ -13,79 +13,14 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * @timeline .
- * 21.01.2016: GNA 001  Class created
- * 08.02.2016: GNA 250  Implementation of TimeSpinner which is not implemented in JavaFX
+ * 21.01.2016: GNA 001  created class
+ * 08.02.2016: GNA 250  implementation of TimeSpinner which is not implemented in JavaFX
  */
 public class TimeSpinner extends Spinner<LocalTime> {
 
-    // Mode represents the unit that is currently being edited.
-    // For convenience expose methods for incrementing and decrementing that
-    // unit, and for selecting the appropriate portion in a spinner's editor
-    enum Mode {
-
-        HOURS {
-            @Override
-            LocalTime increment(LocalTime time, int steps) {
-                return time.plusHours(steps);
-            }
-
-            @Override
-            void select(TimeSpinner spinner) {
-                int index = spinner.getEditor().getText().indexOf(':');
-                spinner.getEditor().selectRange(0, index);
-            }
-        },
-        MINUTES {
-            @Override
-            LocalTime increment(LocalTime time, int steps) {
-                return time.plusMinutes(steps);
-            }
-
-            @Override
-            void select(TimeSpinner spinner) {
-                int hrIndex = spinner.getEditor().getText().indexOf(':');
-                int minIndex = spinner.getEditor().getText().indexOf(':', hrIndex + 1);
-                spinner.getEditor().selectRange(hrIndex + 1, minIndex);
-            }
-        },
-        SECONDS {
-            @Override
-            LocalTime increment(LocalTime time, int steps) {
-                return time.plusSeconds(steps);
-            }
-
-            @Override
-            void select(TimeSpinner spinner) {
-                int index = spinner.getEditor().getText().lastIndexOf(':');
-                spinner.getEditor().selectRange(index + 1, spinner.getEditor().getText().length());
-            }
-        };
-
-        abstract LocalTime increment(LocalTime time, int steps);
-
-        abstract void select(TimeSpinner spinner);
-
-        LocalTime decrement(LocalTime time, int steps) {
-            return increment(time, -steps);
-        }
-    }
-
-    // Property containing the current editing mode:
-
     private final ObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.HOURS);
 
-    public ObjectProperty<Mode> modeProperty() {
-        return mode;
-    }
-
-    public final Mode getMode() {
-        return modeProperty().get();
-    }
-
-    public final void setMode(Mode mode) {
-        modeProperty().set(mode);
-    }
-
+    // Property containing the current editing mode:
 
     public TimeSpinner(LocalTime time) {
         setEditable(true);
@@ -187,5 +122,69 @@ public class TimeSpinner extends Spinner<LocalTime> {
 
     public TimeSpinner() {
         this(LocalTime.now());
+    }
+
+    public ObjectProperty<Mode> modeProperty() {
+        return mode;
+    }
+
+    public final Mode getMode() {
+        return modeProperty().get();
+    }
+
+    public final void setMode(Mode mode) {
+        modeProperty().set(mode);
+    }
+
+    // Mode represents the unit that is currently being edited.
+    // For convenience expose methods for incrementing and decrementing that
+    // unit, and for selecting the appropriate portion in a spinner's editor
+    enum Mode {
+
+        HOURS {
+            @Override
+            LocalTime increment(LocalTime time, int steps) {
+                return time.plusHours(steps);
+            }
+
+            @Override
+            void select(TimeSpinner spinner) {
+                int index = spinner.getEditor().getText().indexOf(':');
+                spinner.getEditor().selectRange(0, index);
+            }
+        },
+        MINUTES {
+            @Override
+            LocalTime increment(LocalTime time, int steps) {
+                return time.plusMinutes(steps);
+            }
+
+            @Override
+            void select(TimeSpinner spinner) {
+                int hrIndex = spinner.getEditor().getText().indexOf(':');
+                int minIndex = spinner.getEditor().getText().indexOf(':', hrIndex + 1);
+                spinner.getEditor().selectRange(hrIndex + 1, minIndex);
+            }
+        },
+        SECONDS {
+            @Override
+            LocalTime increment(LocalTime time, int steps) {
+                return time.plusSeconds(steps);
+            }
+
+            @Override
+            void select(TimeSpinner spinner) {
+                int index = spinner.getEditor().getText().lastIndexOf(':');
+                spinner.getEditor().selectRange(index + 1, spinner.getEditor().getText().length());
+            }
+        };
+
+        abstract LocalTime increment(LocalTime time, int steps);
+
+        abstract void select(TimeSpinner spinner);
+
+        LocalTime decrement(LocalTime time, int steps) {
+            return increment(time, -steps);
+        }
     }
 }
