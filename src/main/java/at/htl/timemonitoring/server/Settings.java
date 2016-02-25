@@ -44,7 +44,7 @@ import java.util.List;
  * 29.12.2015: PHI 050  fehler bei der Schüler an-/abmeldung entfernt und Sound hinzugefügt
  * 31.12.2015: PHI 020  Schülersuche eingefügt und LineChart überarbeitet/verändert.
  * 01.01.2016: PHI 055  Fehler im Chart und der Schülerspeicherung verbessert.
- * 02.01.2016: PHI 005  "Hover" implementiert.
+ * 02.01.2016: PHI 005  Hover" implementiert.
  * 06.01.2016: PHI 045  Fehler bei "Series"-Speicherung behoben und geändert. Kommunizierung mit Schüler eingebunden.
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
  * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
