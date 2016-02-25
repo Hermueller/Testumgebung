@@ -1,8 +1,8 @@
 package at.htl.timemonitoring.server;
 
-import at.htl.timemonitoring.common.io.FileUtils;
 import at.htl.timemonitoring.common.MyUtils;
 import at.htl.timemonitoring.common.Student;
+import at.htl.timemonitoring.common.io.FileUtils;
 import at.htl.timemonitoring.common.trasfer.HarvestedPackage;
 import org.apache.logging.log4j.Level;
 
@@ -18,7 +18,6 @@ import java.io.ObjectInputStream;
  * sofort anzeigt.
  *
  * @timeline .
- *
  * 31.10.2015: MET 010  Änderung
  */
 class SocketReaderThread extends Thread {
@@ -58,7 +57,7 @@ class SocketReaderThread extends Thread {
                 priorValue = harvestedPackage.getLoc();
 
             } catch (Exception ex) {
-                FileUtils.log(this, Level.ERROR, "canceled "+MyUtils.exToStr(ex));
+                FileUtils.log(this, Level.ERROR, "canceled " + MyUtils.exToStr(ex));
                 /*boolean fetchTest = false;
                 try {
                     fetchTest = in.readBoolean();
@@ -83,7 +82,7 @@ class SocketReaderThread extends Thread {
         try {
             in.close();
         } catch (IOException e) {
-            FileUtils.log(this,Level.ERROR,"Error by closing of ObjectInputStream!"+MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR, "Error by closing of ObjectInputStream!" + MyUtils.exToStr(e));
         }
     }
 }

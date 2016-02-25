@@ -67,6 +67,17 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    public void defaultSettings() {
+        tfServerIP.setText("localhost");
+        tfPort.setText("5555");
+        tfEnrolmentID.setText("max");
+        tfCatalogNumber.setText("99");
+        tfFirstName.setText("Max");
+        tfLastName.setText("Mustermann");
+        tfPathOfProject.setText("/temp/max");
+    }
+
+    @FXML
     public void testConnection() {
 
     }
