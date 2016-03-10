@@ -47,10 +47,8 @@ class SocketReaderThread extends Thread {
 
                 HarvestedPackage harvestedPackage = (HarvestedPackage) in.readObject();
 
-                // save and show Screenshot
-                final BufferedImage image = ImageIO.read(
-                        new ByteArrayInputStream(harvestedPackage.getImage()));
-                server.saveImage(image, student);
+                byte[] img = harvestedPackage.getImage();
+                server.saveImage(img, student);
 
                 //save and show Lines of Code
                 Settings.getInstance().addValue(harvestedPackage.getLoc(), student, priorValue);
@@ -58,17 +56,6 @@ class SocketReaderThread extends Thread {
 
             } catch (Exception ex) {
                 FileUtils.log(this, Level.ERROR, "canceled " + MyUtils.exToStr(ex));
-                /*boolean fetchTest = false;
-                try {
-                    fetchTest = in.readBoolean();
-                } catch (IOException e) {
-                    System.out.println("Next item wasn't a Boolean!");
-                }
-                System.out.println("I GOT " + fetchTest);
-                if (fetchTest) {
-                    FileStream.receive(in, String.format("%s/%s.zip",
-                            Session.getInstance().getPathOfHandInFiles(), client.getName()));
-                }*/
                 server.shutdown();
                 return;
             }

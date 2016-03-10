@@ -3,6 +3,7 @@ package at.htl.timemonitoring.server;
 import at.htl.timemonitoring.common.Student;
 import at.htl.timemonitoring.common.fx.StudentView;
 import at.htl.timemonitoring.common.io.FileUtils;
+import at.htl.timemonitoring.common.io.ScreenShot;
 import at.htl.timemonitoring.common.trasfer.LoginPackage;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -91,12 +92,14 @@ public class Server {
      * @param image   Specifies the image which should be saved.
      * @param student Specifies the client from which the screenshot is.
      */
-    public void saveImage(BufferedImage image, Student student) {
+    public void saveImage(byte[] image, Student student) {
         String path = String.format("%s/%s-%s.jpg",
                 Settings.getInstance().getPathOfImages() + "/" + student.getName(),
                 student.getName(),
                 LocalDateTime.now());
-        //ScreenShot.save(image, path);
+
+        ScreenShot.save(image, path);
+
         showImage(path, student);
     }
 

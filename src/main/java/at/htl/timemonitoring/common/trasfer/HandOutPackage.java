@@ -3,6 +3,7 @@ package at.htl.timemonitoring.common.trasfer;
 import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * Diese Klasse verwaltet alle Informationen, die für den
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class HandOutPackage implements Serializable {
 
     private File file;
-    private LocalDateTime endTime;
+    private LocalTime endTime;
     private String comment;
 
     /**
@@ -24,7 +25,7 @@ public class HandOutPackage implements Serializable {
      * @param endTime Specialises the time the test ends.
      * @param comment Specialises a comment from the teacher to the client for the test.
      */
-    public HandOutPackage(File file, LocalDateTime endTime, String comment) {
+    public HandOutPackage(File file, LocalTime endTime, String comment) {
         this.file = file;
         this.endTime = endTime;
         this.comment = comment;
@@ -35,7 +36,7 @@ public class HandOutPackage implements Serializable {
         return file;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 

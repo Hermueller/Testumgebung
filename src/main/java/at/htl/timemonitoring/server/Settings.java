@@ -18,6 +18,7 @@ import javafx.scene.media.MediaPlayer;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
@@ -56,8 +57,8 @@ public class Settings {
     private ObservableList<Button> students;
     private List<Student> studentsList = new LinkedList<>();
     private File handOutFile;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private Interval interval;
     private String path;
     private String pathOfImages;
@@ -68,7 +69,7 @@ public class Settings {
     private String[] endings;
     private MediaPlayer mediaPlayer = null;
 
-    protected Settings() {
+    public Settings() {
         students = FXCollections.observableList(new LinkedList<>());
         endings = ("*.java; *.fxml; *.css; *.xhtml; *.html").split(";");
     }
@@ -129,28 +130,28 @@ public class Settings {
     /**
      * @return the time when the test starts.
      */
-    public LocalDateTime getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
     /**
      * @param startTime Specialises the time when the test starts.
      */
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
     /**
      * @return the time when the test ends.
      */
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
     /**
      * @param endTime Specialises the time when the test ends.
      */
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -374,7 +375,6 @@ public class Settings {
                 //if the client is in the Live-View -> show new point
                 if (student.getName().equals(selected.getText())) {
                     XYChart.Series<Number, Number> actual = getLastSeries(student);
-                    chart.getData().remove(actual);
 
                     //show time if the cursor is located on this point
                     XYChart.Data<Number, Number> data = new XYChart.Data<>(_time, _loc);
@@ -389,8 +389,6 @@ public class Settings {
                             )
                     );
                     actual.getData().add(data);
-
-                    chart.getData().add(actual);
                 }
             }
         });
