@@ -1,7 +1,7 @@
 package at.htl.timemonitoring.common;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @timeline .
@@ -18,7 +18,7 @@ public class Pupil implements Serializable {
     private String firstName;
     private String lastName;
     private String pathOfProject;
-    private LocalDate startTime;
+    private LocalDateTime startTime;
 
     public Pupil(int catalogNumber,
                  String enrolmentID,
@@ -30,7 +30,7 @@ public class Pupil implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pathOfProject = pathOfProject;
-        this.startTime = LocalDate.now();
+        this.startTime = LocalDateTime.now();
     }
 
     //region Getter and Setter
@@ -58,7 +58,7 @@ public class Pupil implements Serializable {
         this.pathOfProject = pathOfProject;
     }
 
-    public LocalDate getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
     //endregion

@@ -5,6 +5,7 @@ import at.htl.timemonitoring.client.Exam;
 import at.htl.timemonitoring.common.MyUtils;
 import at.htl.timemonitoring.common.Pupil;
 import at.htl.timemonitoring.common.fx.FxUtils;
+import at.htl.timemonitoring.common.trasfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -28,6 +29,7 @@ import java.util.ResourceBundle;
  * 03.01.2016: MET 005  setMsg() improved by using FxUtils
  * 12.02.2016: MET 005  activation and deactivation of controls depending on login and logout
  * 12.02.2016: MET 030  display of messages in the GUI with setMsg() enormously improved
+ * 25.02.2016: MET 005  default settings for testing
  */
 public class Controller implements Initializable {
 
@@ -59,10 +61,8 @@ public class Controller implements Initializable {
     //endregion
 
     private Client client;
-    private boolean loggedIn;
 
     public void initialize(URL location, ResourceBundle resources) {
-        //this.loggedIn = false;
         setControls(true);
     }
 
@@ -98,32 +98,31 @@ public class Controller implements Initializable {
     @FXML
     public void login() {
         if (setExam()) {
-            setControls(false);
-            //client.connectToServer(Exam.getInstance().getServerAddress());
-            //Packet packet = new Packet(
-            //      Packet.Action.GET_PUPIL,
-            //    "Sign in: " + Exam.getInstance().getPupil().toString());
-            //packet.put(Packet.Resource.PUPIL, Exam.getInstance().getPupil());
-            //client.sendPacket(packet);
-            /*try {
-                if (!loggedIn) {
-                    btnLogin.setDisable(true);
-                    btnLogOut.setDisable(false);
+            try {
+                if (isLoggedOut()) {
                     client = new Client(new LoginPackage(
-                            tfUsername.getText(),
-                            pfPassword.getText(),
-                            tfTeacherIP.getText(),
-                            tfPath.getText(),
-                            port
+                            Exam.getInstance().getPupil().getLastName(),
+                            "",
+                            Exam.getInstance().getServerIP(),
+                            Exam.getInstance().getPupil().getPathOfProject(),
+                            Exam.getInstance().getPort()
                     ));
                     client.start();
-                    loggedIn = true;
                 }
             } catch (Exception e) {
-
-            }*/
+                //FileUtils.log(this, "");
+            }
+            setControls(false);
             setMsg("Signed in!", false);
         }
+    }
+
+    public boolean isLoggedIn() {
+        return btnLogin.isDisable();
+    }
+
+    public boolean isLoggedOut() {
+        return btnLogout.isDisable();
     }
 
     /**
