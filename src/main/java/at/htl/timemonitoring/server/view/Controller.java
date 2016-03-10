@@ -62,33 +62,74 @@ import java.util.ResourceBundle;
  */
 public class Controller implements Initializable {
 
-
-    @FXML
-    public TextField tfTimeSS, tfPort, tfFileendings, tfMyIP_Address;
-
-    @FXML
-    public ListView<Button> lvStudents;
-
-    @FXML
-    public Label lbAlert, lbAngabe, lbPath, lbVersion1, lbVersion2, lbVersion3;
-
-    @FXML
-    public ToggleButton TB_SS_rnd;
-
-    @FXML
-    public ImageView ivLiveView, ivPort, ivAngabe, ivPath, ivTime, ivEnding;
-
-    @FXML
-    public Button btnStart, btnStop, btn, btnChange, btnaddtime;
-
-    @FXML
-    public AnchorPane apStudentDetail, apOption, apSimple, spOption, abgabePane, aptime;
-
-    @FXML
-    public LineChart<Number, Number> loc;
-
     @FXML
     public SplitPane splitter;
+
+    @FXML
+    private ListView<Button> lvStudents;
+
+    //region Tab: Option
+    @FXML
+    private AnchorPane spOption;
+    @FXML
+    private AnchorPane apOption;
+    @FXML
+    private AnchorPane apSimple;
+    @FXML
+    private Button btnChange;
+    @FXML
+    private TextField tfPort;
+    @FXML
+    private ImageView ivPort;
+    @FXML
+    private Label lbAngabe;
+    @FXML
+    private Button btnAngabe;
+    @FXML
+    private ImageView ivAngabe;
+    @FXML
+    private Label lbPath;
+    @FXML
+    private ImageView ivPath;
+    @FXML
+    private ToggleButton TB_SS_rnd;
+    @FXML
+    private TextField tfTimeSS;
+    @FXML
+    private ImageView ivTime;
+    @FXML
+    private TextField tfFileExtensions;
+    @FXML
+    private ImageView ivFileExtensions;
+    @FXML
+    private Label lbAlert;
+    @FXML
+    private Button btnStart;
+    @FXML
+    private Button btnStop;
+    @FXML
+    private Label lbVersion;
+    //endregion
+
+    //region Student-Details
+    @FXML
+    public AnchorPane apStudentDetail;
+    @FXML
+    private LineChart<Number, Number> loc;
+    @FXML
+    private ImageView ivLiveView;
+    //endregion
+
+    //region HandIn
+    @FXML
+    private AnchorPane apHandIn;
+    @FXML
+    private TextField tfMyIP_Address;
+    @FXML
+    private AnchorPane apTime;
+    @FXML
+    private Button btnAddTime;
+    //endregion
 
     private Thread server;
     private Threader threader;
@@ -125,9 +166,9 @@ public class Controller implements Initializable {
 
         System.out.println("LOCAL TIME  " + time[0]);
 
-        btnaddtime.setOnAction(event -> doSomething(time[0], true));
+        btnAddTime.setOnAction(event -> doSomething(time[0], true));
 
-        aptime.getChildren().add(spinner);
+        apTime.getChildren().add(spinner);
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
@@ -154,12 +195,8 @@ public class Controller implements Initializable {
      * show the version number always in the bottom right corner.
      */
     private void setVersionAnchor() {
-        AnchorPane.setBottomAnchor(lbVersion1, 10.0);
-        AnchorPane.setRightAnchor(lbVersion1, 10.0);
-        AnchorPane.setBottomAnchor(lbVersion2, 10.0);
-        AnchorPane.setRightAnchor(lbVersion2, 10.0);
-        AnchorPane.setBottomAnchor(lbVersion3, 10.0);
-        AnchorPane.setRightAnchor(lbVersion3, 10.0);
+        AnchorPane.setBottomAnchor(lbVersion, 10.0);
+        AnchorPane.setRightAnchor(lbVersion, 10.0);
     }
 
     /**
@@ -235,7 +272,7 @@ public class Controller implements Initializable {
         ivAngabe.setFitHeight(25);
         ivPath.setFitHeight(25);
         ivTime.setFitHeight(25);
-        ivEnding.setFitHeight(25);
+        ivFileExtensions.setFitHeight(25);
     }
 
     /**
@@ -333,7 +370,7 @@ public class Controller implements Initializable {
             if (tfPort.getText().matches("[0-9]+")) {
                 Server.PORT = Integer.valueOf(tfPort.getText());
             }
-            String ending = tfFileendings.getText();
+            String ending = tfFileExtensions.getText();
             if (ending.length() == 0) {
                 ending = "*.java; *.fxml; *.cs; *.xhtml; *.html";
             }
@@ -357,7 +394,7 @@ public class Controller implements Initializable {
             setImage(ivAngabe, true);
             setImage(ivPath, true);
             setImage(ivTime, true);
-            setImage(ivEnding, true);
+            setImage(ivFileExtensions, true);
             btnChange.setDisable(true);
         }
     }
@@ -377,7 +414,7 @@ public class Controller implements Initializable {
                 btnStop.setDisable(true);
                 ivAngabe.setImage(null);
                 ivTime.setImage(null);
-                ivEnding.setImage(null);
+                ivFileExtensions.setImage(null);
                 ivPort.setImage(null);
                 ivPath.setImage(null);
                 btnChange.setDisable(false);

@@ -76,4 +76,8 @@ public class FileUtilsTest {
         assertFalse(FileUtils.exists(TEMP_PATH));
     }
 
+    @Test
+    public void t20ClassName() throws Exception {
+
+    }
 }

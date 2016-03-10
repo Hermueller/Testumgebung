@@ -25,8 +25,16 @@ public class Exam {
     }
 
     //region Getter and Setter
+    public String getServerIP() {
+        return serverIP;
+    }
+
     public void setServerIP(String serverIP) {
         this.serverIP = serverIP;
+    }
+
+    public int getPort() {
+        return port;
     }
 
     public void setPort(int port) {
