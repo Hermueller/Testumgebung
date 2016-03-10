@@ -4,6 +4,8 @@ import at.htl.remotecontrol.entity.*;
 import at.htl.remotecontrol.gui.Threader;
 import at.htl.remotecontrol.server.TeacherServer;
 import at.htl.remotecontrol.timer.TimeSpinner;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -120,23 +122,36 @@ public class ControllerTeacher implements Initializable {
         showIP_Address();
         TimeSpinner spinner = new TimeSpinner();
         final LocalTime[] time = new LocalTime[1];
+        final boolean[] alreadyaddedtime = {false};
 
 
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
-        spinner.valueProperty().addListener((obs, oldTime, newTime) ->
-                time[0] = doSomething(newTime, false));
+        spinner.valueProperty().addListener(new ChangeListener<LocalTime>() {
+                                                @Override
+                                                public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue, LocalTime newValue) {
+                                                    btnaddtime.setOnAction(new EventHandler<ActionEvent>() {
+                                                        @Override
+                                                        public void handle(ActionEvent event) {
+                                                            if(alreadyaddedtime[0]){
+                                                                spinner.setMode(TimeSpinner.Mode.MINUTES);
+                                                                spinner.increment(10);
+                                                                time[0] = time[0].plusMinutes(10);
+                                                            }
+                                                            else {
+                                                                spinner.setMode(TimeSpinner.Mode.MINUTES);
+                                                                spinner.increment(10);
+                                                                time[0] = newValue.plusMinutes(10);
+                                                            }
 
-        System.out.println("LOCAL TIME  "+time[0]);
 
-        btnaddtime.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                doSomething(time[0], true);
-            }
-        });
-
-
+                                                            System.out.println("ADDED 10 MINIUTES  "+time[0]);
+                                                            alreadyaddedtime[0] =true;
+                                                        }
+                                                    });
+                                                    System.out.println("NEW TIME "+newValue);
+                                                }
+                                            });
 
         aptime.getChildren().add(spinner);
 
@@ -144,7 +159,7 @@ public class ControllerTeacher implements Initializable {
         btnStop.setDisable(true);
         Session.getInstance().setStartTime(LocalDateTime.now());
     }
-    private LocalTime doSomething(LocalTime newTime, boolean addtime ){
+    /*private LocalTime doSomething(LocalTime newTime, boolean addtime ){
         System.out.println(newTime);
         if(addtime){
             newTime.plusMinutes(10);
@@ -156,7 +171,7 @@ public class ControllerTeacher implements Initializable {
             //directory.zip(Session.getInstance().getPath());
         }
         return newTime;
-    }
+    }*/
 
     //region initialize
     /**
