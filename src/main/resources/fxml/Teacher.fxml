@@ -240,7 +240,10 @@
                                                               <NumberAxis label="Lines in File" side="LEFT" />
                                                           </yAxis>
                                                       </LineChart>
-                                          <ImageView fx:id="ivLiveView" fitHeight="325.0" fitWidth="750.0" layoutX="108.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="ivLiveView" fitHeight="413.0" fitWidth="747.0" layoutX="108.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../Screenshots/Hermueller/Hermueller-2016-03-10T14:52:04.902.jpg" />
+                                             </image></ImageView>
                                                   </children>
                                               </AnchorPane>
                                           </content>

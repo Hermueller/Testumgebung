@@ -1,6 +1,7 @@
 package at.htl.timemonitoring.common.actions;
 
 import at.htl.timemonitoring.common.LineCounter;
+import at.htl.timemonitoring.common.io.ScreenShot;
 import at.htl.timemonitoring.common.trasfer.HarvestedPackage;
 
 import javax.imageio.IIOImage;
@@ -27,9 +28,6 @@ public class LittleHarvester implements RobotAction {
     // this is used on the client JVM to optimize transfers
     private static final ThreadLocal<byte[]> previous =
             new ThreadLocal<>();
-    private static final float JPG_QUALITY = 1.0f;
-
-    private final double scale = 1.0;
 
     private final String studentName;
     private final String studentPath;
@@ -40,12 +38,7 @@ public class LittleHarvester implements RobotAction {
     }
 
     public Object execute(Robot robot) throws IOException {
-        Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
-        Rectangle shotArea = new Rectangle(
-                defaultToolkit.getScreenSize());
-        BufferedImage image = robot.createScreenCapture(shotArea);
-
-        byte[] bytes = convertToJPG(image);
+        byte[] bytes = ScreenShot.get();
         // only send it if the picture has actually changed
         byte[] prev = previous.get();
         if (prev != null && Arrays.equals(bytes, prev)) {
@@ -59,32 +52,23 @@ public class LittleHarvester implements RobotAction {
         return new HarvestedPackage(bytes, loc);
     }
 
-    private byte[] convertToJPG(BufferedImage img)
-            throws IOException {
-        ImageWriter writer =
-                ImageIO.getImageWritersByFormatName("jpg").next();
-        ImageWriteParam iwp = writer.getDefaultWriteParam();
-        iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        iwp.setCompressionQuality(JPG_QUALITY);
-
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        writer.setOutput(new MemoryCacheImageOutputStream(bout));
-        writer.write(null, new IIOImage(img, null, null), iwp);
-        writer.dispose();
-        bout.flush();
-        return bout.toByteArray();
-    }
-
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         LittleHarvester that = (LittleHarvester) o;
-        return Double.compare(that.scale, scale) == 0;
+
+        if (studentName != null ? !studentName.equals(that.studentName) : that.studentName != null) return false;
+        return studentPath != null ? studentPath.equals(that.studentPath) : that.studentPath == null;
+
     }
 
+    @Override
     public int hashCode() {
-        long temp = Double.doubleToLongBits(scale);
-        return (int) (temp ^ (temp >>> 32));
+        int result = studentName != null ? studentName.hashCode() : 0;
+        result = 31 * result + (studentPath != null ? studentPath.hashCode() : 0);
+        return result;
     }
 
     public String toString() {

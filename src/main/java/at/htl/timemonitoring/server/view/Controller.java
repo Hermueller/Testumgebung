@@ -59,6 +59,7 @@ import java.util.ResourceBundle;
  * 20.01.2016: PHI 040  Simple- und Advanced-Mode eingefügt. / Zeit wird nun in Sekunden eingegeben.
  * 23.01.2016: PHI 020  Tooltip und Version eingeführt.
  * 24.01.2016: PHI 035  Zeigt den Screenshot im Fullscreen beim Klick und verschwindet beim erneuten Klick. +RandomTimeBugFix
+ * 10.03.2016: PHI 120  Bugfix (Screenshot, Lines-of-Code Chart)
  */
 public class Controller implements Initializable {
 
@@ -281,11 +282,11 @@ public class Controller implements Initializable {
      */
     private void setDynamicScreenSize() {
         apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitWidth((double) newValue - 10);
+            //ivLiveView.setFitWidth((double) newValue - 10);
             loc.setPrefWidth((double) newValue);
         });
         apStudentDetail.heightProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitHeight((double) newValue - loc.getHeight() - 10);
+            //ivLiveView.setFitHeight((double) newValue - loc.getHeight() - 10);
         });
         spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);

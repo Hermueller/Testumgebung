@@ -374,7 +374,6 @@ public class Settings {
                 //if the client is in the Live-View -> show new point
                 if (student.getName().equals(selected.getText())) {
                     XYChart.Series<Number, Number> actual = getLastSeries(student);
-                    chart.getData().remove(actual);
 
                     //show time if the cursor is located on this point
                     XYChart.Data<Number, Number> data = new XYChart.Data<>(_time, _loc);
@@ -389,8 +388,6 @@ public class Settings {
                             )
                     );
                     actual.getData().add(data);
-
-                    chart.getData().add(actual);
                 }
             }
         });
