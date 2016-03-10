@@ -22,10 +22,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="RemoteControl" />
+        <module name="TimeMonitoring" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="RemoteControl" target="1.8" />
+      <module name="TimeMonitoring" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
