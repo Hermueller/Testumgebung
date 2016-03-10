@@ -149,7 +149,7 @@ public class ControllerTeacher implements Initializable {
                                                             alreadyaddedtime[0] =true;
                                                         }
                                                     });
-                                                    System.out.println("NEW TIME "+newValue);
+                                                    System.out.println("NEW TIME  "+newValue);
                                                 }
                                             });
 
