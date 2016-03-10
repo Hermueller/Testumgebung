@@ -145,7 +145,7 @@ public class ControllerTeacher implements Initializable {
                                                             }
 
 
-                                                            System.out.println("ADDED 10 MINIUTES  "+time[0]);
+                                                            System.out.println("ADDED 10 MINIUTES "+time[0]);
                                                             alreadyaddedtime[0] =true;
                                                         }
                                                     });
