@@ -7,14 +7,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="1.11.29.022 - ScreenShot-Tests">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/TimeSpinner.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/TimeSpinner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/HandOutPackage.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/HandOutPackage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/Settings.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/Settings.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/fxml/Teacher.fxml" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Teacher.fxml" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,8 +68,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5037879">
-              <caret line="182" column="49" selection-start-line="182" selection-start-column="49" selection-end-line="182" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.53535354">
+              <caret line="189" column="0" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1402,7 +1397,7 @@
       <workItem from="1455275494434" duration="179000" />
       <workItem from="1455272255722" duration="2922000" />
       <workItem from="1455381602378" duration="3579000" />
-      <workItem from="1457615311786" duration="2153000" />
+      <workItem from="1457615311786" duration="3086000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
       <created>1446721170116</created>
@@ -1518,7 +1513,13 @@
       <option name="project" value="LOCAL" />
       <updated>1455260568743</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="1.11.29.028 - changed fields of Settings from LocalDateTime to LocalDate and added Start and Abgabezeitpunkt spinner">
+      <created>1457617580885</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1457617580885</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1554,7 +1555,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67382000" />
+    <option name="totallyTimeSpent" value="68315000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1649,7 +1650,8 @@
     <MESSAGE value="1.11.28.014 - removed unnecessary code&#10;&#10;removed the error_log (500 lines)&#10;&#10;&#10;" />
     <MESSAGE value="1.11.29.021 - Improved &quot;ScreenShot&quot; functions" />
     <MESSAGE value="1.11.29.022 - ScreenShot-Tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.11.29.022 - ScreenShot-Tests" />
+    <MESSAGE value="1.11.29.028 - changed fields of Settings from LocalDateTime to LocalDate and added Start and Abgabezeitpunkt spinner" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.11.29.028 - changed fields of Settings from LocalDateTime to LocalDate and added Start and Abgabezeitpunkt spinner" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1872,6 +1874,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2068,8 +2071,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5037879">
-          <caret line="182" column="49" selection-start-line="182" selection-start-column="49" selection-end-line="182" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.53535354">
+          <caret line="189" column="0" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
           <folding />
         </state>
       </provider>

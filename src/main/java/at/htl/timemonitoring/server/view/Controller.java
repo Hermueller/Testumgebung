@@ -180,12 +180,12 @@ public class Controller implements Initializable {
                         if(alreadyaddedtime[0]){
                             spinner.setMode(TimeSpinner.Mode.MINUTES);
                             spinner.increment(10);
-                            time[0] = time[0].plusMinutes(10);
+                            settings.setEndTime(settings.getEndTime().plusMinutes(10));
                         }
                         else {
                             spinner.setMode(TimeSpinner.Mode.MINUTES);
                             spinner.increment(10);
-                            time[0] = newValue.plusMinutes(10);
+                            settings.setEndTime(newValue.plusMinutes(10));
                         }
 
 
