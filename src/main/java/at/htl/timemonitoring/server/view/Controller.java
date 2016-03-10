@@ -9,7 +9,10 @@ import at.htl.timemonitoring.server.Server;
 import at.htl.timemonitoring.server.Settings;
 import at.htl.timemonitoring.server.Threader;
 import at.htl.timemonitoring.server.entity.Interval;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -128,7 +131,11 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane apTime;
     @FXML
-    private Button btnAddTime;
+    private Button btnaddTime;
+    @FXML
+    private Button btnabgabe;
+    @FXML
+    private AnchorPane apstarttime,aptime;
     //endregion
 
     private Thread server;
@@ -158,21 +165,55 @@ public class Controller implements Initializable {
         initializeSLOMM();
         showIP_Address();
         TimeSpinner spinner = new TimeSpinner();
+        TimeSpinner startspinner = new TimeSpinner();
+        Settings settings = new Settings();
+        final boolean[] alreadyaddedtime = {false};
         final LocalTime[] time = new LocalTime[1];
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
-        spinner.valueProperty().addListener((obs, oldTime, newTime) ->
-                time[0] = doSomething(newTime, false));
+        spinner.valueProperty().addListener(new ChangeListener<LocalTime>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue, LocalTime newValue) {
+                btnaddTime.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        if(alreadyaddedtime[0]){
+                            spinner.setMode(TimeSpinner.Mode.MINUTES);
+                            spinner.increment(10);
+                            time[0] = time[0].plusMinutes(10);
+                        }
+                        else {
+                            spinner.setMode(TimeSpinner.Mode.MINUTES);
+                            spinner.increment(10);
+                            time[0] = newValue.plusMinutes(10);
+                        }
 
-        System.out.println("LOCAL TIME  " + time[0]);
 
-        btnAddTime.setOnAction(event -> doSomething(time[0], true));
+                        System.out.println("ADDED 10 MINIUTES "+time[0]);
+                        alreadyaddedtime[0] =true;
+                    }
+                });
+                System.out.println("NEW TIME  "+newValue);
+            }
+        });
+
 
         apTime.getChildren().add(spinner);
+        apstarttime.getChildren().add(startspinner);
+
+
+        startspinner.valueProperty().addListener(new ChangeListener<LocalTime>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue, LocalTime newValue) {
+                settings.setStartTime(newValue);
+                System.out.println("NEW STARTTIME  "+newValue);
+            }
+        });
+
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
-        Settings.getInstance().setStartTime(LocalDateTime.now());
+        Settings.getInstance().setStartTime(LocalTime.now());
     }
 
     private LocalTime doSomething(LocalTime newTime, boolean addtime) {
