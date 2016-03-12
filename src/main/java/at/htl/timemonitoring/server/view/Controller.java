@@ -63,6 +63,7 @@ import java.util.ResourceBundle;
  * 23.01.2016: PHI 020  Tooltip und Version eingeführt.
  * 24.01.2016: PHI 035  Zeigt den Screenshot im Fullscreen beim Klick und verschwindet beim erneuten Klick. +RandomTimeBugFix
  * 10.03.2016: PHI 120  Bugfix (Screenshot, Lines-of-Code Chart)
+ * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  */
 public class Controller implements Initializable {
 
@@ -172,30 +173,24 @@ public class Controller implements Initializable {
         final LocalTime[] time = new LocalTime[1];
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
-        spinner.valueProperty().addListener(new ChangeListener<LocalTime>() {
-            @Override
-            public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue, LocalTime newValue) {
-                btnaddTime.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        if(alreadyaddedtime[0]){
-                            spinner.setMode(TimeSpinner.Mode.MINUTES);
-                            spinner.increment(10);
-                            settings.setEndTime(settings.getEndTime().plusMinutes(10));
-                        }
-                        else {
-                            spinner.setMode(TimeSpinner.Mode.MINUTES);
-                            spinner.increment(10);
-                            settings.setEndTime(newValue.plusMinutes(10));
-                        }
+        spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            btnaddTime.setOnAction(event -> {
+                if(alreadyaddedtime[0]){
+                    spinner.setMode(TimeSpinner.Mode.MINUTES);
+                    spinner.increment(10);
+                    settings.setEndTime(settings.getEndTime().plusMinutes(10));
+                }
+                else {
+                    spinner.setMode(TimeSpinner.Mode.MINUTES);
+                    spinner.increment(10);
+                    settings.setEndTime(newValue.plusMinutes(10));
+                }
 
 
-                        System.out.println("ADDED 10 MINIUTES "+time[0]);
-                        alreadyaddedtime[0] =true;
-                    }
-                });
-                System.out.println("NEW TIME  "+newValue);
-            }
+                System.out.println("ADDED 10 MINIUTES "+time[0]);
+                alreadyaddedtime[0] =true;
+            });
+            System.out.println("NEW TIME  "+newValue);
         });
 
 
@@ -203,12 +198,9 @@ public class Controller implements Initializable {
         apstarttime.getChildren().add(startspinner);
 
 
-        startspinner.valueProperty().addListener(new ChangeListener<LocalTime>() {
-            @Override
-            public void changed(ObservableValue<? extends LocalTime> observable, LocalTime oldValue, LocalTime newValue) {
-                settings.setStartTime(newValue);
-                System.out.println("NEW STARTTIME  "+newValue);
-            }
+        startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            settings.setStartTime(newValue);
+            System.out.println("NEW STARTTIME  "+newValue);
         });
 
 
@@ -303,8 +295,37 @@ public class Controller implements Initializable {
             }
 
             //   CHANGE SCREENSHOT
-            ivLiveView.setImage(new Image("images/loading.gif"));
+            String pathOfLastScreenshot = getLastScreenshot(newValue.getText());
+            if (pathOfLastScreenshot == null) {
+                pathOfLastScreenshot = "images/loading.gif";
+            }
+            ivLiveView.setImage(new Image(pathOfLastScreenshot));
         });
+    }
+
+    /**
+     * find the last screenshot of a specific student by his/her name
+     *
+     * @param name  specialises the name of the student
+     * @return      the path of the last screenshot
+     */
+    private String getLastScreenshot(String name) {
+        String pathOfFolder = Settings.getInstance()
+                .getPathOfImages().concat(
+                        "/" + name
+                );
+        File folder = new File(pathOfFolder);
+        File lastScreenshot = null;
+
+        for (final File fileEntry : folder.listFiles()) {
+            if (lastScreenshot == null) {
+                lastScreenshot = fileEntry;
+            } else if (lastScreenshot.lastModified() < fileEntry.lastModified()) {
+                lastScreenshot = fileEntry;
+            }
+        }
+
+        return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
     }
 
     /**

@@ -227,19 +227,6 @@ public class Settings {
     }
 
     /**
-     * creates a new line in the chart.
-     *
-     * @param name Specialises the name of the new line.
-     */
-    /*public void newSeries(String name) {
-        XYChart.Series<Number, Number> serie = new XYChart.Series<>();
-        serie.setName(name);
-        series.add(serie);
-
-        Platform.runLater(() -> chart.getData().add(serie));
-    }*/
-
-    /**
      * @return the last series from the chart.
      */
     public XYChart.Series<Number, Number> getLastSeries(Student st) {
@@ -410,6 +397,11 @@ public class Settings {
         mediaPlayer.play();
     }
 
+    /**
+     *
+     * @param name  of the Student
+     * @return      the StudentObject with the correct name
+     */
     public Student findStudentByName(String name) {
         for (Student _student : studentsList) {
             if (_student.getName().equals(name)) {
