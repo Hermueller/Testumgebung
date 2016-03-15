@@ -1,5 +1,8 @@
 package at.htl.timemonitoring.common.io;
 
+import at.htl.timemonitoring.server.Settings;
+import javafx.application.Platform;
+import javafx.scene.control.TextArea;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
@@ -29,6 +32,7 @@ import java.util.zip.ZipOutputStream;
  * 02.01.2016: MET 010  added a function which saves byte arrays
  * 08.02.2016: MET 010  logger
  * 08.02.2016: MET 010  added logs
+ * 15.03.2016: PHI 005  showing the log on the application
  */
 public class FileUtils {
 
@@ -262,6 +266,8 @@ public class FileUtils {
      */
     private static void log(Level level, String message) {
         LogManager.getLogger().log(level, message);
+        TextArea log = Settings.getInstance().getLogArea();
+        Platform.runLater(() -> log.appendText(level.toString() + " - " + message + "\n"));
     }
 
     /**
@@ -271,6 +277,10 @@ public class FileUtils {
      */
     public static void log(Object obj, Level level, String message) {
         LogManager.getLogger(obj.getClass()).log(level, message);
+        TextArea log = Settings.getInstance().getLogArea();
+        Platform.runLater(() -> log.appendText(obj.getClass().toString() + " - "
+                + level.toString() + " - "
+                + message + "\n"));
     }
 
 }

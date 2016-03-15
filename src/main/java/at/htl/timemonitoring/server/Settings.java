@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -56,6 +57,7 @@ public class Settings {
 
     private ObservableList<Button> students;
     private List<Student> studentsList = new LinkedList<>();
+    private TextArea logArea;
     private File handOutFile;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -69,7 +71,7 @@ public class Settings {
     private String[] endings;
     private MediaPlayer mediaPlayer = null;
 
-    public Settings() {
+    private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
         endings = ("*.java; *.fxml; *.css; *.xhtml; *.html").split(";");
     }
@@ -88,6 +90,23 @@ public class Settings {
      */
     public ObservableList<Button> getObservableList() {
         return students;
+    }
+
+    /**
+     *
+     * @return      the TextArea of the logging
+     */
+    public TextArea getLogArea() {
+        return logArea;
+    }
+
+    /**
+     * sets the TextArea which is used for the logging
+     *
+     * @param logArea   the TextArea where the log will be shown
+     */
+    public void setLogArea(TextArea logArea) {
+        this.logArea = logArea;
     }
 
     /**

@@ -26,7 +26,7 @@
                      <top>
                               <TabPane prefHeight="700.0" prefWidth="556.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                                   <tabs>
-                                      <Tab text="Optionen">
+                                      <Tab closable="false" text="Optionen">
                                           <content>
                                               <AnchorPane id="option" fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0" stylesheets="@../styles/TeacherStyle.css">
                                                   <children>
@@ -228,7 +228,7 @@
                                               </AnchorPane>
                                           </content>
                                       </Tab>
-                                      <Tab text="Student-Details">
+                                      <Tab closable="false" text="Student-Details">
                                           <content>
                                               <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                   <children>
@@ -240,16 +240,13 @@
                                                               <NumberAxis label="Lines in File" side="LEFT" />
                                                           </yAxis>
                                                       </LineChart>
-                                          <ImageView fx:id="ivLiveView" fitHeight="413.0" fitWidth="747.0" layoutX="108.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../Screenshots/Hermueller/Hermueller-2016-03-10T14:52:04.902.jpg" />
-                                             </image></ImageView>
+                                          <ImageView fx:id="ivLiveView" fitHeight="413.0" fitWidth="747.0" layoutX="108.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true" />
                                                   </children>
                                               </AnchorPane>
                                           </content>
                                       </Tab>
             
-                                                                          <Tab text="Abgabe">
+                                                                          <Tab closable="false" text="Abgabe">
                                           <content>
                                               <AnchorPane fx:id="apHandIn" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                   <children>
@@ -276,6 +273,15 @@
                                               </AnchorPane>
                                           </content>
                                       </Tab>
+                              <Tab fx:id="logTab" closable="false" text="Programm Log">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TextArea fx:id="programLogTextArea" layoutX="11.0" layoutY="10.0" prefHeight="641.0" prefWidth="968.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </Tab>
                                   </tabs>
                               </TabPane>
                      </top>

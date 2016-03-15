@@ -64,6 +64,7 @@ import java.util.ResourceBundle;
  * 24.01.2016: PHI 035  Zeigt den Screenshot im Fullscreen beim Klick und verschwindet beim erneuten Klick. +RandomTimeBugFix
  * 10.03.2016: PHI 120  Bugfix (Screenshot, Lines-of-Code Chart)
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
+ * 15.03.2016: PHI 030  show the log on the application and check the portnumber
  */
 public class Controller implements Initializable {
 
@@ -140,6 +141,9 @@ public class Controller implements Initializable {
     private AnchorPane apstarttime,aptime;
     //endregion
 
+    @FXML
+    private TextArea programLogTextArea;
+
     private Thread server;
     private Threader threader;
 
@@ -157,6 +161,7 @@ public class Controller implements Initializable {
         lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
+        Settings.getInstance().setLogArea(programLogTextArea);
 
         setDynamicScreenSize();
         setVersionAnchor();
@@ -166,9 +171,9 @@ public class Controller implements Initializable {
         initializeLOC();
         initializeSLOMM();
         showIP_Address();
+
         TimeSpinner spinner = new TimeSpinner();
         TimeSpinner startspinner = new TimeSpinner();
-        Settings settings = new Settings();
         final boolean[] alreadyaddedtime = {false};
         final LocalTime[] time = new LocalTime[1];
 
@@ -178,12 +183,12 @@ public class Controller implements Initializable {
                 if(alreadyaddedtime[0]){
                     spinner.setMode(TimeSpinner.Mode.MINUTES);
                     spinner.increment(10);
-                    settings.setEndTime(settings.getEndTime().plusMinutes(10));
+                    Settings.getInstance().setEndTime(Settings.getInstance().getEndTime().plusMinutes(10));
                 }
                 else {
                     spinner.setMode(TimeSpinner.Mode.MINUTES);
                     spinner.increment(10);
-                    settings.setEndTime(newValue.plusMinutes(10));
+                    Settings.getInstance().setEndTime(newValue.plusMinutes(10));
                 }
 
 
@@ -199,7 +204,7 @@ public class Controller implements Initializable {
 
 
         startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            settings.setStartTime(newValue);
+            Settings.getInstance().setStartTime(newValue);
             System.out.println("NEW STARTTIME  "+newValue);
         });
 
@@ -368,7 +373,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * edits the chart and saves it in a singleton-class.
+     * edits the chart and saves it in the settings
      */
     private void initializeLOC() {
         Settings.getInstance().setChart(loc);
@@ -384,7 +389,6 @@ public class Controller implements Initializable {
         try {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-
             FileUtils.log(this, Level.ERROR, "Keine IP Adresse gefunden " + MyUtils.exToStr(e));
         }
         tfMyIP_Address.setText(ip);
@@ -401,38 +405,56 @@ public class Controller implements Initializable {
         String path = Settings.getInstance().getPathOfImages();
         File handOut = Settings.getInstance().getHandOutFile();
         String ssTime = tfTimeSS.getText();
+        String portStr = tfPort.getText();
         boolean isRnd = TB_SS_rnd.isSelected();
         boolean startable = true;
 
+        // checks the input of the time (number format)
         if (!ssTime.matches("[0-9]+") && !isRnd) {
             setMsg(true, "Zeit darf nur Zahlen enthalten!!");
             setImage(ivTime, false);
             startable = false;
         }
+        // checks the input of the time (time greater than zero)
         if (!isRnd && ssTime.length() < 1) {
             setMsg(true, "Bitte gib einen Zeitwert(in Sek.) an");
             setImage(ivTime, false);
             startable = false;
         }
+        // checks if the user selected a path
         if (path == null) {
             setMsg(true, "Bitte gib ein Verzeichnis an");
             setImage(ivPath, false);
             startable = false;
         }
+        // checks if the user selected a path
         if (handOut == null) {
             setMsg(true, "Bitte eine Angabe auswählen!");
             setImage(ivAngabe, false);
             startable = false;
         }
-        if (!tfPort.getText().matches("[0-9]+") && tfPort.getText().length() != 0) {
-            setMsg(true, "ungültiger Port!!");
-            setImage(ivPort, false);
-            startable = false;
+        // if no port is set, the default port will be set
+        if (!portStr.matches("[0-9]+") || (portStr.length() != 4 && portStr.length() != 5)) {
+            int port = Integer.parseInt(portStr);
+            if (portStr.length() == 0) {
+                portStr = "50555";
+            }
+            else {
+                if (port < 1024) {
+                    setMsg(true, "System Ports are not allowed!");
+                } else if (port > 65535) {
+                    setMsg(true, "Ports greater than 65535 do not exist!");
+                } else {
+                    setMsg(true, "invalid port!");
+                }
+                setImage(ivPort, false);
+                startable = false;
+            }
         }
 
         if (startable) {
-            if (tfPort.getText().matches("[0-9]+")) {
-                Server.PORT = Integer.valueOf(tfPort.getText());
+            if (portStr.matches("[0-9]+")) {
+                Server.PORT = Integer.valueOf(portStr);
             }
             String ending = tfFileExtensions.getText();
             if (ending.length() == 0) {
@@ -453,7 +475,7 @@ public class Controller implements Initializable {
             server.start();
             btnStart.setDisable(true);
             btnStop.setDisable(false);
-            setMsg(false, "Server lauft");
+            setMsg(false, "Server is running");
             setImage(ivPort, true);
             setImage(ivAngabe, true);
             setImage(ivPath, true);
@@ -473,7 +495,7 @@ public class Controller implements Initializable {
             if (!server.isInterrupted()) {
                 threader.stop();
                 server.interrupt();
-                setMsg(true, "Server gestoppt");
+                setMsg(true, "Server stopped");
                 btnStart.setDisable(false);
                 btnStop.setDisable(true);
                 ivAngabe.setImage(null);
@@ -483,10 +505,10 @@ public class Controller implements Initializable {
                 ivPath.setImage(null);
                 btnChange.setDisable(false);
             } else {
-                setMsg(true, "Server wurde bereits gestoppt");
+                setMsg(true, "Server is already stopped");
             }
         } else {
-            setMsg(true, "Server wurde noch nie gestartet");
+            setMsg(true, "Server was never started");
         }
     }
 
