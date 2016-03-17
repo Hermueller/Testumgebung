@@ -5,14 +5,12 @@ import at.htl.timemonitoring.common.Student;
 import at.htl.timemonitoring.common.TimeSpinner;
 import at.htl.timemonitoring.common.fx.StudentView;
 import at.htl.timemonitoring.common.io.FileUtils;
+import at.htl.timemonitoring.server.PatrolMode;
 import at.htl.timemonitoring.server.Server;
 import at.htl.timemonitoring.server.Settings;
 import at.htl.timemonitoring.server.Threader;
 import at.htl.timemonitoring.server.entity.Interval;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -35,7 +33,6 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -63,8 +60,10 @@ import java.util.ResourceBundle;
  * 23.01.2016: PHI 020  Tooltip und Version eingeführt.
  * 24.01.2016: PHI 035  Zeigt den Screenshot im Fullscreen beim Klick und verschwindet beim erneuten Klick. +RandomTimeBugFix
  * 10.03.2016: PHI 120  Bugfix (Screenshot, Lines-of-Code Chart)
+ * 10.03.2016: PON 030  Patroullien Modus
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
+ *
  */
 public class Controller implements Initializable {
 
@@ -114,6 +113,8 @@ public class Controller implements Initializable {
     @FXML
     private Button btnStop;
     @FXML
+    private Button btnPatrol;
+    @FXML
     private Label lbVersion;
     //endregion
 
@@ -146,6 +147,8 @@ public class Controller implements Initializable {
 
     private Thread server;
     private Threader threader;
+    private boolean patrolMode = false;
+    private PatrolMode pm = new PatrolMode();
 
     public Controller() {
 
@@ -644,6 +647,18 @@ public class Controller implements Initializable {
             while ((line = bis.readLine()) != null) {
                 Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
             }
+        }
+    }
+
+    public void startPatrolMode(ActionEvent actionEvent) {
+        if(!patrolMode) {
+            patrolMode = true;
+            btnPatrol.setText("Patroullien Modus beenden");
+            pm.run();
+        } else {
+            patrolMode = false;
+            btnPatrol.setText("Patroullien Modus");
+            pm.stopIt();
         }
     }
 }
