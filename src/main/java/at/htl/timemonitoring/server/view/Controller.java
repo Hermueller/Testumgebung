@@ -63,7 +63,6 @@ import java.util.ResourceBundle;
  * 10.03.2016: PON 030  Patroullien Modus
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
- *
  */
 public class Controller implements Initializable {
 
