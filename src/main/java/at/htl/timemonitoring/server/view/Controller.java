@@ -33,9 +33,12 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * @timeline Text
@@ -63,7 +66,6 @@ import java.util.ResourceBundle;
  * 10.03.2016: PON 030  Patroullien Modus
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
- *
  */
 public class Controller implements Initializable {
 
@@ -116,6 +118,8 @@ public class Controller implements Initializable {
     private Button btnPatrol;
     @FXML
     private Label lbVersion;
+    @FXML
+    private TextField tftime;
     //endregion
 
     //region Student-Details
@@ -139,7 +143,7 @@ public class Controller implements Initializable {
     @FXML
     private Button btnabgabe;
     @FXML
-    private AnchorPane apstarttime,aptime;
+    private AnchorPane apstarttime, aptime;
     //endregion
 
     @FXML
@@ -179,26 +183,37 @@ public class Controller implements Initializable {
         TimeSpinner startspinner = new TimeSpinner();
         final boolean[] alreadyaddedtime = {false};
         final LocalTime[] time = new LocalTime[1];
+        final LocalTime[] starttime = new LocalTime[1];
+
+        time[0]=LocalTime.now();
+        starttime[0]=LocalTime.now();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
             btnaddTime.setOnAction(event -> {
-                if(alreadyaddedtime[0]){
+                if (alreadyaddedtime[0]) {
                     spinner.setMode(TimeSpinner.Mode.MINUTES);
                     spinner.increment(10);
                     Settings.getInstance().setEndTime(Settings.getInstance().getEndTime().plusMinutes(10));
-                }
-                else {
+                    time[0] = time[0].plusMinutes(10);
+                } else {
                     spinner.setMode(TimeSpinner.Mode.MINUTES);
                     spinner.increment(10);
                     Settings.getInstance().setEndTime(newValue.plusMinutes(10));
+                    time[0].plusMinutes(10);
                 }
-
-
-                System.out.println("ADDED 10 MINIUTES "+time[0]);
-                alreadyaddedtime[0] =true;
+                System.out.println("ADDED 10 MINIUTES " + time[0]);
+                alreadyaddedtime[0] = true;
             });
-            System.out.println("NEW TIME  "+newValue);
+            time[0]=newValue;
+            setTime(starttime[0],time[0]);
+            System.out.println("NEW TIME  " + newValue);
+        });
+        startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            Settings.getInstance().setStartTime(newValue);
+            starttime[0]=newValue;
+            System.out.println("NEW STARTTIME  " + newValue);
+            setTime(starttime[0],time[0]);
         });
 
 
@@ -206,17 +221,20 @@ public class Controller implements Initializable {
         apstarttime.getChildren().add(startspinner);
 
 
-        startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Settings.getInstance().setStartTime(newValue);
-            System.out.println("NEW STARTTIME  "+newValue);
-        });
+
 
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         Settings.getInstance().setStartTime(LocalTime.now());
     }
-
+    private void setTime(LocalTime start,LocalTime end){
+        if (start != null && end!=null) {
+            System.out.println("End: "+end);
+            System.out.println("Start: "+start);
+            tftime.setText(String.valueOf(ChronoUnit.MINUTES.between(start, end))+" min");
+        }
+    }
     private LocalTime doSomething(LocalTime newTime, boolean addtime) {
         System.out.println(newTime);
         if (addtime) {
@@ -314,8 +332,8 @@ public class Controller implements Initializable {
     /**
      * find the last screenshot of a specific student by his/her name
      *
-     * @param name  specialises the name of the student
-     * @return      the path of the last screenshot
+     * @param name specialises the name of the student
+     * @return the path of the last screenshot
      */
     private String getLastScreenshot(String name) {
         String pathOfFolder = Settings.getInstance()
@@ -441,8 +459,7 @@ public class Controller implements Initializable {
             int port = Integer.parseInt(portStr);
             if (portStr.length() == 0) {
                 portStr = "50555";
-            }
-            else {
+            } else {
                 if (port < 1024) {
                     setMsg(true, "System Ports are not allowed!");
                 } else if (port > 65535) {
@@ -651,7 +668,7 @@ public class Controller implements Initializable {
     }
 
     public void startPatrolMode(ActionEvent actionEvent) {
-        if(!patrolMode) {
+        if (!patrolMode) {
             patrolMode = true;
             btnPatrol.setText("Patroullien Modus beenden");
             pm.run();

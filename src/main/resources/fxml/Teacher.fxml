@@ -262,7 +262,7 @@
                                              </children>
                                           </HBox>
                                           <AnchorPane fx:id="apTime" layoutX="251.0" layoutY="113.0" prefHeight="51.0" prefWidth="235.0" />
-                                          <Label layoutX="41.0" layoutY="111.0" text="Abagezeitpunkt">
+                                          <Label layoutX="41.0" layoutY="111.0" text="Abgabezeitpunkt">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -270,6 +270,8 @@
                                           <Button fx:id="btnaddTime" layoutX="502.0" layoutY="109.0" mnemonicParsing="false" text="+10 min" />
                                           <Label layoutX="37.0" layoutY="168.0" prefHeight="39.0" prefWidth="125.0" text="Startzeitpunkt" />
                                           <AnchorPane fx:id="apstarttime" layoutX="232.0" layoutY="160.0" prefHeight="56.0" prefWidth="230.0" />
+                                          <Label layoutX="41.0" layoutY="235.0" text="verbleibende Zeit" />
+                                          <TextField fx:id="tftime" layoutX="275.0" layoutY="241.0" />
                                                   </children>
                                               </AnchorPane>
                                           </content>
