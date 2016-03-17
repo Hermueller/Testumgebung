@@ -224,6 +224,7 @@
                                                 </VBox>
                                              </children>
                                           </AnchorPane>
+                                          <Button fx:id="btnPatrolMode" layoutX="14.0" layoutY="626.0" mnemonicParsing="false" onAction="#startPatrolMode" prefHeight="27.0" prefWidth="236.0" text="Patrouillen Modus" />
                                                   </children>
                                               </AnchorPane>
                                           </content>

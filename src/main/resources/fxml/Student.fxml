@@ -94,6 +94,6 @@
                 <Font size="18.0" />
             </font>
         </Label>
-      <Button layoutX="14.0" layoutY="360.0" mnemonicParsing="false" onAction="#defaultSettings" text="Test" />
+      <Button layoutX="548.0" layoutY="6.0" mnemonicParsing="false" onAction="#defaultSettings" text="Test" />
     </children>
 </AnchorPane>
