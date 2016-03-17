@@ -51,7 +51,7 @@
                                                                                       <Font size="18.0" />
                                                                                   </font>
                                                                               </Label>
-                                                                              <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="5555" />
+                                                                              <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="50555" text="50555" />
                                                                               <ImageView fx:id="ivPort" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                                   <HBox.margin>
                                                                                       <Insets left="10.0" />
@@ -122,7 +122,7 @@
                                                                                   <Font size="18.0" />
                                                                                </font>
                                                                             </Label>
-                                                                            <TextField fx:id="tfFileExtensions" alignment="CENTER" depthTest="DISABLE" prefHeight="26.0" prefWidth="234.0" promptText="*.java; *.fxml; *.cs; *.xhtml; *.html" />
+                                                                            <TextField fx:id="tfFileExtensions" alignment="CENTER" depthTest="DISABLE" prefHeight="26.0" prefWidth="234.0" promptText="*.java; *.fxml; *.cs; *.xhtml; *.html" text="*.java; *.fxml; *.cs; *.xhtml; *.html" />
                                                                             <ImageView fx:id="ivFileExtensions" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                                <HBox.margin>
                                                                                   <Insets left="10.0" />
@@ -280,7 +280,9 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TextArea fx:id="programLogTextArea" layoutX="11.0" layoutY="10.0" prefHeight="641.0" prefWidth="968.0" />
+                                          <TextArea fx:id="programLogTextArea" editable="false" layoutX="11.0" layoutY="10.0" prefHeight="593.0" prefWidth="968.0" />
+                                          <Button layoutX="27.0" layoutY="621.0" mnemonicParsing="false" onAction="#createJar" prefHeight="39.0" prefWidth="174.0" text="Create JAR File" />
+                                          <Button layoutX="805.0" layoutY="623.0" mnemonicParsing="false" onAction="#exportLog" prefHeight="39.0" prefWidth="174.0" text="Export ErrorLog" />
                                        </children>
                                     </AnchorPane>
                                 </content>

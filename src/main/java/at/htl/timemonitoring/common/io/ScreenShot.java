@@ -96,6 +96,17 @@ public class ScreenShot {
      * converts a BufferedImage to a image format with custom size
      *
      * @param img     to be converted image
+     * @return ByteArray for later writing as a FileOutputStream
+     * @throws IOException
+     */
+    public static byte[] convert(BufferedImage img) throws IOException {
+        return convert(img, DEFAULT_FORMAT, DEFAULT_QUALITY);
+    }
+
+    /**
+     * converts a BufferedImage to a image format with custom size
+     *
+     * @param img     to be converted image
      * @param format  image format (e.g. jpg)
      * @param quality image quality
      * @return ByteArray for later writing as a FileOutputStream
