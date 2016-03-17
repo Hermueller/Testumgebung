@@ -5,3 +5,15 @@
 #option {
     -fx-background-image: url("../images/cyanWall.jpg");
 }
+
+#programLogTextArea *.content {
+    -fx-background-color: black;
+}
+
+#programLogTextArea {
+    -fx-text-fill: chartreuse;
+}
+
+#logTab {
+    -fx-background-color: antiquewhite;
+}
