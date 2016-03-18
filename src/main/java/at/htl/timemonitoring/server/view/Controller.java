@@ -24,6 +24,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
@@ -71,6 +73,7 @@ import java.util.*;
  * 10.03.2016: PHI 120  Bugfix (Screenshot, Lines-of-Code Chart)
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
+ * 18.03.2016: PHI 005  export the log to an text-file
  */
 public class Controller implements Initializable {
 
@@ -80,7 +83,7 @@ public class Controller implements Initializable {
     @FXML
     private ListView<Button> lvStudents;
 
-    //region Tab: Option
+    //region Tab: Option Variables
     @FXML
     private AnchorPane spOption;
     @FXML
@@ -123,7 +126,7 @@ public class Controller implements Initializable {
     private Label lbVersion;
     //endregion
 
-    //region Student-Details
+    //region Student-Details Variables
     @FXML
     public AnchorPane apStudentDetail;
     @FXML
@@ -132,7 +135,7 @@ public class Controller implements Initializable {
     private ImageView ivLiveView;
     //endregion
 
-    //region HandIn
+    //region HandIn Variables
     @FXML
     private AnchorPane apHandIn;
     @FXML
@@ -147,11 +150,12 @@ public class Controller implements Initializable {
     private AnchorPane apstarttime,aptime;
     //endregion
 
+    //region Log Variables
     @FXML
     private ScrollPane scrollLog;
-
     @FXML
     private AnchorPane anchorPaneScrollLog;
+    //endregion
 
     private Thread server;
     private Threader threader;
@@ -160,16 +164,24 @@ public class Controller implements Initializable {
 
     }
 
+    /**
+     * writes the Log into a TEXT-file.
+     *
+     * @param actionEvent   event of the click on the button
+     */
     public void exportLog(ActionEvent actionEvent) {
-        /*try {
-            String[] linesArray = programLogTextArea.getText().split("\n");
+        try {
+            List<String> list = new LinkedList<>();
+            for (Node node : ((VBox)Settings.getInstance().getLogArea().getChildren().get(0)).getChildren()) {
+                TextField tf = (TextField)node;
+                list.add(tf.getText());
+            }
 
-            List<String> lines = Arrays.asList(linesArray);
             Path file = Paths.get("../log.txt");
-            Files.write(file, lines, Charset.forName("UTF-8"));
+            Files.write(file, list, Charset.forName("UTF-8"));
         } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+            FileUtils.log(Level.ERROR, e.getMessage());
+        }
     }
 
     public void createJar(ActionEvent actionEvent) throws IOException

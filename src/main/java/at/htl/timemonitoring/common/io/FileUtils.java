@@ -279,7 +279,7 @@ public class FileUtils {
      * @param level     is the level the message (ERROR, INFO, WARN)
      * @param message   is the text to show
      */
-    private static void log(Level level, String message) {
+    public static void log(Level level, String message) {
         LogManager.getLogger().log(level, message);
 
         AnchorPane log = Settings.getInstance().getLogArea();
