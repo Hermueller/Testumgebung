@@ -3,6 +3,9 @@ package at.htl.timemonitoring.common.io;
 import at.htl.timemonitoring.server.Settings;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
@@ -33,6 +36,7 @@ import java.util.zip.ZipOutputStream;
  * 08.02.2016: MET 010  logger
  * 08.02.2016: MET 010  added logs
  * 15.03.2016: PHI 005  showing the log on the application
+ * 18.03.2016: PHI 080  the log int the application is now in colors
  */
 public class FileUtils {
 
@@ -259,28 +263,63 @@ public class FileUtils {
         return deleted;
     }
 
+    private static String getStyle(Level level) {
+        String styleString = "-fx-background-color: transparent;";
+        if (level == Level.ERROR) {
+            styleString += "-fx-text-fill: crimson";
+        } else if (level == Level.WARN) {
+            styleString += "-fx-text-fill: yellow";
+        } else if (level == Level.INFO) {
+            styleString += "-fx-text-fill: white";
+        }
+        return styleString;
+    }
 
     /**
-     * @param level
-     * @param message
+     * @param level     is the level the message (ERROR, INFO, WARN)
+     * @param message   is the text to show
      */
     private static void log(Level level, String message) {
         LogManager.getLogger().log(level, message);
-        TextArea log = Settings.getInstance().getLogArea();
-        Platform.runLater(() -> log.appendText(level.toString() + " - " + message + "\n"));
+
+        AnchorPane log = Settings.getInstance().getLogArea();
+        if (log != null) {
+            Platform.runLater(() -> {
+                String msg = level.toString() + " - "
+                        + message + "\n";
+                TextField tf = new TextField(msg);
+                tf.setEditable(false);
+                tf.setStyle(getStyle(level));
+                tf.setPrefHeight(30);
+                ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+
+                log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+            });
+        }
     }
 
     /**
      * @param obj
-     * @param level
-     * @param message
+     * @param level     is the level the message (ERROR, INFO, WARN)
+     * @param message   is the text to show
      */
     public static void log(Object obj, Level level, String message) {
         LogManager.getLogger(obj.getClass()).log(level, message);
-        TextArea log = Settings.getInstance().getLogArea();
-        Platform.runLater(() -> log.appendText(obj.getClass().toString() + " - "
-                + level.toString() + " - "
-                + message + "\n"));
-    }
 
+        AnchorPane log = Settings.getInstance().getLogArea();
+        if (log != null) {
+            Platform.runLater(() -> {
+                String msg = level.toString() + " - "
+                        + obj.getClass().toString() + " - "
+                        + message + "\n";
+                TextField tf = new TextField(msg);
+                tf.setEditable(false);
+                tf.setStyle(getStyle(level));
+                tf.setPrefHeight(30);
+                ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+
+                log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+            });
+        }
+    }
 }

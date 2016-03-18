@@ -148,7 +148,10 @@ public class Controller implements Initializable {
     //endregion
 
     @FXML
-    private TextArea programLogTextArea;
+    private ScrollPane scrollLog;
+
+    @FXML
+    private AnchorPane anchorPaneScrollLog;
 
     private Thread server;
     private Threader threader;
@@ -158,7 +161,7 @@ public class Controller implements Initializable {
     }
 
     public void exportLog(ActionEvent actionEvent) {
-        try {
+        /*try {
             String[] linesArray = programLogTextArea.getText().split("\n");
 
             List<String> lines = Arrays.asList(linesArray);
@@ -166,7 +169,7 @@ public class Controller implements Initializable {
             Files.write(file, lines, Charset.forName("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public void createJar(ActionEvent actionEvent) throws IOException
@@ -237,7 +240,8 @@ public class Controller implements Initializable {
         lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
-        Settings.getInstance().setLogArea(programLogTextArea);
+        Settings.getInstance().setLogArea(anchorPaneScrollLog);
+        scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         setDynamicScreenSize();
         setVersionAnchor();

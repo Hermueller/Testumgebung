@@ -13,6 +13,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -57,7 +58,7 @@ public class Settings {
 
     private ObservableList<Button> students;
     private List<Student> studentsList = new LinkedList<>();
-    private TextArea logArea;
+    private AnchorPane logArea;
     private File handOutFile;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -96,7 +97,7 @@ public class Settings {
      *
      * @return      the TextArea of the logging
      */
-    public TextArea getLogArea() {
+    public AnchorPane getLogArea() {
         return logArea;
     }
 
@@ -105,7 +106,7 @@ public class Settings {
      *
      * @param logArea   the TextArea where the log will be shown
      */
-    public void setLogArea(TextArea logArea) {
+    public void setLogArea(AnchorPane logArea) {
         this.logArea = logArea;
     }
 

@@ -6,12 +6,8 @@
     -fx-background-image: url("../images/cyanWall.jpg");
 }
 
-#programLogTextArea *.content {
+#anchorPaneScrollLog {
     -fx-background-color: black;
-}
-
-#programLogTextArea {
-    -fx-text-fill: chartreuse;
 }
 
 #logTab {
