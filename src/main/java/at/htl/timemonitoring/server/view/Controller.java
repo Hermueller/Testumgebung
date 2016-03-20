@@ -11,6 +11,7 @@ import at.htl.timemonitoring.server.Threader;
 import at.htl.timemonitoring.server.entity.Interval;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -172,7 +173,8 @@ public class Controller implements Initializable {
     public void exportLog(ActionEvent actionEvent) {
         try {
             List<String> list = new LinkedList<>();
-            for (Node node : ((VBox)Settings.getInstance().getLogArea().getChildren().get(0)).getChildren()) {
+            ObservableList<Node> nodes = ((VBox)Settings.getInstance().getLogArea().getChildren().get(0)).getChildren();
+            for (Node node : nodes) {
                 TextField tf = (TextField)node;
                 list.add(tf.getText());
             }
@@ -254,6 +256,7 @@ public class Controller implements Initializable {
         StudentView.getInstance().setLv(lvStudents);
         Settings.getInstance().setLogArea(anchorPaneScrollLog);
         scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        lbVersion.setText("Version 1.11.33.051");
 
         setDynamicScreenSize();
         setVersionAnchor();

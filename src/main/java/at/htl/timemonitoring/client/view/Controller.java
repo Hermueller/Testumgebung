@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
  * 12.02.2016: MET 005  activation and deactivation of controls depending on login and logout
  * 12.02.2016: MET 030  display of messages in the GUI with setMsg() enormously improved
  * 25.02.2016: MET 005  default settings for testing
+ * 20.03.2016: PHI 001  fixed bug (check ip-address on correctness)
  */
 public class Controller implements Initializable {
 
@@ -189,7 +190,7 @@ public class Controller implements Initializable {
         boolean validity = false;
         if (serverIP.isEmpty()) {
             setMsg("Specify the IP-Address of the server!", true);
-        } else if ((serverIP.split(".").length != 4 && !serverIP.equals("localhost"))
+        } else if ((serverIP.split("\\.").length != 4 && !serverIP.equals("localhost"))
                 || serverIP.length() > 15) {
             setMsg("Invalid IP-Address!", true);
         } else if (port < 1) {

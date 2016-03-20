@@ -299,7 +299,7 @@
                      <bottom>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="160.0" BorderPane.alignment="CENTER">
                            <children>
-                                          <Label fx:id="lbVersion" alignment="CENTER_RIGHT" layoutX="839.0" layoutY="16.0" prefHeight="19.0" prefWidth="150.0" text="Version 1.13.57.132" textAlignment="RIGHT" />
+                                          <Label fx:id="lbVersion" alignment="CENTER_RIGHT" layoutX="839.0" layoutY="16.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
                            </children>
                         </AnchorPane>
                      </bottom>
