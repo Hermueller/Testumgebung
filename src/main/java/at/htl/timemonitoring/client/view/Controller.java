@@ -102,8 +102,10 @@ public class Controller implements Initializable {
             try {
                 if (isLoggedOut()) {
                     client = new Client(new LoginPackage(
+                            Exam.getInstance().getPupil().getFirstName(),
                             Exam.getInstance().getPupil().getLastName(),
-                            "",
+                            Exam.getInstance().getPupil().getCatalogNumber(),
+                            Exam.getInstance().getPupil().getEnrolmentID(),
                             Exam.getInstance().getServerIP(),
                             Exam.getInstance().getPupil().getPathOfProject(),
                             Exam.getInstance().getPort()

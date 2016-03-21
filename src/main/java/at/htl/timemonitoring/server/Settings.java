@@ -13,9 +13,12 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -51,6 +54,7 @@ import java.util.List;
  * 06.01.2016: PHI 045  Fehler bei "Series"-Speicherung behoben und geändert. Kommunizierung mit Schüler eingebunden.
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
  * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
+ * 21.03.2016: PHI 020  write error to the log in the application
  */
 public class Settings {
 
@@ -418,6 +422,7 @@ public class Settings {
     }
 
     /**
+     * searches for a student by his/her name
      *
      * @param name  of the Student
      * @return      the StudentObject with the correct name
@@ -447,6 +452,48 @@ public class Settings {
         }
         while ((line = bis.readLine()) != null) {
             Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
+        }
+    }
+
+    /**
+     * creates the style for the error/warning/info
+     *
+     * @param level     Specifies the level of the error
+     * @return          the style
+     */
+    public static String getStyle(Level level) {
+        String styleString = "-fx-background-color: transparent;";
+        if (level == Level.ERROR) {
+            styleString += "-fx-text-fill: crimson";
+        } else if (level == Level.WARN) {
+            styleString += "-fx-text-fill: yellow";
+        } else if (level == Level.INFO) {
+            styleString += "-fx-text-fill: white";
+        }
+        return styleString;
+    }
+
+    /**
+     * prints the error into the Log in the application
+     *
+     * @param t     the thread who caught the error
+     * @param e     the error
+     */
+    public void printMessage(Thread t, Throwable e) {
+        AnchorPane log = Settings.getInstance().getLogArea();
+        if (log != null) {
+            Platform.runLater(() -> {
+                String msg2 =
+                          t.getName() + " - "
+                        + e.getClass().toString() + "\n";
+                TextField tf = new TextField(msg2);
+                tf.setEditable(false);
+                tf.setStyle(getStyle(Level.ERROR));
+                tf.setPrefHeight(30);
+                ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+
+                log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+            });
         }
     }
     //endregion

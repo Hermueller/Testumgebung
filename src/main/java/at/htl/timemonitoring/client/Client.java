@@ -73,8 +73,8 @@ public class Client {
         if (processor.isInterrupted() && reader.isInterrupted()) {
             String zipFileName = "handInFile.zip";
             System.out.println(loginPackage.getDirOfWatch());
-            FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/angabe.zip");
-            FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getUserName() + "/handInFile.zip");
+            FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getLastname() + "/angabe.zip");
+            FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getLastname() + "/handInFile.zip");
             FileUtils.zip(loginPackage.getDirOfWatch(), zipFileName);
             FileStream.send(getOut(), new File(String.format("%s/%s",
                     loginPackage.getDirOfWatch(), zipFileName)));

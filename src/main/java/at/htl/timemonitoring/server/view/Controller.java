@@ -25,12 +25,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
+import javafx.stage.*;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
@@ -75,6 +73,7 @@ import java.util.*;
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
  * 18.03.2016: PHI 005  export the log to an text-file
+ * 21.03.2016: PHI 055  fixed bug in the screenshot-View  &&   created pop-up window for the log-export
  */
 public class Controller implements Initializable {
 
@@ -158,6 +157,11 @@ public class Controller implements Initializable {
     private AnchorPane anchorPaneScrollLog;
     //endregion
 
+    @FXML
+    private BorderPane bpDataView;
+    @FXML
+    private AnchorPane apInfo;
+
     private Thread server;
     private Threader threader;
 
@@ -181,9 +185,26 @@ public class Controller implements Initializable {
 
             Path file = Paths.get("../log.txt");
             Files.write(file, list, Charset.forName("UTF-8"));
+
+            showSuccess("exported log successfully!!");
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
         }
+    }
+
+    /**
+     * shows a message in a pop-up window
+     *
+     * @param message   the message to show in the pop-up
+     */
+    public void showSuccess(String message) {
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        Label label = new Label(message);
+        label.setStyle("-fx-background-color: chartreuse");
+        Scene dialogScene = new Scene(label, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
 
     public void createJar(ActionEvent actionEvent) throws IOException
@@ -444,11 +465,12 @@ public class Controller implements Initializable {
      */
     private void setDynamicScreenSize() {
         apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            //ivLiveView.setFitWidth((double) newValue - 10);
+            System.out.println(ivLiveView.getImage().getWidth());
+            ivLiveView.setFitWidth((double) newValue - 10);
             loc.setPrefWidth((double) newValue);
         });
-        apStudentDetail.heightProperty().addListener((observable, oldValue, newValue) -> {
-            //ivLiveView.setFitHeight((double) newValue - loc.getHeight() - 10);
+        bpDataView.heightProperty().addListener((observable, oldValue, newValue) -> {
+            ivLiveView.setFitHeight((double) newValue - loc.getHeight() - apInfo.getPrefHeight() - 20);
         });
         spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
