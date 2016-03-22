@@ -26,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.*;
@@ -39,6 +40,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -74,6 +76,7 @@ import java.util.*;
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
  * 18.03.2016: PHI 005  export the log to an text-file
  * 21.03.2016: PHI 055  fixed bug in the screenshot-View  &&   created pop-up window for the log-export
+ * 22.03.2016: PHI 225  create JAR with button; create properties; fixed minor bug in the view
  */
 public class Controller implements Initializable {
 
@@ -157,13 +160,17 @@ public class Controller implements Initializable {
     private AnchorPane anchorPaneScrollLog;
     //endregion
 
+    //region other
     @FXML
     private BorderPane bpDataView;
     @FXML
     private AnchorPane apInfo;
+    @FXML
+    private Label lbDate;
 
     private Thread server;
     private Threader threader;
+    //endregion
 
     public Controller() {
 
@@ -207,20 +214,113 @@ public class Controller implements Initializable {
         dialog.show();
     }
 
-    public void createJar(ActionEvent actionEvent) throws IOException
-    {
-        /*
- -        Manifest manifest = new Manifest();
- -        manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
- -        manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "at.htl.timemonitoring.client.view.StudentGui");
- -        JarOutputStream target = new JarOutputStream(new FileOutputStream("../student.jar"), manifest);
- -        File source = new File("target");
- -        System.out.println(source.getAbsolutePath());
- -        add(source, target);
- -        target.close();
- -        */
+    //region create Properties for the Version
+
+    /**
+     * create pop-up window to ask for the version number
+     * and create a properties-file for it and creates a JAR-file
+     * for the student and the teacher.
+     *
+     * @param actionEvent   event from the click on the button
+     */
+    public void fromVersion(ActionEvent actionEvent) {
+        final Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        Label label = new Label("Version: ");
+        TextField tf = new TextField();
+        Button btn = new Button("   CREATE   ");
+        btn.setOnAction(event -> {
+            createProp(tf.getText());
+            createJar();
+            stage.close();
+        });
+
+        AnchorPane ap = new AnchorPane();
+        HBox hbox = new HBox(10, label, tf);
+        VBox vBox = new VBox(20, hbox, btn);
+        vBox.setLayoutX(30);
+        vBox.setLayoutY(30);
+        ap.getChildren().add(vBox);
+
+        Scene dialogScene = new Scene(ap, 300, 200);
+        stage.setScene(dialogScene);
+        stage.show();
     }
 
+    /**
+     * creates the properties file
+     *
+     * @param version   the version of the application
+     */
+    public void createProp(String version) {
+        Properties prop = new Properties();
+        OutputStream output = null;
+
+        try {
+
+            output = new FileOutputStream("src/main/resources/config.properties");
+            prop.setProperty("version", version);
+            prop.setProperty("date", LocalDate.now().toString());
+            prop.store(output, null);
+
+
+            output = new FileOutputStream("target/classes/config.properties");
+            prop.setProperty("version", version);
+            prop.setProperty("date", LocalDate.now().toString());
+            prop.store(output, null);
+
+        } catch (IOException io) {
+            FileUtils.log(Level.ERROR, io.getMessage());
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    FileUtils.log(Level.ERROR, e.getMessage());
+                }
+            }
+        }
+    }
+
+    /**
+     * creates a jar-file for the student and teacher
+     *
+     */
+    public void createJar()
+    {
+        try {
+            // creating student JAR
+            Manifest manifest = new Manifest();
+            manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+            manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "at.htl.timemonitoring.client.view.StudentGui");
+            JarOutputStream target = new JarOutputStream(new FileOutputStream("../student.jar"), manifest);
+            File source = new File("target/classes/");
+            add(source, target);
+            target.close();
+
+            //creating teacher JAR
+            manifest = new Manifest();
+            manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+            manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "at.htl.timemonitoring.server.view.TeacherGui");
+            target = new JarOutputStream(new FileOutputStream("../teacher.jar"), manifest);
+            source = new File("target/classes/");
+            add(source, target);
+            target.close();
+        } catch (IOException exp) {
+            FileUtils.log(Level.ERROR, exp.getMessage());
+        }
+
+        showSuccess("created JAR-file successfully!!");
+    }
+
+    /**
+     * add files from the source to the jar file
+     *
+     * @param source        the source of the files to add
+     * @param target        the stream from the jar-file
+     * @throws IOException
+     */
     private void add(File source, JarOutputStream target) throws IOException
     {
         BufferedInputStream in = null;
@@ -228,34 +328,34 @@ public class Controller implements Initializable {
         {
             if (source.isDirectory())
             {
-                String name = source.getPath().replace("\\", "/");
+                String name = source.getPath().replace("\\", "/").replace("target/classes/", "");
                 if (!name.isEmpty())
                 {
                     if (!name.endsWith("/"))
                         name += "/";
-                        JarEntry entry = new JarEntry(name);
-                        entry.setTime(source.lastModified());
-                        target.putNextEntry(entry);
-                        target.closeEntry();
-                    }
-                    for (File nestedFile: source.listFiles())
-                        add(nestedFile, target);
-                        return;
-                    }
-
-                JarEntry entry = new JarEntry(source.getPath().replace("\\", "/"));
-                entry.setTime(source.lastModified());
-                target.putNextEntry(entry);
-                in = new BufferedInputStream(new FileInputStream(source));
-
-                byte[] buffer = new byte[1024];
-                while (true)
-                {
-                    int count = in.read(buffer);
-                    if (count == -1)
-                        break;
-                    target.write(buffer, 0, count);
+                    JarEntry entry = new JarEntry(name);
+                    entry.setTime(source.lastModified());
+                    target.putNextEntry(entry);
+                    target.closeEntry();
                 }
+                for (File nestedFile: source.listFiles())
+                    add(nestedFile, target);
+                return;
+            }
+
+            JarEntry entry = new JarEntry(source.getPath().replace("\\", "/").replace("target/classes/", ""));
+            entry.setTime(source.lastModified());
+            target.putNextEntry(entry);
+            in = new BufferedInputStream(new FileInputStream(source));
+
+            byte[] buffer = new byte[1024];
+            while (true)
+            {
+                int count = in.read(buffer);
+                if (count == -1)
+                    break;
+                target.write(buffer, 0, count);
+            }
             target.closeEntry();
         }
         finally
@@ -264,6 +364,25 @@ public class Controller implements Initializable {
                 in.close();
         }
     }
+
+    /**
+     * writes the data from the properties-file into the Labels in the application
+     */
+    public void readProperties() {
+        Properties prop = new Properties();
+        String propFileName = "config.properties";
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+        try {
+            prop.load(inputStream);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
+        }
+
+        lbVersion.setText(prop.getProperty("version"));
+        lbDate.setText("created on: " + prop.getProperty("date"));
+    }
+
+    //endregion
 
     /**
      * LOAD standard values.
@@ -277,7 +396,6 @@ public class Controller implements Initializable {
         StudentView.getInstance().setLv(lvStudents);
         Settings.getInstance().setLogArea(anchorPaneScrollLog);
         scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        lbVersion.setText("Version 1.11.33.051");
 
         setDynamicScreenSize();
         setVersionAnchor();
@@ -287,7 +405,17 @@ public class Controller implements Initializable {
         initializeLOC();
         initializeSLOMM();
         showIP_Address();
+        initializeTimeSpinner();
+        readProperties();
 
+        btnStart.setDisable(false);
+        btnStop.setDisable(true);
+        Settings.getInstance().setStartTime(LocalTime.now());
+    }
+
+    //region initialize
+
+    private void initializeTimeSpinner() {
         TimeSpinner spinner = new TimeSpinner();
         TimeSpinner startspinner = new TimeSpinner();
         final boolean[] alreadyaddedtime = {false};
@@ -323,11 +451,6 @@ public class Controller implements Initializable {
             Settings.getInstance().setStartTime(newValue);
             System.out.println("NEW STARTTIME  "+newValue);
         });
-
-
-        btnStart.setDisable(false);
-        btnStop.setDisable(true);
-        Settings.getInstance().setStartTime(LocalTime.now());
     }
 
     private LocalTime doSomething(LocalTime newTime, boolean addtime) {
@@ -343,9 +466,6 @@ public class Controller implements Initializable {
         }
         return newTime;
     }
-
-
-    //region initialize
 
     /**
      * show the version number always in the bottom right corner.
@@ -465,7 +585,6 @@ public class Controller implements Initializable {
      */
     private void setDynamicScreenSize() {
         apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(ivLiveView.getImage().getWidth());
             ivLiveView.setFitWidth((double) newValue - 10);
             loc.setPrefWidth((double) newValue);
         });

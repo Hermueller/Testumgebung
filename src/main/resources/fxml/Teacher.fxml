@@ -22,11 +22,12 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                  <BorderPane fx:id="bpDataView" prefHeight="750.0" prefWidth="1003.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <BorderPane fx:id="bpDataView" minHeight="750.0" minWidth="1003.0" prefHeight="750.0" prefWidth="1003.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <bottom>
                       <AnchorPane fx:id="apInfo" maxHeight="50.0" minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="160.0" BorderPane.alignment="CENTER">
                            <children>
                                           <Label fx:id="lbVersion" alignment="CENTER_RIGHT" layoutX="839.0" layoutY="16.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
+                              <Label fx:id="lbDate" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="15.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
                            </children>
                         </AnchorPane>
                      </bottom>
@@ -231,7 +232,7 @@
                                                 </VBox>
                                              </children>
                                           </AnchorPane>
-                                          <Button fx:id="btnPatrolMode" layoutX="14.0" layoutY="626.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="236.0" text="Patrouillen Modus" />
+                                          <Button fx:id="btnPatrolMode" layoutX="369.0" layoutY="28.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="236.0" text="Patrouillen Modus" />
                                                   </children>
                                               </AnchorPane>
                                           </content>
@@ -285,7 +286,7 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Button layoutX="27.0" layoutY="621.0" mnemonicParsing="false" onAction="#createJar" prefHeight="39.0" prefWidth="174.0" text="Create JAR File" />
+                                          <Button layoutX="27.0" layoutY="621.0" mnemonicParsing="false" onAction="#fromVersion" prefHeight="39.0" prefWidth="174.0" text="Create JAR File" />
                                           <Button layoutX="805.0" layoutY="623.0" mnemonicParsing="false" onAction="#exportLog" prefHeight="39.0" prefWidth="174.0" text="Export ErrorLog" />
                                           <ScrollPane fx:id="scrollLog" layoutX="19.0" layoutY="24.0" prefHeight="579.0" prefWidth="963.0">
                                             <content>
