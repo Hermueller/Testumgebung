@@ -5,10 +5,10 @@ Student - Teacher - (monitoring Students)-Programm
 
 # What is it about?
 
-Spy on the Students Screen and take Screenshots to check what the Student is doing.
-Count the lines of code in his testprojekt so that the teacher can see his working efficiency.
+Spy on the students screen and take screenshots to check what the student is doing.
+Count the lines of code in his testproject so that the teacher can see his working efficiency.
 Why?
-To avoid that the student cheat at the test.
+To avoid cheating during the test.
 
 # How does it look?
 
@@ -18,7 +18,7 @@ To avoid that the student cheat at the test.
 
 ![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/doku/aktueller%20Stand/V1-11-33-051%20imageData/StudentDetails.png)
 
-![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/doku/aktueller%20Stand/V1-11-33-051%20imageData/ProgrammLog.png)
+![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/doku/aktueller%20Stand/V1-11-33-051%20imageData/errorLogFull.png)
 
 ## Student-GUI
 
