@@ -50,7 +50,7 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (file.exists()) {
-            log(Level.WARN, String.format("Directory %s is already exist!", fileName));
+            log(Level.WARN, String.format("Directory %s already exists!", fileName));
         } else if (!file.mkdir()) {
             log(Level.ERROR, String.format("Directory %s failed to create!", fileName));
         } else {
@@ -70,7 +70,7 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (file.exists()) {
-            log(Level.WARN, String.format("File %s is already exist!", fileName));
+            log(Level.WARN, String.format("File %s already exists!", fileName));
         } else try {
             if (file.createNewFile()) {
                 log(Level.INFO, "created file " + fileName);
@@ -96,7 +96,7 @@ public class FileUtils {
             new FileOutputStream(fileName).write(file);
             saved = true;
         } catch (IOException e) {
-            log(Level.ERROR, "File failed to save!");
+            log(Level.ERROR, "Failed to save as file!");
         }
         return saved;
     }
@@ -126,7 +126,7 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (!file.exists()) {
-            log(Level.ERROR, fileName + " not exist!");
+            log(Level.ERROR, fileName + " does not exist!");
         } else if (!zipFileName.contains(".zip")) {
             log(Level.ERROR, zipFileName + " is a invalid filename of an zip archive!");
         } else {
@@ -184,9 +184,9 @@ public class FileUtils {
     public static boolean unzip(String zipFileName, String fileName) {
         boolean finished = false;
         if (!zipFileName.contains(".zip")) {
-            log(Level.ERROR, fileName + " can not be unzip!");
+            log(Level.ERROR, fileName + " can not be unzipped!");
         } else if (new File(fileName).exists()) {
-            log(Level.ERROR, String.format("Directory %s is already exist!", fileName));
+            log(Level.ERROR, String.format("Directory %s already exists!", fileName));
         } else {
             createDirectory(fileName);
             int length;
@@ -230,10 +230,10 @@ public class FileUtils {
             if (!delete(path))
                 error = true;
         if (error) {
-            log(Level.ERROR, "not all paths are deleted");
+            log(Level.ERROR, " not all paths are deleted");
             return false;
         } else {
-            log(Level.INFO, "given paths are deleted");
+            log(Level.INFO, " given paths are deleted");
             return true;
         }
     }
@@ -248,7 +248,7 @@ public class FileUtils {
         boolean deleted = false;
         File file = new File(fileName);
         if (!file.exists()) {
-            log(Level.ERROR, fileName + " not exist!");
+            log(Level.ERROR, fileName + " does not exist!");
         } else {
             File[] files = file.listFiles();
             for (File f : files == null ? new File[0] : files)
