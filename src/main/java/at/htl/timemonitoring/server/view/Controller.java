@@ -77,6 +77,7 @@ import java.util.*;
  * 18.03.2016: PHI 005  export the log to an text-file
  * 21.03.2016: PHI 055  fixed bug in the screenshot-View  &&   created pop-up window for the log-export
  * 22.03.2016: PHI 225  create JAR with button; create properties; fixed minor bug in the view
+ * 23.03.2016: PHI 145  added a new Tab called Student-Info (shows Student infos) && changed language+View of the application
  */
 public class Controller implements Initializable {
 
@@ -158,6 +159,11 @@ public class Controller implements Initializable {
     private ScrollPane scrollLog;
     @FXML
     private AnchorPane anchorPaneScrollLog;
+    //endregion
+
+    //region Student-Info Variables
+    @FXML
+    private Label lbFirstName, lbLastName, lbEnrolmentID, lbCatalogNumber, lbLoC, lbFaceNumber;
     //endregion
 
     //region other
@@ -527,9 +533,8 @@ public class Controller implements Initializable {
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             //   CHANGE LINECHART
             loc.getData().clear();
-
             Student st = Settings.getInstance().findStudentByName(newValue.getText());
-            if (st.getSeries() != null) {
+            if (st != null && st.getSeries() != null) {
                 for (XYChart.Series<Number, Number> actualSeries : st.getSeries()) {
                     loc.getData().add(actualSeries);
                 }
@@ -541,6 +546,20 @@ public class Controller implements Initializable {
                 pathOfLastScreenshot = "images/loading.gif";
             }
             ivLiveView.setImage(new Image(pathOfLastScreenshot));
+
+            //   CHANGE STUDENT-INFO-DATA
+            if (st != null) {
+                lbFirstName.setText(st.getFirstName());
+                lbLastName.setText(st.getName());
+                lbCatalogNumber.setText(Integer.toString(st.getCatalogNumber()));
+                String nr = lbCatalogNumber.getText();
+                lbFaceNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
+                lbEnrolmentID.setText(st.getEnrolmentID());
+                ObservableList<XYChart.Data<Number, Number>> ol =
+                        st.getSeries().get(st.getSeries().size() - 1).getData();
+                Long locVal = (Long)ol.get(ol.size() - 1).getYValue();
+                lbLoC.setText(Long.toString(locVal));
+            }
         });
     }
 

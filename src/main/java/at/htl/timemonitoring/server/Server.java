@@ -35,7 +35,7 @@ import java.time.LocalDateTime;
  */
 public class Server {
 
-    public static int PORT = 5555;
+    public static int PORT = 50555;
 
     private final SocketWriterThread writer;
     private final SocketReaderThread reader;
@@ -59,6 +59,9 @@ public class Server {
             }
         } else {
             student = new Student(packet.getLastname(), packet.getDirOfWatch());
+            student.setCatalogNumber(packet.getCatalogNr());
+            student.setEnrolmentID(packet.getEnrolmentID());
+            student.setFirstName(packet.getFirstname());
             Settings.getInstance().addStudent(student);
         }
         FileUtils.log(this, Level.INFO, "I got the Package: " + packet.getDirOfWatch());

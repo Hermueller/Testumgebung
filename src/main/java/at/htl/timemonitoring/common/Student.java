@@ -25,6 +25,10 @@ public class Student {
     private String name;
     private String pathOfWatch;
     private String pathOfImages;
+    private String firstName;
+    private String enrolmentID;
+    private int catalogNumber;
+
     private List<Long> locs = new LinkedList<>();
     private List<Long> times = new LinkedList<>();
     private List<XYChart.Series<Number, Number>> series = new LinkedList<>();
@@ -46,6 +50,30 @@ public class Student {
 
     public String getPathOfImages() {
         return pathOfImages;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getEnrolmentID() {
+        return enrolmentID;
+    }
+
+    public void setEnrolmentID(String enrolmentID) {
+        this.enrolmentID = enrolmentID;
+    }
+
+    public int getCatalogNumber() {
+        return catalogNumber;
+    }
+
+    public void setCatalogNumber(int catalogNumber) {
+        this.catalogNumber = catalogNumber;
     }
 
     private void setPathOfImages(String path) {
