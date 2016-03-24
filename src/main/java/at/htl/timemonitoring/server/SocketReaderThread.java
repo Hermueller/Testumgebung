@@ -56,6 +56,7 @@ class SocketReaderThread extends Thread {
 
             } catch (Exception ex) {
                 FileUtils.log(this, Level.ERROR, "canceled " + MyUtils.exToStr(ex));
+                Settings.getInstance().removeStudent(student.getName());
                 server.shutdown();
                 return;
             }

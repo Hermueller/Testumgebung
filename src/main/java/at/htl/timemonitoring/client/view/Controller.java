@@ -5,12 +5,14 @@ import at.htl.timemonitoring.client.Exam;
 import at.htl.timemonitoring.common.MyUtils;
 import at.htl.timemonitoring.common.Pupil;
 import at.htl.timemonitoring.common.fx.FxUtils;
+import at.htl.timemonitoring.common.io.FileUtils;
 import at.htl.timemonitoring.common.trasfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.Level;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -113,7 +115,7 @@ public class Controller implements Initializable {
                     client.start();
                 }
             } catch (Exception e) {
-                //FileUtils.log(this, "");
+                FileUtils.log(Level.ERROR, e.getMessage());
             }
             setControls(false);
             setMsg("Signed in!", false);

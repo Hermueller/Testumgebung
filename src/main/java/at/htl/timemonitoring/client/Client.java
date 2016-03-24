@@ -6,6 +6,7 @@ import at.htl.timemonitoring.common.actions.RobotActionQueue;
 import at.htl.timemonitoring.common.io.FileStream;
 import at.htl.timemonitoring.common.io.FileUtils;
 import at.htl.timemonitoring.common.trasfer.LoginPackage;
+import at.htl.timemonitoring.server.Settings;
 import org.apache.logging.log4j.Level;
 
 import java.awt.*;
@@ -102,11 +103,6 @@ public class Client {
                 FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.exToStr(eof));
             } catch (Exception ex) {
                 FileUtils.log(this, Level.ERROR, "Send Boolean" + MyUtils.exToStr(ex));
-                /*try {
-                    out.writeBoolean(isTestFinished.isSelected());
-                } catch (IOException e) {
-                    System.out.println("Can't send Boolean: " + e);
-                }*/
             }
         }
     }
@@ -166,9 +162,10 @@ public class Client {
      * client logs out -> stop all streams from this client.
      */
     public void stop() {
-        //Session.getInstance().removeStudent(loginPackage.getUserName());
         processor.interrupt();
         reader.interrupt();
+        //handIn();
+        closeOut();
     }
 
 }

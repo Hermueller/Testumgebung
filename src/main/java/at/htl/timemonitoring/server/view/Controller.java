@@ -12,6 +12,7 @@ import at.htl.timemonitoring.server.entity.Interval;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,11 +20,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -32,6 +35,7 @@ import javafx.scene.text.Text;
 import javafx.stage.*;
 import org.apache.logging.log4j.Level;
 
+import javax.imageio.ImageIO;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.URL;
@@ -78,14 +82,9 @@ import java.util.*;
  * 21.03.2016: PHI 055  fixed bug in the screenshot-View  &&   created pop-up window for the log-export
  * 22.03.2016: PHI 225  create JAR with button; create properties; fixed minor bug in the view
  * 23.03.2016: PHI 145  added a new Tab called Student-Info (shows Student infos) && changed language+View of the application
+ * 24.03.2016: PHI 105  created the LineChart-Export
  */
 public class Controller implements Initializable {
-
-    @FXML
-    public SplitPane splitter;
-
-    @FXML
-    private ListView<Button> lvStudents;
 
     //region Tab: Option Variables
     @FXML
@@ -166,13 +165,17 @@ public class Controller implements Initializable {
     private Label lbFirstName, lbLastName, lbEnrolmentID, lbCatalogNumber, lbLoC, lbFaceNumber;
     //endregion
 
-    //region other
+    //region other Variables
     @FXML
     private BorderPane bpDataView;
     @FXML
     private AnchorPane apInfo;
     @FXML
     private Label lbDate;
+    @FXML
+    public SplitPane splitter;
+    @FXML
+    private ListView<Button> lvStudents;
 
     private Thread server;
     private Threader threader;
@@ -180,6 +183,29 @@ public class Controller implements Initializable {
 
     public Controller() {
 
+    }
+
+    //region Export-Methods
+
+    /**
+     * creates a file for the LineChart from a specific student.
+     *
+     * @param event     of the click on the button
+     */
+    public void exportLOC(ActionEvent event) {
+        WritableImage image = loc.snapshot(new SnapshotParameters(), null);
+
+        String studentInfo = lbFaceNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
+
+        File file = new File(Settings.getInstance().getPathOfExports().concat("/" + studentInfo));
+
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
+        }
+
+        showSuccess("exported LineChart successfully !!");
     }
 
     /**
@@ -196,7 +222,7 @@ public class Controller implements Initializable {
                 list.add(tf.getText());
             }
 
-            Path file = Paths.get("../log.txt");
+            Path file = Paths.get(Settings.getInstance().getPathOfExports().concat("/log.txt"));
             Files.write(file, list, Charset.forName("UTF-8"));
 
             showSuccess("exported log successfully!!");
@@ -204,6 +230,8 @@ public class Controller implements Initializable {
             FileUtils.log(Level.ERROR, e.getMessage());
         }
     }
+
+    //endregion
 
     /**
      * shows a message in a pop-up window
@@ -298,18 +326,28 @@ public class Controller implements Initializable {
         try {
             // creating student JAR
             Manifest manifest = new Manifest();
-            manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-            manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "at.htl.timemonitoring.client.view.StudentGui");
-            JarOutputStream target = new JarOutputStream(new FileOutputStream("../student.jar"), manifest);
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MANIFEST_VERSION, "1.0");
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MAIN_CLASS, "at.htl.timemonitoring.client.view.StudentGui");
+            JarOutputStream target = new JarOutputStream(
+                    new FileOutputStream(
+                            Settings.getInstance().getPathOfExports().concat("/student.jar")
+                    ), manifest);
             File source = new File("target/classes/");
             add(source, target);
             target.close();
 
             //creating teacher JAR
             manifest = new Manifest();
-            manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-            manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "at.htl.timemonitoring.server.view.TeacherGui");
-            target = new JarOutputStream(new FileOutputStream("../teacher.jar"), manifest);
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MANIFEST_VERSION, "1.0");
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MAIN_CLASS, "at.htl.timemonitoring.server.view.TeacherGui");
+            target = new JarOutputStream(
+                    new FileOutputStream(
+                            Settings.getInstance().getPathOfExports().concat("/teacher.jar")
+                    ), manifest);
             source = new File("target/classes/");
             add(source, target);
             target.close();
@@ -644,7 +682,7 @@ public class Controller implements Initializable {
         try {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-            FileUtils.log(this, Level.ERROR, "Keine IP Adresse gefunden " + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
         }
         tfMyIP_Address.setText(ip);
     }
@@ -860,11 +898,11 @@ public class Controller implements Initializable {
         if (TB_SS_rnd.isSelected()) {
             tfTimeSS.setDisable(true);
             tfTimeSS.setEditable(false);
-            TB_SS_rnd.setText("EIN");
+            TB_SS_rnd.setText("ON");
         } else {
             tfTimeSS.setDisable(false);
             tfTimeSS.setEditable(true);
-            TB_SS_rnd.setText("AUS");
+            TB_SS_rnd.setText("OFF");
         }
     }
 

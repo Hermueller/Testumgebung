@@ -84,7 +84,7 @@
                                                                       </HBox>
                                                                       <HBox layoutX="25.0" layoutY="57.0" spacing="20.0">
                                                                           <children>
-                                                                              <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Location for (screenshots, submissions):">
+                                                                              <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Location for screenshots, submissions, exports:">
                                                                                   <font>
                                                                                       <Font size="18.0" />
                                                                                   </font>
@@ -342,6 +342,11 @@
                                                 <Image url="@../images/redLamp.png" />
                                              </image>
                                           </ImageView>
+                                          <Button layoutX="39.0" layoutY="458.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
                                        </children>
                                     </AnchorPane>
                                 </content>

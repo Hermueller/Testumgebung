@@ -12,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -70,6 +69,7 @@ public class Settings {
     private String path;
     private String pathOfImages;
     private String pathOfHandOutFiles;
+    private String pathOfExports;
     private String password;
     private LocalDateTime starting = null;
     private LineChart<Number, Number> chart;
@@ -148,7 +148,7 @@ public class Settings {
     public HandOutPackage getHandOutPacket() {
         // Prüfung, ob nötige Daten vorhanden fehlt
         // funktioniert noch nicht
-        return new HandOutPackage(handOutFile, endTime, "Viel Glück!");
+        return new HandOutPackage(handOutFile, endTime, "Good Luck!");
     }
 
     /**
@@ -215,16 +215,27 @@ public class Settings {
     }
 
     /**
+     * PathOfExports includes the Logs, JAR-files and the LineCharts of the Students.
+     *
+     * @return  the path of the directory of the exports
+     */
+    public String getPathOfExports() {
+        return pathOfExports;
+    }
+
+    /**
      * sets the path for the directory of the screenshots and finished tests.
      *
      * @param path Specifies the root-path of the screenshots and finished tests
      */
     public void setPath(String path) {
         this.path = path;
-        pathOfImages = path + "/Screenshots";
+        pathOfImages = path + "/screenshots";
         FileUtils.createDirectory(pathOfImages);
-        pathOfHandOutFiles = path + "/Abgabe";
+        pathOfHandOutFiles = path + "/submissions";
         FileUtils.createDirectory(pathOfHandOutFiles);
+        pathOfExports = path + "/exports";
+        FileUtils.createDirectory(pathOfExports);
 
         System.out.println(pathOfImages);
     }
@@ -254,25 +265,11 @@ public class Settings {
      * @return the last series from the chart.
      */
     public XYChart.Series<Number, Number> getLastSeries(Student st) {
-        /*if (chart.getData().size() > 0) {
-            return chart.getData().get(chart.getData().size() - 1);
-        }
-        XYChart.Series<Number, Number> newSeries = new XYChart.Series<>();
-        newSeries.setName(name);
-        return newSeries;*/
         if (st.getSeries().size() > 0) {
             return st.getSeries().get(st.getSeries().size() - 1);
         }
         return null;
     }
-
-    /**
-     *
-     * @return the series from the students. (all of them).
-     */
-    /*public List<XYChart.Series<Number, Number>> getSeries() {
-        return series;
-    }*/
 
     //endregion
 
@@ -461,7 +458,7 @@ public class Settings {
      * @param level     Specifies the level of the error
      * @return          the style
      */
-    public static String getStyle(Level level) {
+    public String getStyle(Level level) {
         String styleString = "-fx-background-color: transparent;";
         if (level == Level.ERROR) {
             styleString += "-fx-text-fill: crimson";
