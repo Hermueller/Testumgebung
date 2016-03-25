@@ -43,15 +43,15 @@ import java.util.List;
  * 31.10.2015: MET 010  functionS implemented: set test start and test end
  * 31.10.2015: MET 005  expansion to handOutFile and getHandOutPacket ()
  * 06.11.2015: PON 005  extension by password
- * 29.11.2015: PHI 040  Hinzufügen und Entfernen von Studenten geändert (farbige)TestField
- * 10.12.2015: PHI 025  Einbinden von Funktionen, die für die Lines of Code benötigt werden
- * 12.12.2015: PHI 035  kommentieren von Methoden und die Klassenstruktur geändert
- * 22.12.2015: PHI 020  ändern der Anzeige von Schülern beim Lehrer.
- * 29.12.2015: PHI 050  fehler bei der Schüler an-/abmeldung entfernt und Sound hinzugefügt
- * 31.12.2015: PHI 020  Schülersuche eingefügt und LineChart überarbeitet/verändert.
- * 01.01.2016: PHI 055  Fehler im Chart und der Schülerspeicherung verbessert.
- * 02.01.2016: PHI 005  Hover" implementiert.
- * 06.01.2016: PHI 045  Fehler bei "Series"-Speicherung behoben und geändert. Kommunizierung mit Schüler eingebunden.
+ * 29.11.2015: PHI 040  changed the remove- and add-method of the students. (colored textfields)
+ * 10.12.2015: PHI 025  created methods which are used for the Lines-of-Code.
+ * 12.12.2015: PHI 035  commented methods and changes class-structure.
+ * 22.12.2015: PHI 020  displays the student on the teacher-GUI differently.
+ * 29.12.2015: PHI 050  fixed bug in the student LogOn and LogOut method. Makes sound if student logs out.
+ * 31.12.2015: PHI 020  Method for the search of a student created and changed LineChart.
+ * 01.01.2016: PHI 055  Fixed bug in the LineChart and saves students.
+ * 02.01.2016: PHI 005  Chart-Hover implemented.
+ * 06.01.2016: PHI 045  fixed bug in the method for saving the LineChart-Series.
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
  * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
  * 21.03.2016: PHI 020  write error to the log in the application
@@ -468,10 +468,14 @@ public class Settings {
     }
 
     /**
-     * creates the style for the error/warning/info
+     * creates the style for the error/warning/info.
+     * <p>
+     * ERROR's in RED.
+     * WARNING's in YELLOW.
+     * INFO's in WHITE.
      *
-     * @param level     Specifies the level of the error
-     * @return          the style
+     * @param level     Specifies the level of the error.
+     * @return          the style for the textfield.
      */
     public String getStyle(Level level) {
         String styleString = "-fx-background-color: transparent;";
@@ -486,7 +490,7 @@ public class Settings {
     }
 
     /**
-     * prints the error into the Log in the application
+     * prints the error into the Log in the application.
      *
      * @param t     the thread who caught the error
      * @param e     the error

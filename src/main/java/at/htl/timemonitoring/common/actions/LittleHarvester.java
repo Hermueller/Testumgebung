@@ -17,8 +17,11 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * Liest die Zeilen of Code und erstellt Screenshots bei dem PC
- * des Students und sendet diese verpackt in einem Package zurück.
+ * This Harvester counts the lines of code in the test-project and
+ * creates a screenshot from the students screen.
+ * <p>
+ * The lines-of-code -Number and the screenshot will be moved into a package
+ * and will be sent to the teacher.
  *
  * @timeline .
  * 13.01.2016: PHI 055  Es werden neben Screenshots auch die Lines of Code eingelesen und versendet.

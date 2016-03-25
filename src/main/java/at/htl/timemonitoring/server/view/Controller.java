@@ -56,26 +56,26 @@ import java.util.*;
 /**
  * @timeline Text
  * 15.10.2015: GNA 001  created class
- * 15.10.2015: PHI 035  Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
+ * 15.10.2015: PHI 035  Allowed time-input in the GUI for the screenshot-delay.
  * 19.10.2015: PON 020  list of connected pupils
  * 24.10.2015: PON 020  teachers can now select the folder where the screenshots are saved
- * 26.10.2015: PHI 050  Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
+ * 26.10.2015: PHI 050  created method for the messages from the start and stop of the server (+random time).
  * 05.11.2015: PON 015  implemented selecting of specification file
  * 06.11.2015: PON 002  expansion to the password field
  * 12.11.2015: PON 002  save password in the repository
- * 29.11.2015: PHI 025  Angabe-Auswahl + Fehlermeldungen in GUI
- * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
- * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
+ * 29.11.2015: PHI 025  Handout + shows error messages in the GUI.
+ * 07.12.2015: PHI 030  Live-View and LOC-Chart will always be the size of the window.
+ * 07.12.2015: PHI 020  changed style of the LineChart.
  * 17.12.2015: PON 120  function "importPupilList" for importing student lists
  * 17.12.2015: PON 005  Bug found: exception Handling missing, registration of pupils
- * 31.12.2015: PHI 010  LineChart überarbeitet, sodass bei der Änderung der ListView-Selection sich auch das Diagramm ändert.
- * 01.01.2016: PHI 010  Fehler in der LineChart verbessert.
- * 06.01.2016: PHI 025  Überarbeitung der Fehler beim Wechsel von der LineChart von einem Schüler zum Anderen.
- * 15.01.2016: PHI 060  Check-Bild bei Error und Erfolg beim Starten des Servers eingefügt.
- * 20.01.2016: PHI 040  Simple- und Advanced-Mode eingefügt. / Zeit wird nun in Sekunden eingegeben.
- * 23.01.2016: PHI 020  Tooltip und Version eingeführt.
- * 24.01.2016: PHI 035  Zeigt den Screenshot im Fullscreen beim Klick und verschwindet beim erneuten Klick. +RandomTimeBugFix
- * 10.03.2016: PHI 120  Bugfix (Screenshot, Lines-of-Code Chart)
+ * 31.12.2015: PHI 010  LineChart revised (if the student from the list changes -> the LineChart changes too).
+ * 01.01.2016: PHI 010  fixed bug in the LineChart.
+ * 06.01.2016: PHI 025  BugFix (LineChart will not be influenced when the student changes)
+ * 15.01.2016: PHI 060  Shows check-pictures for errors and success when the server is started.
+ * 20.01.2016: PHI 040  Simple- and Advanced-Mode created. / input time now in seconds
+ * 23.01.2016: PHI 020  Tooltip and Version created.
+ * 24.01.2016: PHI 035  Shows the screenshot in fullscreen on click and closes on another click. +RandomTimeBugFix
+ * 10.03.2016: PHI 120  BugFix (Screenshot, Lines-of-Code Chart)
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
  * 18.03.2016: PHI 005  export the log to an text-file
@@ -188,7 +188,7 @@ public class Controller implements Initializable {
     //region Export-Methods
 
     /**
-     * creates a file for the LineChart from a specific student.
+     * creates an image from the LineChart of a specific student and saves it.
      *
      * @param event     of the click on the button
      */
@@ -210,8 +210,13 @@ public class Controller implements Initializable {
 
     /**
      * writes the Log into a TEXT-file.
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/26
      *
      * @param actionEvent   event of the click on the button
+     *
+     * @since   1.11.33.051
      */
     public void exportLog(ActionEvent actionEvent) {
         try {
@@ -235,8 +240,13 @@ public class Controller implements Initializable {
 
     /**
      * shows a message in a pop-up window
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/27
      *
-     * @param message   the message to show in the pop-up
+     * @param message   the message to show in the pop-up.
+     *
+     * @since 1.11.34.060
      */
     public void showSuccess(String message) {
         final Stage dialog = new Stage();
@@ -249,14 +259,19 @@ public class Controller implements Initializable {
         FileUtils.log(Level.INFO, message);
     }
 
-    //region create Properties for the Version
+    //region create and read properties
 
     /**
      * create pop-up window to ask for the version number
      * and create a properties-file for it and creates a JAR-file
      * for the student and the teacher.
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/23
      *
      * @param actionEvent   event from the click on the button
+     *
+     * @since 1.12.35.071
      */
     public void fromVersion(ActionEvent actionEvent) {
         final Stage stage = new Stage();
@@ -284,9 +299,15 @@ public class Controller implements Initializable {
     }
 
     /**
-     * creates the properties file
+     * creates the properties-file
+     * <br /><br />
+     * The properties include:
+     * <ul>
+     *     <li>Date from the creation of the JAR-file (current date)</li>
+     *     <li>Version of the application</li>
+     * </ul>
      *
-     * @param version   the version of the application
+     * @param version   Specifies the version of the application
      */
     public void createProp(String version) {
         Properties prop = new Properties();
@@ -319,8 +340,39 @@ public class Controller implements Initializable {
     }
 
     /**
+     * writes the data from the properties-file into the Labels in the application
+     * <br /><br />
+     * The properties include:
+     * <ul>
+     *     <li>Date from the creation of the JAR-file</li>
+     *     <li>Version of the application</li>
+     * </ul>
+     */
+    public void readProperties() {
+        Properties prop = new Properties();
+        String propFileName = "config.properties";
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+        try {
+            prop.load(inputStream);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
+        }
+
+        lbVersion.setText(prop.getProperty("version"));
+        lbDate.setText("created on: " + prop.getProperty("date"));
+    }
+
+    //endregion
+
+    //region create JAR-files
+
+    /**
      * creates a jar-file for the student and teacher
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/23
      *
+     * @since 1.12.35.071
      */
     public void createJar()
     {
@@ -408,23 +460,6 @@ public class Controller implements Initializable {
             if (in != null)
                 in.close();
         }
-    }
-
-    /**
-     * writes the data from the properties-file into the Labels in the application
-     */
-    public void readProperties() {
-        Properties prop = new Properties();
-        String propFileName = "config.properties";
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-        try {
-            prop.load(inputStream);
-        } catch (IOException e) {
-            FileUtils.log(Level.ERROR, e.getMessage());
-        }
-
-        lbVersion.setText(prop.getProperty("version"));
-        lbDate.setText("created on: " + prop.getProperty("date"));
     }
 
     //endregion
@@ -523,6 +558,12 @@ public class Controller implements Initializable {
 
     /**
      * show screenshot in fullscreen on click.
+     * <br /><br />
+     * The Github-issue to this method:
+     * <br />
+     * https://github.com/BeatingAngel/Testumgebung/issues/16
+     *
+     * @since 1.11.21.067
      */
     private void setImageClick() {
         ivLiveView.setOnMouseClicked(event -> {
@@ -540,6 +581,12 @@ public class Controller implements Initializable {
 
     /**
      * show the path as a tooltip.
+     * <br /><br />
+     * The Github-issue to this method:
+     * <br />
+     * https://github.com/BeatingAngel/Testumgebung/issues/7
+     *
+     * @since
      */
     private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
         Tooltip mousePositionToolTip = new Tooltip("");
@@ -810,7 +857,9 @@ public class Controller implements Initializable {
     /**
      * switching from Simple/Advanced-Mode to the other mode.
      *
-     * @param event
+     * @param event Specifies the event from the click on the button
+     *
+     * @since 1.9.22.067
      */
     public void changeMode(ActionEvent event) {
         apOption.setVisible(!apOption.isVisible());
@@ -863,10 +912,7 @@ public class Controller implements Initializable {
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null) {
             Settings.getInstance().setPath(choosedFile.getPath());
-            //cbHome.setSelected(true);
-        } /*else {
-            cbHome.setSelected(false);
-        }*/
+        }
     }
 
     /**
@@ -884,10 +930,7 @@ public class Controller implements Initializable {
         // Check the user pressed OK, and not Cancel.
         if (yourZip != null) {
             Settings.getInstance().setHandOutFile(yourZip);
-            //cbAngabe.setSelected(true);
-        } /*else {
-            cbAngabe.setSelected(false);
-        }*/
+        }
     }
 
     /**

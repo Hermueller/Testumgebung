@@ -99,6 +99,13 @@ public class Student {
         return series;
     }
 
+    /**
+     * Adds the LinesOfCode-Number to the last series in the chart.
+     *
+     * @param loc           Specifies the number of lines in the code.
+     * @param time          Specifies the time (in sec.) when to lines where counted.
+     * @param priorValue    Specifies the prior number of lines in the code.
+     */
     public void addValueToLast(Long loc, Long time, Long priorValue) {
         Platform.runLater(() -> {
             XYChart.Series<Number, Number> actual = series.get(series.size() - 1);
