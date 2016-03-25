@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -75,6 +76,7 @@ public class Settings {
     private LineChart<Number, Number> chart;
     private String[] endings;
     private MediaPlayer mediaPlayer = null;
+    private Label lbLoc;
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -98,7 +100,6 @@ public class Settings {
     }
 
     /**
-     *
      * @return      the TextArea of the logging
      */
     public AnchorPane getLogArea() {
@@ -112,6 +113,20 @@ public class Settings {
      */
     public void setLogArea(AnchorPane logArea) {
         this.logArea = logArea;
+    }
+
+    /**
+     * @return the label of the "Lines-of-code"
+     */
+    public Label getLbLoc() {
+        return lbLoc;
+    }
+
+    /**
+     * @param lbLoc Specifies the label for the lines-of-code-Number
+     */
+    public void setLbLoc(Label lbLoc) {
+        this.lbLoc = lbLoc;
     }
 
     /**

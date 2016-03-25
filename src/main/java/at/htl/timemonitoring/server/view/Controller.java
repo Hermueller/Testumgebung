@@ -246,6 +246,7 @@ public class Controller implements Initializable {
         Scene dialogScene = new Scene(label, 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();
+        FileUtils.log(Level.INFO, message);
     }
 
     //region create Properties for the Version
@@ -439,6 +440,7 @@ public class Controller implements Initializable {
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
         Settings.getInstance().setLogArea(anchorPaneScrollLog);
+        Settings.getInstance().setLbLoc(lbLoC);
         scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         setDynamicScreenSize();

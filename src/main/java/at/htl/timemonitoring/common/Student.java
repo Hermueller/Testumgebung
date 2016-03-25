@@ -19,6 +19,7 @@ import java.util.List;
  * 31.12.2015: PHI 001  Getter und Setter für locs und times erstellt.
  * 05.01.2016: PHI 065  "Series" werden nun beim Schüler gespeichert.
  * 06.01.2016: PHI 015  Fehler beim hinzufügen von "Series" entdeckt und ausgebessert.
+ * 25.03.2016: PHI 010  lines of code will be shown in the student-info TAB
  */
 public class Student {
 
@@ -114,6 +115,8 @@ public class Student {
                     )
             );
             actual.getData().add(data);
+
+            Settings.getInstance().getLbLoc().setText(Long.toString(loc));
         });
     }
 

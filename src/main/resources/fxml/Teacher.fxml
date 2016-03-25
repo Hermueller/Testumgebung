@@ -311,20 +311,6 @@
                                                       </Label>
                                                    </children>
                                                 </HBox>
-                                                <HBox>
-                                                   <children>
-                                                      <Label layoutX="57.0" layoutY="242.0" prefWidth="200.0" text="Working Status:">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label fx:id="lbStatus" layoutX="280.0" layoutY="245.0" text="---//---">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                </HBox>
                                              </children>
                                           </VBox>
                                           <ImageView fitHeight="655.0" fitWidth="409.0" layoutX="549.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
