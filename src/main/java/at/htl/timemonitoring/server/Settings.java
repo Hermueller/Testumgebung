@@ -9,6 +9,7 @@ import at.htl.timemonitoring.server.entity.Interval;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -18,6 +19,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
@@ -512,5 +515,31 @@ public class Settings {
             });
         }
     }
+
+    /**
+     * shows a message in a pop-up window
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/27
+     *
+     * @param message   the message to show in the pop-up.
+     *
+     * @since 1.11.34.060
+     */
+    public void showPopUp(String message, boolean isSuccess) {
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        Label label = new Label(message);
+        if (isSuccess) {
+            label.setStyle("-fx-background-color: chartreuse");
+        } else {
+            label.setStyle("-fx-background-color: crimson");
+        }
+        Scene dialogScene = new Scene(label, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+        FileUtils.log(Level.INFO, message);
+    }
+
     //endregion
 }

@@ -9,12 +9,9 @@ import at.htl.timemonitoring.server.Server;
 import at.htl.timemonitoring.server.Settings;
 import at.htl.timemonitoring.server.Threader;
 import at.htl.timemonitoring.server.entity.Interval;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -31,7 +28,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.*;
 import org.apache.logging.log4j.Level;
 
@@ -45,7 +41,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -205,7 +200,7 @@ public class Controller implements Initializable {
             FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
         }
 
-        showSuccess("exported LineChart successfully !!");
+        Settings.getInstance().showPopUp("exported LineChart successfully !!", true);
     }
 
     /**
@@ -230,34 +225,13 @@ public class Controller implements Initializable {
             Path file = Paths.get(Settings.getInstance().getPathOfExports().concat("/log.txt"));
             Files.write(file, list, Charset.forName("UTF-8"));
 
-            showSuccess("exported log successfully!!");
+            Settings.getInstance().showPopUp("exported log successfully!!", true);
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
         }
     }
 
     //endregion
-
-    /**
-     * shows a message in a pop-up window
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/27
-     *
-     * @param message   the message to show in the pop-up.
-     *
-     * @since 1.11.34.060
-     */
-    public void showSuccess(String message) {
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        Label label = new Label(message);
-        label.setStyle("-fx-background-color: chartreuse");
-        Scene dialogScene = new Scene(label, 300, 200);
-        dialog.setScene(dialogScene);
-        dialog.show();
-        FileUtils.log(Level.INFO, message);
-    }
 
     //region create and read properties
 
@@ -408,7 +382,7 @@ public class Controller implements Initializable {
             FileUtils.log(Level.ERROR, exp.getMessage());
         }
 
-        showSuccess("created JAR-file successfully!!");
+        Settings.getInstance().showPopUp("created JAR-file successfully!!", true);
     }
 
     /**

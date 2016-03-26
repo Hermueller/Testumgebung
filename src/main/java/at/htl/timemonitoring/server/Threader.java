@@ -35,7 +35,6 @@ public class Threader implements Runnable {
             }
         } catch (IOException e) {
             FileUtils.log(this, Level.INFO, e.getMessage());
-            System.out.println("socket closed");
         }
     }
 

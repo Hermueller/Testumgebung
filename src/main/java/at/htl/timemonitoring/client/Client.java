@@ -7,6 +7,7 @@ import at.htl.timemonitoring.common.io.FileStream;
 import at.htl.timemonitoring.common.io.FileUtils;
 import at.htl.timemonitoring.common.trasfer.LoginPackage;
 import at.htl.timemonitoring.server.Settings;
+import javafx.application.Platform;
 import org.apache.logging.log4j.Level;
 
 import java.awt.*;
@@ -103,6 +104,8 @@ public class Client {
                 FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.exToStr(eof));
             } catch (Exception ex) {
                 FileUtils.log(this, Level.ERROR, "Send Boolean" + MyUtils.exToStr(ex));
+            } finally {
+                Platform.runLater(() -> Settings.getInstance().showPopUp("LOST CONNECTION", false));
             }
         }
     }
