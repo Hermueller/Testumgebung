@@ -7,6 +7,7 @@ import at.htl.timemonitoring.common.MyUtils;
 import at.htl.timemonitoring.common.Pupil;
 import at.htl.timemonitoring.common.fx.FxUtils;
 import at.htl.timemonitoring.common.io.FileUtils;
+import at.htl.timemonitoring.common.trasfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -110,7 +111,7 @@ public class Controller implements Initializable {
         if (setExam()) {
             try {
                 if (isLoggedOut()) {
-                    /*client = new Client(new LoginPackage(
+                    client = new Client(new LoginPackage(
                             Exam.getInstance().getPupil().getFirstName(),
                             Exam.getInstance().getPupil().getLastName(),
                             Exam.getInstance().getPupil().getCatalogNumber(),
@@ -118,7 +119,7 @@ public class Controller implements Initializable {
                             Exam.getInstance().getServerIP(),
                             Exam.getInstance().getPupil().getPathOfProject(),
                             Exam.getInstance().getPort()
-                    ));*/
+                    ));
                     //client.start();
                     setTimeLeft();
                 }

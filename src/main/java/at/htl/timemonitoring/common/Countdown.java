@@ -1,5 +1,10 @@
 package at.htl.timemonitoring.common;
 
+import at.htl.timemonitoring.common.fx.TextAnimation;
+import javafx.animation.FadeTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.time.Duration;
@@ -52,6 +57,18 @@ public class Countdown extends Thread {
             }
         }
         System.out.println("Clock beendet");
+        txCountdown.setFill(Color.RED);
+
+        Timeline blinker = TextAnimation.createBlinker(txCountdown);
+        blinker.setOnFinished(event -> txCountdown.setText("Test closed!"));
+        FadeTransition fade = TextAnimation.createFade(txCountdown);
+
+        SequentialTransition blinkThenFade = new SequentialTransition(
+                txCountdown,
+                blinker,
+                fade
+        );
+        blinkThenFade.play();
     }
 
     @Override
