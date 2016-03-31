@@ -95,5 +95,6 @@
             </font>
         </Label>
       <Button layoutX="548.0" layoutY="6.0" mnemonicParsing="false" onAction="#defaultSettings" text="Test" />
+      <Text fx:id="txtTime" layoutX="462.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
     </children>
 </AnchorPane>

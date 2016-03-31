@@ -26,9 +26,9 @@ public class Countdown extends Thread {
 
     public String getToTime() {
         Duration d = Duration.between(LocalTime.now(), toTime);
-        System.out.println(d.toMillis() / 1000);
-        if (d.toMillis() / 1000 == 0) {
-            interrupt();
+        System.out.println(d.toMillis());
+        if (d.toMillis() < 1000) {
+            this.interrupt();
         }
         return LocalTime.MIDNIGHT.plus(d).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }

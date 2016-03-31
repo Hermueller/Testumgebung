@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.apache.logging.log4j.Level;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,6 +62,8 @@ public class Controller implements Initializable {
     Button btnLogout;
     @FXML
     Label lbAlert;
+    @FXML
+    Text txtTime;
     //endregion
 
     private Client client;
