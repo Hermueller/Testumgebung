@@ -1,5 +1,8 @@
 package at.htl.timemonitoring.server;
 
+import at.htl.timemonitoring.common.io.FileUtils;
+import org.apache.logging.log4j.Level;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,6 +15,7 @@ import java.net.Socket;
  * 27.10.2015: PHI 015  Socketproblem und Portproblem gelöst (continue)
  * 31.10.2015: MET 005  statt continue interrupt()
  * 01.12.2015: PHI 003  Umstrukturierung für bessere Testfreundlichkeit (mocking)
+ * 21.03.2016: PHI 001  catch all exceptions and print them into the log
  */
 public class Threader implements Runnable {
 
@@ -30,7 +34,7 @@ public class Threader implements Runnable {
                 createTeacherServer(socket);
             }
         } catch (IOException e) {
-            System.out.println("socket closed");
+            FileUtils.log(this, Level.INFO, e.getMessage());
         }
     }
 
@@ -43,6 +47,7 @@ public class Threader implements Runnable {
         try {
             return new ServerSocket(Server.getPORT());
         } catch (IOException e) {
+            FileUtils.log(this, Level.ERROR, e.getMessage());
             return null;
         }
     }
@@ -57,7 +62,7 @@ public class Threader implements Runnable {
         try {
             new Server(socket);
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            FileUtils.log(this, Level.ERROR, e.getMessage());
         }
         return true;
     }
@@ -71,6 +76,7 @@ public class Threader implements Runnable {
             try {
                 ss.close();
             } catch (IOException e) {
+                FileUtils.log(this, Level.WARN, e.getMessage());
                 System.out.println("can't close ServerSocket");
             }
         }

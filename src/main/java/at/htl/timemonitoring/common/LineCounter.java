@@ -48,6 +48,8 @@ public class LineCounter {
      * @param folder Specifies the directory in which the files to count
      *               are located.
      * @return the number of lines from all files in the directory
+     *
+     * @since 1.2.9.002
      */
     public long countLinesInFilesFromFolder(final File folder) {
         long allLines = 0;

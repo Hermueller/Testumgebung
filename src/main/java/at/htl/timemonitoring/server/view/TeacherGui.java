@@ -1,5 +1,6 @@
 package at.htl.timemonitoring.server.view;
 
+import at.htl.timemonitoring.server.Settings;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +28,8 @@ import javafx.stage.Stage;
  * 10.12.2015: PHI 005  Hinzufügen von Checkboxen, die angeben, ob etwas Ausgewählt wurde oder nicht
  * 16.12.2015: PHI 135  Beim Schließen des Fenster eine Abfrage erstellt
  * 22.12.2015: PHI 010  Optische Fehler in der GUI ausgebessert.
- * 31.01.2015: PHI 001  bugfix (Schließen des Fensters)
+ * 31.01.2016: PHI 001  bugfix (Schließen des Fensters)
+ * 21.03.2016: PHI 001  catch all exceptions
  */
 
 public class TeacherGui extends Application {
@@ -41,6 +43,9 @@ public class TeacherGui extends Application {
 
         stage.setTitle("Teacher Client");
         stage.setScene(scene);
+
+        Thread.setDefaultUncaughtExceptionHandler((t, e) ->
+                Settings.getInstance().printMessage(t, e));
 
         stage.show();
 

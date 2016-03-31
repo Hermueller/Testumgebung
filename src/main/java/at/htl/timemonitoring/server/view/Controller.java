@@ -5,75 +5,83 @@ import at.htl.timemonitoring.common.Student;
 import at.htl.timemonitoring.common.TimeSpinner;
 import at.htl.timemonitoring.common.fx.StudentView;
 import at.htl.timemonitoring.common.io.FileUtils;
-import at.htl.timemonitoring.server.PatrolMode;
 import at.htl.timemonitoring.server.Server;
 import at.htl.timemonitoring.server.Settings;
 import at.htl.timemonitoring.server.Threader;
 import at.htl.timemonitoring.server.entity.Interval;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.*;
 import org.apache.logging.log4j.Level;
 
+import javax.imageio.ImageIO;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import java.util.jar.*;
+import java.util.*;
+
 /**
  * @timeline Text
  * 15.10.2015: GNA 001  created class
- * 15.10.2015: PHI 035  Zeiteingabe für die Screenshot-Verzögerung durch Gui ermöglicht
+ * 15.10.2015: PHI 035  Allowed time-input in the GUI for the screenshot-delay.
  * 19.10.2015: PON 020  list of connected pupils
  * 24.10.2015: PON 020  teachers can now select the folder where the screenshots are saved
- * 26.10.2015: PHI 050  Methode für Meldungen, starten und stoppen des Servers und Zeitauswahl(+random)
+ * 26.10.2015: PHI 050  created method for the messages from the start and stop of the server (+random time).
  * 05.11.2015: PON 015  implemented selecting of specification file
  * 06.11.2015: PON 002  expansion to the password field
  * 12.11.2015: PON 002  save password in the repository
- * 29.11.2015: PHI 025  Angabe-Auswahl + Fehlermeldungen in GUI
- * 07.12.2015: PHI 030  Live-View und das LOC-Diagramm passt sich dem Fenster an
- * 07.12.2015: PHI 020  LineChart optimieren und benutzungsfähig machen
+ * 29.11.2015: PHI 025  Handout + shows error messages in the GUI.
+ * 07.12.2015: PHI 030  Live-View and LOC-Chart will always be the size of the window.
+ * 07.12.2015: PHI 020  changed style of the LineChart.
  * 17.12.2015: PON 120  function "importPupilList" for importing student lists
  * 17.12.2015: PON 005  Bug found: exception Handling missing, registration of pupils
- * 31.12.2015: PHI 010  LineChart überarbeitet, sodass bei der Änderung der ListView-Selection sich auch das Diagramm ändert.
- * 01.01.2016: PHI 010  Fehler in der LineChart verbessert.
- * 06.01.2016: PHI 025  Überarbeitung der Fehler beim Wechsel von der LineChart von einem Schüler zum Anderen.
- * 15.01.2016: PHI 060  Check-Bild bei Error und Erfolg beim Starten des Servers eingefügt.
- * 20.01.2016: PHI 040  Simple- und Advanced-Mode eingefügt. / Zeit wird nun in Sekunden eingegeben.
- * 23.01.2016: PHI 020  Tooltip und Version eingeführt.
- * 24.01.2016: PHI 035  Zeigt den Screenshot im Fullscreen beim Klick und verschwindet beim erneuten Klick. +RandomTimeBugFix
- * 10.03.2016: PHI 120  Bugfix (Screenshot, Lines-of-Code Chart)
- * 10.03.2016: PON 030  Patroullien Modus
+ * 31.12.2015: PHI 010  LineChart revised (if the student from the list changes -> the LineChart changes too).
+ * 01.01.2016: PHI 010  fixed bug in the LineChart.
+ * 06.01.2016: PHI 025  BugFix (LineChart will not be influenced when the student changes)
+ * 15.01.2016: PHI 060  Shows check-pictures for errors and success when the server is started.
+ * 20.01.2016: PHI 040  Simple- and Advanced-Mode created. / input time now in seconds
+ * 23.01.2016: PHI 020  Tooltip and Version created.
+ * 24.01.2016: PHI 035  Shows the screenshot in fullscreen on click and closes on another click. +RandomTimeBugFix
+ * 10.03.2016: PHI 120  BugFix (Screenshot, Lines-of-Code Chart)
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
- *
+ * 18.03.2016: PHI 005  export the log to an text-file
+ * 21.03.2016: PHI 055  fixed bug in the screenshot-View  &&   created pop-up window for the log-export
+ * 22.03.2016: PHI 225  create JAR with button; create properties; fixed minor bug in the view
+ * 23.03.2016: PHI 145  added a new Tab called Student-Info (shows Student infos) && changed language+View of the application
+ * 24.03.2016: PHI 105  created the LineChart-Export
  */
 public class Controller implements Initializable {
 
-    @FXML
-    public SplitPane splitter;
-
-    @FXML
-    private ListView<Button> lvStudents;
-
-    //region Tab: Option
+    //region Tab: Option Variables
     @FXML
     private AnchorPane spOption;
     @FXML
@@ -113,12 +121,10 @@ public class Controller implements Initializable {
     @FXML
     private Button btnStop;
     @FXML
-    private Button btnPatrol;
-    @FXML
     private Label lbVersion;
     //endregion
 
-    //region Student-Details
+    //region Student-Details Variables
     @FXML
     public AnchorPane apStudentDetail;
     @FXML
@@ -127,7 +133,7 @@ public class Controller implements Initializable {
     private ImageView ivLiveView;
     //endregion
 
-    //region HandIn
+    //region HandIn Variables
     @FXML
     private AnchorPane apHandIn;
     @FXML
@@ -142,17 +148,295 @@ public class Controller implements Initializable {
     private AnchorPane apstarttime,aptime;
     //endregion
 
+    //region Log Variables
     @FXML
-    private TextArea programLogTextArea;
+    private ScrollPane scrollLog;
+    @FXML
+    private AnchorPane anchorPaneScrollLog;
+    //endregion
+
+    //region Student-Info Variables
+    @FXML
+    private Label lbFirstName, lbLastName, lbEnrolmentID, lbCatalogNumber, lbLoC, lbFaceNumber;
+    //endregion
+
+    //region other Variables
+    @FXML
+    private BorderPane bpDataView;
+    @FXML
+    private AnchorPane apInfo;
+    @FXML
+    private Label lbDate;
+    @FXML
+    public SplitPane splitter;
+    @FXML
+    private ListView<Button> lvStudents;
 
     private Thread server;
     private Threader threader;
-    private boolean patrolMode = false;
-    private PatrolMode pm = new PatrolMode();
+    //endregion
 
     public Controller() {
 
     }
+
+    //region Export-Methods
+
+    /**
+     * creates an image from the LineChart of a specific student and saves it.
+     *
+     * @param event     of the click on the button
+     */
+    public void exportLOC(ActionEvent event) {
+        WritableImage image = loc.snapshot(new SnapshotParameters(), null);
+
+        String studentInfo = lbFaceNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
+
+        File file = new File(Settings.getInstance().getPathOfExports().concat("/" + studentInfo));
+
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
+        }
+
+        Settings.getInstance().showPopUp("exported LineChart successfully !!", true);
+    }
+
+    /**
+     * writes the Log into a TEXT-file.
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/26
+     *
+     * @param actionEvent   event of the click on the button
+     *
+     * @since   1.11.33.051
+     */
+    public void exportLog(ActionEvent actionEvent) {
+        try {
+            List<String> list = new LinkedList<>();
+            ObservableList<Node> nodes = ((VBox)Settings.getInstance().getLogArea().getChildren().get(0)).getChildren();
+            for (Node node : nodes) {
+                TextField tf = (TextField)node;
+                list.add(tf.getText());
+            }
+
+            Path file = Paths.get(Settings.getInstance().getPathOfExports().concat("/log.txt"));
+            Files.write(file, list, Charset.forName("UTF-8"));
+
+            Settings.getInstance().showPopUp("exported log successfully!!", true);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
+        }
+    }
+
+    //endregion
+
+    //region create and read properties
+
+    /**
+     * create pop-up window to ask for the version number
+     * and create a properties-file for it and creates a JAR-file
+     * for the student and the teacher.
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/23
+     *
+     * @param actionEvent   event from the click on the button
+     *
+     * @since 1.12.35.071
+     */
+    public void fromVersion(ActionEvent actionEvent) {
+        final Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        Label label = new Label("Version: ");
+        TextField tf = new TextField();
+        Button btn = new Button("   CREATE   ");
+        btn.setOnAction(event -> {
+            createProp(tf.getText());
+            createJar();
+            stage.close();
+        });
+
+        AnchorPane ap = new AnchorPane();
+        HBox hbox = new HBox(10, label, tf);
+        VBox vBox = new VBox(20, hbox, btn);
+        vBox.setLayoutX(30);
+        vBox.setLayoutY(30);
+        ap.getChildren().add(vBox);
+
+        Scene dialogScene = new Scene(ap, 300, 200);
+        stage.setScene(dialogScene);
+        stage.show();
+    }
+
+    /**
+     * creates the properties-file
+     * <br /><br />
+     * The properties include:
+     * <ul>
+     *     <li>Date from the creation of the JAR-file (current date)</li>
+     *     <li>Version of the application</li>
+     * </ul>
+     *
+     * @param version   Specifies the version of the application
+     */
+    public void createProp(String version) {
+        Properties prop = new Properties();
+        OutputStream output = null;
+
+        try {
+
+            output = new FileOutputStream("src/main/resources/config.properties");
+            prop.setProperty("version", version);
+            prop.setProperty("date", LocalDate.now().toString());
+            prop.store(output, null);
+
+
+            output = new FileOutputStream("target/classes/config.properties");
+            prop.setProperty("version", version);
+            prop.setProperty("date", LocalDate.now().toString());
+            prop.store(output, null);
+
+        } catch (IOException io) {
+            FileUtils.log(Level.ERROR, io.getMessage());
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    FileUtils.log(Level.ERROR, e.getMessage());
+                }
+            }
+        }
+    }
+
+    /**
+     * writes the data from the properties-file into the Labels in the application
+     * <br /><br />
+     * The properties include:
+     * <ul>
+     *     <li>Date from the creation of the JAR-file</li>
+     *     <li>Version of the application</li>
+     * </ul>
+     */
+    public void readProperties() {
+        Properties prop = new Properties();
+        String propFileName = "config.properties";
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+        try {
+            prop.load(inputStream);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
+        }
+
+        lbVersion.setText(prop.getProperty("version"));
+        lbDate.setText("created on: " + prop.getProperty("date"));
+    }
+
+    //endregion
+
+    //region create JAR-files
+
+    /**
+     * creates a jar-file for the student and teacher
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/23
+     *
+     * @since 1.12.35.071
+     */
+    public void createJar()
+    {
+        try {
+            // creating student JAR
+            Manifest manifest = new Manifest();
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MANIFEST_VERSION, "1.0");
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MAIN_CLASS, "at.htl.timemonitoring.client.view.StudentGui");
+            JarOutputStream target = new JarOutputStream(
+                    new FileOutputStream(
+                            Settings.getInstance().getPathOfExports().concat("/student.jar")
+                    ), manifest);
+            File source = new File("target/classes/");
+            add(source, target);
+            target.close();
+
+            //creating teacher JAR
+            manifest = new Manifest();
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MANIFEST_VERSION, "1.0");
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MAIN_CLASS, "at.htl.timemonitoring.server.view.TeacherGui");
+            target = new JarOutputStream(
+                    new FileOutputStream(
+                            Settings.getInstance().getPathOfExports().concat("/teacher.jar")
+                    ), manifest);
+            source = new File("target/classes/");
+            add(source, target);
+            target.close();
+        } catch (IOException exp) {
+            FileUtils.log(Level.ERROR, exp.getMessage());
+        }
+
+        Settings.getInstance().showPopUp("created JAR-file successfully!!", true);
+    }
+
+    /**
+     * add files from the source to the jar file
+     *
+     * @param source        the source of the files to add
+     * @param target        the stream from the jar-file
+     * @throws IOException
+     */
+    private void add(File source, JarOutputStream target) throws IOException
+    {
+        BufferedInputStream in = null;
+        try
+        {
+            if (source.isDirectory())
+            {
+                String name = source.getPath().replace("\\", "/").replace("target/classes/", "");
+                if (!name.isEmpty())
+                {
+                    if (!name.endsWith("/"))
+                        name += "/";
+                    JarEntry entry = new JarEntry(name);
+                    entry.setTime(source.lastModified());
+                    target.putNextEntry(entry);
+                    target.closeEntry();
+                }
+                for (File nestedFile: source.listFiles())
+                    add(nestedFile, target);
+                return;
+            }
+
+            JarEntry entry = new JarEntry(source.getPath().replace("\\", "/").replace("target/classes/", ""));
+            entry.setTime(source.lastModified());
+            target.putNextEntry(entry);
+            in = new BufferedInputStream(new FileInputStream(source));
+
+            byte[] buffer = new byte[1024];
+            while (true)
+            {
+                int count = in.read(buffer);
+                if (count == -1)
+                    break;
+                target.write(buffer, 0, count);
+            }
+            target.closeEntry();
+        }
+        finally
+        {
+            if (in != null)
+                in.close();
+        }
+    }
+
+    //endregion
 
     /**
      * LOAD standard values.
@@ -164,7 +448,9 @@ public class Controller implements Initializable {
         lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
-        Settings.getInstance().setLogArea(programLogTextArea);
+        Settings.getInstance().setLogArea(anchorPaneScrollLog);
+        Settings.getInstance().setLbLoc(lbLoC);
+        scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         setDynamicScreenSize();
         setVersionAnchor();
@@ -174,7 +460,17 @@ public class Controller implements Initializable {
         initializeLOC();
         initializeSLOMM();
         showIP_Address();
+        initializeTimeSpinner();
+        readProperties();
 
+        btnStart.setDisable(false);
+        btnStop.setDisable(true);
+        Settings.getInstance().setStartTime(LocalTime.now());
+    }
+
+    //region initialize
+
+    private void initializeTimeSpinner() {
         TimeSpinner spinner = new TimeSpinner();
         TimeSpinner startspinner = new TimeSpinner();
         final boolean[] alreadyaddedtime = {false};
@@ -210,11 +506,6 @@ public class Controller implements Initializable {
             Settings.getInstance().setStartTime(newValue);
             System.out.println("NEW STARTTIME  "+newValue);
         });
-
-
-        btnStart.setDisable(false);
-        btnStop.setDisable(true);
-        Settings.getInstance().setStartTime(LocalTime.now());
     }
 
     private LocalTime doSomething(LocalTime newTime, boolean addtime) {
@@ -231,9 +522,6 @@ public class Controller implements Initializable {
         return newTime;
     }
 
-
-    //region initialize
-
     /**
      * show the version number always in the bottom right corner.
      */
@@ -244,6 +532,12 @@ public class Controller implements Initializable {
 
     /**
      * show screenshot in fullscreen on click.
+     * <br /><br />
+     * The Github-issue to this method:
+     * <br />
+     * https://github.com/BeatingAngel/Testumgebung/issues/16
+     *
+     * @since 1.11.21.067
      */
     private void setImageClick() {
         ivLiveView.setOnMouseClicked(event -> {
@@ -261,6 +555,12 @@ public class Controller implements Initializable {
 
     /**
      * show the path as a tooltip.
+     * <br /><br />
+     * The Github-issue to this method:
+     * <br />
+     * https://github.com/BeatingAngel/Testumgebung/issues/7
+     *
+     * @since
      */
     private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
         Tooltip mousePositionToolTip = new Tooltip("");
@@ -294,9 +594,8 @@ public class Controller implements Initializable {
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             //   CHANGE LINECHART
             loc.getData().clear();
-
             Student st = Settings.getInstance().findStudentByName(newValue.getText());
-            if (st.getSeries() != null) {
+            if (st != null && st.getSeries() != null) {
                 for (XYChart.Series<Number, Number> actualSeries : st.getSeries()) {
                     loc.getData().add(actualSeries);
                 }
@@ -308,6 +607,20 @@ public class Controller implements Initializable {
                 pathOfLastScreenshot = "images/loading.gif";
             }
             ivLiveView.setImage(new Image(pathOfLastScreenshot));
+
+            //   CHANGE STUDENT-INFO-DATA
+            if (st != null) {
+                lbFirstName.setText(st.getFirstName());
+                lbLastName.setText(st.getName());
+                lbCatalogNumber.setText(Integer.toString(st.getCatalogNumber()));
+                String nr = lbCatalogNumber.getText();
+                lbFaceNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
+                lbEnrolmentID.setText(st.getEnrolmentID());
+                ObservableList<XYChart.Data<Number, Number>> ol =
+                        st.getSeries().get(st.getSeries().size() - 1).getData();
+                Long locVal = (Long)ol.get(ol.size() - 1).getYValue();
+                lbLoC.setText(Long.toString(locVal));
+            }
         });
     }
 
@@ -352,11 +665,11 @@ public class Controller implements Initializable {
      */
     private void setDynamicScreenSize() {
         apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            //ivLiveView.setFitWidth((double) newValue - 10);
+            ivLiveView.setFitWidth((double) newValue - 10);
             loc.setPrefWidth((double) newValue);
         });
-        apStudentDetail.heightProperty().addListener((observable, oldValue, newValue) -> {
-            //ivLiveView.setFitHeight((double) newValue - loc.getHeight() - 10);
+        bpDataView.heightProperty().addListener((observable, oldValue, newValue) -> {
+            ivLiveView.setFitHeight((double) newValue - loc.getHeight() - apInfo.getPrefHeight() - 20);
         });
         spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
@@ -392,7 +705,7 @@ public class Controller implements Initializable {
         try {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-            FileUtils.log(this, Level.ERROR, "Keine IP Adresse gefunden " + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
         }
         tfMyIP_Address.setText(ip);
     }
@@ -518,7 +831,9 @@ public class Controller implements Initializable {
     /**
      * switching from Simple/Advanced-Mode to the other mode.
      *
-     * @param event
+     * @param event Specifies the event from the click on the button
+     *
+     * @since 1.9.22.067
      */
     public void changeMode(ActionEvent event) {
         apOption.setVisible(!apOption.isVisible());
@@ -571,10 +886,7 @@ public class Controller implements Initializable {
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null) {
             Settings.getInstance().setPath(choosedFile.getPath());
-            //cbHome.setSelected(true);
-        } /*else {
-            cbHome.setSelected(false);
-        }*/
+        }
     }
 
     /**
@@ -592,10 +904,7 @@ public class Controller implements Initializable {
         // Check the user pressed OK, and not Cancel.
         if (yourZip != null) {
             Settings.getInstance().setHandOutFile(yourZip);
-            //cbAngabe.setSelected(true);
-        } /*else {
-            cbAngabe.setSelected(false);
-        }*/
+        }
     }
 
     /**
@@ -608,11 +917,11 @@ public class Controller implements Initializable {
         if (TB_SS_rnd.isSelected()) {
             tfTimeSS.setDisable(true);
             tfTimeSS.setEditable(false);
-            TB_SS_rnd.setText("EIN");
+            TB_SS_rnd.setText("ON");
         } else {
             tfTimeSS.setDisable(false);
             tfTimeSS.setEditable(true);
-            TB_SS_rnd.setText("AUS");
+            TB_SS_rnd.setText("OFF");
         }
     }
 
@@ -647,18 +956,6 @@ public class Controller implements Initializable {
             while ((line = bis.readLine()) != null) {
                 Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
             }
-        }
-    }
-
-    public void startPatrolMode(ActionEvent actionEvent) {
-        if(!patrolMode) {
-            patrolMode = true;
-            btnPatrol.setText("Patroullien Modus beenden");
-            pm.run();
-        } else {
-            patrolMode = false;
-            btnPatrol.setText("Patroullien Modus");
-            pm.stopIt();
         }
     }
 }

@@ -16,7 +16,7 @@ public class CountdownTest {
     @Test
     public void t001SimpleCountdown() throws Exception {
         Text txCountdown = new Text();
-        LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(3);
+        LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(5);
         Countdown cd = new Countdown(txCountdown, toTime);
         cd.setDaemon(true);
         cd.run();

@@ -9,12 +9,19 @@ import at.htl.timemonitoring.server.entity.Interval;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -39,17 +46,18 @@ import java.util.List;
  * 31.10.2015: MET 010  functionS implemented: set test start and test end
  * 31.10.2015: MET 005  expansion to handOutFile and getHandOutPacket ()
  * 06.11.2015: PON 005  extension by password
- * 29.11.2015: PHI 040  Hinzufügen und Entfernen von Studenten geändert (farbige)TestField
- * 10.12.2015: PHI 025  Einbinden von Funktionen, die für die Lines of Code benötigt werden
- * 12.12.2015: PHI 035  kommentieren von Methoden und die Klassenstruktur geändert
- * 22.12.2015: PHI 020  ändern der Anzeige von Schülern beim Lehrer.
- * 29.12.2015: PHI 050  fehler bei der Schüler an-/abmeldung entfernt und Sound hinzugefügt
- * 31.12.2015: PHI 020  Schülersuche eingefügt und LineChart überarbeitet/verändert.
- * 01.01.2016: PHI 055  Fehler im Chart und der Schülerspeicherung verbessert.
- * 02.01.2016: PHI 005  Hover" implementiert.
- * 06.01.2016: PHI 045  Fehler bei "Series"-Speicherung behoben und geändert. Kommunizierung mit Schüler eingebunden.
+ * 29.11.2015: PHI 040  changed the remove- and add-method of the students. (colored textfields)
+ * 10.12.2015: PHI 025  created methods which are used for the Lines-of-Code.
+ * 12.12.2015: PHI 035  commented methods and changes class-structure.
+ * 22.12.2015: PHI 020  displays the student on the teacher-GUI differently.
+ * 29.12.2015: PHI 050  fixed bug in the student LogOn and LogOut method. Makes sound if student logs out.
+ * 31.12.2015: PHI 020  Method for the search of a student created and changed LineChart.
+ * 01.01.2016: PHI 055  Fixed bug in the LineChart and saves students.
+ * 02.01.2016: PHI 005  Chart-Hover implemented.
+ * 06.01.2016: PHI 045  fixed bug in the method for saving the LineChart-Series.
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
  * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
+ * 21.03.2016: PHI 020  write error to the log in the application
  */
 public class Settings {
 
@@ -57,7 +65,7 @@ public class Settings {
 
     private ObservableList<Button> students;
     private List<Student> studentsList = new LinkedList<>();
-    private TextArea logArea;
+    private AnchorPane logArea;
     private File handOutFile;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -65,11 +73,13 @@ public class Settings {
     private String path;
     private String pathOfImages;
     private String pathOfHandOutFiles;
+    private String pathOfExports;
     private String password;
     private LocalDateTime starting = null;
     private LineChart<Number, Number> chart;
     private String[] endings;
     private MediaPlayer mediaPlayer = null;
+    private Label lbLoc;
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -93,10 +103,9 @@ public class Settings {
     }
 
     /**
-     *
      * @return      the TextArea of the logging
      */
-    public TextArea getLogArea() {
+    public AnchorPane getLogArea() {
         return logArea;
     }
 
@@ -105,8 +114,22 @@ public class Settings {
      *
      * @param logArea   the TextArea where the log will be shown
      */
-    public void setLogArea(TextArea logArea) {
+    public void setLogArea(AnchorPane logArea) {
         this.logArea = logArea;
+    }
+
+    /**
+     * @return the label of the "Lines-of-code"
+     */
+    public Label getLbLoc() {
+        return lbLoc;
+    }
+
+    /**
+     * @param lbLoc Specifies the label for the lines-of-code-Number
+     */
+    public void setLbLoc(Label lbLoc) {
+        this.lbLoc = lbLoc;
     }
 
     /**
@@ -143,7 +166,7 @@ public class Settings {
     public HandOutPackage getHandOutPacket() {
         // Prüfung, ob nötige Daten vorhanden fehlt
         // funktioniert noch nicht
-        return new HandOutPackage(handOutFile, endTime, "Viel Glück!");
+        return new HandOutPackage(handOutFile, endTime, "Good Luck!");
     }
 
     /**
@@ -210,16 +233,27 @@ public class Settings {
     }
 
     /**
+     * PathOfExports includes the Logs, JAR-files and the LineCharts of the Students.
+     *
+     * @return  the path of the directory of the exports
+     */
+    public String getPathOfExports() {
+        return pathOfExports;
+    }
+
+    /**
      * sets the path for the directory of the screenshots and finished tests.
      *
      * @param path Specifies the root-path of the screenshots and finished tests
      */
     public void setPath(String path) {
         this.path = path;
-        pathOfImages = path + "/Screenshots";
+        pathOfImages = path + "/screenshots";
         FileUtils.createDirectory(pathOfImages);
-        pathOfHandOutFiles = path + "/Abgabe";
+        pathOfHandOutFiles = path + "/submissions";
         FileUtils.createDirectory(pathOfHandOutFiles);
+        pathOfExports = path + "/exports";
+        FileUtils.createDirectory(pathOfExports);
 
         System.out.println(pathOfImages);
     }
@@ -249,25 +283,11 @@ public class Settings {
      * @return the last series from the chart.
      */
     public XYChart.Series<Number, Number> getLastSeries(Student st) {
-        /*if (chart.getData().size() > 0) {
-            return chart.getData().get(chart.getData().size() - 1);
-        }
-        XYChart.Series<Number, Number> newSeries = new XYChart.Series<>();
-        newSeries.setName(name);
-        return newSeries;*/
         if (st.getSeries().size() > 0) {
             return st.getSeries().get(st.getSeries().size() - 1);
         }
         return null;
     }
-
-    /**
-     *
-     * @return the series from the students. (all of them).
-     */
-    /*public List<XYChart.Series<Number, Number>> getSeries() {
-        return series;
-    }*/
 
     //endregion
 
@@ -417,6 +437,7 @@ public class Settings {
     }
 
     /**
+     * searches for a student by his/her name
      *
      * @param name  of the Student
      * @return      the StudentObject with the correct name
@@ -448,5 +469,77 @@ public class Settings {
             Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
         }
     }
+
+    /**
+     * creates the style for the error/warning/info.
+     * <p>
+     * ERROR's in RED.
+     * WARNING's in YELLOW.
+     * INFO's in WHITE.
+     *
+     * @param level     Specifies the level of the error.
+     * @return          the style for the textfield.
+     */
+    public String getStyle(Level level) {
+        String styleString = "-fx-background-color: transparent;";
+        if (level == Level.ERROR) {
+            styleString += "-fx-text-fill: crimson";
+        } else if (level == Level.WARN) {
+            styleString += "-fx-text-fill: yellow";
+        } else if (level == Level.INFO) {
+            styleString += "-fx-text-fill: white";
+        }
+        return styleString;
+    }
+
+    /**
+     * prints the error into the Log in the application.
+     *
+     * @param t     the thread who caught the error
+     * @param e     the error
+     */
+    public void printMessage(Thread t, Throwable e) {
+        AnchorPane log = Settings.getInstance().getLogArea();
+        if (log != null) {
+            Platform.runLater(() -> {
+                String msg2 =
+                          t.getName() + " - "
+                        + e.getClass().toString() + "\n";
+                TextField tf = new TextField(msg2);
+                tf.setEditable(false);
+                tf.setStyle(getStyle(Level.ERROR));
+                tf.setPrefHeight(30);
+                ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+
+                log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+            });
+        }
+    }
+
+    /**
+     * shows a message in a pop-up window
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/27
+     *
+     * @param message   the message to show in the pop-up.
+     *
+     * @since 1.11.34.060
+     */
+    public void showPopUp(String message, boolean isSuccess) {
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        Label label = new Label(message);
+        if (isSuccess) {
+            label.setStyle("-fx-background-color: chartreuse");
+        } else {
+            label.setStyle("-fx-background-color: crimson");
+        }
+        Scene dialogScene = new Scene(label, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+        FileUtils.log(Level.INFO, message);
+    }
+
     //endregion
 }

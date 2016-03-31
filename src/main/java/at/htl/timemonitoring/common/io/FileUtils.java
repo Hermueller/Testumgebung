@@ -3,6 +3,9 @@ package at.htl.timemonitoring.common.io;
 import at.htl.timemonitoring.server.Settings;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
@@ -33,6 +36,7 @@ import java.util.zip.ZipOutputStream;
  * 08.02.2016: MET 010  logger
  * 08.02.2016: MET 010  added logs
  * 15.03.2016: PHI 005  showing the log on the application
+ * 18.03.2016: PHI 080  the log int the application is now in colors
  */
 public class FileUtils {
 
@@ -46,7 +50,7 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (file.exists()) {
-            log(Level.WARN, String.format("Directory %s is already exist!", fileName));
+            log(Level.WARN, String.format("Directory %s already exists!", fileName));
         } else if (!file.mkdir()) {
             log(Level.ERROR, String.format("Directory %s failed to create!", fileName));
         } else {
@@ -66,7 +70,7 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (file.exists()) {
-            log(Level.WARN, String.format("File %s is already exist!", fileName));
+            log(Level.WARN, String.format("File %s already exists!", fileName));
         } else try {
             if (file.createNewFile()) {
                 log(Level.INFO, "created file " + fileName);
@@ -92,7 +96,7 @@ public class FileUtils {
             new FileOutputStream(fileName).write(file);
             saved = true;
         } catch (IOException e) {
-            log(Level.ERROR, "File failed to save!");
+            log(Level.ERROR, "Failed to save as file!");
         }
         return saved;
     }
@@ -122,7 +126,7 @@ public class FileUtils {
         boolean created = false;
         File file = new File(fileName);
         if (!file.exists()) {
-            log(Level.ERROR, fileName + " not exist!");
+            log(Level.ERROR, fileName + " does not exist!");
         } else if (!zipFileName.contains(".zip")) {
             log(Level.ERROR, zipFileName + " is a invalid filename of an zip archive!");
         } else {
@@ -180,9 +184,9 @@ public class FileUtils {
     public static boolean unzip(String zipFileName, String fileName) {
         boolean finished = false;
         if (!zipFileName.contains(".zip")) {
-            log(Level.ERROR, fileName + " can not be unzip!");
+            log(Level.ERROR, fileName + " can not be unzipped!");
         } else if (new File(fileName).exists()) {
-            log(Level.ERROR, String.format("Directory %s is already exist!", fileName));
+            log(Level.ERROR, String.format("Directory %s already exists!", fileName));
         } else {
             createDirectory(fileName);
             int length;
@@ -226,10 +230,10 @@ public class FileUtils {
             if (!delete(path))
                 error = true;
         if (error) {
-            log(Level.ERROR, "not all paths are deleted");
+            log(Level.ERROR, " not all paths are deleted");
             return false;
         } else {
-            log(Level.INFO, "given paths are deleted");
+            log(Level.INFO, " given paths are deleted");
             return true;
         }
     }
@@ -244,7 +248,7 @@ public class FileUtils {
         boolean deleted = false;
         File file = new File(fileName);
         if (!file.exists()) {
-            log(Level.ERROR, fileName + " not exist!");
+            log(Level.ERROR, fileName + " does not exist!");
         } else {
             File[] files = file.listFiles();
             for (File f : files == null ? new File[0] : files)
@@ -259,28 +263,63 @@ public class FileUtils {
         return deleted;
     }
 
+    private static String getStyle(Level level) {
+        String styleString = "-fx-background-color: transparent;";
+        if (level == Level.ERROR) {
+            styleString += "-fx-text-fill: crimson";
+        } else if (level == Level.WARN) {
+            styleString += "-fx-text-fill: yellow";
+        } else if (level == Level.INFO) {
+            styleString += "-fx-text-fill: white";
+        }
+        return styleString;
+    }
 
     /**
-     * @param level
-     * @param message
+     * @param level     is the level the message (ERROR, INFO, WARN)
+     * @param message   is the text to show
      */
-    private static void log(Level level, String message) {
+    public static void log(Level level, String message) {
         LogManager.getLogger().log(level, message);
-        TextArea log = Settings.getInstance().getLogArea();
-        Platform.runLater(() -> log.appendText(level.toString() + " - " + message + "\n"));
+
+        AnchorPane log = Settings.getInstance().getLogArea();
+        if (log != null) {
+            Platform.runLater(() -> {
+                String msg = level.toString() + " - "
+                        + message + "\n";
+                TextField tf = new TextField(msg);
+                tf.setEditable(false);
+                tf.setStyle(getStyle(level));
+                tf.setPrefHeight(30);
+                ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+
+                log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+            });
+        }
     }
 
     /**
      * @param obj
-     * @param level
-     * @param message
+     * @param level     is the level the message (ERROR, INFO, WARN)
+     * @param message   is the text to show
      */
     public static void log(Object obj, Level level, String message) {
         LogManager.getLogger(obj.getClass()).log(level, message);
-        TextArea log = Settings.getInstance().getLogArea();
-        Platform.runLater(() -> log.appendText(obj.getClass().toString() + " - "
-                + level.toString() + " - "
-                + message + "\n"));
-    }
 
+        AnchorPane log = Settings.getInstance().getLogArea();
+        if (log != null) {
+            Platform.runLater(() -> {
+                String msg = level.toString() + " - "
+                        + obj.getClass().toString() + " - "
+                        + message + "\n";
+                TextField tf = new TextField(msg);
+                tf.setEditable(false);
+                tf.setStyle(getStyle(level));
+                tf.setPrefHeight(30);
+                ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+
+                log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+            });
+        }
+    }
 }

@@ -19,12 +19,17 @@ import java.util.List;
  * 31.12.2015: PHI 001  Getter und Setter für locs und times erstellt.
  * 05.01.2016: PHI 065  "Series" werden nun beim Schüler gespeichert.
  * 06.01.2016: PHI 015  Fehler beim hinzufügen von "Series" entdeckt und ausgebessert.
+ * 25.03.2016: PHI 010  lines of code will be shown in the student-info TAB
  */
 public class Student {
 
     private String name;
     private String pathOfWatch;
     private String pathOfImages;
+    private String firstName;
+    private String enrolmentID;
+    private int catalogNumber;
+
     private List<Long> locs = new LinkedList<>();
     private List<Long> times = new LinkedList<>();
     private List<XYChart.Series<Number, Number>> series = new LinkedList<>();
@@ -46,6 +51,30 @@ public class Student {
 
     public String getPathOfImages() {
         return pathOfImages;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getEnrolmentID() {
+        return enrolmentID;
+    }
+
+    public void setEnrolmentID(String enrolmentID) {
+        this.enrolmentID = enrolmentID;
+    }
+
+    public int getCatalogNumber() {
+        return catalogNumber;
+    }
+
+    public void setCatalogNumber(int catalogNumber) {
+        this.catalogNumber = catalogNumber;
     }
 
     private void setPathOfImages(String path) {
@@ -70,6 +99,13 @@ public class Student {
         return series;
     }
 
+    /**
+     * Adds the LinesOfCode-Number to the last series in the chart.
+     *
+     * @param loc           Specifies the number of lines in the code.
+     * @param time          Specifies the time (in sec.) when to lines where counted.
+     * @param priorValue    Specifies the prior number of lines in the code.
+     */
     public void addValueToLast(Long loc, Long time, Long priorValue) {
         Platform.runLater(() -> {
             XYChart.Series<Number, Number> actual = series.get(series.size() - 1);
@@ -86,6 +122,8 @@ public class Student {
                     )
             );
             actual.getData().add(data);
+
+            Settings.getInstance().getLbLoc().setText(Long.toString(loc));
         });
     }
 

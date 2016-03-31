@@ -2,17 +2,21 @@ package at.htl.timemonitoring.client.view;
 
 import at.htl.timemonitoring.client.Client;
 import at.htl.timemonitoring.client.Exam;
+import at.htl.timemonitoring.common.Countdown;
 import at.htl.timemonitoring.common.MyUtils;
 import at.htl.timemonitoring.common.Pupil;
 import at.htl.timemonitoring.common.fx.FxUtils;
-import at.htl.timemonitoring.common.trasfer.LoginPackage;
+import at.htl.timemonitoring.common.io.FileUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import org.apache.logging.log4j.Level;
 
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 /**
@@ -30,37 +34,43 @@ import java.util.ResourceBundle;
  * 12.02.2016: MET 005  activation and deactivation of controls depending on login and logout
  * 12.02.2016: MET 030  display of messages in the GUI with setMsg() enormously improved
  * 25.02.2016: MET 005  default settings for testing
+ * 20.03.2016: PHI 001  fixed bug (check ip-address on correctness)
  */
 public class Controller implements Initializable {
 
     //region Controls
     @FXML
-    TextField tfServerIP;
+    private TextField tfServerIP;
     @FXML
-    TextField tfPort;
+    private TextField tfPort;
     @FXML
-    TextField tfEnrolmentID;
+    private TextField tfEnrolmentID;
     @FXML
-    TextField tfCatalogNumber;
+    private TextField tfCatalogNumber;
     @FXML
-    TextField tfFirstName;
+    private TextField tfFirstName;
     @FXML
-    TextField tfLastName;
+    private TextField tfLastName;
     @FXML
-    TextField tfPathOfProject;
+    private TextField tfPathOfProject;
     @FXML
-    Button btnTestConnection;
+    private Button btnTestConnection;
     @FXML
-    Button btnChooseDirectory;
+    private Button btnChooseDirectory;
     @FXML
-    Button btnLogin;
+    private Button btnLogin;
     @FXML
-    Button btnLogout;
+    private Button btnLogout;
     @FXML
-    Label lbAlert;
+    private Label lbAlert;
+    @FXML
+    private Label lbTimeLeft;
+    @FXML
+    private Text txTimeLeft;
     //endregion
 
     private Client client;
+    private Countdown countdown;
 
     public void initialize(URL location, ResourceBundle resources) {
         setControls(true);
@@ -100,21 +110,31 @@ public class Controller implements Initializable {
         if (setExam()) {
             try {
                 if (isLoggedOut()) {
-                    client = new Client(new LoginPackage(
+                    /*client = new Client(new LoginPackage(
+                            Exam.getInstance().getPupil().getFirstName(),
                             Exam.getInstance().getPupil().getLastName(),
-                            "",
+                            Exam.getInstance().getPupil().getCatalogNumber(),
+                            Exam.getInstance().getPupil().getEnrolmentID(),
                             Exam.getInstance().getServerIP(),
                             Exam.getInstance().getPupil().getPathOfProject(),
                             Exam.getInstance().getPort()
-                    ));
-                    client.start();
+                    ));*/
+                    //client.start();
+                    setTimeLeft();
                 }
             } catch (Exception e) {
-                //FileUtils.log(this, "");
+                FileUtils.log(Level.ERROR, e.getMessage());
             }
             setControls(false);
             setMsg("Signed in!", false);
         }
+    }
+
+    private void setTimeLeft() {
+        LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(10);
+        countdown = new Countdown(txTimeLeft, toTime);
+        countdown.setDaemon(true);
+        countdown.start();
     }
 
     public boolean isLoggedIn() {
@@ -150,6 +170,8 @@ public class Controller implements Initializable {
         btnChooseDirectory.setDisable(!value);
         btnLogin.setDisable(!value);
         btnLogout.setDisable(value);
+        lbTimeLeft.setVisible(!value);
+        txTimeLeft.setVisible(!value);
     }
 
     /**
@@ -189,7 +211,7 @@ public class Controller implements Initializable {
         boolean validity = false;
         if (serverIP.isEmpty()) {
             setMsg("Specify the IP-Address of the server!", true);
-        } else if ((serverIP.split(".").length != 4 && !serverIP.equals("localhost"))
+        } else if ((serverIP.split("\\.").length != 4 && !serverIP.equals("localhost"))
                 || serverIP.length() > 15) {
             setMsg("Invalid IP-Address!", true);
         } else if (port < 1) {

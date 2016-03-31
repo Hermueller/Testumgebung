@@ -9,41 +9,56 @@ import java.io.Serializable;
  */
 public class LoginPackage implements Serializable {
 
-    private String userName;
-    private String password;
+    private String firstname;
+    private String lastname;
+    private int catalogNr;
+    private String enrolmentID;
     private String serverIP;
     private String dirOfWatch;
     private int port;
 
     /**
      * is the package the client sends the teacher.
-     * the trasfer contains information from the client.
+     * the transfer contains information from the client.
      *
-     * @param userName   Specialises the name of the client.
-     * @param password   Specialises the password the client typed in.
+     * @param lastname   Specialises the name of the client.
      * @param serverIP   Specialises the ip-address from the teacher.
      * @param dirOfWatch Specialises the directory where the client will work.
      * @param port       Specialises the port where the two will communicate.
      */
-    public LoginPackage(String userName,
-                        String password,
+    public LoginPackage(String firstname,
+                        String lastname,
+                        int catalogNr,
+                        String enrolmentID,
                         String serverIP,
                         String dirOfWatch,
                         int port) {
-        this.userName = userName;
-        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.catalogNr = catalogNr;
+        this.enrolmentID = enrolmentID;
         this.serverIP = serverIP;
         this.dirOfWatch = dirOfWatch;
         this.port = port;
     }
 
     //region Getter and Setter
-    public String getUserName() {
-        return userName;
+
+
+    public String getFirstname() {
+        return firstname;
     }
 
-    public String getPassword() {
-        return password;
+    public String getLastname() {
+        return lastname;
+    }
+
+    public int getCatalogNr() {
+        return catalogNr;
+    }
+
+    public String getEnrolmentID() {
+        return enrolmentID;
     }
 
     public String getServerIP() {

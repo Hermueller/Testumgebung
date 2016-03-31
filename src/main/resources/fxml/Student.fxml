@@ -36,7 +36,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <TextField fx:id="tfServerIP" promptText="Addresse" />
+                        <TextField fx:id="tfServerIP" promptText="Adresse" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" GridPane.columnIndex="1">
                             <font>
                                 <Font size="18.0" />
@@ -84,16 +84,16 @@
         </GridPane>
         <Button fx:id="btnLogin" layoutX="166.0" layoutY="217.0" mnemonicParsing="false" onAction="#login" text="Anmelden" />
         <Button fx:id="btnLogout" layoutX="323.0" layoutY="217.0" mnemonicParsing="false" onAction="#logout" text="Abmelden" />
-        <Text layoutX="143.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zusatz: Dauer (+ Endzeit), Chat mit Lehrer">
-            <font>
-                <Font name="System Bold" size="13.0" />
-            </font>
-        </Text>
         <Label fx:id="lbAlert" alignment="CENTER" layoutX="25.0" layoutY="353.0" prefHeight="25.0" prefWidth="550.0" text="" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
       <Button layoutX="548.0" layoutY="6.0" mnemonicParsing="false" onAction="#defaultSettings" text="Test" />
+      <Text fx:id="txTimeLeft" layoutX="198.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Text>
+      <Label fx:id="lbTimeLeft" layoutX="62.0" layoutY="287.0" text="Verbleibende Zeit:" />
     </children>
 </AnchorPane>
