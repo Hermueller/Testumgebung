@@ -85,7 +85,7 @@ public class Controller implements Initializable {
         tfCatalogNumber.setText("99");
         tfFirstName.setText("Max");
         tfLastName.setText("Mustermann");
-        tfPathOfProject.setText("/temp/max");
+        tfPathOfProject.setText("/local/testC");
     }
 
     @FXML
@@ -108,6 +108,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void login() {
+        setMsg("", false);
         if (setExam()) {
             FileUtils.log(this, Level.INFO, "Try to login");
             setMsg("Try to login ...", false);
@@ -122,7 +123,6 @@ public class Controller implements Initializable {
                             Exam.getInstance().getPupil().getPathOfProject(),
                             Exam.getInstance().getPort()
                     ));
-
                     client.start();
                     setTimeLeft();
                     setControls(false);
