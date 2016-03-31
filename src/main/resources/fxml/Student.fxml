@@ -36,7 +36,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <TextField fx:id="tfServerIP" promptText="Addresse" />
+                        <TextField fx:id="tfServerIP" promptText="Adresse" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" GridPane.columnIndex="1">
                             <font>
                                 <Font size="18.0" />
@@ -90,10 +90,10 @@
             </font>
         </Label>
       <Button layoutX="548.0" layoutY="6.0" mnemonicParsing="false" onAction="#defaultSettings" text="Test" />
-      <Text fx:id="txtTimeLeft" layoutX="198.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00">
+      <Text fx:id="txTimeLeft" layoutX="198.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Text>
-      <Text layoutX="62.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verbleibende Zeit:" />
+      <Label fx:id="lbTimeLeft" layoutX="62.0" layoutY="287.0" text="Verbleibende Zeit:" />
     </children>
 </AnchorPane>

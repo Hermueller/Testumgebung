@@ -63,7 +63,9 @@ public class Controller implements Initializable {
     @FXML
     Label lbAlert;
     @FXML
-    Text txtTime;
+    Label lbTimeLeft;
+    @FXML
+    Text txTimeLeft;
     //endregion
 
     private Client client;
@@ -158,6 +160,8 @@ public class Controller implements Initializable {
         btnChooseDirectory.setDisable(!value);
         btnLogin.setDisable(!value);
         btnLogout.setDisable(value);
+        lbTimeLeft.setVisible(!value);
+        txTimeLeft.setVisible(!value);
     }
 
     /**
