@@ -95,5 +95,6 @@
             <Font name="System Bold" size="24.0" />
          </font></Text>
       <Label fx:id="lbTimeLeft" layoutX="62.0" layoutY="287.0" text="Verbleibende Zeit:" />
+      <CheckBox fx:id="cbNoLogin" layoutX="518.0" layoutY="10.0" mnemonicParsing="false" />
     </children>
 </AnchorPane>

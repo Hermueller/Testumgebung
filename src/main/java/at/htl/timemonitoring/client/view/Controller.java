@@ -11,6 +11,7 @@ import at.htl.timemonitoring.common.trasfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -56,6 +57,8 @@ public class Controller implements Initializable {
     private TextField tfPathOfProject;
     @FXML
     private Button btnTestConnection;
+    @FXML
+    private CheckBox cbNoLogin;
     @FXML
     private Button btnChooseDirectory;
     @FXML
@@ -114,16 +117,18 @@ public class Controller implements Initializable {
             setMsg("Try to login ...", false);
             try {
                 if (isLoggedOut()) {
-                    client = new Client(new LoginPackage(
-                            Exam.getInstance().getPupil().getFirstName(),
-                            Exam.getInstance().getPupil().getLastName(),
-                            Exam.getInstance().getPupil().getCatalogNumber(),
-                            Exam.getInstance().getPupil().getEnrolmentID(),
-                            Exam.getInstance().getServerIP(),
-                            Exam.getInstance().getPupil().getPathOfProject(),
-                            Exam.getInstance().getPort()
-                    ));
-                    client.start();
+                    if (!cbNoLogin.isSelected()) {
+                        client = new Client(new LoginPackage(
+                                Exam.getInstance().getPupil().getFirstName(),
+                                Exam.getInstance().getPupil().getLastName(),
+                                Exam.getInstance().getPupil().getCatalogNumber(),
+                                Exam.getInstance().getPupil().getEnrolmentID(),
+                                Exam.getInstance().getServerIP(),
+                                Exam.getInstance().getPupil().getPathOfProject(),
+                                Exam.getInstance().getPort()
+                        ));
+                        client.start();
+                    }
                     setTimeLeft();
                     setControls(false);
                     setMsg("Signed in!", false);
