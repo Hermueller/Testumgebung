@@ -2,20 +2,21 @@ package at.htl.timemonitoring.client.view;
 
 import at.htl.timemonitoring.client.Client;
 import at.htl.timemonitoring.client.Exam;
+import at.htl.timemonitoring.common.Countdown;
 import at.htl.timemonitoring.common.MyUtils;
 import at.htl.timemonitoring.common.Pupil;
 import at.htl.timemonitoring.common.fx.FxUtils;
 import at.htl.timemonitoring.common.io.FileUtils;
-import at.htl.timemonitoring.common.trasfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.apache.logging.log4j.Level;
 import javafx.scene.text.Text;
+import org.apache.logging.log4j.Level;
 
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 /**
@@ -39,36 +40,37 @@ public class Controller implements Initializable {
 
     //region Controls
     @FXML
-    TextField tfServerIP;
+    private TextField tfServerIP;
     @FXML
-    TextField tfPort;
+    private TextField tfPort;
     @FXML
-    TextField tfEnrolmentID;
+    private TextField tfEnrolmentID;
     @FXML
-    TextField tfCatalogNumber;
+    private TextField tfCatalogNumber;
     @FXML
-    TextField tfFirstName;
+    private TextField tfFirstName;
     @FXML
-    TextField tfLastName;
+    private TextField tfLastName;
     @FXML
-    TextField tfPathOfProject;
+    private TextField tfPathOfProject;
     @FXML
-    Button btnTestConnection;
+    private Button btnTestConnection;
     @FXML
-    Button btnChooseDirectory;
+    private Button btnChooseDirectory;
     @FXML
-    Button btnLogin;
+    private Button btnLogin;
     @FXML
-    Button btnLogout;
+    private Button btnLogout;
     @FXML
-    Label lbAlert;
+    private Label lbAlert;
     @FXML
-    Label lbTimeLeft;
+    private Label lbTimeLeft;
     @FXML
-    Text txTimeLeft;
+    private Text txTimeLeft;
     //endregion
 
     private Client client;
+    private Countdown countdown;
 
     public void initialize(URL location, ResourceBundle resources) {
         setControls(true);
@@ -108,7 +110,7 @@ public class Controller implements Initializable {
         if (setExam()) {
             try {
                 if (isLoggedOut()) {
-                    client = new Client(new LoginPackage(
+                    /*client = new Client(new LoginPackage(
                             Exam.getInstance().getPupil().getFirstName(),
                             Exam.getInstance().getPupil().getLastName(),
                             Exam.getInstance().getPupil().getCatalogNumber(),
@@ -116,8 +118,9 @@ public class Controller implements Initializable {
                             Exam.getInstance().getServerIP(),
                             Exam.getInstance().getPupil().getPathOfProject(),
                             Exam.getInstance().getPort()
-                    ));
-                    client.start();
+                    ));*/
+                    //client.start();
+                    setTimeLeft();
                 }
             } catch (Exception e) {
                 FileUtils.log(Level.ERROR, e.getMessage());
@@ -125,6 +128,13 @@ public class Controller implements Initializable {
             setControls(false);
             setMsg("Signed in!", false);
         }
+    }
+
+    private void setTimeLeft() {
+        LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(10);
+        countdown = new Countdown(txTimeLeft, toTime);
+        countdown.setDaemon(true);
+        countdown.start();
     }
 
     public boolean isLoggedIn() {

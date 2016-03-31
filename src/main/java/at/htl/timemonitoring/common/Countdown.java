@@ -45,6 +45,7 @@ public class Countdown extends Thread {
                 });*/
                 sleep(TimeUnit.SECONDS.toMillis(PAUSE));
                 System.out.println("Time: " + getToTime());
+                txCountdown.setText(getToTime());
             } catch (InterruptedException e) {
                 System.out.println("Clock beendet");
                 e.printStackTrace();
