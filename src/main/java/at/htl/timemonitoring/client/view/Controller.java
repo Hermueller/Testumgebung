@@ -120,7 +120,7 @@ public class Controller implements Initializable {
                             Exam.getInstance().getPupil().getPathOfProject(),
                             Exam.getInstance().getPort()
                     ));
-                    //client.start();
+                    client.start();
                     setTimeLeft();
                 }
             } catch (Exception e) {
