@@ -109,6 +109,8 @@ public class Controller implements Initializable {
     @FXML
     public void login() {
         if (setExam()) {
+            FileUtils.log(this, Level.INFO, "Try to login");
+            setMsg("Try to login ...", false);
             try {
                 if (isLoggedOut()) {
                     client = new Client(new LoginPackage(
@@ -120,14 +122,16 @@ public class Controller implements Initializable {
                             Exam.getInstance().getPupil().getPathOfProject(),
                             Exam.getInstance().getPort()
                     ));
+
                     client.start();
                     setTimeLeft();
+                    setControls(false);
+                    setMsg("Signed in!", false);
                 }
             } catch (Exception e) {
                 FileUtils.log(Level.ERROR, e.getMessage());
+                setMsg("Login failed!", true);
             }
-            setControls(false);
-            setMsg("Signed in!", false);
         }
     }
 
