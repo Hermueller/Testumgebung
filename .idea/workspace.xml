@@ -6,102 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="1.13.39 - Executable project">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Client/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/META-INF/MANIFEST.MF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Client/testmonitoring-client.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Common/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Common/testmonitoring-common.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Server/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/META-INF/MANIFEST.MF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Server/testmonitoring-server.iml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/view/META-INF/MANIFEST.MF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/RobotAction.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/RobotActionQueue.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/SocketWriterThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/META-INF/MANIFEST.MF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/Angabe.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/ListeSchueler4AHIF.csv" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/TimeMonitoring.iml" afterPath="$PROJECT_DIR$/testmonitoring.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/Testumgebung_V1-11-33-051.pdf" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/Testumgebung_V1-11-33-051.pdf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/Bildschirmfoto 2016-03-20 um 09.55.30.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/Bildschirmfoto 2016-03-20 um 09.55.30.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/Bildschirmfoto 2016-03-20 um 09.55.49.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/Bildschirmfoto 2016-03-20 um 09.55.49.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/ClientGUI empty.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/ClientGUI empty.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/ClientGUI full.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/ClientGUI full.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/ProgrammLog.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/ProgrammLog.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/StudentDetails.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/StudentDetails.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/TeacherGUI empty.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/TeacherGUI empty.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/TeacherGUI full.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/TeacherGUI full.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/arbeitet.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/arbeitet.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/aktueller Stand/V1-11-33-051 imageData/errorLogFull.png" afterPath="$PROJECT_DIR$/_Doku/aktueller Stand/V1-11-33-051 imageData/errorLogFull.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/doku/veraltet/Testumgebung_Version1_PDF.pdf" afterPath="$PROJECT_DIR$/_Doku/veraltet/Testumgebung_Version1_PDF.pdf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/Client.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/Exam.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/Exam.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/view/Controller.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/view/StudentGui.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/StudentGui.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/Countdown.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/Countdown.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/Cryptography.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/Cryptography.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/LineCounter.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/LineCounter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/MyUtils.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/MyUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/Pupil.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/Pupil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/Student.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/Student.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/TimeSpinner.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/TimeSpinner.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/LittleHarvester.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/LittleHarvester.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/RobotAction.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/RobotAction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/RobotActionQueue.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/RobotActionQueue.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/actions/TimeShower.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/TimeShower.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/fx/FxUtils.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/fx/FxUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/fx/StudentView.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/fx/StudentView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/fx/TextAnimation.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/fx/TextAnimation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/io/FileStream.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/io/FileStream.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/io/FileUtils.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/io/FileUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/io/ScreenShot.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/io/ScreenShot.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/HandInPackage.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/trasfer/HandInPackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/HandOutPackage.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/trasfer/HandOutPackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/HarvestedPackage.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/trasfer/HarvestedPackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/LoginPackage.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/trasfer/LoginPackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/common/trasfer/ResponsePackage.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/trasfer/ResponsePackage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/PatrolMode.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/PatrolMode.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/Server.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Server.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/Settings.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/SocketReaderThread.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketReaderThread.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/SocketWriterThread.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketWriterThread.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/Threader.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Threader.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/entity/Interval.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/Interval.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/Controller.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/server/view/TeacherGui.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/TeacherGui.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/config.properties" afterPath="$PROJECT_DIR$/Server/src/main/resources/config.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/fxml/CloseRequest.fxml" afterPath="$PROJECT_DIR$/Server/src/main/resources/fxml/CloseRequest.fxml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/fxml/Student.fxml" afterPath="$PROJECT_DIR$/Client/src/main/resources/fxml/Student.fxml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/fxml/Teacher.fxml" afterPath="$PROJECT_DIR$/Server/src/main/resources/fxml/Teacher.fxml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/images/checked.png" afterPath="$PROJECT_DIR$/Server/src/main/resources/images/checked.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/images/cyanWall.jpg" afterPath="$PROJECT_DIR$/Server/src/main/resources/images/cyanWall.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/images/greenLamp.png" afterPath="$PROJECT_DIR$/Server/src/main/resources/images/greenLamp.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/images/loading.gif" afterPath="$PROJECT_DIR$/Server/src/main/resources/images/loading.gif" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/images/personSketch.png" afterPath="$PROJECT_DIR$/Server/src/main/resources/images/personSketch.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/images/redLamp.png" afterPath="$PROJECT_DIR$/Server/src/main/resources/images/redLamp.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/images/screen.jpg" afterPath="$PROJECT_DIR$/Server/src/main/resources/images/screen.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/images/unchecked.png" afterPath="$PROJECT_DIR$/Server/src/main/resources/images/unchecked.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/sound/Fall.mp3" afterPath="$PROJECT_DIR$/Server/src/main/resources/sound/Fall.mp3" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/styles/StudentStyle.css" afterPath="$PROJECT_DIR$/Client/src/main/resources/styles/StudentStyle.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/styles/TeacherStyle.css" afterPath="$PROJECT_DIR$/Server/src/main/resources/styles/TeacherStyle.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/testFiles/Angabe.zip" afterPath="$PROJECT_DIR$/Server/src/main/resources/testFiles/Angabe.zip" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/testFiles/ListeSchueler4AHIF.csv" afterPath="$PROJECT_DIR$/Server/src/main/resources/testFiles/ListeSchueler4AHIF.csv" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/MockTests.java" afterPath="$PROJECT_DIR$/Server/src/test/java/at/htl/server/MockTests.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/client/StudentTestGui.java" afterPath="$PROJECT_DIR$/Client/src/test/java/at/htl/client/StudentTestGui.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/common/CountdownTest.java" afterPath="$PROJECT_DIR$/Common/src/test/java/at/htl/common/CountdownTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/common/FileUtilsTest.java" afterPath="$PROJECT_DIR$/Common/src/test/java/at/htl/common/FileUtilsTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/common/ScreenShotTest.java" afterPath="$PROJECT_DIR$/Common/src/test/java/at/htl/common/ScreenShotTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/common/SettingsTest.java" afterPath="$PROJECT_DIR$/Server/src/test/java/at/htl/server/SettingsTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/server/IntervalTest.java" afterPath="$PROJECT_DIR$/Server/src/test/java/at/htl/server/IntervalTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/at/htl/timemonitoring/server/TeacherTestGui.java" afterPath="$PROJECT_DIR$/Server/src/test/java/at/htl/server/TeacherTestGui.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Ebisu.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Ebisu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Shinigami.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Shinigami.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -161,8 +67,8 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.506135">
-              <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.7741935">
+              <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -284,12 +190,12 @@
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java" />
         <option value="$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/LineCounter.java" />
         <option value="$PROJECT_DIR$/Common/src/main/java/at/htl/common/io/FileUtils.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/Server/pom.xml" />
         <option value="$PROJECT_DIR$/Common/pom.xml" />
         <option value="$PROJECT_DIR$/Client/pom.xml" />
         <option value="$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/LittleHarvester.java" />
         <option value="$PROJECT_DIR$/Server/src/test/java/at/htl/server/SettingsTest.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -391,6 +297,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RemoteControl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TestMonitoring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1427,7 +1351,7 @@
       <workItem from="1459429584790" duration="942000" />
       <workItem from="1460624164907" duration="2107000" />
       <workItem from="1460631974790" duration="242000" />
-      <workItem from="1460632264228" duration="4825000" />
+      <workItem from="1460632264228" duration="5081000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
       <created>1446721170116</created>
@@ -1597,7 +1521,13 @@
       <option name="project" value="LOCAL" />
       <updated>1459425960927</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="1.14.00.001 - New project structure with separate Modules">
+      <created>1460637490999</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1460637490999</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1633,7 +1563,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100148000" />
+    <option name="totallyTimeSpent" value="100404000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1646,7 +1576,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1655,12 +1585,12 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32102272" sideWeight="0.5936995" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21163167" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2549575" sideWeight="0.48707592" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48579547" sideWeight="0.48707592" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32102272" sideWeight="0.4063005" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26332796" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26332796" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15831988" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719547" sideWeight="0.47092083" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1710,7 +1640,8 @@
     <MESSAGE value="1.13.38.096 - Countdown (Styling and Animation)" />
     <MESSAGE value="1.13.39 - Executable project" />
     <MESSAGE value="1.13.39.001 - login function improved&#10;&#10;Output of messages, login, ..." />
-    <option name="LAST_COMMIT_MESSAGE" value="1.13.39.001 - login function improved&#10;&#10;Output of messages, login, ..." />
+    <MESSAGE value="1.14.00.001 - New project structure with separate Modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.14.00.001 - New project structure with separate Modules" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2132,8 +2063,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.506135">
-          <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.7741935">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
           <folding />
         </state>
       </provider>
