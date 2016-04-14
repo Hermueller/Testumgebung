@@ -36,7 +36,7 @@
                                   <tabs>
                                       <Tab closable="false" text="Option">
                                           <content>
-                                              <AnchorPane id="option" fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0" stylesheets="@../../../../../src/main/resources/at.htl.client.styles/TeacherStyle.css">
+                                              <AnchorPane id="option" fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0" stylesheets="/styles/TeacherStyle.css">
                                                   <children>
                                                       <AnchorPane fx:id="apOption" layoutX="84.0" layoutY="121.0" prefHeight="466.0" prefWidth="808.0" AnchorPane.leftAnchor="84.0">
                                                           <children>
@@ -316,7 +316,7 @@
                                           </VBox>
                                           <ImageView fitHeight="655.0" fitWidth="409.0" layoutX="549.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../src/main/resources/images/personSketch.png" />
+                                                <Image url="/images/personSketch.png" />
                                              </image>
                                           </ImageView>
                                           <Label fx:id="lbFaceNumber" alignment="CENTER" layoutX="624.0" layoutY="53.0" prefHeight="162.0" prefWidth="158.0" text="00" textAlignment="CENTER">
@@ -326,7 +326,7 @@
                                           </Label>
                                           <ImageView fx:id="ivStatus" fitHeight="125.0" fitWidth="154.0" layoutX="518.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" rotate="-26.6">
                                              <image>
-                                                <Image url="@../../../../../src/main/resources/images/redLamp.png" />
+                                                <Image url="/images/redLamp.png" />
                                              </image>
                                           </ImageView>
                                           <Button layoutX="39.0" layoutY="458.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
