@@ -32,8 +32,10 @@ import javafx.stage.*;
 import org.apache.logging.log4j.Level;
 
 import javax.imageio.ImageIO;
+import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 import java.net.InetAddress;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
@@ -43,10 +45,14 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
-
-import java.util.jar.*;
-import java.util.*;
+import java.util.jar.Attributes;
+import java.util.jar.JarEntry;
+import java.util.jar.JarOutputStream;
+import java.util.jar.Manifest;
 
 /**
  * @timeline Text
@@ -63,14 +69,19 @@ import java.util.*;
  * 07.12.2015: PHI 020  changed at.htl.client.styles of the LineChart.
  * 17.12.2015: PON 120  function "importPupilList" for importing student lists
  * 17.12.2015: PON 005  Bug found: exception Handling missing, registration of pupils
+ * 30.12.2015: GNA 100  TimeSpinner Abagabe hinzugefügt
  * 31.12.2015: PHI 010  LineChart revised (if the student from the list changes -> the LineChart changes too).
  * 01.01.2016: PHI 010  fixed bug in the LineChart.
+ * 03.01.2016: GNA 120  Add time to Abgabe
  * 06.01.2016: PHI 025  BugFix (LineChart will not be influenced when the student changes)
  * 15.01.2016: PHI 060  Shows check-pictures for errors and success when the server is started.
  * 20.01.2016: PHI 040  Simple- and Advanced-Mode created. / input time now in seconds
+ * 22.01.2016: GNA 030  added Startspinner
  * 23.01.2016: PHI 020  Tooltip and Version created.
  * 24.01.2016: PHI 035  Shows the screenshot in fullscreen on click and closes on another click. +RandomTimeBugFix
+ * 10.02.2016: GNA 120  Send Start and Abgabe Zeit for automatic Abgabe
  * 10.03.2016: PHI 120  BugFix (Screenshot, Lines-of-Code Chart)
+ * 11.03.2016: GNA 030  BugFix to send time data
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
  * 18.03.2016: PHI 005  export the log to an text-file
@@ -78,7 +89,9 @@ import java.util.*;
  * 22.03.2016: PHI 225  create JAR with button; create properties; fixed minor bug in the view
  * 23.03.2016: PHI 145  added a new Tab called Student-Info (shows Student infos) && changed language+View of the application
  * 24.03.2016: PHI 105  created the LineChart-Export
- */
+ * 04.04.2016: GNA 045  Added test data
+ * 14.04.2016: GNA 050  Testdata for fast mode
+ *  */
 public class Controller implements Initializable {
 
     //region Tab: Option Variables
@@ -171,6 +184,7 @@ public class Controller implements Initializable {
     public SplitPane splitter;
     @FXML
     private ListView<Button> lvStudents;
+
 
     private Thread server;
     private Threader threader;
@@ -624,30 +638,7 @@ public class Controller implements Initializable {
         });
     }
 
-    /**
-     * find the last screenshot of a specific student by his/her name
-     *
-     * @param name  specialises the name of the student
-     * @return      the path of the last screenshot
-     */
-    private String getLastScreenshot(String name) {
-        String pathOfFolder = Settings.getInstance()
-                .getPathOfImages().concat(
-                        "/" + name
-                );
-        File folder = new File(pathOfFolder);
-        File lastScreenshot = null;
 
-        for (final File fileEntry : folder.listFiles()) {
-            if (lastScreenshot == null) {
-                lastScreenshot = fileEntry;
-            } else if (lastScreenshot.lastModified() < fileEntry.lastModified()) {
-                lastScreenshot = fileEntry;
-            }
-        }
-
-        return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
-    }
 
     /**
      * sets the size of the images, which are shown after starting/stopping the server
@@ -888,6 +879,26 @@ public class Controller implements Initializable {
             Settings.getInstance().setPath(choosedFile.getPath());
         }
     }
+    public void setTestOptions(ActionEvent event) throws IOException, URISyntaxException {
+        File home = FileSystemView.getFileSystemView().getHomeDirectory();
+        String path = home.getAbsolutePath() + "/newFolder";
+
+        System.out.println(home.getAbsolutePath());
+        File file = new File(path);
+        file.mkdir();
+        Settings.getInstance().setPath(path);
+        String myQuery = "^IXIC";
+
+        String test=String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv"));
+
+        File list = new File(String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv")));
+        File abgabe = new File(String.valueOf(this.getClass().getResource("/testFiles/Angabe.zip")));
+
+        //String uri = String.format(URLEncoder.encode( myQuery , "UTF8" ), this.getClass().getResource("/testFiles/Angabe.zip"));
+        System.out.println("ANGABE:  "+test);
+        Settings.getInstance().addStudentsFromCsv(list);
+        //Settings.getInstance().setHandOutFile(abgabe);
+    }
 
     /**
      * shows a dialog-screen to choose the test-file.
@@ -960,11 +971,62 @@ public class Controller implements Initializable {
     }
 
     public void onBeforeButtonClick(ActionEvent actionEvent) {
+
+        List<String> screens = Settings.getInstance().getListOfScreenshots();
+
+        String fileName = screens.get((getScreenshotPos(Settings.getInstance().getActualScreenshot()))-1);
+
+        (StudentView.getInstance().getIv())
+                .setImage(new javafx.scene.image.Image("file:" + fileName));
     }
 
     public void onNextButtonClick(ActionEvent actionEvent) {
     }
 
     public void OnActual(ActionEvent actionEvent) {
+    }
+
+    private void setPrevScreenshot() {
+
+    }
+
+    private void setNextScreenshot() {
+
+    }
+
+    /**
+     * find the last screenshot of a specific student by his/her name
+     *
+     * @param name  specialises the name of the student
+     * @return      the path of the last screenshot
+     */
+    private String getLastScreenshot(String name) {
+        String pathOfFolder = Settings.getInstance()
+                .getPathOfImages().concat(
+                        "/" + name
+                );
+        File folder = new File(pathOfFolder);
+        File lastScreenshot = null;
+
+        for (final File fileEntry : folder.listFiles()) {
+            if (lastScreenshot == null) {
+                lastScreenshot = fileEntry;
+            } else if (lastScreenshot.lastModified() < fileEntry.lastModified()) {
+                lastScreenshot = fileEntry;
+            }
+        }
+
+        return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
+    }
+
+    private int getScreenshotPos(String file) {
+        int i = 0;
+        for (String screen : Settings.getInstance().getListOfScreenshots()) {
+            if (screen.equals(Settings.getInstance().getActualScreenshot())) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 }

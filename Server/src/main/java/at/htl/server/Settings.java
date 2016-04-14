@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -77,10 +78,15 @@ public class Settings {
     private String[] endings;
     private MediaPlayer mediaPlayer = null;
     private Label lbLoc;
+    private boolean looksAtScreenshots;
+    private String actualScreenshot;
+    private List<String> ListOfScreenshots;
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
         endings = ("*.java; *.fxml; *.css; *.xhtml; *.html").split(";");
+        ListOfScreenshots = new ArrayList<>();
+        looksAtScreenshots = false;
     }
 
     public static Settings getInstance() {
@@ -88,6 +94,30 @@ public class Settings {
             instance = new Settings();
         }
         return instance;
+    }
+
+    public List<String> getListOfScreenshots() {
+        return ListOfScreenshots;
+    }
+
+    public void addScreenshot(String screenshot) {
+        ListOfScreenshots.add(screenshot);
+    }
+
+    public boolean isLooksAtScreenshots() {
+        return looksAtScreenshots;
+    }
+
+    public void setLooksAtScreenshots(boolean looksAtScreenshots) {
+        this.looksAtScreenshots = looksAtScreenshots;
+    }
+
+    public String getActualScreenshot() {
+        return actualScreenshot;
+    }
+
+    public void setActualScreenshot(String actualScreenshot) {
+        this.actualScreenshot = actualScreenshot;
     }
 
     //region Getter and Setter

@@ -117,11 +117,13 @@ public class Server {
         Platform.runLater(() -> {
             Button selected = (Button) StudentView.getInstance().getLv()
                     .getSelectionModel().getSelectedItem();
-            if (selected != null) {
+            if (selected != null && !Settings.getInstance().isLooksAtScreenshots()) {
                 //ist der Screenshot vom ausgewählten Studenten?
                 if (student.getName().equals(selected.getText())) {
                     (StudentView.getInstance().getIv())
                             .setImage(new javafx.scene.image.Image("file:" + fileName));
+                    Settings.getInstance().addScreenshot("file:" + fileName);
+                    Settings.getInstance().setActualScreenshot("file" + fileName);
                 }
             }
         });
