@@ -1,10 +1,11 @@
 package at.htl.server.view;
 
-import at.htl.common.common.MyUtils;
-import at.htl.common.common.Student;
-import at.htl.common.common.TimeSpinner;
-import at.htl.common.common.fx.StudentView;
-import at.htl.common.common.io.FileUtils;
+import at.htl.common.MyUtils;
+import at.htl.common.Student;
+import at.htl.common.TimeSpinner;
+import at.htl.common.fx.FxUtils;
+import at.htl.common.fx.StudentView;
+import at.htl.common.io.FileUtils;
 import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
@@ -91,7 +92,7 @@ import java.util.jar.Manifest;
  * 24.03.2016: PHI 105  created the LineChart-Export
  * 04.04.2016: GNA 045  Added test data
  * 14.04.2016: GNA 050  Testdata for fast mode
- *  */
+ */
 public class Controller implements Initializable {
 
     //region Tab: Option Variables
@@ -214,7 +215,7 @@ public class Controller implements Initializable {
             FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
         }
 
-        Settings.getInstance().showPopUp("exported LineChart successfully !!", true);
+        FxUtils.showPopUp("exported LineChart successfully !!", true);
     }
 
     /**
@@ -239,7 +240,7 @@ public class Controller implements Initializable {
             Path file = Paths.get(Settings.getInstance().getPathOfExports().concat("/log.txt"));
             Files.write(file, list, Charset.forName("UTF-8"));
 
-            Settings.getInstance().showPopUp("exported log successfully!!", true);
+            FxUtils.showPopUp("exported log successfully!!", true);
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
         }
@@ -396,7 +397,7 @@ public class Controller implements Initializable {
             FileUtils.log(Level.ERROR, exp.getMessage());
         }
 
-        Settings.getInstance().showPopUp("created JAR-file successfully!!", true);
+        FxUtils.showPopUp("created JAR-file successfully!!", true);
     }
 
     /**
@@ -965,7 +966,7 @@ public class Controller implements Initializable {
                 }
             }
             while ((line = bis.readLine()) != null) {
-                Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn], null));
+                Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn]));
             }
         }
     }

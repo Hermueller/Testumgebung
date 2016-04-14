@@ -3,8 +3,8 @@ package at.htl.common;
 /**
  * @timeline .
  * 10.03.2016: MET 001  created class
- * 10.03.2016: MET 010
- * 17.03.2015: MET 005
+ * 10.03.2016: MET 010  test
+ * 17.03.2015: MET 005  test
  */
 public class CountdownTest {
 
