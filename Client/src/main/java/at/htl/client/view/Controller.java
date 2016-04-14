@@ -2,12 +2,12 @@ package at.htl.client.view;
 
 import at.htl.client.Client;
 import at.htl.client.Exam;
-import at.htl.common.common.Countdown;
-import at.htl.common.common.MyUtils;
-import at.htl.common.common.Pupil;
-import at.htl.common.common.fx.FxUtils;
-import at.htl.common.common.io.FileUtils;
-import at.htl.common.common.trasfer.LoginPackage;
+import at.htl.common.Countdown;
+import at.htl.common.MyUtils;
+import at.htl.common.Pupil;
+import at.htl.common.fx.FxUtils;
+import at.htl.common.io.FileUtils;
+import at.htl.common.trasfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

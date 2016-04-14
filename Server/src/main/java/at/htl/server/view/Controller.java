@@ -536,6 +536,16 @@ public class Controller implements Initializable {
         }
         return newTime;
     }
+    private void DoDeleteFiles(ActionEvent actionEvent){
+        FileChooser fc = new FileChooser();
+        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
+        File yourZip = fc.showOpenDialog(new Stage());
+
+        // Check the user pressed OK, and not Cancel.
+        if (yourZip != null) {
+            Settings.getInstance().setHandOutFile(yourZip);
+        }
+    }
 
     /**
      * show the version number always in the bottom right corner.
