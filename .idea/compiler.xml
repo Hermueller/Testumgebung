@@ -23,7 +23,9 @@
         <processorPath useClasspath="true" />
         <module name="Common" />
         <module name="RemoteControl" />
+        <module name="testmonitoring-client" />
         <module name="testmonitoring-common" />
+        <module name="testmonitoring-server" />
       </profile>
       <profile default="false" name="Annotation profile for Client" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -38,20 +40,6 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="Server" />
-      </profile>
-      <profile default="false" name="Annotation profile for testmonitoring-client" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="testmonitoring-client" />
-      </profile>
-      <profile default="false" name="Annotation profile for testmonitoring-server" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="testmonitoring-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
