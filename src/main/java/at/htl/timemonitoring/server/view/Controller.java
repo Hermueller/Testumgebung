@@ -958,4 +958,13 @@ public class Controller implements Initializable {
             }
         }
     }
+
+    public void onBeforeButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void onNextButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void OnActual(ActionEvent actionEvent) {
+    }
 }

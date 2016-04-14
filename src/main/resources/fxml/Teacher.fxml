@@ -350,6 +350,9 @@
                                                           </yAxis>
                                                       </LineChart>
                                           <ImageView fx:id="ivLiveView" fitHeight="413.0" fitWidth="747.0" layoutX="28.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Button fx:id="btnBefore" layoutX="-1.0" layoutY="471.0" mnemonicParsing="false" onAction="#onBeforeButtonClick" prefHeight="27.0" prefWidth="0.0" text="&lt;" />
+                                          <Button fx:id="btnNext" layoutX="775.0" layoutY="458.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="27.0" prefWidth="0.0" text="&gt;" />
+                                          <Button layoutX="817.0" layoutY="458.0" mnemonicParsing="false" onAction="#OnActual" text="Actual" />
                                                   </children>
                                               </AnchorPane>
                                           </content>
