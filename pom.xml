@@ -54,7 +54,7 @@
 
 
     <build>
-        <finalName>Client</finalName>
+        <finalName>Teacher</finalName>
         <plugins>
 
             <!-- download source code in Eclipse, best practice -->
@@ -90,7 +90,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>at.htl.timemonitoring.client.view.StudentGui</mainClass>
+                            <mainClass>at.htl.timemonitoring.server.view.TeacherGui</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>

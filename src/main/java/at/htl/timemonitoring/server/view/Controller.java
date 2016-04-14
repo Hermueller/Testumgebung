@@ -9,7 +9,6 @@ import at.htl.timemonitoring.server.Server;
 import at.htl.timemonitoring.server.Settings;
 import at.htl.timemonitoring.server.Threader;
 import at.htl.timemonitoring.server.entity.Interval;
-import com.sun.jndi.toolkit.url.Uri;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -35,7 +34,10 @@ import org.apache.logging.log4j.Level;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,10 +45,14 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
-
-import java.util.jar.*;
-import java.util.*;
+import java.util.jar.Attributes;
+import java.util.jar.JarEntry;
+import java.util.jar.JarOutputStream;
+import java.util.jar.Manifest;
 
 /**
  * @timeline Text
@@ -632,30 +638,7 @@ public class Controller implements Initializable {
         });
     }
 
-    /**
-     * find the last screenshot of a specific student by his/her name
-     *
-     * @param name  specialises the name of the student
-     * @return      the path of the last screenshot
-     */
-    private String getLastScreenshot(String name) {
-        String pathOfFolder = Settings.getInstance()
-                .getPathOfImages().concat(
-                        "/" + name
-                );
-        File folder = new File(pathOfFolder);
-        File lastScreenshot = null;
 
-        for (final File fileEntry : folder.listFiles()) {
-            if (lastScreenshot == null) {
-                lastScreenshot = fileEntry;
-            } else if (lastScreenshot.lastModified() < fileEntry.lastModified()) {
-                lastScreenshot = fileEntry;
-            }
-        }
-
-        return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
-    }
 
     /**
      * sets the size of the images, which are shown after starting/stopping the server
@@ -988,11 +971,62 @@ public class Controller implements Initializable {
     }
 
     public void onBeforeButtonClick(ActionEvent actionEvent) {
+
+        List<String> screens = Settings.getInstance().getListOfScreenshots();
+
+        String fileName = screens.get((getScreenshotPos(Settings.getInstance().getActualScreenshot()))-1);
+
+        (StudentView.getInstance().getIv())
+                .setImage(new javafx.scene.image.Image("file:" + fileName));
     }
 
     public void onNextButtonClick(ActionEvent actionEvent) {
     }
 
     public void OnActual(ActionEvent actionEvent) {
+    }
+
+    private void setPrevScreenshot() {
+
+    }
+
+    private void setNextScreenshot() {
+
+    }
+
+    /**
+     * find the last screenshot of a specific student by his/her name
+     *
+     * @param name  specialises the name of the student
+     * @return      the path of the last screenshot
+     */
+    private String getLastScreenshot(String name) {
+        String pathOfFolder = Settings.getInstance()
+                .getPathOfImages().concat(
+                        "/" + name
+                );
+        File folder = new File(pathOfFolder);
+        File lastScreenshot = null;
+
+        for (final File fileEntry : folder.listFiles()) {
+            if (lastScreenshot == null) {
+                lastScreenshot = fileEntry;
+            } else if (lastScreenshot.lastModified() < fileEntry.lastModified()) {
+                lastScreenshot = fileEntry;
+            }
+        }
+
+        return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
+    }
+
+    private int getScreenshotPos(String file) {
+        int i = 0;
+        for (String screen : Settings.getInstance().getListOfScreenshots()) {
+            if (screen.equals(Settings.getInstance().getActualScreenshot())) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 }
