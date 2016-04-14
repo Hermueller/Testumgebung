@@ -101,9 +101,9 @@ public class Client {
                     }
                 }
             } catch (EOFException eof) {
-                FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.exToStr(eof));
+                //FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exToStr(eof));
             } catch (Exception ex) {
-                FileUtils.log(this, Level.ERROR, "Send Boolean" + MyUtils.exToStr(ex));
+                FileUtils.log(this, Level.ERROR, "Send Boolean " + MyUtils.exToStr(ex));
             } finally {
                 Platform.runLater(() -> Settings.getInstance().showPopUp("LOST CONNECTION", false));
             }
