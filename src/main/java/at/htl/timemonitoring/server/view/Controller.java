@@ -84,7 +84,7 @@ import java.util.*;
  * 23.03.2016: PHI 145  added a new Tab called Student-Info (shows Student infos) && changed language+View of the application
  * 24.03.2016: PHI 105  created the LineChart-Export
  * 04.04.2016: GNA 045  Added test data
- * 14.04.2016: GNA 050  Testdata
+ * 14.04.2016: GNA 050  Testdata for fast mode
  *  */
 public class Controller implements Initializable {
 
