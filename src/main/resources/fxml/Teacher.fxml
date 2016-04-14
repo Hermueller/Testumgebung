@@ -384,7 +384,7 @@
                                           <AnchorPane fx:id="apstarttime" layoutX="232.0" layoutY="160.0" prefHeight="56.0" prefWidth="230.0" />
                                           <Label layoutX="41.0" layoutY="235.0" text="verbleibende Zeit" />
                                           <TextField fx:id="tftime" layoutX="275.0" layoutY="241.0" />
-                                          <Button layoutX="56.0" layoutY="315.0" mnemonicParsing="false" text="zu löschende Dateien auswählen" />
+                                          <Button fx:id="btnDeleteFiles" layoutX="56.0" layoutY="315.0" mnemonicParsing="false" onAction="#DoDeleteFiles" text="zu löschende Dateien auswählen" />
                                                   </children>
                                               </AnchorPane>
                                           </content>
