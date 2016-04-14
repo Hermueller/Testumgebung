@@ -3,12 +3,12 @@
     <output-path>$USER_HOME$/Desktop</output-path>
     <root id="archive" name="Ebisu.jar">
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/at/htl/timemonitoring/client/view/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/META-INF/MANIFEST.MF" />
       </element>
-      <element id="module-output" name="TimeMonitoring" />
+      <element id="module-output" name="testmonitoring" />
       <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.5" />
       <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.5" />
-      <element id="jpa-descriptors" facet="TimeMonitoring/jpa/JPA" />
+      <element id="jpa-descriptors" facet="testmonitoring/jpa/JPA" />
     </root>
   </artifact>
 </component>

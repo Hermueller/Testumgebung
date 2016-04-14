@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TimeMonitoring.iml" filepath="$PROJECT_DIR$/TimeMonitoring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testmonitoring.iml" filepath="$PROJECT_DIR$/testmonitoring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Client/testmonitoring-client.iml" filepath="$PROJECT_DIR$/Client/testmonitoring-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Common/testmonitoring-common.iml" filepath="$PROJECT_DIR$/Common/testmonitoring-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Server/testmonitoring-server.iml" filepath="$PROJECT_DIR$/Server/testmonitoring-server.iml" />
     </modules>
   </component>
 </project>

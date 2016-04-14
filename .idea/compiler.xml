@@ -21,18 +21,39 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="Common" />
         <module name="RemoteControl" />
       </profile>
-      <profile default="false" name="Annotation profile for TimeMonitoring" enabled="true">
+      <profile default="false" name="Annotation profile for Client" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="TimeMonitoring" />
+        <module name="Client" />
+      </profile>
+      <profile default="false" name="Annotation profile for Server" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="Server" />
+      </profile>
+      <profile default="false" name="Annotation profile for testmonitoring-client" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="testmonitoring-client" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="Client" target="1.8" />
+      <module name="Common" target="1.8" />
       <module name="RemoteControl" target="1.8" />
+      <module name="Server" target="1.8" />
+      <module name="testmonitoring-client" target="1.8" />
+      <module name="testmonitoring-common" target="1.8" />
+      <module name="testmonitoring-server" target="1.8" />
       <module name="TimeMonitoring" target="1.8" />
     </bytecodeTargetLevel>
   </component>
