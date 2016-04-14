@@ -231,6 +231,7 @@
                                              </children>
                                           </AnchorPane>
                                           <Button fx:id="btnPatrolMode" layoutX="369.0" layoutY="28.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="236.0" text="Patrouillen Modus" />
+                                          <Button layoutX="892.0" layoutY="28.0" mnemonicParsing="false" onAction="#setTestOptions" prefHeight="24.0" prefWidth="50.0" text="Test" />
                                                   </children>
                                               </AnchorPane>
                                           </content>
