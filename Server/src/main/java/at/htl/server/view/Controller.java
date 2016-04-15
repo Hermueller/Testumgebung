@@ -1040,4 +1040,7 @@ public class Controller implements Initializable {
         }
         return -1;
     }
+
+    public void DoDeleteFiles(ActionEvent actionEvent) {
+    }
 }
