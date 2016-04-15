@@ -30,6 +30,7 @@ import javafx.stage.Stage;
  * 31.01.2016: PHI 001  bugfix (Schließen des Fensters)
  * 21.03.2016: PHI 001  catch all exceptions
  * 31.03.2016: MET 075  Apache-Maven-Plugin for creating jar-Files
+ * 15.04.2016: MET 002  solved Style-Error of the Server-GUI
  */
 public class TeacherGui extends Application {
 
@@ -38,7 +39,7 @@ public class TeacherGui extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Teacher.fxml"));
 
         final Scene scene = new Scene(root);
-        scene.getStylesheets().add("/at.htl.client.styles/TeacherStyle.css");
+        scene.getStylesheets().add("/styles/TeacherStyle.css");
 
         stage.setTitle("Teacher Client");
         stage.setScene(scene);

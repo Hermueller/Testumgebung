@@ -17,6 +17,7 @@ import javafx.stage.Stage;
  * 31.03.2016: MET 075  Apache-Maven-Plugin for creating jar-Files
  * 14.04.2016: MET 030  complete project newly structured by dividing into modules
  * 14.04.2016: MET 080  bugs fixed that were produced in the separation of client and server
+ * 15.04.2016: MET 002  solved Style-Error of the Client-GUI
  */
 public class StudentGui extends Application {
 
@@ -25,7 +26,7 @@ public class StudentGui extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Student.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/at/htl/client/styles/StudentStyle.css");
+        scene.getStylesheets().add("/styles/StudentStyle.css");
 
         stage.setTitle("Student");
         stage.setScene(scene);
