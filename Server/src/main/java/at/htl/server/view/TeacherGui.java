@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-
 /**
  * @timeline .
  * 01.10.2015: PON 130  configured prototype and created first working version
@@ -30,8 +29,8 @@ import javafx.stage.Stage;
  * 22.12.2015: PHI 010  Optische Fehler in der GUI ausgebessert.
  * 31.01.2016: PHI 001  bugfix (Schließen des Fensters)
  * 21.03.2016: PHI 001  catch all exceptions
+ * 31.03.2016: MET 075  Apache-Maven-Plugin for creating jar-Files
  */
-
 public class TeacherGui extends Application {
 
     @Override

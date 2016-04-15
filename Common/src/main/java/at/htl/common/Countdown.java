@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @timeline .
  * 10.03.2016: MET 001  created class
- * 10.03.2016: MET 030  Grundgerüst
+ * 10.03.2016: MET 040  created basic structure for the countdown
  */
 public class Countdown extends Thread {
 
@@ -31,7 +31,6 @@ public class Countdown extends Thread {
 
     public String getToTime() {
         Duration d = Duration.between(LocalTime.now(), toTime);
-        System.out.println(d.toMillis());
         if (d.toMillis() < 1000) {
             this.interrupt();
         }
@@ -42,14 +41,7 @@ public class Countdown extends Thread {
     public void run() {
         while (!isInterrupted()) {
             try {
-                /*Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        txCountdown.setText(getToTime());
-                    }
-                });*/
                 sleep(TimeUnit.SECONDS.toMillis(PAUSE));
-                System.out.println("Time: " + getToTime());
                 txCountdown.setText(getToTime());
             } catch (InterruptedException e) {
                 System.out.println("Clock beendet");

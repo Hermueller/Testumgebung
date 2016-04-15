@@ -10,10 +10,13 @@ import javafx.stage.Stage;
  * @timeline .
  * 01.10.2015: GNA 130  configured prototype and created first working version
  * 15.10.2015: PON 040  created GUI for students
- * 18.10.2015: PHI 065  Implementieren der Gui
+ * 18.10.2015: PHI 065  implementation of the GUI
  * 24.10.2015: PON 010  create the field "username"
  * 05.11.2015: PON 010  repair of this class
  * 29.11.2015: PHI 035  Strukturierung bei der Ansicht geändert
+ * 31.03.2016: MET 075  Apache-Maven-Plugin for creating jar-Files
+ * 14.04.2016: MET 030  complete project newly structured by dividing into modules
+ * 14.04.2016: MET 080  bugs fixed that were produced in the separation of client and server
  */
 public class StudentGui extends Application {
 
@@ -22,7 +25,7 @@ public class StudentGui extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Student.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/at/htl/client/styles/TeacherStyle.css");
+        scene.getStylesheets().add("/at/htl/client/styles/StudentStyle.css");
 
         stage.setTitle("Student");
         stage.setScene(scene);
