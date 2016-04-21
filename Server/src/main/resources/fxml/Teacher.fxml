@@ -230,7 +230,7 @@
                                                 </VBox>
                                              </children>
                                           </AnchorPane>
-                                          <Button fx:id="btnPatrolMode" layoutX="369.0" layoutY="28.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="236.0" text="Patrouillen Modus" />
+                                          <Button fx:id="btnPatrolMode" layoutX="369.0" layoutY="28.0" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="236.0" text="Patrouillen Modus" />
                                           <Button layoutX="892.0" layoutY="28.0" mnemonicParsing="false" onAction="#setTestOptions" prefHeight="24.0" prefWidth="50.0" text="Test" />
                                                   </children>
                                               </AnchorPane>
@@ -384,7 +384,7 @@
                                           <AnchorPane fx:id="apstarttime" layoutX="232.0" layoutY="160.0" prefHeight="56.0" prefWidth="230.0" />
                                           <Label layoutX="41.0" layoutY="235.0" text="verbleibende Zeit" />
                                           <TextField fx:id="tftime" layoutX="275.0" layoutY="241.0" />
-                                          <Button fx:id="btnDeleteFiles" layoutX="56.0" layoutY="315.0" mnemonicParsing="false" onAction="#DoDeleteFiles" text="zu löschende Dateien auswählen" />
+                                          <Button fx:id="btnDeleteFiles" layoutX="56.0" layoutY="315.0" mnemonicParsing="false" onAction="#deleteFiles" text="zu löschende Dateien auswählen" />
                                                   </children>
                                               </AnchorPane>
                                           </content>

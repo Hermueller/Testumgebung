@@ -6,6 +6,7 @@ import at.htl.common.TimeSpinner;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
+import at.htl.server.PatrolMode;
 import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
@@ -92,6 +93,7 @@ import java.util.jar.Manifest;
  * 24.03.2016: PHI 105  created the LineChart-Export
  * 04.04.2016: GNA 045  Added test data
  * 14.04.2016: GNA 050  Testdata for fast mode
+ * 14.04.2016: PON 120  created method for patrol-mode
  */
 public class Controller implements Initializable {
 
@@ -185,7 +187,10 @@ public class Controller implements Initializable {
     public SplitPane splitter;
     @FXML
     private ListView<Button> lvStudents;
-
+    @FXML
+    private Button btnPatrolMode;
+    private boolean patrolMode = false;
+    private PatrolMode pm = new PatrolMode();
 
     private Thread server;
     private Threader threader;
@@ -536,7 +541,8 @@ public class Controller implements Initializable {
         }
         return newTime;
     }
-    private void DoDeleteFiles(ActionEvent actionEvent){
+
+    public void deleteFiles(ActionEvent actionEvent){
         FileChooser fc = new FileChooser();
         fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
         File yourZip = fc.showOpenDialog(new Stage());
@@ -1041,6 +1047,18 @@ public class Controller implements Initializable {
         return -1;
     }
 
-    public void DoDeleteFiles(ActionEvent actionEvent) {
+    public void startPatrol(ActionEvent actionEvent) {
+        if (!patrolMode) {
+            patrolMode = true;
+            btnPatrolMode.setText("Patroullien Modus beenden");
+            pm = new PatrolMode();
+            pm.setLv(lvStudents);
+            pm.start();
+        } else {
+            patrolMode = false;
+            btnPatrolMode.setText("Patroullien Modus");
+            pm.stopIt();
+            pm.interrupt();
+        }
     }
 }
