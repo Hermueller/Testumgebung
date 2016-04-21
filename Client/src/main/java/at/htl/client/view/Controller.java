@@ -17,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.Level;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -93,7 +95,46 @@ public class Controller implements Initializable {
 
     @FXML
     public void testConnection() {
+        String ip = tfServerIP.getText();
+        runSystemCommand("ping -c 2 ", ip);
+    }
 
+    private void runSystemCommand(String command, String ip) {
+        command += ip;
+        try {
+            Process p = Runtime.getRuntime().exec(command);
+            BufferedReader inputStream = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()));
+
+            String s = "";
+            double lossPercentage = -1;
+            boolean connected = false;
+            String msg = "";
+
+            while ((s = inputStream.readLine()) != null) {
+                if (s.startsWith("---")) {
+                    break;
+                }
+            }
+            s = inputStream.readLine();
+            if (s != null) {
+                String loss = s.split(",")[2];
+                lossPercentage = Double.parseDouble(loss.split("%")[0].trim());
+            }
+            if (lossPercentage > 0) {
+                msg = lossPercentage + "% received";
+            } else if (lossPercentage < 0) {
+                msg = "can't ping the following IP: " + ip;
+            } else {
+                msg = "IP pinged successfully!!";
+                connected = true;
+            }
+
+            FxUtils.showPopUp(msg, connected);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
