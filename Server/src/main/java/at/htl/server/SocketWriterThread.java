@@ -2,7 +2,7 @@ package at.htl.server;
 
 import at.htl.common.MyUtils;
 import at.htl.common.Student;
-import at.htl.server.entity.LittleHarvester;
+import at.htl.common.actions.LittleHarvester;
 import at.htl.common.actions.RobotAction;
 import at.htl.common.actions.RobotActionQueue;
 import at.htl.common.io.FileStream;

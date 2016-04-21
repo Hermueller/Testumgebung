@@ -1,8 +1,7 @@
-package at.htl.server.entity;
+package at.htl.common.actions;
 
 import at.htl.common.MyUtils;
 import at.htl.common.io.FileUtils;
-import at.htl.server.Settings;
 import org.apache.logging.log4j.Level;
 
 import java.io.BufferedReader;
@@ -59,7 +58,7 @@ public class LineCounter {
             if (fileEntry.isDirectory()) {
                 allLines += countLinesInFilesFromFolder(fileEntry);
             } else {
-                for (String ending : Settings.getInstance().getEndings()) {
+                for (String ending : "*.java; *.fxml; *.cs; *.xhtml; *.html".split(";")) {
                     if (fileEntry.getName().endsWith("." + ending.split("\\.")[1])) {
                         allLines += countLines(fileEntry.getPath());
                     }

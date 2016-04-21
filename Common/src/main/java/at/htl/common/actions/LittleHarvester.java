@@ -1,6 +1,5 @@
-package at.htl.server.entity;
+package at.htl.common.actions;
 
-import at.htl.common.actions.RobotAction;
 import at.htl.common.io.ScreenShot;
 import at.htl.common.trasfer.HarvestedPackage;
 

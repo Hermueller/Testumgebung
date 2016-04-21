@@ -203,6 +203,7 @@ public class Controller implements Initializable {
     public void logout() {
         setControls(true);
         setMsg("Test successfully submitted", false);
+        client.stop();
     }
 
     /**
