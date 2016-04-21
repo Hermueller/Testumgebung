@@ -5,15 +5,13 @@ import at.htl.client.Exam;
 import at.htl.common.Countdown;
 import at.htl.common.MyUtils;
 import at.htl.common.Pupil;
+import at.htl.common.actions.LineCounter;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileUtils;
 import at.htl.common.trasfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.Level;
 
@@ -39,6 +37,7 @@ import java.util.ResourceBundle;
  * 12.02.2016: MET 030  display of messages in the GUI with setMsg() enormously improved
  * 25.02.2016: MET 005  default settings for testing
  * 20.03.2016: PHI 001  fixed bug (check ip-address on correctness)
+ * 21.04.2016: PHI 060  added the finished-Mode
  */
 public class Controller implements Initializable {
 
@@ -73,6 +72,8 @@ public class Controller implements Initializable {
     private Label lbTimeLeft;
     @FXML
     private Text txTimeLeft;
+    @FXML
+    private ToggleButton tbtnStatus;
     //endregion
 
     private Client client;
@@ -204,6 +205,17 @@ public class Controller implements Initializable {
         setControls(true);
         setMsg("Test successfully submitted", false);
         client.stop();
+    }
+
+    @FXML
+    public void setMode() {
+        LineCounter.getInstance().setFinished(tbtnStatus.isSelected());
+
+        if (tbtnStatus.isSelected()) {
+            tbtnStatus.setText("finished test");
+        } else {
+            tbtnStatus.setText("in work");
+        }
     }
 
     /**

@@ -13,11 +13,31 @@ import java.io.FileReader;
  * 10.12.2015: PHI 001  created class
  * 10.12.2015: PHI 055  Anlegen der Grundfunktionen und implementieren dieser in andere Klassen(z.B. SocketWriterThread)
  * 11.12.2015: PHI 045  Errechnen von ALLEN zeilen im Projekt NUR im Startverzeichnis, das beim Login erstellt wurde.
+ * 21.04.2016: PHI 010  changed this class to a Singleton and added the variable "finished"
  */
 public class LineCounter {
 
-    public LineCounter() {
+    private static LineCounter instance = null;
 
+    private boolean finished = false;
+
+    private LineCounter() {
+
+    }
+
+    public static LineCounter getInstance() {
+        if (instance == null) {
+            instance = new LineCounter();
+        }
+        return instance;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 
     /**

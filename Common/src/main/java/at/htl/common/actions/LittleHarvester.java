@@ -2,6 +2,7 @@ package at.htl.common.actions;
 
 import at.htl.common.io.ScreenShot;
 import at.htl.common.trasfer.HarvestedPackage;
+import javafx.application.Platform;
 
 import java.awt.*;
 import java.io.File;
@@ -17,6 +18,7 @@ import java.util.Arrays;
  *
  * @timeline .
  * 13.01.2016: PHI 055  Es werden neben Screenshots auch die Lines of Code eingelesen und versendet.
+ * 21.04.2016: PHI 010  added the finished-Variable
  */
 public class LittleHarvester implements RobotAction {
 
@@ -41,10 +43,9 @@ public class LittleHarvester implements RobotAction {
         }
         previous.set(bytes);
 
-        LineCounter lc = new LineCounter();
-        long loc = lc.countLinesInFilesFromFolder(new File(studentPath));
+        long loc = LineCounter.getInstance().countLinesInFilesFromFolder(new File(studentPath));
 
-        return new HarvestedPackage(bytes, loc);
+        return new HarvestedPackage(bytes, loc, LineCounter.getInstance().isFinished());
     }
 
     @Override

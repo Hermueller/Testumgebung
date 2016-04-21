@@ -16,6 +16,7 @@ import java.io.ObjectInputStream;
  *
  * @timeline .
  * 31.10.2015: MET 010  Änderung
+ * 21.04.2016: PHI 015  added the coloring from the student
  */
 class SocketReaderThread extends Thread {
 
@@ -40,6 +41,7 @@ class SocketReaderThread extends Thread {
      */
     public void run() {
         while (!isInterrupted()) {
+            boolean finished = false;
             try {
 
                 HarvestedPackage harvestedPackage = (HarvestedPackage) in.readObject();
@@ -51,9 +53,18 @@ class SocketReaderThread extends Thread {
                 Settings.getInstance().addValue(harvestedPackage.getLoc(), student, priorValue);
                 priorValue = harvestedPackage.getLoc();
 
+                finished = harvestedPackage.isFinished();
+                if (finished) {
+                    Settings.getInstance().finishStudent(student);
+                }
+
             } catch (Exception ex) {
                 FileUtils.log(this, Level.ERROR, "canceled " + MyUtils.exToStr(ex));
-                Settings.getInstance().removeStudent(student.getName());
+                if (!finished) {
+                    Settings.getInstance().removeStudent(student.getName());
+                } else {
+                    Settings.getInstance().finishStudent(student);
+                }
                 server.shutdown();
                 return;
             }

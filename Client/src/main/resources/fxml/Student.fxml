@@ -96,5 +96,6 @@
          </font></Text>
       <Label fx:id="lbTimeLeft" layoutX="62.0" layoutY="287.0" text="Verbleibende Zeit:" />
       <CheckBox fx:id="cbNoLogin" layoutX="518.0" layoutY="10.0" mnemonicParsing="false" />
+      <ToggleButton fx:id="tbtnStatus" layoutX="25.0" layoutY="19.0" mnemonicParsing="false" onAction="#setMode" prefWidth="120.0" text="in work" />
     </children>
 </AnchorPane>
