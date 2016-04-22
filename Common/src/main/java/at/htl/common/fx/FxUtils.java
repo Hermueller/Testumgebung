@@ -3,6 +3,9 @@ package at.htl.common.fx;
 import at.htl.common.io.FileUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -16,6 +19,7 @@ import java.io.File;
  * 03.01.2016: MET 001  created class
  * 03.01.2016: MET 020  improved selection of folders and files: chooseDirectory() and chooseFile()
  * 03.01.2016: MET 003  made setMsg() statically available
+ * 22.04.2016: PHI 120  changed the style of the PopUp-Window
  */
 public class FxUtils {
 
@@ -101,13 +105,33 @@ public class FxUtils {
     public static void showPopUp(String message, boolean isSuccess) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
+        AnchorPane ap = new AnchorPane();
+
         Label label = new Label(message);
+        label.setLayoutY(200);
+
+
+        ImageView iv = new ImageView();
+        iv.setPickOnBounds(true);
+        iv.setPreserveRatio(true);
+
         if (isSuccess) {
+            iv.setImage(new Image("/images/checkOnce.gif"));
+            iv.setFitHeight(287);
+            iv.setFitWidth(400);
+            iv.setLayoutY(-64);
             label.setStyle("-fx-background-color: chartreuse");
         } else {
+            iv.setImage(new Image("/images/failure.gif"));
+            iv.setFitHeight(135);
+            iv.setFitWidth(146);
+            iv.setLayoutX(130);
+            iv.setLayoutY(14);
             label.setStyle("-fx-background-color: crimson");
         }
-        Scene dialogScene = new Scene(label, 300, 200);
+        ap.getChildren().addAll(iv, label);
+
+        Scene dialogScene = new Scene(ap, 380, 220);
         dialog.setScene(dialogScene);
         dialog.show();
         FileUtils.log(Level.INFO, message);

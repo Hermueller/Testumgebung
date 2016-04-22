@@ -329,11 +329,19 @@
                                                 <Image url="@../images/redLamp.png" />
                                              </image>
                                           </ImageView>
-                                          <Button layoutX="39.0" layoutY="458.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
+                                          <Button layoutX="46.0" layoutY="333.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
+                                                      <LineChart fx:id="loc" layoutX="8.0" layoutY="379.0" legendSide="LEFT" prefHeight="283.0" prefWidth="987.0" title="Lines of Code in Project">
+                                                          <xAxis>
+                                                              <NumberAxis label="Seconds after START" side="BOTTOM" />
+                                                          </xAxis>
+                                                          <yAxis>
+                                                              <NumberAxis label="Lines of code" side="LEFT" />
+                                                          </yAxis>
+                                                      </LineChart>
                                        </children>
                                     </AnchorPane>
                                 </content>
@@ -342,18 +350,10 @@
                                           <content>
                                               <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                   <children>
-                                                      <LineChart fx:id="loc" layoutX="7.0" layoutY="2.0" legendSide="LEFT" prefHeight="229.0" prefWidth="987.0" title="Lines of Code in Project">
-                                                          <xAxis>
-                                                              <NumberAxis label="Seconds after START" side="BOTTOM" />
-                                                          </xAxis>
-                                                          <yAxis>
-                                                              <NumberAxis label="Lines of code" side="LEFT" />
-                                                          </yAxis>
-                                                      </LineChart>
-                                          <ImageView fx:id="ivLiveView" fitHeight="413.0" fitWidth="747.0" layoutX="28.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Button fx:id="btnBefore" layoutX="-1.0" layoutY="471.0" mnemonicParsing="false" onAction="#onBeforeButtonClick" prefHeight="27.0" prefWidth="0.0" text="&lt;" />
-                                          <Button fx:id="btnNext" layoutX="775.0" layoutY="458.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="27.0" prefWidth="0.0" text="&gt;" />
-                                          <Button layoutX="817.0" layoutY="458.0" mnemonicParsing="false" onAction="#OnActual" text="Actual" />
+                                          <ImageView fx:id="ivLiveView" fitHeight="664.0" fitWidth="992.0" layoutX="3.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Button fx:id="btnBefore" layoutX="2.0" layoutY="320.0" mnemonicParsing="false" onAction="#onBeforeButtonClick" prefHeight="27.0" prefWidth="0.0" text="&lt;" />
+                                          <Button fx:id="btnNext" layoutX="877.0" layoutY="320.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="27.0" prefWidth="0.0" text="&gt;" />
+                                          <Button layoutX="919.0" layoutY="321.0" mnemonicParsing="false" onAction="#OnActual" text="Actual" />
                                                   </children>
                                               </AnchorPane>
                                           </content>
