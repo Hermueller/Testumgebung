@@ -1,1 +1,69 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testumgebung</title>
+    <link rel="stylesheet" href="scripts/jquery-ui-1.11.4/jquery-ui.css">
+    <link rel="stylesheet" href="styles/_defaultValues.css">
+    <script src="scripts/jquery-2.2.3.min.js"></script>
+    <script src="scripts/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="scripts/_initialize.js"></script>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#program">Program</a></li>
+            <li><a href="#team">The Team</a></li>
+        </ul>
+
+        <!-- Start-Page  0- show info's and messages -0 -->
+        <div id="home">
+
+            <h1 align="center">Testumgebung</h1>
+
+            <h3 class="splitter">created at:</h3>
+            <p class="toRight">HTL-Leonding</p>
+
+            <h3 class="splitter">last gitHub actions:</h3>
+            <p class="toRight">
+
+            </p>
+        </div>
+
+        <!-- Program-Page  1- includes information of the program -1 -->
+        <div id="program">
+            <p>This program can do things ! ! !</p>
+        </div>
+
+        <!-- Team-Page  2- shows the programmers of the program -2 -->
+        <div id="team">
+
+            <h1>Project-Manager</h1>
+            <div id="accordion_Project-Manager">
+                <h3>Melhorn Tobias</h3>
+                <div>
+                    Infos
+                </div>
+            </div>
+
+            <h1>Team-Members:</h1>
+            <div id="accordion_Team-Members">
+                <h3>Hermüller Philipp</h3>
+                <div>
+                    <a>GitHub-Account:</a><a class="toRight" href="https://github.com/BeatingAngel">BeatingAngel</a>
+                </div>
+                <h3>Pohn Patrick</h3>
+                <div>
+                    Infos
+                </div>
+                <h3>Gnadlinger Johannes</h3>
+                <div>
+                    Infos
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
