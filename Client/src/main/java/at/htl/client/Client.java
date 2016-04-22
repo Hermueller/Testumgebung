@@ -166,6 +166,20 @@ public class Client {
      * client logs out -> stop all streams from this client.
      */
     public void stop() {
+
+        RobotAction action = new LittleHarvester(loginPackage.getLastname(), loginPackage.getDirOfWatch());
+
+        try {
+            Object result = action.execute(robot);
+            if (result != null) {
+                getOut().writeObject(result);
+                getOut().reset();
+                getOut().flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         processor.interrupt();
         reader.interrupt();
         //handIn();
