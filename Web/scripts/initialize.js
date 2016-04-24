@@ -1,6 +1,6 @@
 $(function () {
     $("#tabs").tabs({
-        heightStyle: "fill"
+        heightStyle: "content"
     });
     $("#accordion_Project-Manager").accordion({
         collapsible: true,
