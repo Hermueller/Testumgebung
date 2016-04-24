@@ -14,13 +14,13 @@ To avoid cheating during the test.
 
 ## Teacher-GUI
 
-![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/_Doku/aktueller%20Stand/V1-11-33-051%20imageData/TeacherGUI%20full.png)
+![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/doku/aktueller%20Stand/V1-11-33-051%20imageData/TeacherGUI%20full.png)
 
-![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/_Doku/aktueller%20Stand/V1-11-33-051%20imageData/StudentDetails.png)
+![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/doku/aktueller%20Stand/V1-11-33-051%20imageData/StudentDetails.png)
 
-![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/_Doku/aktueller%20Stand/V1-11-33-051%20imageData/errorLogFull.png)
+![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/doku/aktueller%20Stand/V1-11-33-051%20imageData/errorLogFull.png)
 
 ## Student-GUI
 
-![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/_Doku/aktueller%20Stand/V1-11-33-051%20imageData/ClientGUI%20full.png)
+![alt tag](https://raw.githubusercontent.com/BeatingAngel/Testumgebung/master/doku/aktueller%20Stand/V1-11-33-051%20imageData/ClientGUI%20full.png)
 
