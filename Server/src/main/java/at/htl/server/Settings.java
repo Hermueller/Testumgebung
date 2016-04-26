@@ -419,7 +419,7 @@ public class Settings {
         Student toModify = findStudentByName(student.getName());
         toModify.addLoC_Time(_loc, _time);
         toModify.addValueToLast(_loc, _time, priorValue);
-        Settings.getInstance().getLbLoc().setText(Long.toString(_loc));
+        //Settings.getInstance().getLbLoc().setText(Long.toString(_loc));
 
         //show point in the chart
         Platform.runLater(() -> {
@@ -443,6 +443,7 @@ public class Settings {
                             )
                     );
                     actual.getData().add(data);
+                    getLbLoc().setText(Long.toString(_loc));
                 }
             }
         });

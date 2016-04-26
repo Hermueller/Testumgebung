@@ -7,6 +7,7 @@ import at.htl.common.actions.RobotAction;
 import at.htl.common.actions.RobotActionQueue;
 import at.htl.common.io.FileStream;
 import at.htl.common.io.FileUtils;
+import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import org.apache.logging.log4j.Level;
 

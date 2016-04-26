@@ -673,11 +673,11 @@ public class Controller implements Initializable {
      */
     private void setDynamicScreenSize() {
         apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitWidth((double) newValue - 10);
+            ivLiveView.setFitWidth((double) newValue);
             loc.setPrefWidth((double) newValue);
         });
         bpDataView.heightProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitHeight((double) newValue - loc.getHeight() - apInfo.getPrefHeight() - 20);
+            ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
         });
         spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);

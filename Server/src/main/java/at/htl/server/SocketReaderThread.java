@@ -54,13 +54,11 @@ class SocketReaderThread extends Thread {
                 priorValue = harvestedPackage.getLoc();
 
                 finished = harvestedPackage.isFinished();
-                System.out.println("FINISHED: " + finished);
                 if (finished) {
                     Settings.getInstance().finishStudent(student);
                 }
 
             } catch (Exception ex) {
-                System.out.println(" ---------- FINISHED: " + finished);
                 FileUtils.log(this, Level.ERROR, "canceled " + MyUtils.exToStr(ex));
                 if (!finished) {
                     Settings.getInstance().removeStudent(student.getName());

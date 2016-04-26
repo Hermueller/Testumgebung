@@ -96,7 +96,6 @@ public class Client {
                 while ((action = (RobotAction) in.readObject()) != null) {
                     if (!action.equals(jobs.peekLast())) {
                         jobs.add(action);
-                        System.out.println("jobs = " + jobs);
                     } else {
                         FileUtils.log(this, Level.ERROR, "Discarding duplicate request");
                     }
