@@ -5,10 +5,12 @@ import at.htl.common.Student;
 import at.htl.common.actions.LittleHarvester;
 import at.htl.common.actions.RobotAction;
 import at.htl.common.actions.RobotActionQueue;
+import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileStream;
 import at.htl.common.io.FileUtils;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
@@ -84,6 +86,17 @@ class SocketWriterThread extends Thread {
         Settings.getInstance()
                 .findStudentByName(student.getName())
                 .addSeries(seri);
+
+        Platform.runLater(() -> {
+            Button selected = (Button)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                if (selected.getText().equals(student.getName())) {
+                    if (student.getSeries() != null) {
+                        Settings.getInstance().getChart().getData().add(seri);
+                    }
+                }
+            }
+        });
 
         try {
             while (!isInterrupted()) {

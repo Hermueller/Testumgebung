@@ -292,6 +292,10 @@ public class Settings {
         this.chart = chart;
     }
 
+    public LineChart<Number, Number> getChart() {
+        return chart;
+    }
+
     /**
      * @return the endings of the files (in which the lines are counted).
      */
