@@ -11,6 +11,8 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -94,6 +96,8 @@ import java.util.jar.Manifest;
  * 04.04.2016: GNA 045  Added test data
  * 14.04.2016: GNA 050  Testdata for fast mode
  * 14.04.2016: PON 120  created method for patrol-mode
+ * 25.04.2016: PHI 065  fixed the "log out". Teacher now notices if a student logs out.
+ * 03.05.2016: PHI 120  changes the layout of the GUI + implemented the Student-Settings.
  */
 public class Controller implements Initializable {
 
@@ -153,13 +157,9 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane apHandIn;
     @FXML
-    private TextField tfMyIP_Address;
-    @FXML
     private AnchorPane apTime;
     @FXML
     private Button btnaddTime;
-    @FXML
-    private Button btnabgabe;
     @FXML
     private AnchorPane apstarttime,aptime;
     //endregion
@@ -173,7 +173,18 @@ public class Controller implements Initializable {
 
     //region Student-Info Variables
     @FXML
-    private Label lbFirstName, lbLastName, lbEnrolmentID, lbCatalogNumber, lbLoC, lbFaceNumber;
+    private Label lbFirstName, lbLastName, lbEnrolmentID, lbCatalogNumber;
+    //endregion
+
+    //region Student-Settings Variables
+    @FXML
+    private Label lbAddress, lbTimeInterval, lbTimeIntervalAll;
+    @FXML
+    private ProgressBar pbHarvesterStudent, pbHarvesterStudentAll;
+    @FXML
+    private Slider slHarvesterStudent, slHarvesterStudentAll;
+    @FXML
+    private Button btnKickStudent, btnBanStudent, btnSaveChangesStudent, btnSaveChanges, btnKickAll, btnBanAll;
     //endregion
 
     //region other Variables
@@ -210,7 +221,7 @@ public class Controller implements Initializable {
     public void exportLOC(ActionEvent event) {
         WritableImage image = loc.snapshot(new SnapshotParameters(), null);
 
-        String studentInfo = lbFaceNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
+        String studentInfo = lbCatalogNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
 
         File file = new File(Settings.getInstance().getPathOfExports().concat("/" + studentInfo));
 
@@ -469,7 +480,6 @@ public class Controller implements Initializable {
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
         Settings.getInstance().setLogArea(anchorPaneScrollLog);
-        Settings.getInstance().setLbLoc(lbLoC);
         scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         setDynamicScreenSize();
@@ -477,8 +487,11 @@ public class Controller implements Initializable {
         setOnChangeSize();
         setFitHeight();
         setImageClick();
+
         initializeLOC();
         initializeSLOMM();
+        initializeSlides();
+
         showIP_Address();
         initializeTimeSpinner();
         readProperties();
@@ -489,6 +502,23 @@ public class Controller implements Initializable {
     }
 
     //region initialize
+
+    private void initializeSlides() {
+        slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {
+            pbHarvesterStudent.setProgress(new_val.doubleValue() / 60);
+            String time = (new_val.intValue() < 10) ?
+                    "0" + new_val.toString().substring(0,1) :
+                    new_val.toString().substring(0,2);
+            lbTimeInterval.setText(time + " Seconds");
+        });
+        slHarvesterStudentAll.valueProperty().addListener((ov, old_val, new_val) -> {
+            pbHarvesterStudentAll.setProgress(new_val.doubleValue() / 60);
+            String time = (new_val.intValue() < 10) ?
+                    "0" + new_val.toString().substring(0,1) :
+                    new_val.toString().substring(0,2);
+            lbTimeIntervalAll.setText(time + " Seconds");
+        });
+    }
 
     private void initializeTimeSpinner() {
         TimeSpinner spinner = new TimeSpinner();
@@ -641,16 +671,14 @@ public class Controller implements Initializable {
 
             //   CHANGE STUDENT-INFO-DATA
             if (st != null) {
+                String nr = Integer.toString(st.getCatalogNumber());
                 lbFirstName.setText(st.getFirstName());
                 lbLastName.setText(st.getName());
-                lbCatalogNumber.setText(Integer.toString(st.getCatalogNumber()));
-                String nr = lbCatalogNumber.getText();
-                lbFaceNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
+                lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
                 lbEnrolmentID.setText(st.getEnrolmentID());
                 ObservableList<XYChart.Data<Number, Number>> ol =
                         st.getSeries().get(st.getSeries().size() - 1).getData();
                 Long locVal = (Long)ol.get(ol.size() - 1).getYValue();
-                lbLoC.setText(Long.toString(locVal));
             }
         });
     }
@@ -715,7 +743,7 @@ public class Controller implements Initializable {
         } catch (UnknownHostException e) {
             FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
         }
-        tfMyIP_Address.setText(ip);
+        lbAddress.setText(ip + " : 50555");
     }
     //endregion
 
@@ -735,25 +763,25 @@ public class Controller implements Initializable {
 
         // checks the input of the time (number format)
         if (!ssTime.matches("[0-9]+") && !isRnd) {
-            setMsg(true, "Zeit darf nur Zahlen enthalten!!");
+            setMsg(true, "Time only includes numbers!!");
             setImage(ivTime, false);
             startable = false;
         }
         // checks the input of the time (time greater than zero)
         if (!isRnd && ssTime.length() < 1) {
-            setMsg(true, "Bitte gib einen Zeitwert(in Sek.) an");
+            setMsg(true, "Please enter a time(in sec.)");
             setImage(ivTime, false);
             startable = false;
         }
         // checks if the user selected a path
         if (path == null) {
-            setMsg(true, "Bitte gib ein Verzeichnis an");
+            setMsg(true, "Please select a directory!");
             setImage(ivPath, false);
             startable = false;
         }
         // checks if the user selected a path
         if (handOut == null) {
-            setMsg(true, "Bitte eine Angabe auswählen!");
+            setMsg(true, "Please select a handout!");
             setImage(ivAngabe, false);
             startable = false;
         }

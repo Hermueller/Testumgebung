@@ -13,3 +13,20 @@
 #logTab {
     -fx-background-color: antiquewhite;
 }
+
+.slider .track {
+    -fx-background-color:null;  /* Hide the track */
+    -fx-background-insets: 1 0 -1 0, 0, 1;
+    -fx-background-radius: 2.5, 2.5, 1.5;
+    -fx-padding: 0.208333em; /* 2.5 */
+}
+
+.slider .thumb {
+    -fx-background-color: darkgrey;
+    -fx-background-radius: 6.0em; /* makes sure this remains circular */
+    -fx-padding: 0.783333em; /* 7 */
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
