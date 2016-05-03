@@ -11,6 +11,7 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
+import com.sun.istack.internal.NotNull;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -395,20 +396,6 @@ public class Controller implements Initializable {
             File source = new File("target/classes/");
             add(source, target);
             target.close();
-
-            //creating teacher JAR
-            manifest = new Manifest();
-            manifest.getMainAttributes().put(
-                    Attributes.Name.MANIFEST_VERSION, "1.0");
-            manifest.getMainAttributes().put(
-                    Attributes.Name.MAIN_CLASS, "TeacherGui");
-            target = new JarOutputStream(
-                    new FileOutputStream(
-                            Settings.getInstance().getPathOfExports().concat("/teacher.jar")
-                    ), manifest);
-            source = new File("target/classes/");
-            add(source, target);
-            target.close();
         } catch (IOException exp) {
             FileUtils.log(Level.ERROR, exp.getMessage());
         }
@@ -487,6 +474,7 @@ public class Controller implements Initializable {
         setOnChangeSize();
         setFitHeight();
         setImageClick();
+        setHomePath();
 
         initializeLOC();
         initializeSLOMM();
@@ -502,6 +490,27 @@ public class Controller implements Initializable {
     }
 
     //region initialize
+
+    private void setHomePath() {
+
+        File home = FileSystemView.getFileSystemView().getHomeDirectory();
+        File[] files = home.listFiles();
+        File desktop = home;
+
+        try {
+            for (File file : files) {
+                if (file.getPath().contains("Desktop") ||
+                        file.getPath().contains("Schreibtisch")) {
+                    desktop = file;
+                    break;
+                }
+            }
+        } catch (NullPointerException e) {
+            FileUtils.log(Level.WARN, e.getLocalizedMessage());
+        }
+
+        Settings.getInstance().setPath(desktop.getPath());
+    }
 
     private void initializeSlides() {
         slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {

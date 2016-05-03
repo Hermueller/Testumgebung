@@ -112,9 +112,9 @@
                                                                                 <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="234.0" selected="true" text="ON" />
                                                                             </children>
                                                                         </HBox>
-                                                                        <HBox layoutX="25.0" layoutY="165.0" prefHeight="26.0">
+                                                                        <HBox layoutX="25.0" layoutY="165.0" prefHeight="26.0" spacing="20.0">
                                                                             <children>
-                                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="434.0" text="Fix time between screenshots in seconds :">
+                                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="414.0" text="Fix time between screenshots in seconds :">
                                                                                     <font>
                                                                                         <Font size="18.0" />
                                                                                     </font>
@@ -123,7 +123,8 @@
                                                                                 <ImageView fx:id="ivTime" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                                     <HBox.margin>
                                                                                         <Insets left="10.0" />
-                                                                                    </HBox.margin></ImageView>
+                                                                                    </HBox.margin>
+                                                                                </ImageView>
                                                                             </children>
                                                                         </HBox>
                                                                         <HBox prefHeight="37.0" prefWidth="456.0" spacing="20.0">
