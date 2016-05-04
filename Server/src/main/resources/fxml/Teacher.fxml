@@ -134,7 +134,7 @@
                                                                                         <Font size="18.0" />
                                                                                     </font>
                                                                                 </Label>
-                                                                                <TextField fx:id="tfFileExtensions" alignment="CENTER" depthTest="DISABLE" prefHeight="26.0" prefWidth="234.0" promptText="*.java; *.fxml; *.cs; *.xhtml; *.html" text="*.java; *.fxml; *.cs; *.xhtml; *.html" />
+                                                                                <TextField fx:id="tfFileExtensions" alignment="CENTER" depthTest="DISABLE" prefHeight="26.0" prefWidth="234.0" promptText="*.java; *.fxml; *.cs" text="*.java" />
                                                                                 <ImageView fx:id="ivFileExtensions" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                                     <HBox.margin>
                                                                                         <Insets left="10.0" />
@@ -282,10 +282,24 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnKickAll" layoutX="190.0" layoutY="476.0" mnemonicParsing="false" onAction="#kickAllStudents" prefHeight="30.0" prefWidth="147.0" text="Kick All Students" />
-                                          <Button fx:id="btnBanAll" layoutX="610.0" layoutY="476.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Ban All Students" />
+                                          <Button fx:id="btnKickAll" layoutX="190.0" layoutY="559.0" mnemonicParsing="false" onAction="#kickAllStudents" prefHeight="30.0" prefWidth="147.0" text="Kick All Students" />
+                                          <Button fx:id="btnBanAll" layoutX="612.0" layoutY="559.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Ban All Students" />
                                           <Button fx:id="btnSaveChangesStudent" layoutX="398.0" layoutY="220.0" mnemonicParsing="false" onAction="#saveStudentChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
                                           <Button fx:id="btnSaveChanges" layoutX="405.0" layoutY="607.0" mnemonicParsing="false" onAction="#saveAllChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
+                                          <ComboBox fx:id="cbNewFilter" layoutX="189.0" layoutY="472.0" prefWidth="150.0" />
+                                          <ComboBox fx:id="cbUsedFilter" layoutX="609.0" layoutY="472.0" prefWidth="150.0" />
+                                          <Button layoutX="360.0" layoutY="472.0" mnemonicParsing="false" onAction="#addFilter" text="Add" />
+                                          <Label layoutX="29.0" layoutY="472.0" prefHeight="26.0" prefWidth="153.0" text="FileCounter-Filter:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="482.0" layoutY="472.0" prefHeight="26.0" prefWidth="126.0" text="Filters in use:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button layoutX="774.0" layoutY="472.0" mnemonicParsing="false" onAction="#removeFilter" text="Remove" />
                                        </children>
                                     </AnchorPane>
                                 </content>
@@ -294,14 +308,6 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
-                                                        <VBox layoutX="43.0" layoutY="89.0" spacing="30.0">
-                                                            <children>
-                                                                <HBox layoutX="52.0" layoutY="89.0" />
-                                                                <HBox layoutX="52.0" layoutY="130.0" />
-                                                                <HBox layoutX="43.0" layoutY="179.0" />
-                                                                <HBox layoutX="57.0" layoutY="242.0" />
-                                                            </children>
-                                                        </VBox>
                                                         <ImageView fitHeight="655.0" fitWidth="409.0" layoutX="589.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
                                                                 <Image url="@../images/personSketch.png" />

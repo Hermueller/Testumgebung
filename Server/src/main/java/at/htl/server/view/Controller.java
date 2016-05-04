@@ -12,6 +12,8 @@ import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -31,7 +33,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
+import javafx.util.Callback;
 import org.apache.logging.log4j.Level;
 
 import javax.imageio.ImageIO;
@@ -98,6 +104,7 @@ import java.util.jar.Manifest;
  * 25.04.2016: PHI 065  fixed the "log out". Teacher now notices if a student logs out.
  * 03.05.2016: PHI 120  changes the layout of the GUI + implemented the Student-Settings.
  * 04.05.2016: PHI 110  implemented the kickStudent- and the new timeInterval-Function.
+ * 04.05.2016: PHI 050  added the file extension filter
  */
 public class Controller implements Initializable {
 
@@ -183,6 +190,8 @@ public class Controller implements Initializable {
     private ProgressBar pbHarvesterStudent, pbHarvesterStudentAll;
     @FXML
     private Slider slHarvesterStudent, slHarvesterStudentAll;
+    @FXML
+    private ComboBox cbNewFilter, cbUsedFilter;
     //endregion
 
     //region other Variables
@@ -476,6 +485,7 @@ public class Controller implements Initializable {
         initializeLOC();
         initializeSLOMM();
         initializeSlides();
+        initializeNewFilters();
 
         showIP_Address();
         initializeTimeSpinner();
@@ -487,6 +497,73 @@ public class Controller implements Initializable {
     }
 
     //region initialize
+
+    private void initializeNewFilters() {
+        Callback<ListView<String>, ListCell<String>> callback =
+                new Callback<ListView<String>, ListCell<String>>() {
+                    @Override public ListCell<String> call(ListView<String> param) {
+                        final ListCell<String> cell = new ListCell<String>() {
+                            {
+                                super.setPrefWidth(100);
+                            }
+                            @Override public void updateItem(String item,
+                                                             boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item != null) {
+                                    setText(item);
+                                    Rectangle rec = new Rectangle(20, 20);
+                                    if (item.contains("c")) {
+                                        rec.setFill(Color.GOLD);
+                                    }
+                                    switch (item) {
+                                        case ".java":
+                                            rec.setFill(Color.PALEVIOLETRED);
+                                            break;
+                                        case ".cs":
+                                            rec.setFill(Color.ORANGE);
+                                            break;
+                                        case ".c":
+                                            rec.setFill(Color.LIGHTGOLDENRODYELLOW);
+                                            break;
+                                        case ".py":
+                                            rec.setFill(Color.CADETBLUE);
+                                            break;
+                                        case ".html":
+                                            rec.setFill(Color.PINK);
+                                            break;
+                                        case ".js":
+                                            rec.setFill(Color.RED);
+                                            break;
+                                        case ".xhtml":
+                                            rec.setFill(Color.CYAN);
+                                            break;
+                                        case ".css":
+                                            rec.setFill(Color.DARKSLATEGREY);
+                                            break;
+                                        case ".fxml":
+                                            rec.setFill(Color.WHITESMOKE);
+                                            break;
+                                    }
+                                    setGraphic(rec);
+                                }
+                                else {
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+
+        cbNewFilter.getItems().addAll(".java", ".cs", ".c", ".py", ".html", ".js", ".xhtml", ".css", ".fxml");
+        cbNewFilter.setCellFactory(callback);
+        cbNewFilter.setValue(".java");
+
+
+        cbUsedFilter.getItems().add(".java");
+        cbUsedFilter.setCellFactory(callback);
+        cbUsedFilter.setValue(".java");
+    }
 
     private void setHomePath() {
 
@@ -816,7 +893,7 @@ public class Controller implements Initializable {
             }
             String ending = tfFileExtensions.getText();
             if (ending.length() == 0) {
-                ending = "*.java; *.fxml; *.cs; *.xhtml; *.html";
+                ending = "*.java";
             }
 
             if (isRnd) {
@@ -1055,6 +1132,28 @@ public class Controller implements Initializable {
 
             toChange.setInterval(new Interval(new_time));
         }
+    }
+
+    /**
+     * add file-extension filter
+     */
+    @FXML
+    public void addFilter() {
+        String selected = (String)cbNewFilter.getSelectionModel().getSelectedItem();
+
+        if (!cbUsedFilter.getItems().contains(selected)) {
+            cbUsedFilter.getItems().add(selected);
+        }
+    }
+
+    /**
+     * remove file-extension filter
+     */
+    @FXML
+    public void removeFilter() {
+        String selected = (String)cbUsedFilter.getSelectionModel().getSelectedItem();
+
+        cbUsedFilter.getItems().remove(selected);
     }
 
     /**

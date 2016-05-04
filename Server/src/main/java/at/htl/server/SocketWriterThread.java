@@ -61,7 +61,7 @@ class SocketWriterThread extends Thread {
      * @param student The client, of the screenshot and LinesOfCode
      */
     private void sendLittleHarvester(Student student) {
-        jobs.add(new LittleHarvester(student.getName(), student.getPathOfWatch()));
+        jobs.add(new LittleHarvester(student.getName(), student.getPathOfWatch(), student.getFilter()));
     }
 
 

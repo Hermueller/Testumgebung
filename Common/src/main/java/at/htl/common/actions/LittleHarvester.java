@@ -28,10 +28,12 @@ public class LittleHarvester implements RobotAction {
 
     private final String studentName;
     private final String studentPath;
+    private final String[] filter;
 
-    public LittleHarvester(String studentName, String studentPath) {
+    public LittleHarvester(String studentName, String studentPath, String[] filter) {
         this.studentName = studentName;
         this.studentPath = studentPath;
+        this.filter = filter;
     }
 
     public Object execute(Robot robot) throws IOException {
@@ -43,7 +45,7 @@ public class LittleHarvester implements RobotAction {
         }
         previous.set(bytes);
 
-        long loc = LineCounter.getInstance().countLinesInFilesFromFolder(new File(studentPath));
+        long loc = LineCounter.getInstance().countLinesInFilesFromFolder(new File(studentPath), filter);
 
         return new HarvestedPackage(bytes, loc, LineCounter.getInstance().isFinished());
     }

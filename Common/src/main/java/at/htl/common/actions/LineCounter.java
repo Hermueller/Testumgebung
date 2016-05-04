@@ -71,14 +71,14 @@ public class LineCounter {
      *
      * @since 1.2.9.002
      */
-    public long countLinesInFilesFromFolder(final File folder) {
+    public long countLinesInFilesFromFolder(final File folder, String[] filter) {
         long allLines = 0;
 
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
-                allLines += countLinesInFilesFromFolder(fileEntry);
+                allLines += countLinesInFilesFromFolder(fileEntry, filter);
             } else {
-                for (String ending : "*.java; *.fxml; *.cs; *.xhtml; *.html".split(";")) {
+                for (String ending : filter) {
                     if (fileEntry.getName().endsWith("." + ending.split("\\.")[1])) {
                         allLines += countLines(fileEntry.getPath());
                     }
