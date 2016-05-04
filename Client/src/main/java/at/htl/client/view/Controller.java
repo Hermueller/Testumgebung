@@ -86,9 +86,9 @@ public class Controller implements Initializable {
     @FXML
     public void defaultSettings() {
         tfServerIP.setText("localhost");
-        tfPort.setText("5555");
-        tfEnrolmentID.setText("max");
-        tfCatalogNumber.setText("99");
+        tfPort.setText("50555");
+        tfEnrolmentID.setText("in120001");
+        tfCatalogNumber.setText("01");
         tfFirstName.setText("Max");
         tfLastName.setText("Mustermann");
         tfPathOfProject.setText("/local/testC");

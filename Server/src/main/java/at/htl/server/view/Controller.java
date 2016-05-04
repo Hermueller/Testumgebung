@@ -1,7 +1,7 @@
 package at.htl.server.view;
 
 import at.htl.common.MyUtils;
-import at.htl.common.Student;
+import at.htl.server.entity.Student;
 import at.htl.common.TimeSpinner;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.fx.StudentView;
@@ -11,9 +11,7 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
-import com.sun.istack.internal.NotNull;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -99,6 +97,7 @@ import java.util.jar.Manifest;
  * 14.04.2016: PON 120  created method for patrol-mode
  * 25.04.2016: PHI 065  fixed the "log out". Teacher now notices if a student logs out.
  * 03.05.2016: PHI 120  changes the layout of the GUI + implemented the Student-Settings.
+ * 04.05.2016: PHI 110  implemented the kickStudent- and the new timeInterval-Function.
  */
 public class Controller implements Initializable {
 
@@ -184,8 +183,6 @@ public class Controller implements Initializable {
     private ProgressBar pbHarvesterStudent, pbHarvesterStudentAll;
     @FXML
     private Slider slHarvesterStudent, slHarvesterStudentAll;
-    @FXML
-    private Button btnKickStudent, btnBanStudent, btnSaveChangesStudent, btnSaveChanges, btnKickAll, btnBanAll;
     //endregion
 
     //region other Variables
@@ -987,6 +984,76 @@ public class Controller implements Initializable {
             tfTimeSS.setDisable(false);
             tfTimeSS.setEditable(true);
             TB_SS_rnd.setText("OFF");
+        }
+    }
+
+    /**
+     * kicks the selected student.
+     */
+    @FXML
+    public void kickStudent() {
+        Button selected = (Button)StudentView.getInstance()
+                    .getLv().getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            kick(selected.getText());
+        }
+    }
+
+    /**
+     * kicks all connected students.
+     */
+    @FXML
+    public void kickAllStudents() {
+        List<Button> students = Settings.getInstance().getObservableList();
+
+        for (Button student : students) {
+            kick(student.getText());
+        }
+    }
+
+    /**
+     * kicks a student.
+     * @param name  Specifies the name of the student.
+     */
+    public void kick(String name) {
+        Student toKick = Settings.getInstance()
+                .findStudentByName(name);
+        try {
+            toKick.getServer().socket.close();
+        } catch (IOException e) {
+            FileUtils.log(Level.WARN, e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * changes the time interval of the selected student.
+     */
+    @FXML
+    public void saveStudentChanges() {
+        long new_time = (long)slHarvesterStudent.getValue();
+
+        Button selected = (Button)StudentView.getInstance()
+                .getLv().getSelectionModel().getSelectedItem();
+        Student toChange = Settings.getInstance()
+                .findStudentByName(selected.getText());
+
+        toChange.setInterval(new Interval(new_time));
+    }
+
+    /**
+     * changes the time interval of all students.
+     */
+    @FXML
+    public void saveAllChanges() {
+        long new_time = (long)slHarvesterStudentAll.getValue();
+
+        List<Button> students = Settings.getInstance().getObservableList();
+
+        for (Button student : students) {
+            Student toChange = Settings.getInstance()
+                    .findStudentByName(student.getText());
+
+            toChange.setInterval(new Interval(new_time));
         }
     }
 

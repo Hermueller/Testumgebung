@@ -30,6 +30,7 @@ public class Client {
     private final ObjectInputStream in;
     private final Robot robot;
     private RobotActionQueue jobs;
+    private Socket socket;
     private final ProcessorThread processor;
     private final ReaderThread reader;
     private final LoginPackage loginPackage;
@@ -37,7 +38,7 @@ public class Client {
     public Client(LoginPackage loginPackage)
             throws IOException, AWTException {
         this.loginPackage = loginPackage;
-        Socket socket = new Socket(loginPackage.getServerIP(), loginPackage.getPort());
+        socket = new Socket(loginPackage.getServerIP(), loginPackage.getPort());
         FileUtils.createDirectory(loginPackage.getDirOfWatch());
         robot = new Robot();
         jobs = new RobotActionQueue();
@@ -123,23 +124,22 @@ public class Client {
 
         public void run() {
             try {
-                while (!isInterrupted()) {
-                    try {
-                        RobotAction action = jobs.take();
-                        Object result = action.execute(robot);
-                        if (result != null) {
-                            getOut().writeObject(result);
-                            getOut().reset();
-                            getOut().flush();
-                        }
-                    } catch (InterruptedException e) {
-                        interrupt();
-                        break;
+                while (!isInterrupted() && socket.isConnected()) {
+                    RobotAction action = jobs.take();
+                    Object result = action.execute(robot);
+                    if (result != null) {
+                        getOut().writeObject(result);
+                        getOut().reset();
+                        getOut().flush();
                     }
                 }
+            } catch (InterruptedException e) {
+                interrupt();
             } catch (IOException e) {
                 FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.exToStr(e));
             }
+
+            Platform.runLater(() -> FxUtils.showPopUp("LOST CONNECTION", false));
         }
     }
 

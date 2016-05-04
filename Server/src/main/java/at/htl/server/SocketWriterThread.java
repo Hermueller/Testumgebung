@@ -1,7 +1,7 @@
 package at.htl.server;
 
 import at.htl.common.MyUtils;
-import at.htl.common.Student;
+import at.htl.server.entity.Student;
 import at.htl.common.actions.LittleHarvester;
 import at.htl.common.actions.RobotAction;
 import at.htl.common.actions.RobotActionQueue;
@@ -50,7 +50,7 @@ class SocketWriterThread extends Thread {
      * @return the time to wait.
      */
     public long getWaitTime() {
-        return Settings.getInstance().getInterval();
+        return student.getInterval().getValue();
     }
 
     /**

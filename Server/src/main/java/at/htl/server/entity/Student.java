@@ -1,7 +1,8 @@
-package at.htl.common;
+package at.htl.server.entity;
 
 import at.htl.common.actions.TimeShower;
 import at.htl.common.io.FileUtils;
+import at.htl.server.Server;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * 06.01.2016: PHI 015  Fehler beim hinzufügen von "Series" entdeckt und ausgebessert.
  * 25.03.2016: PHI 010  lines of code will be shown in the student-info TAB
  * 14.04.2016: MET 003  setPathOfImages corrected
+ * 04.05.2016: PHI 005  added new variables
  */
 public class Student {
 
@@ -29,6 +31,10 @@ public class Student {
     private String firstName;
     private String enrolmentID;
     private int catalogNumber;
+
+    private Server server;
+    private String[] filter;
+    private Interval interval;
 
     private List<Long> locs = new LinkedList<>();
     private List<Long> times = new LinkedList<>();
@@ -73,6 +79,30 @@ public class Student {
 
     public void setCatalogNumber(int catalogNumber) {
         this.catalogNumber = catalogNumber;
+    }
+
+    public Server getServer() {
+        return server;
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
+    }
+
+    public String[] getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String[] filter) {
+        this.filter = filter;
+    }
+
+    public Interval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(Interval interval) {
+        this.interval = interval;
     }
 
     public void setPathOfImages(String path) {

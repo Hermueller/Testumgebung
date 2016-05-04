@@ -1,7 +1,7 @@
 package at.htl.server;
 
 import at.htl.common.MyUtils;
-import at.htl.common.Student;
+import at.htl.server.entity.Student;
 import at.htl.common.io.FileUtils;
 import at.htl.common.trasfer.HarvestedPackage;
 import org.apache.logging.log4j.Level;

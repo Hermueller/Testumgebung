@@ -1,11 +1,12 @@
 package at.htl.server;
 
-import at.htl.common.Student;
+import at.htl.server.entity.Student;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.common.io.ScreenShot;
 import at.htl.common.trasfer.LoginPackage;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import org.apache.logging.log4j.Level;
 
@@ -39,9 +40,11 @@ public class Server {
     private final SocketWriterThread writer;
     private final SocketReaderThread reader;
 
+    public Socket socket;
+
     public Server(Socket socket) throws IOException, ClassNotFoundException {
 
-
+        this.socket = socket;
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(
                 new BufferedInputStream(
@@ -78,6 +81,10 @@ public class Server {
 
         reader.start();
         writer.start();
+
+        student.setServer(this);
+        student.setFilter(Settings.getInstance().getEndings());
+        student.setInterval(Settings.getInstance().getIntervalObject());
 
         FileUtils.log(this, Level.INFO, "finished connecting to " + socket);
     }

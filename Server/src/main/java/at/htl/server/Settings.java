@@ -1,6 +1,6 @@
 package at.htl.server;
 
-import at.htl.common.Student;
+import at.htl.server.entity.Student;
 import at.htl.common.actions.TimeShower;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
@@ -229,6 +229,13 @@ public class Settings {
      */
     public long getInterval() {
         return interval.getValue();
+    }
+
+    /**
+     * @return the object which includes the time interval
+     */
+    public Interval getIntervalObject() {
+        return interval;
     }
 
     /**

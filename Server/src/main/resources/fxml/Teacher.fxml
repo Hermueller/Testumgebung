@@ -263,7 +263,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnKickStudent" layoutX="190.0" layoutY="162.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Kick Student" />
+                                          <Button fx:id="btnKickStudent" layoutX="190.0" layoutY="162.0" mnemonicParsing="false" onAction="#kickStudent" prefHeight="30.0" prefWidth="147.0" text="Kick Student" />
                                           <Button fx:id="btnBanStudent" layoutX="610.0" layoutY="162.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Ban Student" />
                                           <Label alignment="CENTER" layoutX="315.0" layoutY="294.0" prefHeight="43.0" prefWidth="370.0" text="All Students Settings:">
                                              <font>
@@ -282,10 +282,10 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnKickAll" layoutX="190.0" layoutY="476.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Kick All Students" />
+                                          <Button fx:id="btnKickAll" layoutX="190.0" layoutY="476.0" mnemonicParsing="false" onAction="#kickAllStudents" prefHeight="30.0" prefWidth="147.0" text="Kick All Students" />
                                           <Button fx:id="btnBanAll" layoutX="610.0" layoutY="476.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Ban All Students" />
-                                          <Button fx:id="btnSaveChangesStudent" layoutX="398.0" layoutY="220.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
-                                          <Button fx:id="btnSaveChanges" layoutX="405.0" layoutY="607.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
+                                          <Button fx:id="btnSaveChangesStudent" layoutX="398.0" layoutY="220.0" mnemonicParsing="false" onAction="#saveStudentChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
+                                          <Button fx:id="btnSaveChanges" layoutX="405.0" layoutY="607.0" mnemonicParsing="false" onAction="#saveAllChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
                                        </children>
                                     </AnchorPane>
                                 </content>
