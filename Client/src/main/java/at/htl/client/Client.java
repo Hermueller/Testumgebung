@@ -166,7 +166,8 @@ public class Client {
      */
     public void stop() {
 
-        RobotAction action = new LittleHarvester(loginPackage.getLastname(), loginPackage.getDirOfWatch());
+        RobotAction action = new LittleHarvester(
+                loginPackage.getLastname(), loginPackage.getDirOfWatch(), new String[0]);
 
         try {
             Object result = action.execute(robot);

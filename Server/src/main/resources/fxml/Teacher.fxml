@@ -246,7 +246,7 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label alignment="CENTER" layoutX="314.0" layoutY="16.0" prefHeight="43.0" prefWidth="370.0" text="Selected Student Settings:">
+                                          <Label fx:id="lbSettingsHeader" alignment="CENTER" layoutX="314.0" layoutY="16.0" prefHeight="43.0" prefWidth="370.0" text="Selected Student Settings:">
                                              <font>
                                                  <Font name="System Bold" size="19.0" />
                                              </font>
@@ -263,43 +263,24 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnKickStudent" layoutX="190.0" layoutY="162.0" mnemonicParsing="false" onAction="#kickStudent" prefHeight="30.0" prefWidth="147.0" text="Kick Student" />
-                                          <Button fx:id="btnBanStudent" layoutX="610.0" layoutY="162.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Ban Student" />
-                                          <Label alignment="CENTER" layoutX="315.0" layoutY="294.0" prefHeight="43.0" prefWidth="370.0" text="All Students Settings:">
-                                             <font>
-                                                <Font name="System Bold" size="19.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="29.0" layoutY="387.0" prefHeight="26.0" prefWidth="212.0" text="Harvester Timeinterval:">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <ProgressBar fx:id="pbHarvesterStudentAll" layoutX="262.0" layoutY="390.0" prefHeight="16.0" prefWidth="252.0" progress="0.0" />
-                                          <Slider fx:id="slHarvesterStudentAll" layoutX="257.0" layoutY="378.0" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="263.0" value="1.0" />
-                                          <Label fx:id="lbTimeIntervalAll" layoutX="562.0" layoutY="387.0" prefHeight="26.0" prefWidth="212.0" text="00 Seconds">
+                                          <Button fx:id="btnKickStudent" layoutX="199.0" layoutY="507.0" mnemonicParsing="false" onAction="#kickStudent" prefHeight="30.0" prefWidth="147.0" text="Kick Student" />
+                                          <Button fx:id="btnBanStudent" layoutX="619.0" layoutY="507.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Ban Student" />
+                                          <Button fx:id="btnSaveChangesStudent" layoutX="409.0" layoutY="588.0" mnemonicParsing="false" onAction="#saveStudentChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
+                                          <ComboBox fx:id="cbNewFilter" layoutX="189.0" layoutY="213.0" prefWidth="150.0" />
+                                          <ComboBox fx:id="cbUsedFilter" layoutX="609.0" layoutY="213.0" prefWidth="150.0" />
+                                          <Button layoutX="360.0" layoutY="213.0" mnemonicParsing="false" onAction="#addFilter" text="Add" />
+                                          <Label layoutX="29.0" layoutY="213.0" prefHeight="26.0" prefWidth="153.0" text="FileCounter-Filter:">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnKickAll" layoutX="190.0" layoutY="559.0" mnemonicParsing="false" onAction="#kickAllStudents" prefHeight="30.0" prefWidth="147.0" text="Kick All Students" />
-                                          <Button fx:id="btnBanAll" layoutX="612.0" layoutY="559.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Ban All Students" />
-                                          <Button fx:id="btnSaveChangesStudent" layoutX="398.0" layoutY="220.0" mnemonicParsing="false" onAction="#saveStudentChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
-                                          <Button fx:id="btnSaveChanges" layoutX="405.0" layoutY="607.0" mnemonicParsing="false" onAction="#saveAllChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
-                                          <ComboBox fx:id="cbNewFilter" layoutX="189.0" layoutY="472.0" prefWidth="150.0" />
-                                          <ComboBox fx:id="cbUsedFilter" layoutX="609.0" layoutY="472.0" prefWidth="150.0" />
-                                          <Button layoutX="360.0" layoutY="472.0" mnemonicParsing="false" onAction="#addFilter" text="Add" />
-                                          <Label layoutX="29.0" layoutY="472.0" prefHeight="26.0" prefWidth="153.0" text="FileCounter-Filter:">
+                                          <Label layoutX="482.0" layoutY="213.0" prefHeight="26.0" prefWidth="126.0" text="Filters in use:">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="482.0" layoutY="472.0" prefHeight="26.0" prefWidth="126.0" text="Filters in use:">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Button layoutX="774.0" layoutY="472.0" mnemonicParsing="false" onAction="#removeFilter" text="Remove" />
+                                          <Button layoutX="774.0" layoutY="213.0" mnemonicParsing="false" onAction="#removeFilter" text="Remove" />
+                                          <ToggleButton fx:id="tbToggleSettings" layoutX="29.0" layoutY="25.0" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="26.0" prefWidth="195.0" text="Apply for &quot;All Students&quot;" />
                                        </children>
                                     </AnchorPane>
                                 </content>

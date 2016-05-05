@@ -105,6 +105,7 @@ import java.util.jar.Manifest;
  * 03.05.2016: PHI 120  changes the layout of the GUI + implemented the Student-Settings.
  * 04.05.2016: PHI 110  implemented the kickStudent- and the new timeInterval-Function.
  * 04.05.2016: PHI 050  added the file extension filter
+ * 05.05.2016: PHI 045  applied the file extension filter (it can be used now [bugfix]) + Layout changed
  */
 public class Controller implements Initializable {
 
@@ -185,13 +186,15 @@ public class Controller implements Initializable {
 
     //region Student-Settings Variables
     @FXML
-    private Label lbAddress, lbTimeInterval, lbTimeIntervalAll;
+    private Label lbAddress, lbTimeInterval, lbSettingsHeader;
     @FXML
-    private ProgressBar pbHarvesterStudent, pbHarvesterStudentAll;
+    private ProgressBar pbHarvesterStudent;
     @FXML
-    private Slider slHarvesterStudent, slHarvesterStudentAll;
+    private Slider slHarvesterStudent;
     @FXML
     private ComboBox cbNewFilter, cbUsedFilter;
+    @FXML
+    private ToggleButton tbToggleSettings;
     //endregion
 
     //region other Variables
@@ -217,6 +220,367 @@ public class Controller implements Initializable {
     public Controller() {
 
     }
+
+    /**
+     * LOAD standard values.
+     *
+     * @param location
+     * @param resources
+     */
+    public void initialize(URL location, ResourceBundle resources) {
+        lvStudents.setItems(Settings.getInstance().getObservableList());
+        StudentView.getInstance().setIv(ivLiveView);
+        StudentView.getInstance().setLv(lvStudents);
+        Settings.getInstance().setLogArea(anchorPaneScrollLog);
+        scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        setDynamicScreenSize();
+        setVersionAnchor();
+        setOnChangeSize();
+        setFitHeight();
+        setImageClick();
+        setHomePath();
+
+        initializeLOC();
+        initializeSLOMM();
+        initializeSlides();
+        initializeNewFilters();
+
+        showIP_Address();
+        initializeTimeSpinner();
+        readProperties();
+
+        btnStart.setDisable(false);
+        btnStop.setDisable(true);
+        Settings.getInstance().setStartTime(LocalTime.now());
+    }
+
+    //region initialize
+
+    private void initializeNewFilters() {
+        Callback<ListView<String>, ListCell<String>> callback =
+                new Callback<ListView<String>, ListCell<String>>() {
+                    @Override public ListCell<String> call(ListView<String> param) {
+                        final ListCell<String> cell = new ListCell<String>() {
+                            {
+                                super.setPrefWidth(100);
+                            }
+                            @Override public void updateItem(String item,
+                                                             boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item != null) {
+                                    setText(item);
+                                    Rectangle rec = new Rectangle(20, 20);
+                                    if (item.contains("c")) {
+                                        rec.setFill(Color.GOLD);
+                                    }
+                                    switch (item) {
+                                        case ".java":
+                                            rec.setFill(Color.PALEVIOLETRED);
+                                            break;
+                                        case ".cs":
+                                            rec.setFill(Color.ORANGE);
+                                            break;
+                                        case ".c":
+                                            rec.setFill(Color.LIGHTGOLDENRODYELLOW);
+                                            break;
+                                        case ".py":
+                                            rec.setFill(Color.CADETBLUE);
+                                            break;
+                                        case ".html":
+                                            rec.setFill(Color.PINK);
+                                            break;
+                                        case ".js":
+                                            rec.setFill(Color.RED);
+                                            break;
+                                        case ".xhtml":
+                                            rec.setFill(Color.CYAN);
+                                            break;
+                                        case ".css":
+                                            rec.setFill(Color.DARKSLATEGREY);
+                                            break;
+                                        case ".fxml":
+                                            rec.setFill(Color.WHITESMOKE);
+                                            break;
+                                    }
+                                    setGraphic(rec);
+                                }
+                                else {
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+
+        cbNewFilter.getItems().addAll(".java", ".cs", ".c", ".py", ".html", ".js", ".xhtml", ".css", ".fxml");
+        cbNewFilter.setCellFactory(callback);
+        cbNewFilter.setValue(".java");
+
+
+        cbUsedFilter.getItems().add(".java");
+        cbUsedFilter.setCellFactory(callback);
+        cbUsedFilter.setValue(".java");
+    }
+
+    private void setHomePath() {
+
+        File home = FileSystemView.getFileSystemView().getHomeDirectory();
+        File[] files = home.listFiles();
+        File desktop = home;
+
+        try {
+            for (File file : files) {
+                if (file.getPath().contains("Desktop") ||
+                        file.getPath().contains("Schreibtisch")) {
+                    desktop = file;
+                    break;
+                }
+            }
+        } catch (NullPointerException e) {
+            FileUtils.log(Level.WARN, e.getLocalizedMessage());
+        }
+
+        Settings.getInstance().setPath(desktop.getPath());
+    }
+
+    private void initializeSlides() {
+        slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {
+            pbHarvesterStudent.setProgress(new_val.doubleValue() / 60);
+            String time = (new_val.intValue() < 10) ?
+                    "0" + new_val.toString().substring(0,1) :
+                    new_val.toString().substring(0,2);
+            lbTimeInterval.setText(time + " Seconds");
+        });
+    }
+
+    private void initializeTimeSpinner() {
+        TimeSpinner spinner = new TimeSpinner();
+        TimeSpinner startspinner = new TimeSpinner();
+        final boolean[] alreadyaddedtime = {false};
+        final LocalTime[] time = new LocalTime[1];
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+        spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            btnaddTime.setOnAction(event -> {
+                if(alreadyaddedtime[0]){
+                    spinner.setMode(TimeSpinner.Mode.MINUTES);
+                    spinner.increment(10);
+                    Settings.getInstance().setEndTime(Settings.getInstance().getEndTime().plusMinutes(10));
+                }
+                else {
+                    spinner.setMode(TimeSpinner.Mode.MINUTES);
+                    spinner.increment(10);
+                    Settings.getInstance().setEndTime(newValue.plusMinutes(10));
+                }
+
+
+                System.out.println("ADDED 10 MINIUTES "+time[0]);
+                alreadyaddedtime[0] =true;
+            });
+            System.out.println("NEW TIME  "+newValue);
+        });
+
+
+        apTime.getChildren().add(spinner);
+        apstarttime.getChildren().add(startspinner);
+
+
+        startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            Settings.getInstance().setStartTime(newValue);
+            System.out.println("NEW STARTTIME  "+newValue);
+        });
+    }
+
+    private LocalTime doSomething(LocalTime newTime, boolean addtime) {
+        System.out.println(newTime);
+        if (addtime) {
+            newTime.plusMinutes(10);
+            System.out.println("NEW TIME " + newTime);
+        }
+
+        if (LocalTime.now() == newTime) {
+            System.out.println("ABGABE");
+            //directory.zip(Session.getInstance().getPath());
+        }
+        return newTime;
+    }
+
+    public void deleteFiles(ActionEvent actionEvent){
+        FileChooser fc = new FileChooser();
+        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
+        File yourZip = fc.showOpenDialog(new Stage());
+
+        // Check the user pressed OK, and not Cancel.
+        if (yourZip != null) {
+            Settings.getInstance().setHandOutFile(yourZip);
+        }
+    }
+
+    /**
+     * show the version number always in the bottom right corner.
+     */
+    private void setVersionAnchor() {
+        AnchorPane.setBottomAnchor(lbVersion, 10.0);
+        AnchorPane.setRightAnchor(lbVersion, 10.0);
+    }
+
+    /**
+     * show screenshot in fullscreen on click.
+     * <br /><br />
+     * The Github-issue to this method:
+     * <br />
+     * https://github.com/BeatingAngel/Testumgebung/issues/16
+     *
+     * @since 1.11.21.067
+     */
+    private void setImageClick() {
+        ivLiveView.setOnMouseClicked(event -> {
+            Stage stage = new Stage();
+            ImageView iv = new ImageView(ivLiveView.getImage());
+            AnchorPane root = new AnchorPane(iv);
+            Scene scene = new Scene(root, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
+            stage.setScene(scene);
+            AnchorPane.setLeftAnchor(iv, (Screen.getPrimary().getBounds().getWidth() - iv.getImage().getWidth()) / 2);
+            AnchorPane.setTopAnchor(iv, (Screen.getPrimary().getBounds().getHeight() - iv.getImage().getHeight()) / 2);
+            iv.setOnMouseClicked(event1 -> stage.close());
+            stage.show();
+        });
+    }
+
+    /**
+     * show the path as a tooltip.
+     * <br /><br />
+     * The Github-issue to this method:
+     * <br />
+     * https://github.com/BeatingAngel/Testumgebung/issues/7
+     *
+     * @since
+     */
+    private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
+        Tooltip mousePositionToolTip = new Tooltip("");
+        lbPath.setOnMouseMoved(event -> {
+            String msg = Settings.getInstance().getPath();
+            if (msg != null) {
+                mousePositionToolTip.setText(msg);
+
+                Node node = (Node) event.getSource();
+                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
+            }
+        });
+        lbAngabe.setOnMouseMoved(event -> {
+            File file = Settings.getInstance().getHandOutFile();
+            if (file != null) {
+                mousePositionToolTip.setText(file.getPath());
+
+                Node node = (Node) event.getSource();
+                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
+            }
+        });
+        lbPath.setOnMouseExited(event -> mousePositionToolTip.hide());
+        lbAngabe.setOnMouseExited(event -> mousePositionToolTip.hide());
+    }
+
+    /**
+     * if the SelectedStudent changes, the Chart and ImageView
+     * is cleared.
+     */
+    private void setOnChangeSize() {
+        lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            //   CHANGE LINECHART
+            loc.getData().clear();
+            Student st = Settings.getInstance().findStudentByName(newValue.getText());
+            if (st != null && st.getSeries() != null) {
+                for (XYChart.Series<Number, Number> actualSeries : st.getSeries()) {
+                    loc.getData().add(actualSeries);
+                }
+            }
+
+            //   CHANGE SCREENSHOT
+            String pathOfLastScreenshot = getLastScreenshot(newValue.getText());
+            if (pathOfLastScreenshot == null) {
+                pathOfLastScreenshot = "images/loading.gif";
+            }
+            ivLiveView.setImage(new Image(pathOfLastScreenshot));
+
+            //   CHANGE STUDENT-INFO-DATA
+            if (st != null) {
+                String nr = Integer.toString(st.getCatalogNumber());
+                lbFirstName.setText(st.getFirstName());
+                lbLastName.setText(st.getName());
+                lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
+                lbEnrolmentID.setText(st.getEnrolmentID());
+                ObservableList<XYChart.Data<Number, Number>> ol =
+                        st.getSeries().get(st.getSeries().size() - 1).getData();
+                Long locVal = (Long)ol.get(ol.size() - 1).getYValue();
+            }
+        });
+    }
+
+
+
+    /**
+     * sets the size of the images, which are shown after starting/stopping the server
+     */
+    private void setFitHeight() {
+        ivPort.setFitHeight(25);
+        ivAngabe.setFitHeight(25);
+        ivPath.setFitHeight(25);
+        ivTime.setFitHeight(25);
+        ivFileExtensions.setFitHeight(25);
+    }
+
+    /**
+     * if the screensize changes, the size of the image and chart changes too.
+     */
+    private void setDynamicScreenSize() {
+        apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
+            ivLiveView.setFitWidth((double) newValue);
+            loc.setPrefWidth((double) newValue);
+        });
+        bpDataView.heightProperty().addListener((observable, oldValue, newValue) -> {
+            ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
+        });
+        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
+        });
+        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
+        });
+        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
+        });
+        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setTopAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefHeight() / 2);
+        });
+        ivLiveView.setPreserveRatio(true);
+        ivLiveView.setSmooth(true);
+        ivLiveView.setCache(true);
+    }
+
+    /**
+     * edits the chart and saves it in the settings
+     */
+    private void initializeLOC() {
+        Settings.getInstance().setChart(loc);
+
+        loc.setCursor(Cursor.CROSSHAIR);
+    }
+
+    /**
+     * shows the IP-Address of the Teacher.
+     */
+    public void showIP_Address() {
+        String ip = "";
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
+        }
+        lbAddress.setText(ip + " : 50555");
+    }
+    //endregion
 
     //region Export-Methods
 
@@ -463,374 +827,6 @@ public class Controller implements Initializable {
     //endregion
 
     /**
-     * LOAD standard values.
-     *
-     * @param location
-     * @param resources
-     */
-    public void initialize(URL location, ResourceBundle resources) {
-        lvStudents.setItems(Settings.getInstance().getObservableList());
-        StudentView.getInstance().setIv(ivLiveView);
-        StudentView.getInstance().setLv(lvStudents);
-        Settings.getInstance().setLogArea(anchorPaneScrollLog);
-        scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        setDynamicScreenSize();
-        setVersionAnchor();
-        setOnChangeSize();
-        setFitHeight();
-        setImageClick();
-        setHomePath();
-
-        initializeLOC();
-        initializeSLOMM();
-        initializeSlides();
-        initializeNewFilters();
-
-        showIP_Address();
-        initializeTimeSpinner();
-        readProperties();
-
-        btnStart.setDisable(false);
-        btnStop.setDisable(true);
-        Settings.getInstance().setStartTime(LocalTime.now());
-    }
-
-    //region initialize
-
-    private void initializeNewFilters() {
-        Callback<ListView<String>, ListCell<String>> callback =
-                new Callback<ListView<String>, ListCell<String>>() {
-                    @Override public ListCell<String> call(ListView<String> param) {
-                        final ListCell<String> cell = new ListCell<String>() {
-                            {
-                                super.setPrefWidth(100);
-                            }
-                            @Override public void updateItem(String item,
-                                                             boolean empty) {
-                                super.updateItem(item, empty);
-                                if (item != null) {
-                                    setText(item);
-                                    Rectangle rec = new Rectangle(20, 20);
-                                    if (item.contains("c")) {
-                                        rec.setFill(Color.GOLD);
-                                    }
-                                    switch (item) {
-                                        case ".java":
-                                            rec.setFill(Color.PALEVIOLETRED);
-                                            break;
-                                        case ".cs":
-                                            rec.setFill(Color.ORANGE);
-                                            break;
-                                        case ".c":
-                                            rec.setFill(Color.LIGHTGOLDENRODYELLOW);
-                                            break;
-                                        case ".py":
-                                            rec.setFill(Color.CADETBLUE);
-                                            break;
-                                        case ".html":
-                                            rec.setFill(Color.PINK);
-                                            break;
-                                        case ".js":
-                                            rec.setFill(Color.RED);
-                                            break;
-                                        case ".xhtml":
-                                            rec.setFill(Color.CYAN);
-                                            break;
-                                        case ".css":
-                                            rec.setFill(Color.DARKSLATEGREY);
-                                            break;
-                                        case ".fxml":
-                                            rec.setFill(Color.WHITESMOKE);
-                                            break;
-                                    }
-                                    setGraphic(rec);
-                                }
-                                else {
-                                    setText(null);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-
-        cbNewFilter.getItems().addAll(".java", ".cs", ".c", ".py", ".html", ".js", ".xhtml", ".css", ".fxml");
-        cbNewFilter.setCellFactory(callback);
-        cbNewFilter.setValue(".java");
-
-
-        cbUsedFilter.getItems().add(".java");
-        cbUsedFilter.setCellFactory(callback);
-        cbUsedFilter.setValue(".java");
-    }
-
-    private void setHomePath() {
-
-        File home = FileSystemView.getFileSystemView().getHomeDirectory();
-        File[] files = home.listFiles();
-        File desktop = home;
-
-        try {
-            for (File file : files) {
-                if (file.getPath().contains("Desktop") ||
-                        file.getPath().contains("Schreibtisch")) {
-                    desktop = file;
-                    break;
-                }
-            }
-        } catch (NullPointerException e) {
-            FileUtils.log(Level.WARN, e.getLocalizedMessage());
-        }
-
-        Settings.getInstance().setPath(desktop.getPath());
-    }
-
-    private void initializeSlides() {
-        slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {
-            pbHarvesterStudent.setProgress(new_val.doubleValue() / 60);
-            String time = (new_val.intValue() < 10) ?
-                    "0" + new_val.toString().substring(0,1) :
-                    new_val.toString().substring(0,2);
-            lbTimeInterval.setText(time + " Seconds");
-        });
-        slHarvesterStudentAll.valueProperty().addListener((ov, old_val, new_val) -> {
-            pbHarvesterStudentAll.setProgress(new_val.doubleValue() / 60);
-            String time = (new_val.intValue() < 10) ?
-                    "0" + new_val.toString().substring(0,1) :
-                    new_val.toString().substring(0,2);
-            lbTimeIntervalAll.setText(time + " Seconds");
-        });
-    }
-
-    private void initializeTimeSpinner() {
-        TimeSpinner spinner = new TimeSpinner();
-        TimeSpinner startspinner = new TimeSpinner();
-        final boolean[] alreadyaddedtime = {false};
-        final LocalTime[] time = new LocalTime[1];
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
-        spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            btnaddTime.setOnAction(event -> {
-                if(alreadyaddedtime[0]){
-                    spinner.setMode(TimeSpinner.Mode.MINUTES);
-                    spinner.increment(10);
-                    Settings.getInstance().setEndTime(Settings.getInstance().getEndTime().plusMinutes(10));
-                }
-                else {
-                    spinner.setMode(TimeSpinner.Mode.MINUTES);
-                    spinner.increment(10);
-                    Settings.getInstance().setEndTime(newValue.plusMinutes(10));
-                }
-
-
-                System.out.println("ADDED 10 MINIUTES "+time[0]);
-                alreadyaddedtime[0] =true;
-            });
-            System.out.println("NEW TIME  "+newValue);
-        });
-
-
-        apTime.getChildren().add(spinner);
-        apstarttime.getChildren().add(startspinner);
-
-
-        startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Settings.getInstance().setStartTime(newValue);
-            System.out.println("NEW STARTTIME  "+newValue);
-        });
-    }
-
-    private LocalTime doSomething(LocalTime newTime, boolean addtime) {
-        System.out.println(newTime);
-        if (addtime) {
-            newTime.plusMinutes(10);
-            System.out.println("NEW TIME " + newTime);
-        }
-
-        if (LocalTime.now() == newTime) {
-            System.out.println("ABGABE");
-            //directory.zip(Session.getInstance().getPath());
-        }
-        return newTime;
-    }
-
-    public void deleteFiles(ActionEvent actionEvent){
-        FileChooser fc = new FileChooser();
-        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
-        File yourZip = fc.showOpenDialog(new Stage());
-
-        // Check the user pressed OK, and not Cancel.
-        if (yourZip != null) {
-            Settings.getInstance().setHandOutFile(yourZip);
-        }
-    }
-
-    /**
-     * show the version number always in the bottom right corner.
-     */
-    private void setVersionAnchor() {
-        AnchorPane.setBottomAnchor(lbVersion, 10.0);
-        AnchorPane.setRightAnchor(lbVersion, 10.0);
-    }
-
-    /**
-     * show screenshot in fullscreen on click.
-     * <br /><br />
-     * The Github-issue to this method:
-     * <br />
-     * https://github.com/BeatingAngel/Testumgebung/issues/16
-     *
-     * @since 1.11.21.067
-     */
-    private void setImageClick() {
-        ivLiveView.setOnMouseClicked(event -> {
-            Stage stage = new Stage();
-            ImageView iv = new ImageView(ivLiveView.getImage());
-            AnchorPane root = new AnchorPane(iv);
-            Scene scene = new Scene(root, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
-            stage.setScene(scene);
-            AnchorPane.setLeftAnchor(iv, (Screen.getPrimary().getBounds().getWidth() - iv.getImage().getWidth()) / 2);
-            AnchorPane.setTopAnchor(iv, (Screen.getPrimary().getBounds().getHeight() - iv.getImage().getHeight()) / 2);
-            iv.setOnMouseClicked(event1 -> stage.close());
-            stage.show();
-        });
-    }
-
-    /**
-     * show the path as a tooltip.
-     * <br /><br />
-     * The Github-issue to this method:
-     * <br />
-     * https://github.com/BeatingAngel/Testumgebung/issues/7
-     *
-     * @since
-     */
-    private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
-        Tooltip mousePositionToolTip = new Tooltip("");
-        lbPath.setOnMouseMoved(event -> {
-            String msg = Settings.getInstance().getPath();
-            if (msg != null) {
-                mousePositionToolTip.setText(msg);
-
-                Node node = (Node) event.getSource();
-                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
-            }
-        });
-        lbAngabe.setOnMouseMoved(event -> {
-            File file = Settings.getInstance().getHandOutFile();
-            if (file != null) {
-                mousePositionToolTip.setText(file.getPath());
-
-                Node node = (Node) event.getSource();
-                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
-            }
-        });
-        lbPath.setOnMouseExited(event -> mousePositionToolTip.hide());
-        lbAngabe.setOnMouseExited(event -> mousePositionToolTip.hide());
-    }
-
-    /**
-     * if the SelectedStudent changes, the Chart and ImageView
-     * is cleared.
-     */
-    private void setOnChangeSize() {
-        lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            //   CHANGE LINECHART
-            loc.getData().clear();
-            Student st = Settings.getInstance().findStudentByName(newValue.getText());
-            if (st != null && st.getSeries() != null) {
-                for (XYChart.Series<Number, Number> actualSeries : st.getSeries()) {
-                    loc.getData().add(actualSeries);
-                }
-            }
-
-            //   CHANGE SCREENSHOT
-            String pathOfLastScreenshot = getLastScreenshot(newValue.getText());
-            if (pathOfLastScreenshot == null) {
-                pathOfLastScreenshot = "images/loading.gif";
-            }
-            ivLiveView.setImage(new Image(pathOfLastScreenshot));
-
-            //   CHANGE STUDENT-INFO-DATA
-            if (st != null) {
-                String nr = Integer.toString(st.getCatalogNumber());
-                lbFirstName.setText(st.getFirstName());
-                lbLastName.setText(st.getName());
-                lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
-                lbEnrolmentID.setText(st.getEnrolmentID());
-                ObservableList<XYChart.Data<Number, Number>> ol =
-                        st.getSeries().get(st.getSeries().size() - 1).getData();
-                Long locVal = (Long)ol.get(ol.size() - 1).getYValue();
-            }
-        });
-    }
-
-
-
-    /**
-     * sets the size of the images, which are shown after starting/stopping the server
-     */
-    private void setFitHeight() {
-        ivPort.setFitHeight(25);
-        ivAngabe.setFitHeight(25);
-        ivPath.setFitHeight(25);
-        ivTime.setFitHeight(25);
-        ivFileExtensions.setFitHeight(25);
-    }
-
-    /**
-     * if the screensize changes, the size of the image and chart changes too.
-     */
-    private void setDynamicScreenSize() {
-        apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitWidth((double) newValue);
-            loc.setPrefWidth((double) newValue);
-        });
-        bpDataView.heightProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
-        });
-        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
-        });
-        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
-        });
-        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
-        });
-        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setTopAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefHeight() / 2);
-        });
-        ivLiveView.setPreserveRatio(true);
-        ivLiveView.setSmooth(true);
-        ivLiveView.setCache(true);
-    }
-
-    /**
-     * edits the chart and saves it in the settings
-     */
-    private void initializeLOC() {
-        Settings.getInstance().setChart(loc);
-
-        loc.setCursor(Cursor.CROSSHAIR);
-    }
-
-    /**
-     * shows the IP-Address of the Teacher.
-     */
-    public void showIP_Address() {
-        String ip = "";
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
-        }
-        lbAddress.setText(ip + " : 50555");
-    }
-    //endregion
-
-    /**
      * checks all fields on correctness.
      * starts the server for the students to connect.
      *
@@ -1007,6 +1003,7 @@ public class Controller implements Initializable {
             Settings.getInstance().setPath(choosedFile.getPath());
         }
     }
+
     public void setTestOptions(ActionEvent event) throws IOException, URISyntaxException {
         File home = FileSystemView.getFileSystemView().getHomeDirectory();
         String path = home.getAbsolutePath() + "/newFolder";
@@ -1064,6 +1061,27 @@ public class Controller implements Initializable {
         }
     }
 
+    //region Student-Settings Methods {GitHub-Issue: #34}
+
+    /**
+     * changes the header.
+     * + All changes of the settings will be applied to:
+     *      * All students
+     *      OR
+     *      * Selected student
+     */
+    @FXML
+    public void toggleSettings() {
+        if (tbToggleSettings.isSelected()) {    // "apply for all"
+            tbToggleSettings.setText("Apply for \"Selected Student\"");
+            lbSettingsHeader.setText("All Student Settings:");
+        }
+        else {
+            tbToggleSettings.setText("Apply for \"All Students\"");
+            lbSettingsHeader.setText("Selected Student Settings:");
+        }
+    }
+
     /**
      * kicks the selected student.
      */
@@ -1073,18 +1091,6 @@ public class Controller implements Initializable {
                     .getLv().getSelectionModel().getSelectedItem();
         if (selected != null) {
             kick(selected.getText());
-        }
-    }
-
-    /**
-     * kicks all connected students.
-     */
-    @FXML
-    public void kickAllStudents() {
-        List<Button> students = Settings.getInstance().getObservableList();
-
-        for (Button student : students) {
-            kick(student.getText());
         }
     }
 
@@ -1109,29 +1115,38 @@ public class Controller implements Initializable {
     public void saveStudentChanges() {
         long new_time = (long)slHarvesterStudent.getValue();
 
-        Button selected = (Button)StudentView.getInstance()
-                .getLv().getSelectionModel().getSelectedItem();
-        Student toChange = Settings.getInstance()
-                .findStudentByName(selected.getText());
+        if (!tbToggleSettings.isSelected()) {
+            Button selected = (Button) StudentView.getInstance()
+                    .getLv().getSelectionModel().getSelectedItem();
+            Student toChange = Settings.getInstance()
+                    .findStudentByName(selected.getText());
 
-        toChange.setInterval(new Interval(new_time));
+            toChange.setInterval(new Interval(new_time));
+            setFiltersToStudent(toChange);
+        } else {
+            for (Object obj : StudentView.getInstance().getLv().getItems()) {
+                String name = ((Button)obj).getText();
+                Student toChange = Settings.getInstance()
+                        .findStudentByName(name);
+
+                toChange.setInterval(new Interval(new_time));
+                setFiltersToStudent(toChange);
+            }
+        }
     }
 
     /**
-     * changes the time interval of all students.
+     * changes the filters for a specific student
+     *
+     * @param student   The student who will receive a new filter.
      */
-    @FXML
-    public void saveAllChanges() {
-        long new_time = (long)slHarvesterStudentAll.getValue();
-
-        List<Button> students = Settings.getInstance().getObservableList();
-
-        for (Button student : students) {
-            Student toChange = Settings.getInstance()
-                    .findStudentByName(student.getText());
-
-            toChange.setInterval(new Interval(new_time));
+    public void setFiltersToStudent(Student student) {
+        Object[] objs = cbUsedFilter.getItems().toArray();
+        String[] filters = new String[objs.length];
+        for (int i = 0; i < filters.length; i++) {
+            filters[i] = (String)objs[i];
         }
+        student.setFilter(filters);
     }
 
     /**
@@ -1155,6 +1170,10 @@ public class Controller implements Initializable {
 
         cbUsedFilter.getItems().remove(selected);
     }
+
+    //endregion
+
+    //region Screenshot-Showcase Methods {GitHub-Issue: #4}
 
     /**
      * Imports a file of pupils
@@ -1250,7 +1269,15 @@ public class Controller implements Initializable {
         return -1;
     }
 
-    public void startPatrol(ActionEvent actionEvent) {
+    //endregion
+
+    //region Patrol-Mode Methods {GitHub-Issue: #22}
+
+    /**
+     * runs through the list of the connected students.
+     */
+    @FXML
+    public void startPatrol() {
         if (!patrolMode) {
             patrolMode = true;
             btnPatrolMode.setText("Patroullien Modus beenden");
@@ -1264,4 +1291,6 @@ public class Controller implements Initializable {
             pm.interrupt();
         }
     }
+
+    //endregion
 }
