@@ -12,6 +12,8 @@ import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -106,6 +108,7 @@ import java.util.jar.Manifest;
  * 04.05.2016: PHI 110  implemented the kickStudent- and the new timeInterval-Function.
  * 04.05.2016: PHI 050  added the file extension filter
  * 05.05.2016: PHI 045  applied the file extension filter (it can be used now [bugfix]) + Layout changed
+ * 05.05.2016: PHI 130  changes layout. added filter-Sets which can be applied during the test.
  */
 public class Controller implements Initializable {
 
@@ -139,7 +142,7 @@ public class Controller implements Initializable {
     @FXML
     private ImageView ivTime;
     @FXML
-    private TextField tfFileExtensions;
+    private ComboBox cbFilterSetMain;
     @FXML
     private ImageView ivFileExtensions;
     @FXML
@@ -192,9 +195,15 @@ public class Controller implements Initializable {
     @FXML
     private Slider slHarvesterStudent;
     @FXML
-    private ComboBox cbNewFilter, cbUsedFilter;
+    private ComboBox cbNewFilter, cbUsedFilter, cbFilterSet;
     @FXML
     private ToggleButton tbToggleSettings;
+    @FXML
+    private ColorPicker cpNewFilter;
+    @FXML
+    private TextField tfNewFilter;
+
+    private List<String[]> filterSets = new LinkedList<>();
     //endregion
 
     //region other Variables
@@ -257,6 +266,9 @@ public class Controller implements Initializable {
 
     //region initialize
 
+    /**
+     * initializes the filter-Sets
+     */
     private void initializeNewFilters() {
         Callback<ListView<String>, ListCell<String>> callback =
                 new Callback<ListView<String>, ListCell<String>>() {
@@ -271,9 +283,6 @@ public class Controller implements Initializable {
                                 if (item != null) {
                                     setText(item);
                                     Rectangle rec = new Rectangle(20, 20);
-                                    if (item.contains("c")) {
-                                        rec.setFill(Color.GOLD);
-                                    }
                                     switch (item) {
                                         case ".java":
                                             rec.setFill(Color.PALEVIOLETRED);
@@ -302,6 +311,21 @@ public class Controller implements Initializable {
                                         case ".fxml":
                                             rec.setFill(Color.WHITESMOKE);
                                             break;
+                                        case ".sql":
+                                            rec.setFill(Color.BLACK);
+                                            break;
+                                        case ".cshtml":
+                                            rec.setFill(Color.WHITE);
+                                            break;
+                                        case ".xml":
+                                            rec.setFill(Color.CHOCOLATE);
+                                            break;
+                                        case ".xsd":
+                                            rec.setFill(Color.FORESTGREEN);
+                                            break;
+                                        case ".xsl":
+                                            rec.setFill(Color.PURPLE);
+                                            break;
                                     }
                                     setGraphic(rec);
                                 }
@@ -314,16 +338,46 @@ public class Controller implements Initializable {
                     }
                 };
 
-        cbNewFilter.getItems().addAll(".java", ".cs", ".c", ".py", ".html", ".js", ".xhtml", ".css", ".fxml");
+        cbFilterSet.getItems().addAll("ALL-SETS", "JAVA", "C-SHARP", "SQL", "WEB");
+        cbFilterSet.setValue("ALL-SETS");
+
+        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml",
+                ".cs", ".cshtml", ".js", ".css",
+                ".sql", ".xml", ".xsd", ".xsl",
+                ".html"
+        });
+        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml"});
+        filterSets.add(new String[]{".cs", ".cshtml", ".js", ".css"});
+        filterSets.add(new String[]{".sql", ".xml", ".xsd", ".xsl"});
+        filterSets.add(new String[]{".js", ".html", ".css"});
+
+        cbNewFilter.getItems().addAll(filterSets.get(0));
         cbNewFilter.setCellFactory(callback);
         cbNewFilter.setValue(".java");
-
 
         cbUsedFilter.getItems().add(".java");
         cbUsedFilter.setCellFactory(callback);
         cbUsedFilter.setValue(".java");
+
+        ChangeListener cl = ((observable, oldValue, newValue) -> {
+            cbUsedFilter.getItems().clear();
+            cbNewFilter.getItems().clear();
+            cbNewFilter.getItems().addAll(filterSets.get(cbFilterSet.getItems().indexOf(newValue)));
+            cbNewFilter.setValue(cbNewFilter.getItems().get(0));
+            cbUsedFilter.getItems().addAll(cbNewFilter.getItems());
+            cbUsedFilter.setValue(cbUsedFilter.getItems().get(0));
+        });
+
+        cbFilterSet.valueProperty().addListener(cl);
+        cbFilterSetMain.valueProperty().addListener(cl);
+
+        cbFilterSetMain.getItems().addAll(cbFilterSet.getItems());
+        cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
     }
 
+    /**
+     * selects the Desktop as Home-Path
+     */
     private void setHomePath() {
 
         File home = FileSystemView.getFileSystemView().getHomeDirectory();
@@ -345,6 +399,9 @@ public class Controller implements Initializable {
         Settings.getInstance().setPath(desktop.getPath());
     }
 
+    /**
+     * adjusts the progressbar to the slider
+     */
     private void initializeSlides() {
         slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {
             pbHarvesterStudent.setProgress(new_val.doubleValue() / 60);
@@ -887,10 +944,6 @@ public class Controller implements Initializable {
             if (portStr.matches("[0-9]+")) {
                 Server.PORT = Integer.valueOf(portStr);
             }
-            String ending = tfFileExtensions.getText();
-            if (ending.length() == 0) {
-                ending = "*.java";
-            }
 
             if (isRnd) {
                 Settings.getInstance().setInterval(new Interval(1, 30));
@@ -898,7 +951,11 @@ public class Controller implements Initializable {
                 Settings.getInstance().setInterval(new Interval(Integer.parseInt(ssTime)));
             }
 
-            String[] endings = ending.split(";");
+            Object[] objects = cbUsedFilter.getItems().toArray();
+            String[] endings = new String[objects.length];
+            for (int i = 0; i < endings.length; i++) {
+                endings[i] = (String)objects[i];
+            }
             Settings.getInstance().setEndings(endings);
 
             threader = new Threader();
@@ -1150,6 +1207,22 @@ public class Controller implements Initializable {
     }
 
     /**
+     * adds a new filter to the current selected set
+     */
+    @FXML
+    public void addFilterToSet() {
+        int index = cbFilterSet.getSelectionModel().getSelectedIndex();
+        String[] set = filterSets.get(index);
+        String[] newSet = new String[set.length + 1];
+        for (int i = 0; i < set.length; i++) {
+            newSet[i] = set[i];
+        }
+        newSet[newSet.length - 1] = tfNewFilter.getText();
+        filterSets.set(index, newSet);
+        cbNewFilter.getItems().add(tfNewFilter.getText());
+    }
+
+    /**
      * add file-extension filter
      */
     @FXML
@@ -1169,6 +1242,9 @@ public class Controller implements Initializable {
         String selected = (String)cbUsedFilter.getSelectionModel().getSelectedItem();
 
         cbUsedFilter.getItems().remove(selected);
+        if (cbUsedFilter.getItems().size() > 0) {
+            cbUsedFilter.setValue(cbUsedFilter.getItems().get(0));
+        }
     }
 
     //endregion

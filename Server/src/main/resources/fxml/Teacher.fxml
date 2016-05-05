@@ -134,7 +134,7 @@
                                                                                         <Font size="18.0" />
                                                                                     </font>
                                                                                 </Label>
-                                                                                <TextField fx:id="tfFileExtensions" alignment="CENTER" depthTest="DISABLE" prefHeight="26.0" prefWidth="234.0" promptText="*.java; *.fxml; *.cs" text="*.java" />
+                                                            <ComboBox fx:id="cbFilterSetMain" prefHeight="26.0" prefWidth="234.0" />
                                                                                 <ImageView fx:id="ivFileExtensions" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                                     <HBox.margin>
                                                                                         <Insets left="10.0" />
@@ -263,24 +263,63 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btnKickStudent" layoutX="199.0" layoutY="507.0" mnemonicParsing="false" onAction="#kickStudent" prefHeight="30.0" prefWidth="147.0" text="Kick Student" />
-                                          <Button fx:id="btnBanStudent" layoutX="619.0" layoutY="507.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Ban Student" />
+                                          <Button fx:id="btnKickStudent" layoutX="151.0" layoutY="588.0" mnemonicParsing="false" onAction="#kickStudent" prefHeight="30.0" prefWidth="147.0" text="Kick Student" />
+                                          <Button fx:id="btnBanStudent" layoutX="611.0" layoutY="588.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="147.0" text="Ban Student" />
                                           <Button fx:id="btnSaveChangesStudent" layoutX="409.0" layoutY="588.0" mnemonicParsing="false" onAction="#saveStudentChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
-                                          <ComboBox fx:id="cbNewFilter" layoutX="189.0" layoutY="213.0" prefWidth="150.0" />
-                                          <ComboBox fx:id="cbUsedFilter" layoutX="609.0" layoutY="213.0" prefWidth="150.0" />
-                                          <Button layoutX="360.0" layoutY="213.0" mnemonicParsing="false" onAction="#addFilter" text="Add" />
-                                          <Label layoutX="29.0" layoutY="213.0" prefHeight="26.0" prefWidth="153.0" text="FileCounter-Filter:">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="482.0" layoutY="213.0" prefHeight="26.0" prefWidth="126.0" text="Filters in use:">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Button layoutX="774.0" layoutY="213.0" mnemonicParsing="false" onAction="#removeFilter" text="Remove" />
                                           <ToggleButton fx:id="tbToggleSettings" layoutX="29.0" layoutY="25.0" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="26.0" prefWidth="195.0" text="Apply for &quot;All Students&quot;" />
+                                          <Label layoutX="29.0" layoutY="148.0" prefHeight="26.0" prefWidth="153.0" text="Filter-Set:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cbFilterSet" layoutX="198.0" layoutY="148.0" prefWidth="150.0" />
+                                          <Accordion layoutX="26.0" layoutY="211.0" prefHeight="280.0" prefWidth="957.0">
+                                            <panes>
+                                              <TitledPane expanded="false" text="Add new filter to selected set">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Label layoutX="21.0" layoutY="69.0" prefHeight="26.0" prefWidth="143.0" text="File extension:">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="tfNewFilter" layoutX="175.0" layoutY="69.0" prefWidth="163.0" promptText=".java" />
+                                                            <Label layoutX="20.0" layoutY="127.0" prefHeight="26.0" prefWidth="144.0" text="Filter color:">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <ColorPicker fx:id="cpNewFilter" layoutX="175.0" layoutY="127.0" prefHeight="26.0" prefWidth="163.0" />
+                                                            <Button layoutX="402.0" layoutY="100.0" mnemonicParsing="false" onAction="#addFilterToSet" prefHeight="26.0" prefWidth="67.0" text="Add" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                              <TitledPane expanded="false" text="Change filters which will be used (add/remove)">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Label layoutX="14.0" layoutY="35.0" prefHeight="26.0" prefWidth="153.0" text="Filters in Set:">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <ComboBox fx:id="cbNewFilter" layoutX="175.0" layoutY="35.0" prefWidth="150.0" />
+                                                            <ComboBox fx:id="cbUsedFilter" layoutX="175.0" layoutY="99.0" prefWidth="150.0" />
+                                                            <Label layoutX="14.0" layoutY="99.0" prefHeight="26.0" prefWidth="126.0" text="Filters in use:">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Button layoutX="368.0" layoutY="37.0" mnemonicParsing="false" onAction="#addFilter" text="Add" />
+                                                            <Button layoutX="368.0" layoutY="99.0" mnemonicParsing="false" onAction="#removeFilter" text="Remove" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
                                        </children>
                                     </AnchorPane>
                                 </content>
