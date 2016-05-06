@@ -1,0 +1,118 @@
+/**
+*   This file will be compiled to an CSS-File.
+**/
+
+
+//region chart styles
+
+//*******************************//
+//                               //
+//  STACKED-AREA-CHART COLORS    //
+//                               //
+//*******************************//
+
+@color1: #e9967a;
+@color2: #f0e68c;
+@color3: #dda0dd;
+
+.default-color0 {
+  .chart-area-symbol {
+    -fx-background-color: @color1, #ffa07a;
+  }
+  .chart-series-area-line {
+    -fx-stroke: @color1;
+  }
+  .chart-series-area-fill {
+    -fx-fill: #ffa07a55;
+  }
+}
+
+.default-color1 {
+  .chart-area-symbol {
+    --fx-background-color: @color2, #fffacd;
+  }
+  .chart-series-area-line {
+    -fx-stroke: @color2;
+  }
+  .chart-series-area-fill {
+    -fx-fill: #fffacd55;
+  }
+}
+
+.default-color2 {
+  .chart-area-symbol {
+    -fx-background-color: @color3, #d8bfd855;
+  }
+  .chart-series-area-line {
+    -fx-stroke: @color3;
+  }
+  .chart-series-area-fill {
+    -fx-fill: #d8bfd855;
+  }
+}
+
+//*******************************//
+//                               //
+//      OTHER CHART STYLES       //
+//                               //
+//*******************************//
+
+.chart-plot-background {
+  -fx-background-color: transparent;
+}
+
+//endregion
+
+//region other styles
+
+.button {
+  -fx-font-weight: bold;
+}
+
+#option {
+  -fx-background-image: url("../images/cyanWall.jpg");
+}
+
+//endregion
+
+//region Log styles
+
+#anchorPaneScrollLog {
+  -fx-background-color: black;
+}
+
+#logTab {
+  -fx-background-color: antiquewhite;
+}
+
+//endregion
+
+//region Student-Settings-Tab styles
+
+.slider {
+
+  .track {
+    -fx-background-color:null;  /* Hide the track */
+    -fx-background-insets: 1 0 -1 0, 0, 1;
+    -fx-background-radius: 2.5, 2.5, 1.5;
+    -fx-padding: 0.208333em; /* 2.5 */
+  }
+
+  .thumb {
+    -fx-background-color: darkgrey;
+    -fx-background-radius: 6.0em; /* makes sure this remains circular */
+    -fx-padding: 0.783333em; /* 7 */
+  }
+
+}
+
+#apStudentSettings {
+
+  -fx-background-color: #575757;
+
+  .label {
+    -fx-text-fill: white;
+  }
+}
+
+//endregion
