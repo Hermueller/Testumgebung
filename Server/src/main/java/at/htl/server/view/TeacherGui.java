@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -36,10 +37,14 @@ public class TeacherGui extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
+
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Teacher.fxml"));
 
         final Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/TeacherStyle.css");
+        stage.getIcons().add(new Image(
+                "images/spying_eye.png"
+        ));
 
         stage.setTitle("Teacher Client");
         stage.setScene(scene);

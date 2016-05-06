@@ -28,7 +28,7 @@
                                     <children>
                                         <Label fx:id="lbVersion" alignment="CENTER_RIGHT" layoutX="839.0" layoutY="16.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
                                         <Label fx:id="lbDate" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="15.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
-                              <Label fx:id="lbAddress" alignment="CENTER" layoutX="281.0" layoutY="5.0" prefHeight="35.0" prefWidth="362.0" text="127.0.0.1 : 50555" textAlignment="CENTER">
+                              <Label fx:id="lbAddress" alignment="CENTER" layoutX="321.0" layoutY="7.0" prefHeight="35.0" prefWidth="362.0" text="127.0.0.1 : 50555" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="19.0" />
                                  </font>
@@ -332,12 +332,12 @@
                                                                 <Image url="@../images/personSketch.png" />
                                                             </image>
                                                         </ImageView>
-                                                        <Button layoutX="367.0" layoutY="627.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
+                                                        <Button fx:id="btnExportLOC" layoutX="369.0" layoutY="628.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
                                                         </Button>
-                                                        <LineChart fx:id="loc" layoutX="6.0" layoutY="65.0" legendSide="LEFT" legendVisible="false" prefHeight="564.0" prefWidth="987.0">
+                                                        <LineChart fx:id="loc" layoutX="6.0" layoutY="57.0" legendSide="LEFT" legendVisible="false" prefHeight="572.0" prefWidth="987.0">
                                                             <xAxis>
                                                                 <NumberAxis label="Seconds after START" side="BOTTOM" />
                                                             </xAxis>
@@ -345,22 +345,22 @@
                                                                 <NumberAxis label="Lines of code" side="LEFT" />
                                                             </yAxis>
                                                         </LineChart>
-                                                            <Label fx:id="lbCatalogNumber" layoutX="278.0" layoutY="44.0" text="00">
+                                                            <Label fx:id="lbCatalogNumber" layoutX="350.0" layoutY="25.0" text="00">
                                                                 <font>
                                                                     <Font size="18.0" />
                                                                 </font>
                                                             </Label>
-                                                            <Label fx:id="lbLastName" layoutX="429.0" layoutY="43.0" text="Mustermann">
+                                                            <Label fx:id="lbLastName" layoutX="501.0" layoutY="24.0" text="Mustermann">
                                                                 <font>
                                                                     <Font size="18.0" />
                                                                 </font>
                                                             </Label>
-                                                            <Label fx:id="lbFirstName" layoutX="542.0" layoutY="43.0" text="Max">
+                                                            <Label fx:id="lbFirstName" layoutX="614.0" layoutY="24.0" text="Max">
                                                                 <font>
                                                                     <Font size="18.0" />
                                                                 </font>
                                                             </Label>
-                                                            <Label fx:id="lbEnrolmentID" layoutX="329.0" layoutY="43.0" text="in000000">
+                                                            <Label fx:id="lbEnrolmentID" layoutX="401.0" layoutY="24.0" text="in000000">
                                                                 <font>
                                                                     <Font size="18.0" />
                                                                 </font>
@@ -376,7 +376,7 @@
                                                         <ImageView fx:id="ivLiveView" fitHeight="664.0" fitWidth="992.0" layoutX="3.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
                                                         <Button fx:id="btnBefore" layoutX="2.0" layoutY="320.0" mnemonicParsing="false" onAction="#onBeforeButtonClick" prefHeight="27.0" prefWidth="0.0" text="&lt;" />
                                                         <Button fx:id="btnNext" layoutX="877.0" layoutY="320.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="27.0" prefWidth="0.0" text="&gt;" />
-                                                        <Button layoutX="919.0" layoutY="321.0" mnemonicParsing="false" onAction="#OnActual" text="Actual" />
+                                                        <Button fx:id="btnActual" layoutX="919.0" layoutY="321.0" mnemonicParsing="false" onAction="#OnActual" text="Actual" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>

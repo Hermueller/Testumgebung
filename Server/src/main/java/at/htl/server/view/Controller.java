@@ -156,15 +156,6 @@ public class Controller implements Initializable {
     private Label lbVersion;
     //endregion
 
-    //region Student-Details Variables
-    @FXML
-    public AnchorPane apStudentDetail;
-    @FXML
-    private LineChart<Number, Number> loc;
-    @FXML
-    private ImageView ivLiveView;
-    //endregion
-
     //region HandIn Variables
     @FXML
     private AnchorPane apHandIn;
@@ -186,6 +177,10 @@ public class Controller implements Initializable {
     //region Student-Info Variables
     @FXML
     private Label lbFirstName, lbLastName, lbEnrolmentID, lbCatalogNumber;
+    @FXML
+    private Button btnExportLOC;
+    @FXML
+    private LineChart<Number, Number> loc;
     //endregion
 
     //region Student-Settings Variables
@@ -205,6 +200,15 @@ public class Controller implements Initializable {
     private TextField tfNewFilter;
 
     private List<String[]> filterSets = new LinkedList<>();
+    //endregion
+
+    //region Student-Spy Variables
+    @FXML
+    private Button btnNext, btnActual;
+    @FXML
+    private ImageView ivLiveView;
+    @FXML
+    public AnchorPane apStudentDetail;
     //endregion
 
     //region other Variables
@@ -1213,24 +1217,20 @@ public class Controller implements Initializable {
      * if the screensize changes, the size of the image and chart changes too.
      */
     private void setDynamicScreenSize() {
-        apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitWidth((double) newValue);
-            loc.setPrefWidth((double) newValue);
-        });
-        bpDataView.heightProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
-        });
         spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
+            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
+            ivLiveView.setFitWidth((double) newValue);
+            loc.setPrefWidth((double) newValue);
+            btnNext.setLayoutX((double)newValue - btnActual.getWidth() - btnNext.getWidth());
+            btnActual.setLayoutX((double)newValue - btnActual.getWidth());
         });
         spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
-        });
-        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
-        });
-        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setTopAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefHeight() / 2);
+            ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
+            loc.setPrefHeight((double)newValue - loc.getLayoutY() - 35);
+            btnExportLOC.setLayoutY(loc.getLayoutY() + loc.getPrefHeight());
         });
         ivLiveView.setPreserveRatio(true);
         ivLiveView.setSmooth(true);

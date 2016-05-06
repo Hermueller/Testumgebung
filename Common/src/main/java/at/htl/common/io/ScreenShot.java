@@ -62,7 +62,6 @@ public class ScreenShot {
         try {
             Robot r = (robot == null ? new Robot() : robot);
             BufferedImage img = r.createScreenCapture(shotArea);
-            System.out.println("created screenshot");
             return convert(getScaledImage(img, scale), format, quality);
         } catch (Exception e) {
             System.out.println("failed to make a screenshot");
