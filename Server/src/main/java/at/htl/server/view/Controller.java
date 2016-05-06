@@ -109,6 +109,7 @@ import java.util.jar.Manifest;
  * 04.05.2016: PHI 050  added the file extension filter
  * 05.05.2016: PHI 045  applied the file extension filter (it can be used now [bugfix]) + Layout changed
  * 05.05.2016: PHI 130  changes layout. added filter-Sets which can be applied during the test.
+ * 06.05.2016: PHI 015  changed the layout and style
  */
 public class Controller implements Initializable {
 
@@ -264,624 +265,7 @@ public class Controller implements Initializable {
         Settings.getInstance().setStartTime(LocalTime.now());
     }
 
-    //region initialize
-
-    /**
-     * initializes the filter-Sets
-     */
-    private void initializeNewFilters() {
-        Callback<ListView<String>, ListCell<String>> callback =
-                new Callback<ListView<String>, ListCell<String>>() {
-                    @Override public ListCell<String> call(ListView<String> param) {
-                        final ListCell<String> cell = new ListCell<String>() {
-                            {
-                                super.setPrefWidth(100);
-                            }
-                            @Override public void updateItem(String item,
-                                                             boolean empty) {
-                                super.updateItem(item, empty);
-                                if (item != null) {
-                                    setText(item);
-                                    Rectangle rec = new Rectangle(20, 20);
-                                    switch (item) {
-                                        case ".java":
-                                            rec.setFill(Color.PALEVIOLETRED);
-                                            break;
-                                        case ".cs":
-                                            rec.setFill(Color.ORANGE);
-                                            break;
-                                        case ".c":
-                                            rec.setFill(Color.LIGHTGOLDENRODYELLOW);
-                                            break;
-                                        case ".py":
-                                            rec.setFill(Color.CADETBLUE);
-                                            break;
-                                        case ".html":
-                                            rec.setFill(Color.PINK);
-                                            break;
-                                        case ".js":
-                                            rec.setFill(Color.RED);
-                                            break;
-                                        case ".xhtml":
-                                            rec.setFill(Color.CYAN);
-                                            break;
-                                        case ".css":
-                                            rec.setFill(Color.DARKSLATEGREY);
-                                            break;
-                                        case ".fxml":
-                                            rec.setFill(Color.WHITESMOKE);
-                                            break;
-                                        case ".sql":
-                                            rec.setFill(Color.BLACK);
-                                            break;
-                                        case ".cshtml":
-                                            rec.setFill(Color.WHITE);
-                                            break;
-                                        case ".xml":
-                                            rec.setFill(Color.CHOCOLATE);
-                                            break;
-                                        case ".xsd":
-                                            rec.setFill(Color.FORESTGREEN);
-                                            break;
-                                        case ".xsl":
-                                            rec.setFill(Color.PURPLE);
-                                            break;
-                                    }
-                                    setGraphic(rec);
-                                }
-                                else {
-                                    setText(null);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-
-        cbFilterSet.getItems().addAll("ALL-SETS", "JAVA", "C-SHARP", "SQL", "WEB");
-        cbFilterSet.setValue("ALL-SETS");
-
-        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml",
-                ".cs", ".cshtml", ".js", ".css",
-                ".sql", ".xml", ".xsd", ".xsl",
-                ".html"
-        });
-        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml"});
-        filterSets.add(new String[]{".cs", ".cshtml", ".js", ".css"});
-        filterSets.add(new String[]{".sql", ".xml", ".xsd", ".xsl"});
-        filterSets.add(new String[]{".js", ".html", ".css"});
-
-        cbNewFilter.getItems().addAll(filterSets.get(0));
-        cbNewFilter.setCellFactory(callback);
-        cbNewFilter.setValue(".java");
-
-        cbUsedFilter.getItems().add(".java");
-        cbUsedFilter.setCellFactory(callback);
-        cbUsedFilter.setValue(".java");
-
-        ChangeListener cl = ((observable, oldValue, newValue) -> {
-            cbUsedFilter.getItems().clear();
-            cbNewFilter.getItems().clear();
-            cbNewFilter.getItems().addAll(filterSets.get(cbFilterSet.getItems().indexOf(newValue)));
-            cbNewFilter.setValue(cbNewFilter.getItems().get(0));
-            cbUsedFilter.getItems().addAll(cbNewFilter.getItems());
-            cbUsedFilter.setValue(cbUsedFilter.getItems().get(0));
-        });
-
-        cbFilterSet.valueProperty().addListener(cl);
-        cbFilterSetMain.valueProperty().addListener(cl);
-
-        cbFilterSetMain.getItems().addAll(cbFilterSet.getItems());
-        cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
-    }
-
-    /**
-     * selects the Desktop as Home-Path
-     */
-    private void setHomePath() {
-
-        File home = FileSystemView.getFileSystemView().getHomeDirectory();
-        File[] files = home.listFiles();
-        File desktop = home;
-
-        try {
-            for (File file : files) {
-                if (file.getPath().contains("Desktop") ||
-                        file.getPath().contains("Schreibtisch")) {
-                    desktop = file;
-                    break;
-                }
-            }
-        } catch (NullPointerException e) {
-            FileUtils.log(Level.WARN, e.getLocalizedMessage());
-        }
-
-        Settings.getInstance().setPath(desktop.getPath());
-    }
-
-    /**
-     * adjusts the progressbar to the slider
-     */
-    private void initializeSlides() {
-        slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {
-            pbHarvesterStudent.setProgress(new_val.doubleValue() / 60);
-            String time = (new_val.intValue() < 10) ?
-                    "0" + new_val.toString().substring(0,1) :
-                    new_val.toString().substring(0,2);
-            lbTimeInterval.setText(time + " Seconds");
-        });
-    }
-
-    private void initializeTimeSpinner() {
-        TimeSpinner spinner = new TimeSpinner();
-        TimeSpinner startspinner = new TimeSpinner();
-        final boolean[] alreadyaddedtime = {false};
-        final LocalTime[] time = new LocalTime[1];
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
-        spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            btnaddTime.setOnAction(event -> {
-                if(alreadyaddedtime[0]){
-                    spinner.setMode(TimeSpinner.Mode.MINUTES);
-                    spinner.increment(10);
-                    Settings.getInstance().setEndTime(Settings.getInstance().getEndTime().plusMinutes(10));
-                }
-                else {
-                    spinner.setMode(TimeSpinner.Mode.MINUTES);
-                    spinner.increment(10);
-                    Settings.getInstance().setEndTime(newValue.plusMinutes(10));
-                }
-
-
-                System.out.println("ADDED 10 MINIUTES "+time[0]);
-                alreadyaddedtime[0] =true;
-            });
-            System.out.println("NEW TIME  "+newValue);
-        });
-
-
-        apTime.getChildren().add(spinner);
-        apstarttime.getChildren().add(startspinner);
-
-
-        startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Settings.getInstance().setStartTime(newValue);
-            System.out.println("NEW STARTTIME  "+newValue);
-        });
-    }
-
-    private LocalTime doSomething(LocalTime newTime, boolean addtime) {
-        System.out.println(newTime);
-        if (addtime) {
-            newTime.plusMinutes(10);
-            System.out.println("NEW TIME " + newTime);
-        }
-
-        if (LocalTime.now() == newTime) {
-            System.out.println("ABGABE");
-            //directory.zip(Session.getInstance().getPath());
-        }
-        return newTime;
-    }
-
-    public void deleteFiles(ActionEvent actionEvent){
-        FileChooser fc = new FileChooser();
-        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
-        File yourZip = fc.showOpenDialog(new Stage());
-
-        // Check the user pressed OK, and not Cancel.
-        if (yourZip != null) {
-            Settings.getInstance().setHandOutFile(yourZip);
-        }
-    }
-
-    /**
-     * show the version number always in the bottom right corner.
-     */
-    private void setVersionAnchor() {
-        AnchorPane.setBottomAnchor(lbVersion, 10.0);
-        AnchorPane.setRightAnchor(lbVersion, 10.0);
-    }
-
-    /**
-     * show screenshot in fullscreen on click.
-     * <br /><br />
-     * The Github-issue to this method:
-     * <br />
-     * https://github.com/BeatingAngel/Testumgebung/issues/16
-     *
-     * @since 1.11.21.067
-     */
-    private void setImageClick() {
-        ivLiveView.setOnMouseClicked(event -> {
-            Stage stage = new Stage();
-            ImageView iv = new ImageView(ivLiveView.getImage());
-            AnchorPane root = new AnchorPane(iv);
-            Scene scene = new Scene(root, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
-            stage.setScene(scene);
-            AnchorPane.setLeftAnchor(iv, (Screen.getPrimary().getBounds().getWidth() - iv.getImage().getWidth()) / 2);
-            AnchorPane.setTopAnchor(iv, (Screen.getPrimary().getBounds().getHeight() - iv.getImage().getHeight()) / 2);
-            iv.setOnMouseClicked(event1 -> stage.close());
-            stage.show();
-        });
-    }
-
-    /**
-     * show the path as a tooltip.
-     * <br /><br />
-     * The Github-issue to this method:
-     * <br />
-     * https://github.com/BeatingAngel/Testumgebung/issues/7
-     *
-     * @since
-     */
-    private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
-        Tooltip mousePositionToolTip = new Tooltip("");
-        lbPath.setOnMouseMoved(event -> {
-            String msg = Settings.getInstance().getPath();
-            if (msg != null) {
-                mousePositionToolTip.setText(msg);
-
-                Node node = (Node) event.getSource();
-                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
-            }
-        });
-        lbAngabe.setOnMouseMoved(event -> {
-            File file = Settings.getInstance().getHandOutFile();
-            if (file != null) {
-                mousePositionToolTip.setText(file.getPath());
-
-                Node node = (Node) event.getSource();
-                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
-            }
-        });
-        lbPath.setOnMouseExited(event -> mousePositionToolTip.hide());
-        lbAngabe.setOnMouseExited(event -> mousePositionToolTip.hide());
-    }
-
-    /**
-     * if the SelectedStudent changes, the Chart and ImageView
-     * is cleared.
-     */
-    private void setOnChangeSize() {
-        lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            //   CHANGE LINECHART
-            loc.getData().clear();
-            Student st = Settings.getInstance().findStudentByName(newValue.getText());
-            if (st != null && st.getSeries() != null) {
-                for (XYChart.Series<Number, Number> actualSeries : st.getSeries()) {
-                    loc.getData().add(actualSeries);
-                }
-            }
-
-            //   CHANGE SCREENSHOT
-            String pathOfLastScreenshot = getLastScreenshot(newValue.getText());
-            if (pathOfLastScreenshot == null) {
-                pathOfLastScreenshot = "images/loading.gif";
-            }
-            ivLiveView.setImage(new Image(pathOfLastScreenshot));
-
-            //   CHANGE STUDENT-INFO-DATA
-            if (st != null) {
-                String nr = Integer.toString(st.getCatalogNumber());
-                lbFirstName.setText(st.getFirstName());
-                lbLastName.setText(st.getName());
-                lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
-                lbEnrolmentID.setText(st.getEnrolmentID());
-                ObservableList<XYChart.Data<Number, Number>> ol =
-                        st.getSeries().get(st.getSeries().size() - 1).getData();
-                Long locVal = (Long)ol.get(ol.size() - 1).getYValue();
-            }
-        });
-    }
-
-
-
-    /**
-     * sets the size of the images, which are shown after starting/stopping the server
-     */
-    private void setFitHeight() {
-        ivPort.setFitHeight(25);
-        ivAngabe.setFitHeight(25);
-        ivPath.setFitHeight(25);
-        ivTime.setFitHeight(25);
-        ivFileExtensions.setFitHeight(25);
-    }
-
-    /**
-     * if the screensize changes, the size of the image and chart changes too.
-     */
-    private void setDynamicScreenSize() {
-        apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitWidth((double) newValue);
-            loc.setPrefWidth((double) newValue);
-        });
-        bpDataView.heightProperty().addListener((observable, oldValue, newValue) -> {
-            ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
-        });
-        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
-        });
-        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
-        });
-        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
-        });
-        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
-            AnchorPane.setTopAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefHeight() / 2);
-        });
-        ivLiveView.setPreserveRatio(true);
-        ivLiveView.setSmooth(true);
-        ivLiveView.setCache(true);
-    }
-
-    /**
-     * edits the chart and saves it in the settings
-     */
-    private void initializeLOC() {
-        Settings.getInstance().setChart(loc);
-
-        loc.setCursor(Cursor.CROSSHAIR);
-    }
-
-    /**
-     * shows the IP-Address of the Teacher.
-     */
-    public void showIP_Address() {
-        String ip = "";
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
-        }
-        lbAddress.setText(ip + " : 50555");
-    }
-    //endregion
-
-    //region Export-Methods
-
-    /**
-     * creates an image from the LineChart of a specific student and saves it.
-     *
-     * @param event     of the click on the button
-     */
-    public void exportLOC(ActionEvent event) {
-        WritableImage image = loc.snapshot(new SnapshotParameters(), null);
-
-        String studentInfo = lbCatalogNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
-
-        File file = new File(Settings.getInstance().getPathOfExports().concat("/" + studentInfo));
-
-        try {
-            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-        } catch (IOException e) {
-            FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
-        }
-
-        FxUtils.showPopUp("exported LineChart successfully !!", true);
-    }
-
-    /**
-     * writes the Log into a TEXT-file.
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/26
-     *
-     * @param actionEvent   event of the click on the button
-     *
-     * @since   1.11.33.051
-     */
-    public void exportLog(ActionEvent actionEvent) {
-        try {
-            List<String> list = new LinkedList<>();
-            ObservableList<Node> nodes = ((VBox)Settings.getInstance().getLogArea().getChildren().get(0)).getChildren();
-            for (Node node : nodes) {
-                TextField tf = (TextField)node;
-                list.add(tf.getText());
-            }
-
-            Path file = Paths.get(Settings.getInstance().getPathOfExports().concat("/log.txt"));
-            Files.write(file, list, Charset.forName("UTF-8"));
-
-            FxUtils.showPopUp("exported log successfully!!", true);
-        } catch (IOException e) {
-            FileUtils.log(Level.ERROR, e.getMessage());
-        }
-    }
-
-    //endregion
-
-    //region create and read properties
-
-    /**
-     * create pop-up window to ask for the version number
-     * and create a properties-file for it and creates a JAR-file
-     * for the student and the teacher.
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/23
-     *
-     * @param actionEvent   event from the click on the button
-     *
-     * @since 1.12.35.071
-     */
-    public void fromVersion(ActionEvent actionEvent) {
-        final Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-
-        Label label = new Label("Version: ");
-        TextField tf = new TextField();
-        Button btn = new Button("   CREATE   ");
-        btn.setOnAction(event -> {
-            createProp(tf.getText());
-            createJar();
-            stage.close();
-        });
-
-        AnchorPane ap = new AnchorPane();
-        HBox hbox = new HBox(10, label, tf);
-        VBox vBox = new VBox(20, hbox, btn);
-        vBox.setLayoutX(30);
-        vBox.setLayoutY(30);
-        ap.getChildren().add(vBox);
-
-        Scene dialogScene = new Scene(ap, 300, 200);
-        stage.setScene(dialogScene);
-        stage.show();
-    }
-
-    /**
-     * creates the properties-file
-     * <br /><br />
-     * The properties include:
-     * <ul>
-     *     <li>Date from the creation of the JAR-file (current date)</li>
-     *     <li>Version of the application</li>
-     * </ul>
-     *
-     * @param version   Specifies the version of the application
-     */
-    public void createProp(String version) {
-        Properties prop = new Properties();
-        OutputStream output = null;
-
-        try {
-
-            output = new FileOutputStream("src/main/resources/config.properties");
-            prop.setProperty("version", version);
-            prop.setProperty("date", LocalDate.now().toString());
-            prop.store(output, null);
-
-
-            output = new FileOutputStream("target/classes/config.properties");
-            prop.setProperty("version", version);
-            prop.setProperty("date", LocalDate.now().toString());
-            prop.store(output, null);
-
-        } catch (IOException io) {
-            FileUtils.log(Level.ERROR, io.getMessage());
-        } finally {
-            if (output != null) {
-                try {
-                    output.close();
-                } catch (IOException e) {
-                    FileUtils.log(Level.ERROR, e.getMessage());
-                }
-            }
-        }
-    }
-
-    /**
-     * writes the data from the properties-file into the Labels in the application
-     * <br /><br />
-     * The properties include:
-     * <ul>
-     *     <li>Date from the creation of the JAR-file</li>
-     *     <li>Version of the application</li>
-     * </ul>
-     */
-    public void readProperties() {
-        Properties prop = new Properties();
-        String propFileName = "config.properties";
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-        try {
-            prop.load(inputStream);
-        } catch (IOException e) {
-            FileUtils.log(Level.ERROR, e.getMessage());
-        }
-
-        lbVersion.setText(prop.getProperty("version"));
-        lbDate.setText("created on: " + prop.getProperty("date"));
-    }
-
-    //endregion
-
-    //region create JAR-files
-
-    /**
-     * creates a jar-file for the student and teacher
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/23
-     *
-     * @since 1.12.35.071
-     */
-    public void createJar()
-    {
-        try {
-            // creating student JAR
-            Manifest manifest = new Manifest();
-            manifest.getMainAttributes().put(
-                    Attributes.Name.MANIFEST_VERSION, "1.0");
-            manifest.getMainAttributes().put(
-                    Attributes.Name.MAIN_CLASS, "at.htl.client.view.StudentGui");
-            JarOutputStream target = new JarOutputStream(
-                    new FileOutputStream(
-                            Settings.getInstance().getPathOfExports().concat("/student.jar")
-                    ), manifest);
-            File source = new File("target/classes/");
-            add(source, target);
-            target.close();
-        } catch (IOException exp) {
-            FileUtils.log(Level.ERROR, exp.getMessage());
-        }
-
-        FxUtils.showPopUp("created JAR-file successfully!!", true);
-    }
-
-    /**
-     * add files from the source to the jar file
-     *
-     * @param source        the source of the files to add
-     * @param target        the stream from the jar-file
-     * @throws IOException
-     */
-    private void add(File source, JarOutputStream target) throws IOException
-    {
-        BufferedInputStream in = null;
-        try
-        {
-            if (source.isDirectory())
-            {
-                String name = source.getPath().replace("\\", "/").replace("target/classes/", "");
-                if (!name.isEmpty())
-                {
-                    if (!name.endsWith("/"))
-                        name += "/";
-                    JarEntry entry = new JarEntry(name);
-                    entry.setTime(source.lastModified());
-                    target.putNextEntry(entry);
-                    target.closeEntry();
-                }
-                for (File nestedFile: source.listFiles())
-                    add(nestedFile, target);
-                return;
-            }
-
-            JarEntry entry = new JarEntry(source.getPath().replace("\\", "/").replace("target/classes/", ""));
-            entry.setTime(source.lastModified());
-            target.putNextEntry(entry);
-            in = new BufferedInputStream(new FileInputStream(source));
-
-            byte[] buffer = new byte[1024];
-            while (true)
-            {
-                int count = in.read(buffer);
-                if (count == -1)
-                    break;
-                target.write(buffer, 0, count);
-            }
-            target.closeEntry();
-        }
-        finally
-        {
-            if (in != null)
-                in.close();
-        }
-    }
-
-    //endregion
+    //region {GitHub-Issue: #--} Start and Stop Server
 
     /**
      * checks all fields on correctness.
@@ -1000,6 +384,108 @@ public class Controller implements Initializable {
         }
     }
 
+    //endregion
+
+    //region {GitHub-Issue: #04} Screenshot-Showcase Methods
+
+    /**
+     * Imports a file of pupils
+     * sets the observable list
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void importPupilList(ActionEvent actionEvent) throws IOException {
+        FileChooser dc = new FileChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        dc.setTitle("Wähle Die Schülerliste aus");
+        /*FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(".csv");
+        dc.getExtensionFilters().add(filter);*/
+        File choosedFile = dc.showOpenDialog(new Stage());
+
+        if (choosedFile != null) {
+            BufferedReader bis = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(choosedFile), Charset.forName("UTF-16")));
+
+            int nameColumn = 0;
+            String line;
+            String[] words = bis.readLine().split(";");
+
+            for (int i = 0; i < words.length; i++) {
+                if (words[i].equals("Familienname")) {
+                    nameColumn = i;
+                }
+            }
+            while ((line = bis.readLine()) != null) {
+                Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn]));
+            }
+        }
+    }
+
+    public void onBeforeButtonClick(ActionEvent actionEvent) {
+
+        List<String> screens = Settings.getInstance().getListOfScreenshots();
+
+        String fileName = screens.get((getScreenshotPos(Settings.getInstance().getActualScreenshot()))-1);
+
+        (StudentView.getInstance().getIv())
+                .setImage(new javafx.scene.image.Image("file:" + fileName));
+    }
+
+    public void onNextButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void OnActual(ActionEvent actionEvent) {
+    }
+
+    private void setPrevScreenshot() {
+
+    }
+
+    private void setNextScreenshot() {
+
+    }
+
+    /**
+     * find the last screenshot of a specific student by his/her name
+     *
+     * @param name  specialises the name of the student
+     * @return      the path of the last screenshot
+     */
+    private String getLastScreenshot(String name) {
+        String pathOfFolder = Settings.getInstance()
+                .getPathOfImages().concat(
+                        "/" + name
+                );
+        File folder = new File(pathOfFolder);
+        File lastScreenshot = null;
+
+        for (final File fileEntry : folder.listFiles()) {
+            if (lastScreenshot == null) {
+                lastScreenshot = fileEntry;
+            } else if (lastScreenshot.lastModified() < fileEntry.lastModified()) {
+                lastScreenshot = fileEntry;
+            }
+        }
+
+        return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
+    }
+
+    private int getScreenshotPos(String file) {
+        int i = 0;
+        for (String screen : Settings.getInstance().getListOfScreenshots()) {
+            if (screen.equals(Settings.getInstance().getActualScreenshot())) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    //endregion
+
+    //region {GitHub-Issue: #05 #06} Simple- and Advanced-Mode Methods
+
     /**
      * switching from Simple/Advanced-Mode to the other mode.
      *
@@ -1017,79 +503,341 @@ public class Controller implements Initializable {
         }
     }
 
+    //endregion
+
+    //region {GitHub-Issue: #07} Tooltip Methods
+
     /**
-     * Shows a green picture if the values were correct from the user
-     * and shows a red picture if the userinput was wrong.
+     * show the path as a tooltip.
+     * <br /><br />
+     * The Github-issue to this method:
+     * <br />
+     * https://github.com/BeatingAngel/Testumgebung/issues/7
      *
-     * @param element The Place where the Image will show
-     * @param correct Was the userinput correct?
+     * @since
      */
-    private void setImage(ImageView element, boolean correct) {
-        if (correct) {
-            element.setImage(new Image("images/checked.png"));
+    private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
+        Tooltip mousePositionToolTip = new Tooltip("");
+        lbPath.setOnMouseMoved(event -> {
+            String msg = Settings.getInstance().getPath();
+            if (msg != null) {
+                mousePositionToolTip.setText(msg);
+
+                Node node = (Node) event.getSource();
+                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
+            }
+        });
+        lbAngabe.setOnMouseMoved(event -> {
+            File file = Settings.getInstance().getHandOutFile();
+            if (file != null) {
+                mousePositionToolTip.setText(file.getPath());
+
+                Node node = (Node) event.getSource();
+                mousePositionToolTip.show(node, event.getScreenX() + 50, event.getScreenY());
+            }
+        });
+        lbPath.setOnMouseExited(event -> mousePositionToolTip.hide());
+        lbAngabe.setOnMouseExited(event -> mousePositionToolTip.hide());
+    }
+
+    //endregion
+
+    //region {GitHub-Issue: #12} Submission Methods
+
+    private void initializeTimeSpinner() {
+        TimeSpinner spinner = new TimeSpinner();
+        TimeSpinner startspinner = new TimeSpinner();
+        final boolean[] alreadyaddedtime = {false};
+        final LocalTime[] time = new LocalTime[1];
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+        spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            btnaddTime.setOnAction(event -> {
+                if(alreadyaddedtime[0]){
+                    spinner.setMode(TimeSpinner.Mode.MINUTES);
+                    spinner.increment(10);
+                    Settings.getInstance().setEndTime(Settings.getInstance().getEndTime().plusMinutes(10));
+                }
+                else {
+                    spinner.setMode(TimeSpinner.Mode.MINUTES);
+                    spinner.increment(10);
+                    Settings.getInstance().setEndTime(newValue.plusMinutes(10));
+                }
+
+
+                System.out.println("ADDED 10 MINIUTES "+time[0]);
+                alreadyaddedtime[0] =true;
+            });
+            System.out.println("NEW TIME  "+newValue);
+        });
+
+
+        apTime.getChildren().add(spinner);
+        apstarttime.getChildren().add(startspinner);
+
+
+        startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            Settings.getInstance().setStartTime(newValue);
+            System.out.println("NEW STARTTIME  "+newValue);
+        });
+    }
+
+    private LocalTime doSomething(LocalTime newTime, boolean addtime) {
+        System.out.println(newTime);
+        if (addtime) {
+            newTime.plusMinutes(10);
+            System.out.println("NEW TIME " + newTime);
+        }
+
+        if (LocalTime.now() == newTime) {
+            System.out.println("ABGABE");
+            //directory.zip(Session.getInstance().getPath());
+        }
+        return newTime;
+    }
+
+    //endregion
+
+    //region {GitHub-Issue: #16} Fullscreen-Screenshot Methods
+
+    /**
+     * show screenshot in fullscreen on click.
+     * <br /><br />
+     * The Github-issue to this method:
+     * <br />
+     * https://github.com/BeatingAngel/Testumgebung/issues/16
+     *
+     * @since 1.11.21.067
+     */
+    private void setImageClick() {
+        ivLiveView.setOnMouseClicked(event -> {
+            Stage stage = new Stage();
+            ImageView iv = new ImageView(ivLiveView.getImage());
+            AnchorPane root = new AnchorPane(iv);
+            Scene scene = new Scene(root, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
+            stage.setScene(scene);
+            AnchorPane.setLeftAnchor(iv, (Screen.getPrimary().getBounds().getWidth() - iv.getImage().getWidth()) / 2);
+            AnchorPane.setTopAnchor(iv, (Screen.getPrimary().getBounds().getHeight() - iv.getImage().getHeight()) / 2);
+            iv.setOnMouseClicked(event1 -> stage.close());
+            stage.show();
+        });
+    }
+
+    //endregion
+
+    //region {GitHub-Issue: #22} Patrol-Mode Methods
+
+    /**
+     * runs through the list of the connected students.
+     */
+    @FXML
+    public void startPatrol() {
+        if (!patrolMode) {
+            patrolMode = true;
+            btnPatrolMode.setText("Patroullien Modus beenden");
+            pm = new PatrolMode();
+            pm.setLv(lvStudents);
+            pm.start();
         } else {
-            element.setImage(new Image("images/unchecked.png"));
+            patrolMode = false;
+            btnPatrolMode.setText("Patroullien Modus");
+            pm.stopIt();
+            pm.interrupt();
+        }
+    }
+
+    //endregion
+
+    //region {GitHub-Issue: #23} JAR-File AND Version-Number Methods
+
+    /**
+     * create pop-up window to ask for the version number
+     * and create a properties-file for it and creates a JAR-file
+     * for the student and the teacher.
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/23
+     *
+     * @param actionEvent   event from the click on the button
+     *
+     * @since 1.12.35.071
+     */
+    public void fromVersion(ActionEvent actionEvent) {
+        final Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        Label label = new Label("Version: ");
+        TextField tf = new TextField();
+        Button btn = new Button("   CREATE   ");
+        btn.setOnAction(event -> {
+            createProp(tf.getText());
+            createJar();
+            stage.close();
+        });
+
+        AnchorPane ap = new AnchorPane();
+        HBox hbox = new HBox(10, label, tf);
+        VBox vBox = new VBox(20, hbox, btn);
+        vBox.setLayoutX(30);
+        vBox.setLayoutY(30);
+        ap.getChildren().add(vBox);
+
+        Scene dialogScene = new Scene(ap, 300, 200);
+        stage.setScene(dialogScene);
+        stage.show();
+    }
+
+    /**
+     * creates the properties-file
+     * <br /><br />
+     * The properties include:
+     * <ul>
+     *     <li>Date from the creation of the JAR-file (current date)</li>
+     *     <li>Version of the application</li>
+     * </ul>
+     *
+     * @param version   Specifies the version of the application
+     */
+    public void createProp(String version) {
+        Properties prop = new Properties();
+        OutputStream output = null;
+
+        try {
+
+            output = new FileOutputStream("src/main/resources/config.properties");
+            prop.setProperty("version", version);
+            prop.setProperty("date", LocalDate.now().toString());
+            prop.store(output, null);
+
+
+            output = new FileOutputStream("target/classes/config.properties");
+            prop.setProperty("version", version);
+            prop.setProperty("date", LocalDate.now().toString());
+            prop.store(output, null);
+
+        } catch (IOException io) {
+            FileUtils.log(Level.ERROR, io.getMessage());
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    FileUtils.log(Level.ERROR, e.getMessage());
+                }
+            }
         }
     }
 
     /**
-     * sets an message on the screen of the teacher.
-     *
-     * @param error TRUE if it is an error-message and
-     *              FALSE if it is a success-message.
-     * @param msg   Specifies the message to show.
+     * writes the data from the properties-file into the Labels in the application
+     * <br /><br />
+     * The properties include:
+     * <ul>
+     *     <li>Date from the creation of the JAR-file</li>
+     *     <li>Version of the application</li>
+     * </ul>
      */
-    private void setMsg(boolean error, String msg) {
-        String color = (error ? "red" : "limegreen");   //bei Fehlermeldung rot, sonst grün
-        lbAlert.setText(msg);
-        lbAlert.setStyle("-fx-background-color: " + color);
+    public void readProperties() {
+        Properties prop = new Properties();
+        String propFileName = "config.properties";
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+        try {
+            prop.load(inputStream);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
+        }
+
+        lbVersion.setText(prop.getProperty("version"));
+        lbDate.setText("created on: " + prop.getProperty("date"));
     }
 
     /**
-     * shows a dialog-screen to choose the directory where the directories of the
-     * screenshots and the finished tests will be.
+     * creates a jar-file for the student and teacher
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/23
      *
-     * @param event Information from the click on the button.
+     * @since 1.12.35.071
      */
-    public void chooseDirectory(ActionEvent event) {
-        DirectoryChooser dc = new DirectoryChooser();
-        dc.setInitialDirectory(new File(System.getProperty("user.home")));
-        dc.setTitle("Wähle dein Ziel-Verzeichnis");
-        File choosedFile = dc.showDialog(new Stage());
-        if (choosedFile != null) {
-            Settings.getInstance().setPath(choosedFile.getPath());
+    public void createJar()
+    {
+        try {
+            // creating student JAR
+            Manifest manifest = new Manifest();
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MANIFEST_VERSION, "1.0");
+            manifest.getMainAttributes().put(
+                    Attributes.Name.MAIN_CLASS, "at.htl.client.view.StudentGui");
+            JarOutputStream target = new JarOutputStream(
+                    new FileOutputStream(
+                            Settings.getInstance().getPathOfExports().concat("/student.jar")
+                    ), manifest);
+            File source = new File("target/classes/");
+            add(source, target);
+            target.close();
+        } catch (IOException exp) {
+            FileUtils.log(Level.ERROR, exp.getMessage());
+        }
+
+        FxUtils.showPopUp("created JAR-file successfully!!", true);
+    }
+
+    /**
+     * add files from the source to the jar file
+     *
+     * @param source        the source of the files to add
+     * @param target        the stream from the jar-file
+     * @throws IOException
+     */
+    private void add(File source, JarOutputStream target) throws IOException
+    {
+        BufferedInputStream in = null;
+        try
+        {
+            if (source.isDirectory())
+            {
+                String name = source.getPath().replace("\\", "/").replace("target/classes/", "");
+                if (!name.isEmpty())
+                {
+                    if (!name.endsWith("/"))
+                        name += "/";
+                    JarEntry entry = new JarEntry(name);
+                    entry.setTime(source.lastModified());
+                    target.putNextEntry(entry);
+                    target.closeEntry();
+                }
+                for (File nestedFile: source.listFiles())
+                    add(nestedFile, target);
+                return;
+            }
+
+            JarEntry entry = new JarEntry(source.getPath().replace("\\", "/").replace("target/classes/", ""));
+            entry.setTime(source.lastModified());
+            target.putNextEntry(entry);
+            in = new BufferedInputStream(new FileInputStream(source));
+
+            byte[] buffer = new byte[1024];
+            while (true)
+            {
+                int count = in.read(buffer);
+                if (count == -1)
+                    break;
+                target.write(buffer, 0, count);
+            }
+            target.closeEntry();
+        }
+        finally
+        {
+            if (in != null)
+                in.close();
         }
     }
 
-    public void setTestOptions(ActionEvent event) throws IOException, URISyntaxException {
-        File home = FileSystemView.getFileSystemView().getHomeDirectory();
-        String path = home.getAbsolutePath() + "/newFolder";
+    //endregion
 
-        System.out.println(home.getAbsolutePath());
-        File file = new File(path);
-        file.mkdir();
-        Settings.getInstance().setPath(path);
-        String myQuery = "^IXIC";
+    //region {GitHub-Issue: #25} Directory Delete Methods
 
-        String test=String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv"));
-
-        File list = new File(String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv")));
-        File abgabe = new File(String.valueOf(this.getClass().getResource("/testFiles/Angabe.zip")));
-
-        //String uri = String.format(URLEncoder.encode( myQuery , "UTF8" ), this.getClass().getResource("/testFiles/Angabe.zip"));
-        System.out.println("ANGABE:  "+test);
-        Settings.getInstance().addStudentsFromCsv(list);
-        //Settings.getInstance().setHandOutFile(abgabe);
-    }
-
-    /**
-     * shows a dialog-screen to choose the test-file.
-     * only zip-files are allowed.
-     *
-     * @param event Information from the click on the button.
-     */
-    public void chooseHandOutFile(ActionEvent event) {
-        // Create and show the file filter
+    public void deleteFiles(ActionEvent actionEvent){
         FileChooser fc = new FileChooser();
         fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
         File yourZip = fc.showOpenDialog(new Stage());
@@ -1100,25 +848,166 @@ public class Controller implements Initializable {
         }
     }
 
+    //endregion
+
+    //region {GitHub-Issue: #26} Log Methods
+
     /**
-     * disables the textfield of the time-interval if the button 'random' is clicked and
-     * enables it if the 'random'-Button is OFF
+     * writes the Log into a TEXT-file.
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/26
      *
-     * @param actionEvent Information from the click on the button
+     * @param actionEvent   event of the click on the button
+     *
+     * @since   1.11.33.051
      */
-    public void changeSomeOptions(ActionEvent actionEvent) {
-        if (TB_SS_rnd.isSelected()) {
-            tfTimeSS.setDisable(true);
-            tfTimeSS.setEditable(false);
-            TB_SS_rnd.setText("ON");
-        } else {
-            tfTimeSS.setDisable(false);
-            tfTimeSS.setEditable(true);
-            TB_SS_rnd.setText("OFF");
+    public void exportLog(ActionEvent actionEvent) {
+        try {
+            List<String> list = new LinkedList<>();
+            ObservableList<Node> nodes = ((VBox)Settings.getInstance().getLogArea().getChildren().get(0)).getChildren();
+            for (Node node : nodes) {
+                TextField tf = (TextField)node;
+                list.add(tf.getText());
+            }
+
+            Path file = Paths.get(Settings.getInstance().getPathOfExports().concat("/log.txt"));
+            Files.write(file, list, Charset.forName("UTF-8"));
+
+            FxUtils.showPopUp("exported log successfully!!", true);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
         }
     }
 
-    //region Student-Settings Methods {GitHub-Issue: #34}
+    //endregion
+
+    //region {GitHub-Issue: #34} Student-Settings Methods
+
+    /**
+     * initializes the filter-Sets
+     */
+    private void initializeNewFilters() {
+        Callback<ListView<String>, ListCell<String>> callback =
+                new Callback<ListView<String>, ListCell<String>>() {
+                    @Override public ListCell<String> call(ListView<String> param) {
+                        final ListCell<String> cell = new ListCell<String>() {
+                            {
+                                super.setPrefWidth(100);
+                            }
+                            @Override public void updateItem(String item,
+                                                             boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item != null) {
+                                    setText(item);
+                                    Rectangle rec = new Rectangle(20, 20);
+                                    switch (item) {
+                                        case ".java":
+                                            rec.setFill(Color.PALEVIOLETRED);
+                                            break;
+                                        case ".cs":
+                                            rec.setFill(Color.ORANGE);
+                                            break;
+                                        case ".c":
+                                            rec.setFill(Color.LIGHTGOLDENRODYELLOW);
+                                            break;
+                                        case ".py":
+                                            rec.setFill(Color.CADETBLUE);
+                                            break;
+                                        case ".html":
+                                            rec.setFill(Color.PINK);
+                                            break;
+                                        case ".js":
+                                            rec.setFill(Color.RED);
+                                            break;
+                                        case ".xhtml":
+                                            rec.setFill(Color.CYAN);
+                                            break;
+                                        case ".css":
+                                            rec.setFill(Color.DARKSLATEGREY);
+                                            break;
+                                        case ".fxml":
+                                            rec.setFill(Color.WHITESMOKE);
+                                            break;
+                                        case ".sql":
+                                            rec.setFill(Color.BLACK);
+                                            break;
+                                        case ".cshtml":
+                                            rec.setFill(Color.WHITE);
+                                            break;
+                                        case ".xml":
+                                            rec.setFill(Color.CHOCOLATE);
+                                            break;
+                                        case ".xsd":
+                                            rec.setFill(Color.FORESTGREEN);
+                                            break;
+                                        case ".xsl":
+                                            rec.setFill(Color.PURPLE);
+                                            break;
+                                    }
+                                    setGraphic(rec);
+                                }
+                                else {
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+
+        cbFilterSet.getItems().addAll("ALL-SETS", "JAVA", "C-SHARP", "SQL", "WEB");
+        cbFilterSet.setValue("ALL-SETS");
+
+        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml",
+                ".cs", ".cshtml", ".js", ".css",
+                ".sql", ".xml", ".xsd", ".xsl",
+                ".html"
+        });
+        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml"});
+        filterSets.add(new String[]{".cs", ".cshtml", ".js", ".css"});
+        filterSets.add(new String[]{".sql", ".xml", ".xsd", ".xsl"});
+        filterSets.add(new String[]{".js", ".html", ".css"});
+
+        cbNewFilter.getItems().addAll(filterSets.get(0));
+        cbNewFilter.setCellFactory(callback);
+        cbNewFilter.setValue(".java");
+
+        cbUsedFilter.getItems().add(".java");
+        cbUsedFilter.setCellFactory(callback);
+        cbUsedFilter.setValue(".java");
+
+        ChangeListener cl = ((observable, oldValue, newValue) -> {
+            cbUsedFilter.getItems().clear();
+            cbNewFilter.getItems().clear();
+            cbNewFilter.getItems().addAll(filterSets.get(cbFilterSet.getItems().indexOf(newValue)));
+            cbNewFilter.setValue(cbNewFilter.getItems().get(0));
+            cbUsedFilter.getItems().addAll(cbNewFilter.getItems());
+            cbUsedFilter.setValue(cbUsedFilter.getItems().get(0));
+
+            cbFilterSet.setValue(newValue);
+            cbFilterSetMain.setValue(newValue);
+        });
+
+        cbFilterSet.valueProperty().addListener(cl);
+        cbFilterSetMain.valueProperty().addListener(cl);
+
+        cbFilterSetMain.getItems().addAll(cbFilterSet.getItems());
+        cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
+    }
+
+    /**
+     * adjusts the progressbar to the slider
+     */
+    private void initializeSlides() {
+        slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {
+            pbHarvesterStudent.setProgress(new_val.doubleValue() / 60);
+            String time = (new_val.intValue() < 10) ?
+                    "0" + new_val.toString().substring(0,1) :
+                    new_val.toString().substring(0,2);
+            lbTimeInterval.setText(time + " Seconds");
+        });
+    }
 
     /**
      * changes the header.
@@ -1145,7 +1034,7 @@ public class Controller implements Initializable {
     @FXML
     public void kickStudent() {
         Button selected = (Button)StudentView.getInstance()
-                    .getLv().getSelectionModel().getSelectedItem();
+                .getLv().getSelectionModel().getSelectedItem();
         if (selected != null) {
             kick(selected.getText());
         }
@@ -1249,123 +1138,264 @@ public class Controller implements Initializable {
 
     //endregion
 
-    //region Screenshot-Showcase Methods {GitHub-Issue: #4}
+    //region {GitHub-Issue: #35} Chart Methods
 
     /**
-     * Imports a file of pupils
-     * sets the observable list
-     *
-     * @param actionEvent
-     * @throws IOException
+     * edits the chart and saves it in the settings
      */
-    public void importPupilList(ActionEvent actionEvent) throws IOException {
-        FileChooser dc = new FileChooser();
-        dc.setInitialDirectory(new File(System.getProperty("user.home")));
-        dc.setTitle("Wähle Die Schülerliste aus");
-        /*FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(".csv");
-        dc.getExtensionFilters().add(filter);*/
-        File choosedFile = dc.showOpenDialog(new Stage());
+    private void initializeLOC() {
+        Settings.getInstance().setChart(loc);
 
-        if (choosedFile != null) {
-            BufferedReader bis = new BufferedReader(new InputStreamReader(
-                    new FileInputStream(choosedFile), Charset.forName("UTF-16")));
+        loc.setCursor(Cursor.CROSSHAIR);
+    }
 
-            int nameColumn = 0;
-            String line;
-            String[] words = bis.readLine().split(";");
+    /**
+     * creates an image from the LineChart of a specific student and saves it.
+     * <br /><br />
+     * find the issue on GitHub:<p>
+     * https://github.com/BeatingAngel/Testumgebung/issues/35
+     *
+     * @param event     of the click on the button
+     */
+    public void exportLOC(ActionEvent event) {
+        WritableImage image = loc.snapshot(new SnapshotParameters(), null);
 
-            for (int i = 0; i < words.length; i++) {
-                if (words[i].equals("Familienname")) {
-                    nameColumn = i;
+        String studentInfo = lbCatalogNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
+
+        File file = new File(Settings.getInstance().getPathOfExports().concat("/" + studentInfo));
+
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
+        }
+
+        FxUtils.showPopUp("exported LineChart successfully !!", true);
+    }
+
+    /**
+     * if the SelectedStudent changes, the Chart and ImageView
+     * is cleared.
+     */
+    private void setOnChangeSize() {
+        lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            //   CHANGE LINECHART
+            loc.getData().clear();
+            Student st = Settings.getInstance().findStudentByName(newValue.getText());
+            if (st != null && st.getSeries() != null) {
+                for (XYChart.Series<Number, Number> actualSeries : st.getSeries()) {
+                    loc.getData().add(actualSeries);
                 }
             }
-            while ((line = bis.readLine()) != null) {
-                Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn]));
+
+            //   CHANGE SCREENSHOT
+            String pathOfLastScreenshot = getLastScreenshot(newValue.getText());
+            if (pathOfLastScreenshot == null) {
+                pathOfLastScreenshot = "images/loading.gif";
             }
-        }
-    }
+            ivLiveView.setImage(new Image(pathOfLastScreenshot));
 
-    public void onBeforeButtonClick(ActionEvent actionEvent) {
-
-        List<String> screens = Settings.getInstance().getListOfScreenshots();
-
-        String fileName = screens.get((getScreenshotPos(Settings.getInstance().getActualScreenshot()))-1);
-
-        (StudentView.getInstance().getIv())
-                .setImage(new javafx.scene.image.Image("file:" + fileName));
-    }
-
-    public void onNextButtonClick(ActionEvent actionEvent) {
-    }
-
-    public void OnActual(ActionEvent actionEvent) {
-    }
-
-    private void setPrevScreenshot() {
-
-    }
-
-    private void setNextScreenshot() {
-
+            //   CHANGE STUDENT-INFO-DATA
+            if (st != null) {
+                String nr = Integer.toString(st.getCatalogNumber());
+                lbFirstName.setText(st.getFirstName());
+                lbLastName.setText(st.getName());
+                lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
+                lbEnrolmentID.setText(st.getEnrolmentID());
+                ObservableList<XYChart.Data<Number, Number>> ol =
+                        st.getSeries().get(st.getSeries().size() - 1).getData();
+                Long locVal = (Long)ol.get(ol.size() - 1).getYValue();
+            }
+        });
     }
 
     /**
-     * find the last screenshot of a specific student by his/her name
-     *
-     * @param name  specialises the name of the student
-     * @return      the path of the last screenshot
+     * if the screensize changes, the size of the image and chart changes too.
      */
-    private String getLastScreenshot(String name) {
-        String pathOfFolder = Settings.getInstance()
-                .getPathOfImages().concat(
-                        "/" + name
-                );
-        File folder = new File(pathOfFolder);
-        File lastScreenshot = null;
-
-        for (final File fileEntry : folder.listFiles()) {
-            if (lastScreenshot == null) {
-                lastScreenshot = fileEntry;
-            } else if (lastScreenshot.lastModified() < fileEntry.lastModified()) {
-                lastScreenshot = fileEntry;
-            }
-        }
-
-        return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
-    }
-
-    private int getScreenshotPos(String file) {
-        int i = 0;
-        for (String screen : Settings.getInstance().getListOfScreenshots()) {
-            if (screen.equals(Settings.getInstance().getActualScreenshot())) {
-                return i;
-            }
-            i++;
-        }
-        return -1;
+    private void setDynamicScreenSize() {
+        apStudentDetail.widthProperty().addListener((observable, oldValue, newValue) -> {
+            ivLiveView.setFitWidth((double) newValue);
+            loc.setPrefWidth((double) newValue);
+        });
+        bpDataView.heightProperty().addListener((observable, oldValue, newValue) -> {
+            ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
+        });
+        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
+        });
+        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
+        });
+        spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
+        });
+        spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
+            AnchorPane.setTopAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefHeight() / 2);
+        });
+        ivLiveView.setPreserveRatio(true);
+        ivLiveView.setSmooth(true);
+        ivLiveView.setCache(true);
     }
 
     //endregion
 
-    //region Patrol-Mode Methods {GitHub-Issue: #22}
+    //region {GitHub-Issue: #--} Other Methods
 
     /**
-     * runs through the list of the connected students.
+     * Shows a green picture if the values were correct from the user
+     * and shows a red picture if the userinput was wrong.
+     *
+     * @param element The Place where the Image will show
+     * @param correct Was the userinput correct?
      */
-    @FXML
-    public void startPatrol() {
-        if (!patrolMode) {
-            patrolMode = true;
-            btnPatrolMode.setText("Patroullien Modus beenden");
-            pm = new PatrolMode();
-            pm.setLv(lvStudents);
-            pm.start();
+    private void setImage(ImageView element, boolean correct) {
+        if (correct) {
+            element.setImage(new Image("images/checked.png"));
         } else {
-            patrolMode = false;
-            btnPatrolMode.setText("Patroullien Modus");
-            pm.stopIt();
-            pm.interrupt();
+            element.setImage(new Image("images/unchecked.png"));
         }
+    }
+
+    /**
+     * sets an message on the screen of the teacher.
+     *
+     * @param error TRUE if it is an error-message and
+     *              FALSE if it is a success-message.
+     * @param msg   Specifies the message to show.
+     */
+    private void setMsg(boolean error, String msg) {
+        String color = (error ? "red" : "limegreen");   //bei Fehlermeldung rot, sonst grün
+        lbAlert.setText(msg);
+        lbAlert.setStyle("-fx-background-color: " + color);
+    }
+
+    /**
+     * shows a dialog-screen to choose the directory where the directories of the
+     * screenshots and the finished tests will be.
+     *
+     * @param event Information from the click on the button.
+     */
+    public void chooseDirectory(ActionEvent event) {
+        DirectoryChooser dc = new DirectoryChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        dc.setTitle("Wähle dein Ziel-Verzeichnis");
+        File choosedFile = dc.showDialog(new Stage());
+        if (choosedFile != null) {
+            Settings.getInstance().setPath(choosedFile.getPath());
+        }
+    }
+
+    public void setTestOptions(ActionEvent event) throws IOException, URISyntaxException {
+        File home = FileSystemView.getFileSystemView().getHomeDirectory();
+        String path = home.getAbsolutePath() + "/newFolder";
+
+        System.out.println(home.getAbsolutePath());
+        File file = new File(path);
+        file.mkdir();
+        Settings.getInstance().setPath(path);
+        String myQuery = "^IXIC";
+
+        String test=String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv"));
+
+        File list = new File(String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv")));
+        File abgabe = new File(String.valueOf(this.getClass().getResource("/testFiles/Angabe.zip")));
+
+        //String uri = String.format(URLEncoder.encode( myQuery , "UTF8" ), this.getClass().getResource("/testFiles/Angabe.zip"));
+        System.out.println("ANGABE:  "+test);
+        Settings.getInstance().addStudentsFromCsv(list);
+        //Settings.getInstance().setHandOutFile(abgabe);
+    }
+
+    /**
+     * shows a dialog-screen to choose the test-file.
+     * only zip-files are allowed.
+     *
+     * @param event Information from the click on the button.
+     */
+    public void chooseHandOutFile(ActionEvent event) {
+        // Create and show the file filter
+        FileChooser fc = new FileChooser();
+        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
+        File yourZip = fc.showOpenDialog(new Stage());
+
+        // Check the user pressed OK, and not Cancel.
+        if (yourZip != null) {
+            Settings.getInstance().setHandOutFile(yourZip);
+        }
+    }
+
+    /**
+     * selects the Desktop as Home-Path
+     */
+    private void setHomePath() {
+
+        File home = FileSystemView.getFileSystemView().getHomeDirectory();
+        File[] files = home.listFiles();
+        File desktop = home;
+
+        try {
+            for (File file : files) {
+                if (file.getPath().contains("Desktop") ||
+                        file.getPath().contains("Schreibtisch")) {
+                    desktop = file;
+                    break;
+                }
+            }
+        } catch (NullPointerException e) {
+            FileUtils.log(Level.WARN, e.getLocalizedMessage());
+        }
+
+        Settings.getInstance().setPath(desktop.getPath());
+    }
+
+    /**
+     * disables the textfield of the time-interval if the button 'random' is clicked and
+     * enables it if the 'random'-Button is OFF
+     *
+     * @param actionEvent Information from the click on the button
+     */
+    public void changeSomeOptions(ActionEvent actionEvent) {
+        if (TB_SS_rnd.isSelected()) {
+            tfTimeSS.setDisable(true);
+            tfTimeSS.setEditable(false);
+            TB_SS_rnd.setText("ON");
+        } else {
+            tfTimeSS.setDisable(false);
+            tfTimeSS.setEditable(true);
+            TB_SS_rnd.setText("OFF");
+        }
+    }
+
+    /**
+     * show the version number always in the bottom right corner.
+     */
+    private void setVersionAnchor() {
+        AnchorPane.setBottomAnchor(lbVersion, 10.0);
+        AnchorPane.setRightAnchor(lbVersion, 10.0);
+    }
+
+    /**
+     * sets the size of the images, which are shown after starting/stopping the server
+     */
+    private void setFitHeight() {
+        ivPort.setFitHeight(25);
+        ivAngabe.setFitHeight(25);
+        ivPath.setFitHeight(25);
+        ivTime.setFitHeight(25);
+        ivFileExtensions.setFitHeight(25);
+    }
+
+    /**
+     * shows the IP-Address of the Teacher.
+     */
+    public void showIP_Address() {
+        String ip = "";
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
+        }
+        lbAddress.setText(ip + " : 50555");
     }
 
     //endregion
