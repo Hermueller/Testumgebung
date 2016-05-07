@@ -1,6 +1,7 @@
 package at.htl.common.fx;
 
 import at.htl.common.io.FileUtils;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -20,6 +21,7 @@ import java.io.File;
  * 03.01.2016: MET 020  improved selection of folders and files: chooseDirectory() and chooseFile()
  * 03.01.2016: MET 003  made setMsg() statically available
  * 22.04.2016: PHI 120  changed the style of the PopUp-Window
+ * 07.05.2016: PHI 035  styled the PopUp-Window
  */
 public class FxUtils {
 
@@ -106,10 +108,17 @@ public class FxUtils {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         AnchorPane ap = new AnchorPane();
+        ap.setId("messageAnchorPane");
 
-        Label label = new Label(message);
-        label.setLayoutY(200);
+        Label label = new Label();
+        label.setId("messageLabel");
+        label.setLayoutY(0);
+        label.setAlignment(Pos.CENTER);
 
+        Label messageInfo = new Label(message);
+        messageInfo.setId("messageInfo");
+        messageInfo.setLayoutY(190);
+        messageInfo.setLayoutX(10);
 
         ImageView iv = new ImageView();
         iv.setPickOnBounds(true);
@@ -119,20 +128,24 @@ public class FxUtils {
             iv.setImage(new Image("/images/checkOnce.gif"));
             iv.setFitHeight(287);
             iv.setFitWidth(400);
-            iv.setLayoutY(-64);
+            iv.setLayoutY(-44);
+            label.setText("Success Message");
             label.setStyle("-fx-background-color: chartreuse");
         } else {
             iv.setImage(new Image("/images/failure.gif"));
             iv.setFitHeight(135);
             iv.setFitWidth(146);
             iv.setLayoutX(130);
-            iv.setLayoutY(14);
+            iv.setLayoutY(34);
+            label.setText("Error Message");
             label.setStyle("-fx-background-color: crimson");
         }
-        ap.getChildren().addAll(iv, label);
+        ap.getChildren().addAll(iv, label, messageInfo);
 
         Scene dialogScene = new Scene(ap, 380, 220);
+        dialogScene.getStylesheets().add("styles/TeacherStyle.css");
         dialog.setScene(dialogScene);
+        dialog.setResizable(false);
         dialog.show();
         FileUtils.log(Level.INFO, message);
     }

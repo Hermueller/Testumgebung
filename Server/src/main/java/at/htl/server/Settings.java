@@ -318,13 +318,13 @@ public class Settings {
         this.endings = endings;
     }
 
-    //endregion
-
-    //region Methods
-
     public List<Student> getStudentsList() {
         return studentsList;
     }
+
+    //endregion
+
+    //region Methods
 
     //region Student-Actions
 
@@ -420,6 +420,8 @@ public class Settings {
 
     //endregion
 
+    //region Chart-Actions
+
     /**
      * Add the Number of Lines in the code to the chart.
      *
@@ -452,6 +454,58 @@ public class Settings {
         //saves values to the client
         student.addValueToLast(locs, _time);
     }
+
+    //endregion
+
+    //region Exception-Handling (Log-View)
+
+    /**
+     * prints the error into the Log in the application.
+     *
+     * @param t     the thread who caught the error
+     * @param e     the error
+     */
+    public void printMessage(Thread t, Throwable e) {
+        printError(Level.ERROR, e.getStackTrace());
+    }
+
+    /**
+     * prints an error message into the Log-View
+     *
+     * @param level         Specifies the level of the error.
+     * @param stackList     Specifies all the messages of the error.
+     */
+    public void printError(Level level, StackTraceElement[] stackList) {
+        AnchorPane log = getLogArea();
+        if (log != null) {
+            Platform.runLater(() -> {
+                for (StackTraceElement ste : stackList) {
+                    printErrorLine(level, ste.toString());
+                }
+                printErrorLine(Level.OFF, "");
+            });
+        }
+    }
+
+    /**
+     * prints one line into the Log-View
+     *
+     * @param level     Specifies the level of the error.
+     * @param message   Specifies the message of the error.
+     */
+    public void printErrorLine(Level level, String message) {
+        AnchorPane log = getLogArea();
+        TextField tf = new TextField(message);
+        tf.setEditable(false);
+        tf.setStyle(FileUtils.getStyle(level));
+        tf.setPrefHeight(30);
+        ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+        log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+    }
+
+    //endregion
+
+    //region Other-Actions
 
     /**
      * plays a sound to notify the user about an event
@@ -488,37 +542,7 @@ public class Settings {
         }
     }
 
-    /**
-     * prints the error into the Log in the application.
-     *
-     * @param t     the thread who caught the error
-     * @param e     the error
-     */
-    public void printMessage(Thread t, Throwable e) {
-        printError(Level.ERROR, e.getStackTrace());
-    }
-
-    public void printError(Level level, StackTraceElement[] stackList) {
-        AnchorPane log = getLogArea();
-        if (log != null) {
-            Platform.runLater(() -> {
-                for (StackTraceElement ste : stackList) {
-                    printErrorLine(level, ste.toString());
-                }
-                printErrorLine(Level.OFF, "");
-            });
-        }
-    }
-
-    public void printErrorLine(Level level, String message) {
-        AnchorPane log = getLogArea();
-        TextField tf = new TextField(message);
-        tf.setEditable(false);
-        tf.setStyle(FileUtils.getStyle(level));
-        tf.setPrefHeight(30);
-        ((VBox) log.getChildren().get(0)).getChildren().add(tf);
-        log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
-    }
+    //endregion
 
     //endregion
 }
