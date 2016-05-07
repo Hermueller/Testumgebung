@@ -24,8 +24,6 @@ class SocketReaderThread extends Thread {
     private final ObjectInputStream in;
     private final Server server;
 
-    private long priorValue = 0;
-
     public SocketReaderThread(Student student,
                               ObjectInputStream in,
                               Server server) {
@@ -50,8 +48,7 @@ class SocketReaderThread extends Thread {
                 server.saveImage(img, student);
 
                 //save and show Lines of Code
-                Settings.getInstance().addValue(harvestedPackage.getLoc(), student, priorValue);
-                priorValue = harvestedPackage.getLoc();
+                Settings.getInstance().addValue(harvestedPackage.getLoc(), student);
 
                 finished = harvestedPackage.isFinished();
                 if (finished) {

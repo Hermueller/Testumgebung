@@ -3,10 +3,13 @@ package at.htl.server.entity;
 import at.htl.common.actions.TimeShower;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
+import com.sun.scenario.Settings;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,12 +19,13 @@ import java.util.List;
  * 26.10.2015: MET 001  crated class
  * 26.10.2015: MET 005  Name des Schülers, Verzeichnis der Screenshots
  * 31.10.2015: MET 005  Funktion für Verzeichnis der Screenshots verbessert
- * 31.12.2015: PHI 001  Getter und Setter für locs und times erstellt.
- * 05.01.2016: PHI 065  "Series" werden nun beim Schüler gespeichert.
- * 06.01.2016: PHI 015  Fehler beim hinzufügen von "Series" entdeckt und ausgebessert.
+ * 31.12.2015: PHI 001  created Getter and Setter of locs and times.
+ * 05.01.2016: PHI 065  "Series" will be saved with the student.
+ * 06.01.2016: PHI 015  fixed bug(adding new series).
  * 25.03.2016: PHI 010  lines of code will be shown in the student-info TAB
  * 14.04.2016: MET 003  setPathOfImages corrected
  * 04.05.2016: PHI 005  added new variables
+ * 07.05.2016: PHI 085  implemented methods to shown how many lines of code for each filter was found in the directory
  */
 public class Student {
 
@@ -38,7 +42,7 @@ public class Student {
 
     private List<Long> locs = new LinkedList<>();
     private List<Long> times = new LinkedList<>();
-    private List<XYChart.Series<Number, Number>> series = new LinkedList<>();
+    private List<List<XYChart.Series<Number, Number>>> filterSeries = new LinkedList<>();
 
     public Student(String name) {
         this.name = name;
@@ -119,37 +123,59 @@ public class Student {
         return times;
     }
 
-    public void addSeries(XYChart.Series<Number, Number> numberSeries) {
-        series.add(numberSeries);
+    /**
+     * For each filter will be a new series created.
+     *
+     * is called when:  a student logs in
+     */
+    public void addSeries() {
+        List<XYChart.Series<Number, Number>> list = new LinkedList<>();
+        for (String aFilter : filter) {
+            XYChart.Series<Number, Number> series = new XYChart.Series<>();
+            series.setName(getName() + "/" + aFilter + "/" + LocalTime.now().toString());
+            list.add(series);
+        }
+        filterSeries.add(list);
     }
 
-    public List<XYChart.Series<Number, Number>> getSeries() {
-        return series;
+    public List<List<XYChart.Series<Number, Number>>> getSeries() {
+        return filterSeries;
     }
 
     /**
-     * Adds the LinesOfCode-Number to the last series in the chart.
+     * Adds the LinesOfCodes from each filter to its series.
      *
-     * @param loc           Specifies the number of lines in the code.
+     * @param locs          Specifies the number of lines in the code for each filter.
      * @param time          Specifies the time (in sec.) when to lines where counted.
-     * @param priorValue    Specifies the prior number of lines in the code.
      */
-    public void addValueToLast(Long loc, Long time, Long priorValue) {
+    public void addValueToLast(Long[] locs, Long time) {
         Platform.runLater(() -> {
-            XYChart.Series<Number, Number> actual = series.get(series.size() - 1);
+            if (filterSeries.size() > 0) {
+                List<XYChart.Series<Number, Number>> list = filterSeries.get(filterSeries.size() - 1);
+                long last = 0;
+                for (int i = 0; i < list.size(); i++) {
+                    XYChart.Series<Number, Number> actual = list.get(i);
 
-            XYChart.Data<Number, Number> data = new XYChart.Data<>(time, loc);
-            data.setNode(
-                    new TimeShower(
-                            priorValue,
-                            loc,
-                            LocalDateTime.now()
-                                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-                                    .split("T")[1]
-                                    .split("\\.")[0]
-                    )
-            );
-            actual.getData().add(data);
+                    long _new = last + locs[i];
+                    XYChart.Data<Number, Number> data = new XYChart.Data<>(time, _new);
+                    actual.getData().add(data);
+                    last = _new;
+                }
+            }
+        });
+    }
+
+    /**
+     * adds the latest series to the chart.
+     */
+    public void addNewestToChart() {
+        Platform.runLater(() -> {
+            if (filterSeries.size() > 0) {
+                List<XYChart.Series<Number, Number>> list = filterSeries.get(filterSeries.size() - 1);
+                for (XYChart.Series<Number, Number> actual : list) {
+                    at.htl.server.Settings.getInstance().getChart().getData().add(actual);
+                }
+            }
         });
     }
 

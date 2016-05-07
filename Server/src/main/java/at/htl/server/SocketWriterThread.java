@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -79,24 +78,21 @@ class SocketWriterThread extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        student.addSeries();
         sendLittleHarvester(student);
-        XYChart.Series<Number, Number> seri = new XYChart.Series<>();
-        seri.setName(student.getName() + "/" + LocalTime.now());
 
-        Settings.getInstance()
-                .findStudentByName(student.getName())
-                .addSeries(seri);
-
-        Platform.runLater(() -> {
+        //   calls ERROR
+        /*Platform.runLater(() -> {
             Button selected = (Button)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
             if (selected != null) {
                 if (selected.getText().equals(student.getName())) {
-                    if (student.getSeries() != null) {
-                        Settings.getInstance().getChart().getData().add(seri);
+                    if (student.getSeries().size() > 0) {
+                        student.addNewestToChart();
                     }
                 }
             }
-        });
+        });*/
 
         try {
             while (!isInterrupted()) {

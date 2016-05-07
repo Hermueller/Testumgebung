@@ -7,15 +7,16 @@ import java.io.Serializable;
  * @timeline .
  * 13.01.2016: PHI 001  Erstellen der Serializable-Klasse.
  * 21.04.2016: PHI 001  added the finished-Variable
+ * 07.05.2016: PHI 001  added the loc-Array
  */
 public class HarvestedPackage implements Serializable {
     protected static final Long serialVersionUID = 1L;
 
     private byte[] image;
-    private long loc;
+    private Long[] loc;
     private boolean finished = false;
 
-    public HarvestedPackage(byte[] image, long loc, boolean finished) {
+    public HarvestedPackage(byte[] image, Long[] loc, boolean finished) {
         this.image = image;
         this.loc = loc;
         this.finished = finished;
@@ -29,11 +30,11 @@ public class HarvestedPackage implements Serializable {
         this.image = image;
     }
 
-    public long getLoc() {
+    public Long[] getLoc() {
         return loc;
     }
 
-    public void setLoc(long loc) {
+    public void setLoc(Long[] loc) {
         this.loc = loc;
     }
 

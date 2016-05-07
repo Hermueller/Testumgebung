@@ -25,7 +25,9 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -64,6 +66,7 @@ import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
+import java.util.Arrays;
 
 /**
  * @timeline Text
@@ -110,6 +113,7 @@ import java.util.jar.Manifest;
  * 05.05.2016: PHI 045  applied the file extension filter (it can be used now [bugfix]) + Layout changed
  * 05.05.2016: PHI 130  changes layout. added filter-Sets which can be applied during the test.
  * 06.05.2016: PHI 015  changed the layout and style
+ * 07.05.2016: PHI 015  changed the chart from LineChart to AreaChart. Changed the code of the chart.
  */
 public class Controller implements Initializable {
 
@@ -180,7 +184,7 @@ public class Controller implements Initializable {
     @FXML
     private Button btnExportLOC;
     @FXML
-    private LineChart<Number, Number> loc;
+    private AreaChart<Number, Number> loc;
     //endregion
 
     //region Student-Settings Variables
@@ -231,6 +235,8 @@ public class Controller implements Initializable {
     private Threader threader;
     //endregion
 
+    //region Standard-Method and Constructor
+
     public Controller() {
 
     }
@@ -268,6 +274,8 @@ public class Controller implements Initializable {
         btnStop.setDisable(true);
         Settings.getInstance().setStartTime(LocalTime.now());
     }
+
+    //endregion
 
     //region {GitHub-Issue: #--} Start and Stop Server
 
@@ -964,9 +972,7 @@ public class Controller implements Initializable {
         cbFilterSet.setValue("ALL-SETS");
 
         filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml",
-                ".cs", ".cshtml", ".js", ".css",
-                ".sql", ".xml", ".xsd", ".xsl",
-                ".html"
+                ".cs", ".cshtml", ".js", ".sql", ".xml", ".xsd", ".xsl", ".html"
         });
         filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml"});
         filterSets.add(new String[]{".cs", ".cshtml", ".js", ".css"});
@@ -1159,9 +1165,9 @@ public class Controller implements Initializable {
      * find the issue on GitHub:<p>
      * https://github.com/BeatingAngel/Testumgebung/issues/35
      *
-     * @param event     of the click on the button
      */
-    public void exportLOC(ActionEvent event) {
+    @FXML
+    public void exportLOC() {
         WritableImage image = loc.snapshot(new SnapshotParameters(), null);
 
         String studentInfo = lbCatalogNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
@@ -1179,16 +1185,19 @@ public class Controller implements Initializable {
 
     /**
      * if the SelectedStudent changes, the Chart and ImageView
-     * is cleared.
+     * is cleared and the new Chart and Image will be shown.
      */
     private void setOnChangeSize() {
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            Student st = Settings.getInstance().findStudentByName(newValue.getText());
+
             //   CHANGE LINECHART
             loc.getData().clear();
-            Student st = Settings.getInstance().findStudentByName(newValue.getText());
-            if (st != null && st.getSeries() != null) {
-                for (XYChart.Series<Number, Number> actualSeries : st.getSeries()) {
-                    loc.getData().add(actualSeries);
+            if (st.getSeries().size() > 0) {
+                for (List<XYChart.Series<Number, Number>> seriesList : st.getSeries()) {
+                    for (XYChart.Series<Number, Number> series : seriesList) {
+                        loc.getData().add(series);
+                    }
                 }
             }
 
@@ -1200,16 +1209,11 @@ public class Controller implements Initializable {
             ivLiveView.setImage(new Image(pathOfLastScreenshot));
 
             //   CHANGE STUDENT-INFO-DATA
-            if (st != null) {
-                String nr = Integer.toString(st.getCatalogNumber());
-                lbFirstName.setText(st.getFirstName());
-                lbLastName.setText(st.getName());
-                lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
-                lbEnrolmentID.setText(st.getEnrolmentID());
-                ObservableList<XYChart.Data<Number, Number>> ol =
-                        st.getSeries().get(st.getSeries().size() - 1).getData();
-                Long locVal = (Long)ol.get(ol.size() - 1).getYValue();
-            }
+            String nr = Integer.toString(st.getCatalogNumber());
+            lbFirstName.setText(st.getFirstName());
+            lbLastName.setText(st.getName());
+            lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
+            lbEnrolmentID.setText(st.getEnrolmentID());
         });
     }
 

@@ -14,6 +14,7 @@ import java.io.FileReader;
  * 10.12.2015: PHI 055  Anlegen der Grundfunktionen und implementieren dieser in andere Klassen(z.B. SocketWriterThread)
  * 11.12.2015: PHI 045  Errechnen von ALLEN zeilen im Projekt NUR im Startverzeichnis, das beim Login erstellt wurde.
  * 21.04.2016: PHI 010  changed this class to a Singleton and added the variable "finished"
+ * 07.05.2016: PHI 015  added new method (remembers how many lines for each filter)
  */
 public class LineCounter {
 
@@ -71,21 +72,29 @@ public class LineCounter {
      *
      * @since 1.2.9.002
      */
-    public long countLinesInFilesFromFolder(final File folder, String[] filter) {
+    public long countLinesInFilesFromFolder(final File folder, String filter) {
         long allLines = 0;
 
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
                 allLines += countLinesInFilesFromFolder(fileEntry, filter);
             } else {
-                for (String ending : filter) {
-                    if (fileEntry.getName().endsWith("." + ending.split("\\.")[1])) {
-                        allLines += countLines(fileEntry.getPath());
-                    }
+                if (fileEntry.getName().endsWith("." + filter.split("\\.")[1])) {
+                    allLines += countLines(fileEntry.getPath());
                 }
             }
         }
 
         return allLines;
+    }
+
+    public Long[] countLinesWithFilter(final File folder, String[] filter) {
+        Long[] lines = new Long[filter.length];
+
+        for (int i = 0; i < filter.length; i++) {
+            lines[i] = countLinesInFilesFromFolder(folder, filter[i]);
+        }
+
+        return lines;
     }
 }

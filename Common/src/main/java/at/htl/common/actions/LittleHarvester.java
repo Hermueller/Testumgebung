@@ -19,6 +19,7 @@ import java.util.Arrays;
  * @timeline .
  * 13.01.2016: PHI 055  Es werden neben Screenshots auch die Lines of Code eingelesen und versendet.
  * 21.04.2016: PHI 010  added the finished-Variable
+ * 07.05.2016: PHI 002  remembers the number of lines for each filter
  */
 public class LittleHarvester implements RobotAction {
 
@@ -45,7 +46,7 @@ public class LittleHarvester implements RobotAction {
         }
         previous.set(bytes);
 
-        long loc = LineCounter.getInstance().countLinesInFilesFromFolder(new File(studentPath), filter);
+        Long[] loc = LineCounter.getInstance().countLinesWithFilter(new File(studentPath), filter);
 
         return new HarvestedPackage(bytes, loc, LineCounter.getInstance().isFinished());
     }

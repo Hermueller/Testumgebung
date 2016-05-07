@@ -9,8 +9,7 @@ import at.htl.server.entity.Interval;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -56,6 +55,7 @@ import java.util.List;
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
  * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
  * 21.03.2016: PHI 020  write error to the log in the application
+ * 07.05.2016: PHI 020  improved the code from the chart (remembers how many lines of code for each filter)
  */
 public class Settings {
 
@@ -74,7 +74,7 @@ public class Settings {
     private String pathOfExports;
     private String password;
     private LocalDateTime starting = null;
-    private LineChart<Number, Number> chart;
+    private AreaChart<Number, Number> chart;
     private String[] endings;
     private MediaPlayer mediaPlayer = null;
     private Label lbLoc;
@@ -95,6 +95,8 @@ public class Settings {
         }
         return instance;
     }
+
+    //region Getter and Setter
 
     public List<String> getListOfScreenshots() {
         return ListOfScreenshots;
@@ -119,8 +121,6 @@ public class Settings {
     public void setActualScreenshot(String actualScreenshot) {
         this.actualScreenshot = actualScreenshot;
     }
-
-    //region Getter and Setter
 
     /**
      * @return the list of students.
@@ -295,11 +295,11 @@ public class Settings {
     /**
      * @param chart Specialises the chart which is shown on the screen of the teacher.
      */
-    public void setChart(LineChart<Number, Number> chart) {
+    public void setChart(AreaChart<Number, Number> chart) {
         this.chart = chart;
     }
 
-    public LineChart<Number, Number> getChart() {
+    public AreaChart<Number, Number> getChart() {
         return chart;
     }
 
@@ -317,41 +317,15 @@ public class Settings {
         this.endings = endings;
     }
 
-    /**
-     * @return the last series from the chart.
-     */
-    public XYChart.Series<Number, Number> getLastSeries(Student st) {
-        if (st.getSeries().size() > 0) {
-            return st.getSeries().get(st.getSeries().size() - 1);
-        }
-        return null;
-    }
-
     //endregion
 
     //region Methods
 
-    /**
-     * Adds a client to the list of all students and colours him red.
-     *
-     * @param student Specialises the client which will be added.
-     */
-    public void addStudent(final Student student) {
-        studentsList.add(student);
-
-        if (StudentView.getInstance().getLv() != null)
-            Platform.runLater(() -> {
-                Button btn = new Button(student.getName());
-                btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
-                btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
-                btn.setStyle("-fx-background-color: crimson");
-                students.add(btn);
-            });
-    }
-
     public List<Student> getStudentsList() {
         return studentsList;
     }
+
+    //region Student-Actions
 
     /**
      * Notifies the teacher that the client has logged in.
@@ -403,12 +377,52 @@ public class Settings {
     }
 
     /**
+     * searches for a student by his/her name
+     *
+     * @param name  of the Student
+     * @return      the StudentObject with the correct name
+     */
+    public Student findStudentByName(String name) {
+        for (Student _student : studentsList) {
+            if (_student.getName().equals(name)) {
+                return _student;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Adds a client to the list of all students and colours him red.
+     *
+     * @param student Specialises the client which will be added.
+     */
+    public void addStudent(final Student student) {
+        studentsList.add(student);
+
+        if (StudentView.getInstance().getLv() != null)
+            Platform.runLater(() -> {
+                Button btn = new Button(student.getName());
+                btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
+                btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
+                btn.setStyle("-fx-background-color: crimson");
+                students.add(btn);
+            });
+    }
+
+    //endregion
+
+    /**
      * Add the Number of Lines in the code to the chart.
      *
-     * @param _loc    Specialises the number of lines in the code.
+     * @param locs    Specialises the number of lines in the code.
      * @param student Specialises the client who owes the file of code.
      */
-    public void addValue(Long _loc, Student student, Long priorValue) {
+    public void addValue(Long[] locs, Student student) {
+
+        if (locs.length < 1) {
+            return;
+        }
+
         //set start-time
         if (starting == null) {
             starting = LocalDateTime.now();
@@ -427,36 +441,7 @@ public class Settings {
         Long _time = _seconds + _minutes * 60 + _hours * 60 * 60;
 
         //saves values to the client
-        Student toModify = findStudentByName(student.getName());
-        toModify.addLoC_Time(_loc, _time);
-        toModify.addValueToLast(_loc, _time, priorValue);
-
-        //show point in the chart
-        Platform.runLater(() -> {
-            Button selected = (Button) StudentView.getInstance().getLv()
-                    .getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                //if the client is in the Live-View -> show new point
-                if (student.getName().equals(selected.getText())) {
-                    XYChart.Series<Number, Number> actual = getLastSeries(student);
-
-                    //show time if the cursor is located on this point
-                    XYChart.Data<Number, Number> data = new XYChart.Data<>(_time, _loc);
-                    data.setNode(
-                            new TimeShower(
-                                    priorValue,
-                                    _loc,
-                                    LocalDateTime.now()
-                                            .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-                                            .split("T")[1]
-                                            .split("\\.")[0]
-                            )
-                    );
-                    actual.getData().add(data);
-                    getLbLoc().setText(Long.toString(_loc));
-                }
-            }
-        });
+        student.addValueToLast(locs, _time);
     }
 
     /**
@@ -473,21 +458,6 @@ public class Settings {
         mediaPlayer.setCycleCount(4);
 
         mediaPlayer.play();
-    }
-
-    /**
-     * searches for a student by his/her name
-     *
-     * @param name  of the Student
-     * @return      the StudentObject with the correct name
-     */
-    public Student findStudentByName(String name) {
-        for (Student _student : studentsList) {
-            if (_student.getName().equals(name)) {
-                return _student;
-            }
-        }
-        return null;
     }
 
     public void addStudentsFromCsv(File file) throws IOException {
