@@ -52,20 +52,11 @@
 #apStudentSettings {
   -fx-background-color: #575757;
 }
-#apStudentSettings .label {
+#apStudentSettings > .label {
   -fx-text-fill: white;
 }
 #messageAnchorPane {
   -fx-background-color: azure;
-}
-#messageAnchorPane #messageLabel {
-  -fx-font-size: 20px;
-  -fx-pref-width: 380px;
-  -fx-label-padding: 5px 5px 5px 5px;
-}
-#messageAnchorPane #messageInfo {
-  -fx-font-size: 14px;
-  -fx-font-family: cursive;
 }
 .button {
   -fx-font-weight: bold;

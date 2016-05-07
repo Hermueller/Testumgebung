@@ -28,14 +28,14 @@ public class PatrolMode extends Thread {
 
     public void run() {
         running = true;
+        long sleepTime = Settings.getInstance().getSleepTime();
+
         while (running) {
 
             try {
-                Platform.runLater(() -> {
-                    lv.getSelectionModel().select(actualPos);
-                });
+                Platform.runLater(() -> lv.getSelectionModel().select(actualPos));
 
-                Thread.sleep(5000L);
+                Thread.sleep(sleepTime);
 
                 if(actualPos >= lv.getItems().size() - 1) {
                     actualPos = 0;
@@ -43,8 +43,8 @@ public class PatrolMode extends Thread {
                     actualPos++;
                 }
             } catch (Exception e) {
-                FileUtils.log(Level.ERROR, e.getMessage());
-                Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+                FileUtils.log(Level.WARN, e.getMessage());
+                Settings.getInstance().printError(Level.WARN, e.getStackTrace());
             }
 
         }

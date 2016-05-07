@@ -143,7 +143,7 @@ public class FxUtils {
         ap.getChildren().addAll(iv, label, messageInfo);
 
         Scene dialogScene = new Scene(ap, 380, 220);
-        dialogScene.getStylesheets().add("styles/TeacherStyle.css");
+        dialogScene.getStylesheets().add("styles/sharedStyle.css");
         dialog.setScene(dialogScene);
         dialog.setResizable(false);
         dialog.show();

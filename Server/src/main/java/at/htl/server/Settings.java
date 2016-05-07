@@ -82,6 +82,7 @@ public class Settings {
     private boolean looksAtScreenshots;
     private String actualScreenshot;
     private List<String> ListOfScreenshots;
+    private long sleepTime = 5000;
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -121,6 +122,14 @@ public class Settings {
 
     public void setActualScreenshot(String actualScreenshot) {
         this.actualScreenshot = actualScreenshot;
+    }
+
+    public long getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(long sleepTime) {
+        this.sleepTime = sleepTime;
     }
 
     /**

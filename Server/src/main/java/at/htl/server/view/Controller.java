@@ -266,6 +266,7 @@ public class Controller implements Initializable {
         initializeSLOMM();
         initializeSlides();
         initializeNewFilters();
+        initializePatrol();
 
         showIP_Address();
         initializeTimeSpinner();
@@ -613,16 +614,32 @@ public class Controller implements Initializable {
     public void startPatrol() {
         if (!patrolMode) {
             patrolMode = true;
-            btnPatrolMode.setText("Patroullien Modus beenden");
+            btnPatrolMode.setText("Stop Patrol");
             pm = new PatrolMode();
             pm.setLv(lvStudents);
             pm.start();
         } else {
             patrolMode = false;
-            btnPatrolMode.setText("Patroullien Modus");
+            btnPatrolMode.setText("Start Patrol");
             pm.stopIt();
             pm.interrupt();
         }
+    }
+
+    private void initializePatrol() {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem five = new MenuItem("5 seconds");
+        MenuItem fifteen = new MenuItem("15 seconds");
+        MenuItem thirty = new MenuItem("30 seconds");
+        MenuItem sixty = new MenuItem("60 seconds");
+
+        five.setOnAction((event -> Settings.getInstance().setSleepTime(5000)));
+        fifteen.setOnAction((event -> Settings.getInstance().setSleepTime(15000)));
+        thirty.setOnAction((event -> Settings.getInstance().setSleepTime(30000)));
+        sixty.setOnAction((event -> Settings.getInstance().setSleepTime(60000)));
+
+        contextMenu.getItems().addAll(five, fifteen, thirty, sixty);
+        btnPatrolMode.setContextMenu(contextMenu);
     }
 
     //endregion
