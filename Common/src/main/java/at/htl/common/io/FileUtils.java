@@ -1,5 +1,6 @@
 package at.htl.common.io;
 
+import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
@@ -257,7 +258,17 @@ public class FileUtils {
         return deleted;
     }
 
-    private static String getStyle(Level level) {
+    /**
+     * creates the at.htl.client.styles for the error/warning/info.
+     * <p>
+     * ERROR's in RED.
+     * WARNING's in YELLOW.
+     * INFO's in WHITE.
+     *
+     * @param level     Specifies the level of the error.
+     * @return          the at.htl.client.styles for the textfield.
+     */
+    public static String getStyle(Level level) {
         String styleString = "-fx-background-color: transparent;";
         if (level == Level.ERROR) {
             styleString += "-fx-text-fill: crimson";
@@ -265,6 +276,8 @@ public class FileUtils {
             styleString += "-fx-text-fill: yellow";
         } else if (level == Level.INFO) {
             styleString += "-fx-text-fill: white";
+        } else if (level == Level.OFF) {
+            styleString = "-fx-background-color: white;";
         }
         return styleString;
     }
@@ -284,21 +297,5 @@ public class FileUtils {
      */
     public static void log(Object obj, Level level, String message) {
         LogManager.getLogger(obj.getClass()).log(level, message);
-
-        /*AnchorPane log = Settings.getInstance().getLogArea();
-        if (log != null) {
-            Platform.runLater(() -> {
-                String msg = level.toString() + " - "
-                        + obj.getClass().toString() + " - "
-                        + message + "\n";
-                TextField tf = new TextField(msg);
-                tf.setEditable(false);
-                tf.setStyle(getStyle(level));
-                tf.setPrefHeight(30);
-                ((VBox) log.getChildren().get(0)).getChildren().add(tf);
-
-                log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
-            });
-        }*/
     }
 }

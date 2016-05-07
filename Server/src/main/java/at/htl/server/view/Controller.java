@@ -43,6 +43,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import javafx.util.Callback;
 import org.apache.logging.log4j.Level;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileSystemView;
@@ -399,40 +400,6 @@ public class Controller implements Initializable {
     //endregion
 
     //region {GitHub-Issue: #04} Screenshot-Showcase Methods
-
-    /**
-     * Imports a file of pupils
-     * sets the observable list
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void importPupilList(ActionEvent actionEvent) throws IOException {
-        FileChooser dc = new FileChooser();
-        dc.setInitialDirectory(new File(System.getProperty("user.home")));
-        dc.setTitle("Wähle Die Schülerliste aus");
-        /*FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(".csv");
-        dc.getExtensionFilters().add(filter);*/
-        File choosedFile = dc.showOpenDialog(new Stage());
-
-        if (choosedFile != null) {
-            BufferedReader bis = new BufferedReader(new InputStreamReader(
-                    new FileInputStream(choosedFile), Charset.forName("UTF-16")));
-
-            int nameColumn = 0;
-            String line;
-            String[] words = bis.readLine().split(";");
-
-            for (int i = 0; i < words.length; i++) {
-                if (words[i].equals("Familienname")) {
-                    nameColumn = i;
-                }
-            }
-            while ((line = bis.readLine()) != null) {
-                Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn]));
-            }
-        }
-    }
 
     public void onBeforeButtonClick(ActionEvent actionEvent) {
 
@@ -1061,6 +1028,7 @@ public class Controller implements Initializable {
             toKick.getServer().socket.close();
         } catch (IOException e) {
             FileUtils.log(Level.WARN, e.getLocalizedMessage());
+            Settings.getInstance().printError(Level.WARN, e.getStackTrace());
         }
     }
 
@@ -1178,6 +1146,7 @@ public class Controller implements Initializable {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
         }
 
         FxUtils.showPopUp("exported LineChart successfully !!", true);
@@ -1289,6 +1258,40 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Imports a file of pupils
+     * sets the observable list
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void importPupilList(ActionEvent actionEvent) throws IOException {
+        FileChooser dc = new FileChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        dc.setTitle("Wähle Die Schülerliste aus");
+        /*FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(".csv");
+        dc.getExtensionFilters().add(filter);*/
+        File choosedFile = dc.showOpenDialog(new Stage());
+
+        if (choosedFile != null) {
+            BufferedReader bis = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(choosedFile), Charset.forName("UTF-16")));
+
+            int nameColumn = 0;
+            String line;
+            String[] words = bis.readLine().split(";");
+
+            for (int i = 0; i < words.length; i++) {
+                if (words[i].equals("Familienname")) {
+                    nameColumn = i;
+                }
+            }
+            while ((line = bis.readLine()) != null) {
+                Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn]));
+            }
+        }
+    }
+
     public void setTestOptions(ActionEvent event) throws IOException, URISyntaxException {
         File home = FileSystemView.getFileSystemView().getHomeDirectory();
         String path = home.getAbsolutePath() + "/newFolder";
@@ -1347,6 +1350,7 @@ public class Controller implements Initializable {
             }
         } catch (NullPointerException e) {
             FileUtils.log(Level.WARN, e.getLocalizedMessage());
+            Settings.getInstance().printError(Level.WARN, e.getStackTrace());
         }
 
         Settings.getInstance().setPath(desktop.getPath());
@@ -1398,6 +1402,7 @@ public class Controller implements Initializable {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
         }
         lbAddress.setText(ip + " : 50555");
     }

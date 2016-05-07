@@ -9,10 +9,10 @@ import at.htl.server.entity.Interval;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.chart.AreaChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -56,6 +56,7 @@ import java.util.List;
  * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
  * 21.03.2016: PHI 020  write error to the log in the application
  * 07.05.2016: PHI 020  improved the code from the chart (remembers how many lines of code for each filter)
+ * 07.05.2016: PHI 035  improved exception handling
  */
 public class Settings {
 
@@ -399,12 +400,20 @@ public class Settings {
     public void addStudent(final Student student) {
         studentsList.add(student);
 
+        final ContextMenu contextMenu = new ContextMenu();
+        MenuItem show = new MenuItem("show:");
+        MenuItem name = new MenuItem(student.getName());
+        MenuItem enrolmentID = new MenuItem(student.getEnrolmentID());
+
+        contextMenu.getItems().addAll(show, name, enrolmentID);
+
         if (StudentView.getInstance().getLv() != null)
             Platform.runLater(() -> {
                 Button btn = new Button(student.getName());
                 btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
                 btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
                 btn.setStyle("-fx-background-color: crimson");
+                btn.setContextMenu(contextMenu);
                 students.add(btn);
             });
     }
@@ -475,30 +484,8 @@ public class Settings {
             }
         }
         while ((line = bis.readLine()) != null) {
-            Settings.getInstance().addStudent(new Student(line.split(";")[nameColumn]));
+            addStudent(new Student(line.split(";")[nameColumn]));
         }
-    }
-
-    /**
-     * creates the at.htl.client.styles for the error/warning/info.
-     * <p>
-     * ERROR's in RED.
-     * WARNING's in YELLOW.
-     * INFO's in WHITE.
-     *
-     * @param level     Specifies the level of the error.
-     * @return          the at.htl.client.styles for the textfield.
-     */
-    public String getStyle(Level level) {
-        String styleString = "-fx-background-color: transparent;";
-        if (level == Level.ERROR) {
-            styleString += "-fx-text-fill: crimson";
-        } else if (level == Level.WARN) {
-            styleString += "-fx-text-fill: yellow";
-        } else if (level == Level.INFO) {
-            styleString += "-fx-text-fill: white";
-        }
-        return styleString;
     }
 
     /**
@@ -508,21 +495,29 @@ public class Settings {
      * @param e     the error
      */
     public void printMessage(Thread t, Throwable e) {
-        AnchorPane log = Settings.getInstance().getLogArea();
+        printError(Level.ERROR, e.getStackTrace());
+    }
+
+    public void printError(Level level, StackTraceElement[] stackList) {
+        AnchorPane log = getLogArea();
         if (log != null) {
             Platform.runLater(() -> {
-                String msg2 =
-                          t.getName() + " - "
-                        + e.getClass().toString() + "\n";
-                TextField tf = new TextField(msg2);
-                tf.setEditable(false);
-                tf.setStyle(getStyle(Level.ERROR));
-                tf.setPrefHeight(30);
-                ((VBox) log.getChildren().get(0)).getChildren().add(tf);
-
-                log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+                for (StackTraceElement ste : stackList) {
+                    printErrorLine(level, ste.toString());
+                }
+                printErrorLine(Level.OFF, "");
             });
         }
+    }
+
+    public void printErrorLine(Level level, String message) {
+        AnchorPane log = getLogArea();
+        TextField tf = new TextField(message);
+        tf.setEditable(false);
+        tf.setStyle(FileUtils.getStyle(level));
+        tf.setPrefHeight(30);
+        ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+        log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
     }
 
     //endregion

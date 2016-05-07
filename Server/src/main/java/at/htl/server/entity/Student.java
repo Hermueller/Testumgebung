@@ -6,6 +6,7 @@ import at.htl.server.Server;
 import com.sun.scenario.Settings;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
+import org.apache.logging.log4j.Level;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -149,34 +150,42 @@ public class Student {
      * @param time          Specifies the time (in sec.) when to lines where counted.
      */
     public void addValueToLast(Long[] locs, Long time) {
-        Platform.runLater(() -> {
-            if (filterSeries.size() > 0) {
-                List<XYChart.Series<Number, Number>> list = filterSeries.get(filterSeries.size() - 1);
-                long last = 0;
-                for (int i = 0; i < list.size(); i++) {
-                    XYChart.Series<Number, Number> actual = list.get(i);
+        try {
+            Platform.runLater(() -> {
+                if (filterSeries.size() > 0) {
+                    List<XYChart.Series<Number, Number>> list = filterSeries.get(filterSeries.size() - 1);
+                    long last = 0;
+                    for (int i = 0; i < list.size(); i++) {
+                        XYChart.Series<Number, Number> actual = list.get(i);
 
-                    long _new = last + locs[i];
-                    XYChart.Data<Number, Number> data = new XYChart.Data<>(time, _new);
-                    actual.getData().add(data);
-                    last = _new;
+                        long _new = last + locs[i];
+                        XYChart.Data<Number, Number> data = new XYChart.Data<>(time, _new);
+                        actual.getData().add(data);
+                        last = _new;
+                    }
                 }
-            }
-        });
+            });
+        } catch (Exception e) {
+            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+        }
     }
 
     /**
      * adds the latest series to the chart.
      */
     public void addNewestToChart() {
-        Platform.runLater(() -> {
-            if (filterSeries.size() > 0) {
-                List<XYChart.Series<Number, Number>> list = filterSeries.get(filterSeries.size() - 1);
-                for (XYChart.Series<Number, Number> actual : list) {
-                    at.htl.server.Settings.getInstance().getChart().getData().add(actual);
+        try {
+            Platform.runLater(() -> {
+                if (filterSeries.size() > 0) {
+                    List<XYChart.Series<Number, Number>> list = filterSeries.get(filterSeries.size() - 1);
+                    for (XYChart.Series<Number, Number> actual : list) {
+                        at.htl.server.Settings.getInstance().getChart().getData().add(actual);
+                    }
                 }
-            }
-        });
+            });
+        } catch (Exception e) {
+            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+        }
     }
 
     public void setPathOfWatch(String pathOfWatch) {
