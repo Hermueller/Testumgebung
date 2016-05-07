@@ -1,0 +1,38 @@
+#tabs ul li {
+    width:30%;
+}
+
+#tabs ul li a {
+    width:100%;
+}
+
+.splitter {
+    width: 100%;
+    background-color: #fdf5ce;
+    padding: 10px 10px 10px 10px;
+}
+
+.toRight {
+    margin-left: 2em;
+}
+
+.zoom:hover {
+    transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+.zoom {
+    transition: transform 0.2s;
+    -webkit-transition: -webkit-transform 0.2s;
+    -moz-transition: -moz-transform 0.2s;
+    -o-transition: -o-transform 0.2s;
+}
+
+.avatar {
+    float: left;
+    margin-right: 5%;
+    border-radius: 25px;
+    width: 20%;
+}
