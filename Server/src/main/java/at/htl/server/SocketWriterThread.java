@@ -82,8 +82,7 @@ class SocketWriterThread extends Thread {
         student.addSeries();
         sendLittleHarvester(student);
 
-        //   calls ERROR
-        /*Platform.runLater(() -> {
+        Platform.runLater(() -> {
             Button selected = (Button)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
             if (selected != null) {
                 if (selected.getText().equals(student.getName())) {
@@ -92,7 +91,7 @@ class SocketWriterThread extends Thread {
                     }
                 }
             }
-        });*/
+        });
 
         try {
             while (!isInterrupted()) {

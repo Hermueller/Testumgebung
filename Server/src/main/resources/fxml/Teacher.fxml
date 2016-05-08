@@ -337,14 +337,14 @@
                                                                 <Font size="14.0" />
                                                             </font>
                                                         </Button>
-                                                        <AreaChart fx:id="loc" layoutX="6.0" layoutY="57.0" legendSide="LEFT" legendVisible="false" prefHeight="572.0" prefWidth="987.0">
+                                                        <StackedAreaChart fx:id="loc" layoutX="6.0" layoutY="57.0" legendSide="LEFT" legendVisible="false" prefHeight="572.0" prefWidth="987.0">
                                                             <xAxis>
                                                                 <NumberAxis label="Seconds after START" side="BOTTOM" />
                                                             </xAxis>
                                                             <yAxis>
                                                                 <NumberAxis label="Lines of code" side="LEFT" />
                                                             </yAxis>
-                                                        </AreaChart>
+                                                        </StackedAreaChart>
                                                             <Label fx:id="lbCatalogNumber" layoutX="350.0" layoutY="25.0" text="00">
                                                                 <font>
                                                                     <Font size="18.0" />

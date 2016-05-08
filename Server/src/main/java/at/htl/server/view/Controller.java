@@ -185,7 +185,7 @@ public class Controller implements Initializable {
     @FXML
     private Button btnExportLOC;
     @FXML
-    private AreaChart<Number, Number> loc;
+    private StackedAreaChart<Number, Number> loc;
     //endregion
 
     //region Student-Settings Variables

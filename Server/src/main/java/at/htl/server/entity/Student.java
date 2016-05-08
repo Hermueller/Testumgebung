@@ -27,6 +27,7 @@ import java.util.List;
  * 14.04.2016: MET 003  setPathOfImages corrected
  * 04.05.2016: PHI 005  added new variables
  * 07.05.2016: PHI 085  implemented methods to shown how many lines of code for each filter was found in the directory
+ * 08.05.2016: PHI 035  fixed bug in stackedAreaChart with the method finishSeries. + fixed addNewestToChart-Method
  */
 public class Student {
 
@@ -154,14 +155,35 @@ public class Student {
             Platform.runLater(() -> {
                 if (filterSeries.size() > 0) {
                     List<XYChart.Series<Number, Number>> list = filterSeries.get(filterSeries.size() - 1);
-                    long last = 0;
                     for (int i = 0; i < list.size(); i++) {
                         XYChart.Series<Number, Number> actual = list.get(i);
 
-                        long _new = last + locs[i];
-                        XYChart.Data<Number, Number> data = new XYChart.Data<>(time, _new);
+                        XYChart.Data<Number, Number> data = new XYChart.Data<>(time, locs[i]);
                         actual.getData().add(data);
-                        last = _new;
+                    }
+                }
+            });
+        } catch (Exception e) {
+            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+        }
+    }
+
+    /**
+     * adds for each series the data-point y=0.
+     *
+     * (if a series in a stackedAreaChart doesn't end at y=0, it will produce
+     *      a graphical bug)
+     */
+    public void finishSeries() {
+        try {
+            Platform.runLater(() -> {
+                if (filterSeries.size() > 0) {
+                    List<XYChart.Series<Number, Number>> list = filterSeries.get(filterSeries.size() - 1);
+                    for (XYChart.Series<Number, Number> actual : list) {
+                        long time = (long) actual.getData().get(actual.getData().size() - 1).getXValue() + 1;
+
+                        XYChart.Data<Number, Number> data = new XYChart.Data<>(time, 0);
+                        actual.getData().add(data);
                     }
                 }
             });
@@ -179,6 +201,11 @@ public class Student {
                 if (filterSeries.size() > 0) {
                     List<XYChart.Series<Number, Number>> list = filterSeries.get(filterSeries.size() - 1);
                     for (XYChart.Series<Number, Number> actual : list) {
+                        // an empty series will produce an exception
+                        if (actual.getData().size() == 0) {
+                            long time = at.htl.server.Settings.getInstance().calculateTime();
+                            actual.getData().add(new XYChart.Data<>(time, 0));
+                        }
                         at.htl.server.Settings.getInstance().getChart().getData().add(actual);
                     }
                 }

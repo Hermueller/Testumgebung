@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -57,6 +58,7 @@ import java.util.List;
  * 21.03.2016: PHI 020  write error to the log in the application
  * 07.05.2016: PHI 020  improved the code from the chart (remembers how many lines of code for each filter)
  * 07.05.2016: PHI 035  improved exception handling
+ * 08.05.2016: PHI 005  added new method (calculateTime).
  */
 public class Settings {
 
@@ -75,7 +77,7 @@ public class Settings {
     private String pathOfExports;
     private String password;
     private LocalDateTime starting = null;
-    private AreaChart<Number, Number> chart;
+    private StackedAreaChart<Number, Number> chart;
     private String[] endings;
     private MediaPlayer mediaPlayer = null;
     private Label lbLoc;
@@ -305,11 +307,11 @@ public class Settings {
     /**
      * @param chart Specialises the chart which is shown on the screen of the teacher.
      */
-    public void setChart(AreaChart<Number, Number> chart) {
+    public void setChart(StackedAreaChart<Number, Number> chart) {
         this.chart = chart;
     }
 
-    public AreaChart<Number, Number> getChart() {
+    public StackedAreaChart<Number, Number> getChart() {
         return chart;
     }
 
@@ -443,6 +445,18 @@ public class Settings {
             return;
         }
 
+        long time = calculateTime();
+
+        //saves values to the client
+        student.addValueToLast(locs, time);
+    }
+
+    /**
+     * calculates the time (x-axis point) for the chart.
+     *
+     * @return  the time for the chart in seconds. (x-axis point)
+     */
+    public long calculateTime() {
         //set start-time
         if (starting == null) {
             starting = LocalDateTime.now();
@@ -450,18 +464,15 @@ public class Settings {
         LocalDateTime now = starting;
 
         //calculate time in seconds
-        Long _hours = now.until(LocalDateTime.now(), ChronoUnit.HOURS);
+        long _hours = now.until(LocalDateTime.now(), ChronoUnit.HOURS);
         now = now.plusHours(_hours);
 
-        Long _minutes = now.until(LocalDateTime.now(), ChronoUnit.MINUTES);
+        long _minutes = now.until(LocalDateTime.now(), ChronoUnit.MINUTES);
         now = now.plusMinutes(_minutes);
 
-        Long _seconds = now.until(LocalDateTime.now(), ChronoUnit.SECONDS);
+        long _seconds = now.until(LocalDateTime.now(), ChronoUnit.SECONDS);
 
-        Long _time = _seconds + _minutes * 60 + _hours * 60 * 60;
-
-        //saves values to the client
-        student.addValueToLast(locs, _time);
+        return _seconds + _minutes * 60 + _hours * 60 * 60;
     }
 
     //endregion

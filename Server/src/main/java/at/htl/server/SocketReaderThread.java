@@ -63,6 +63,7 @@ class SocketReaderThread extends Thread {
                 } else {
                     Settings.getInstance().finishStudent(student);
                 }
+                student.finishSeries();
                 server.shutdown();
                 return;
             }
