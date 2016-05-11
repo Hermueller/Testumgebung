@@ -115,8 +115,6 @@ class SocketWriterThread extends Thread {
             FileUtils.log(this, Level.ERROR,"Connection to " + student.getName() + " closed" + MyUtils.exToStr(e));
         }
         FileUtils.log(this,Level.INFO,"Closing connection to " + student.getName());
-        Settings.getInstance().printErrorLine(
-                Level.INFO, "Closing connection to " + student.getName());
     }
 
 }

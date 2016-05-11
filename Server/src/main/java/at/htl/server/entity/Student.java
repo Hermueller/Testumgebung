@@ -131,6 +131,7 @@ public class Student {
      * is called when:  a student logs in
      */
     public void addSeries() {
+
         List<XYChart.Series<Number, Number>> list = new LinkedList<>();
         for (String aFilter : filter) {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
@@ -138,6 +139,7 @@ public class Student {
             list.add(series);
         }
         filterSeries.add(list);
+
     }
 
     public List<List<XYChart.Series<Number, Number>>> getSeries() {

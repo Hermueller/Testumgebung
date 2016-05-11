@@ -417,6 +417,7 @@
                                                                 </AnchorPane>
                                                             </content>
                                                         </ScrollPane>
+                                          <ComboBox fx:id="cbLogFilter" layoutX="430.0" layoutY="628.0" prefWidth="150.0" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>

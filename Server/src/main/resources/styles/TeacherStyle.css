@@ -1,30 +1,22 @@
-.default-color0 .chart-area-symbol {
+.java-series *.chart-area-symbol {
   -fx-background-color: #e9967a, #ffa07a;
 }
-.default-color0 .chart-series-area-line {
+.java-series *.chart-series-area-line {
   -fx-stroke: #e9967a;
 }
-.default-color0 .chart-series-area-fill {
+.java-series *.chart-series-area-fill {
   -fx-fill: #ffa07a55;
 }
-.default-color1 .chart-area-symbol {
+.css-series .chart-area-symbol {
   --fx-background-color: #f0e68c, #fffacd;
 }
-.default-color1 .chart-series-area-line {
+.css-series .chart-series-area-line {
   -fx-stroke: #f0e68c;
 }
-.default-color1 .chart-series-area-fill {
+.css-series .chart-series-area-fill {
   -fx-fill: #fffacd55;
 }
-.default-color2 .chart-area-symbol {
-  -fx-background-color: #dda0dd, #d8bfd855 55;
-}
-.default-color2 .chart-series-area-line {
-  -fx-stroke: #dda0dd;
-}
-.default-color2 .chart-series-area-fill {
-  -fx-fill: #d8bfd855;
-}
+
 .chart-plot-background {
   -fx-background-color: transparent;
 }
@@ -54,9 +46,6 @@
 }
 #apStudentSettings > .label {
   -fx-text-fill: white;
-}
-#messageAnchorPane {
-  -fx-background-color: azure;
 }
 .button {
   -fx-font-weight: bold;

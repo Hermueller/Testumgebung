@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
@@ -29,6 +30,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.HashMap;
 
 /**
  * @timeline .
@@ -59,6 +61,7 @@ import java.util.List;
  * 07.05.2016: PHI 020  improved the code from the chart (remembers how many lines of code for each filter)
  * 07.05.2016: PHI 035  improved exception handling
  * 08.05.2016: PHI 005  added new method (calculateTime).
+ * 11.05.2016: PHI 015  added the "initialize-" Methods + fixed the inputs to the Log-View
  */
 public class Settings {
 
@@ -84,6 +87,8 @@ public class Settings {
     private boolean looksAtScreenshots;
     private String actualScreenshot;
     private List<String> ListOfScreenshots;
+    private HashMap<String, Color> filterColors = new HashMap<>();
+    private HashMap<String, List<TextField>> logFields = new HashMap<>();
     private long sleepTime = 5000;
 
     private Settings() {
@@ -91,6 +96,8 @@ public class Settings {
         endings = ("*.java; *.fxml; *.css; *.xhtml; *.html").split(";");
         ListOfScreenshots = new ArrayList<>();
         looksAtScreenshots = false;
+        initializeColors();
+        initializeFilters();
     }
 
     public static Settings getInstance() {
@@ -101,6 +108,10 @@ public class Settings {
     }
 
     //region Getter and Setter
+
+    public HashMap<String, Color> getFilterColors() {
+        return filterColors;
+    }
 
     public List<String> getListOfScreenshots() {
         return ListOfScreenshots;
@@ -434,6 +445,26 @@ public class Settings {
     //region Chart-Actions
 
     /**
+     * initializes the colors for each file extension name.
+     */
+    private void initializeColors() {
+        filterColors.put(".java", Color.PALEVIOLETRED);
+        filterColors.put(".cs", Color.ORANGE);
+        filterColors.put(".c", Color.LIGHTGOLDENRODYELLOW);
+        filterColors.put(".py", Color.CADETBLUE);
+        filterColors.put(".html", Color.PINK);
+        filterColors.put(".js", Color.RED);
+        filterColors.put(".xhtml", Color.CYAN);
+        filterColors.put(".css", Color.DARKSLATEGREY);
+        filterColors.put(".fxml", Color.WHITESMOKE);
+        filterColors.put(".sql", Color.BLACK);
+        filterColors.put(".cshtml", Color.WHITE);
+        filterColors.put(".xml", Color.CHOCOLATE);
+        filterColors.put(".xsd", Color.FORESTGREEN);
+        filterColors.put(".xsl", Color.PURPLE);
+    }
+
+    /**
      * Add the Number of Lines in the code to the chart.
      *
      * @param locs    Specialises the number of lines in the code.
@@ -498,12 +529,9 @@ public class Settings {
     public void printError(Level level, StackTraceElement[] stackList) {
         AnchorPane log = getLogArea();
         if (log != null) {
-            Platform.runLater(() -> {
-                for (StackTraceElement ste : stackList) {
-                    printErrorLine(level, ste.toString());
-                }
-                printErrorLine(Level.OFF, "");
-            });
+            for (StackTraceElement ste : stackList) {
+                printErrorLine(level, ste.toString(), true);
+            }
         }
     }
 
@@ -513,14 +541,30 @@ public class Settings {
      * @param level     Specifies the level of the error.
      * @param message   Specifies the message of the error.
      */
-    public void printErrorLine(Level level, String message) {
-        AnchorPane log = getLogArea();
-        TextField tf = new TextField(message);
-        tf.setEditable(false);
-        tf.setStyle(FileUtils.getStyle(level));
-        tf.setPrefHeight(30);
-        ((VBox) log.getChildren().get(0)).getChildren().add(tf);
-        log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+    public void printErrorLine(Level level, String message, boolean separator) {
+        if (separator) {
+            printErrorLine(Level.OFF, LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")), false);
+        }
+        Platform.runLater(() -> {
+            AnchorPane log = getLogArea();
+            TextField tf = new TextField(message);
+            tf.setEditable(false);
+            tf.setStyle(FileUtils.getStyle(level));
+            tf.setPrefHeight(30);
+            ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+            log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+        });
+    }
+
+    /**
+     * initializes the HashMap with lists.
+     */
+    private void initializeFilters() {
+        logFields.put("ALL", new LinkedList<>());
+        logFields.put("CONNECT", new LinkedList<>());
+        logFields.put("DISCONNECT", new LinkedList<>());
+        logFields.put("ERRORS", new LinkedList<>());
+        logFields.put("WARNINGS", new LinkedList<>());
     }
 
     //endregion

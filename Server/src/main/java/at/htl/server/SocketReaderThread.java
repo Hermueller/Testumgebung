@@ -57,7 +57,7 @@ class SocketReaderThread extends Thread {
 
             } catch (Exception ex) {
                 FileUtils.log(this, Level.INFO, "canceled " + MyUtils.exToStr(ex));
-                Settings.getInstance().printError(Level.INFO, ex.getStackTrace());
+                Settings.getInstance().printErrorLine(Level.INFO, student.getName() + " logged out!", true);
                 if (!finished) {
                     Settings.getInstance().removeStudent(student.getName());
                 } else {

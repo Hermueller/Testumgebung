@@ -177,6 +177,8 @@ public class Controller implements Initializable {
     private ScrollPane scrollLog;
     @FXML
     private AnchorPane anchorPaneScrollLog;
+    @FXML
+    private ComboBox cbLogFilter;
     //endregion
 
     //region Student-Info Variables
@@ -236,7 +238,7 @@ public class Controller implements Initializable {
     private Threader threader;
     //endregion
 
-    //region Standard-Method and Constructor
+    //region INITIALIZE and Constructor
 
     public Controller() {
 
@@ -267,6 +269,7 @@ public class Controller implements Initializable {
         initializeSlides();
         initializeNewFilters();
         initializePatrol();
+        initializeLogFilters();
 
         showIP_Address();
         initializeTimeSpinner();
@@ -876,6 +879,14 @@ public class Controller implements Initializable {
         }
     }
 
+    private void initializeLogFilters() {
+        cbLogFilter.getItems().addAll("ALL", "CONNECT", "DISCONNECT", "ERRORS", "WARNINGS");
+        cbLogFilter.setValue("ALL");
+        cbLogFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
+            // TODO: 11.05.16 change the data in the log (filter)!
+        });
+    }
+
     //endregion
 
     //region {GitHub-Issue: #34} Student-Settings Methods
@@ -897,50 +908,7 @@ public class Controller implements Initializable {
                                 if (item != null) {
                                     setText(item);
                                     Rectangle rec = new Rectangle(20, 20);
-                                    switch (item) {
-                                        case ".java":
-                                            rec.setFill(Color.PALEVIOLETRED);
-                                            break;
-                                        case ".cs":
-                                            rec.setFill(Color.ORANGE);
-                                            break;
-                                        case ".c":
-                                            rec.setFill(Color.LIGHTGOLDENRODYELLOW);
-                                            break;
-                                        case ".py":
-                                            rec.setFill(Color.CADETBLUE);
-                                            break;
-                                        case ".html":
-                                            rec.setFill(Color.PINK);
-                                            break;
-                                        case ".js":
-                                            rec.setFill(Color.RED);
-                                            break;
-                                        case ".xhtml":
-                                            rec.setFill(Color.CYAN);
-                                            break;
-                                        case ".css":
-                                            rec.setFill(Color.DARKSLATEGREY);
-                                            break;
-                                        case ".fxml":
-                                            rec.setFill(Color.WHITESMOKE);
-                                            break;
-                                        case ".sql":
-                                            rec.setFill(Color.BLACK);
-                                            break;
-                                        case ".cshtml":
-                                            rec.setFill(Color.WHITE);
-                                            break;
-                                        case ".xml":
-                                            rec.setFill(Color.CHOCOLATE);
-                                            break;
-                                        case ".xsd":
-                                            rec.setFill(Color.FORESTGREEN);
-                                            break;
-                                        case ".xsl":
-                                            rec.setFill(Color.PURPLE);
-                                            break;
-                                    }
+                                    rec.setFill(Settings.getInstance().getFilterColors().get(item));
                                     setGraphic(rec);
                                 }
                                 else {
