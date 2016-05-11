@@ -529,8 +529,12 @@ public class Settings {
     public void printError(Level level, StackTraceElement[] stackList) {
         AnchorPane log = getLogArea();
         if (log != null) {
+            boolean separator = true;
             for (StackTraceElement ste : stackList) {
-                printErrorLine(level, ste.toString(), true);
+                printErrorLine(level, ste.toString(), separator);
+                if (separator) {
+                    separator = false;
+                }
             }
         }
     }
