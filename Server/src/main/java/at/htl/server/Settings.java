@@ -1,7 +1,6 @@
 package at.htl.server;
 
 import at.htl.server.entity.Student;
-import at.htl.common.actions.TimeShower;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.common.trasfer.HandOutPackage;
@@ -9,9 +8,6 @@ import at.htl.server.entity.Interval;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -62,6 +58,7 @@ import java.util.HashMap;
  * 07.05.2016: PHI 035  improved exception handling
  * 08.05.2016: PHI 005  added new method (calculateTime).
  * 11.05.2016: PHI 015  added the "initialize-" Methods + fixed the inputs to the Log-View
+ * 12.05.2016: PHI 035  added the Log-Filter Methods
  */
 public class Settings {
 
@@ -89,6 +86,7 @@ public class Settings {
     private List<String> ListOfScreenshots;
     private HashMap<String, Color> filterColors = new HashMap<>();
     private HashMap<String, List<TextField>> logFields = new HashMap<>();
+    private String currentLogFilter = "ALL";
     private long sleepTime = 5000;
 
     private Settings() {
@@ -108,6 +106,14 @@ public class Settings {
     }
 
     //region Getter and Setter
+
+    public void setCurrentLogFilter(String currentLogFilter) {
+        this.currentLogFilter = currentLogFilter;
+    }
+
+    public HashMap<String, List<TextField>> getLogFields() {
+        return logFields;
+    }
 
     public HashMap<String, Color> getFilterColors() {
         return filterColors;
@@ -517,7 +523,7 @@ public class Settings {
      * @param e     the error
      */
     public void printMessage(Thread t, Throwable e) {
-        printError(Level.ERROR, e.getStackTrace());
+        printError(Level.ERROR, e.getStackTrace(), "ERRORS");
     }
 
     /**
@@ -526,12 +532,12 @@ public class Settings {
      * @param level         Specifies the level of the error.
      * @param stackList     Specifies all the messages of the error.
      */
-    public void printError(Level level, StackTraceElement[] stackList) {
+    public void printError(Level level, StackTraceElement[] stackList, String filter) {
         AnchorPane log = getLogArea();
         if (log != null) {
             boolean separator = true;
             for (StackTraceElement ste : stackList) {
-                printErrorLine(level, ste.toString(), separator);
+                printErrorLine(level, ste.toString(), separator, filter);
                 if (separator) {
                     separator = false;
                 }
@@ -545,19 +551,25 @@ public class Settings {
      * @param level     Specifies the level of the error.
      * @param message   Specifies the message of the error.
      */
-    public void printErrorLine(Level level, String message, boolean separator) {
+    public void printErrorLine(Level level, String message, boolean separator, String filter) {
         if (separator) {
-            printErrorLine(Level.OFF, LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")), false);
+            printErrorLine(Level.OFF, LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")), false, filter);
         }
-        Platform.runLater(() -> {
-            AnchorPane log = getLogArea();
-            TextField tf = new TextField(message);
-            tf.setEditable(false);
-            tf.setStyle(FileUtils.getStyle(level));
-            tf.setPrefHeight(30);
-            ((VBox) log.getChildren().get(0)).getChildren().add(tf);
-            log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
-        });
+
+        AnchorPane log = getLogArea();
+        TextField tf = new TextField(message);
+        tf.setEditable(false);
+        tf.setStyle(FileUtils.getStyle(level));
+        tf.setPrefHeight(30);
+        logFields.get(filter).add(tf);
+        logFields.get("ALL").add(tf);
+
+        if (currentLogFilter.equals("ALL") || currentLogFilter.equals(filter)) {
+            Platform.runLater(() -> {
+                ((VBox) log.getChildren().get(0)).getChildren().add(tf);
+                log.setMinHeight(((VBox) log.getChildren().get(0)).getChildren().size() * 30);
+            });
+        }
     }
 
     /**
@@ -569,6 +581,7 @@ public class Settings {
         logFields.put("DISCONNECT", new LinkedList<>());
         logFields.put("ERRORS", new LinkedList<>());
         logFields.put("WARNINGS", new LinkedList<>());
+        logFields.put("OTHER", new LinkedList<>());
     }
 
     //endregion

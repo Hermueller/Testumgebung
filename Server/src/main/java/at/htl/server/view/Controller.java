@@ -115,6 +115,7 @@ import java.util.Arrays;
  * 05.05.2016: PHI 130  changes layout. added filter-Sets which can be applied during the test.
  * 06.05.2016: PHI 015  changed the layout and style
  * 07.05.2016: PHI 015  changed the chart from LineChart to AreaChart. Changed the code of the chart.
+ * 12.05.2016: PHI 020  implemented the LogFilter-Method
  */
 public class Controller implements Initializable {
 
@@ -784,6 +785,8 @@ public class Controller implements Initializable {
     /**
      * add files from the source to the jar file
      *
+     * source code from this method (http://stackoverflow.com/a/1281295)
+     *
      * @param source        the source of the files to add
      * @param target        the stream from the jar-file
      * @throws IOException
@@ -877,13 +880,24 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
         }
+        throw new NotImplementedException();
     }
 
+    /**
+     * implements the values and listener for the comboBox (LogFilter)
+     */
     private void initializeLogFilters() {
-        cbLogFilter.getItems().addAll("ALL", "CONNECT", "DISCONNECT", "ERRORS", "WARNINGS");
+        cbLogFilter.getItems().addAll("ALL", "CONNECT", "DISCONNECT", "ERRORS", "WARNINGS", "OTHER");
         cbLogFilter.setValue("ALL");
         cbLogFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
-            // TODO: 11.05.16 change the data in the log (filter)!
+            Settings.getInstance().setCurrentLogFilter((String)newValue);
+            VBox vbox = (VBox)anchorPaneScrollLog.getChildren().get(0);
+            vbox.getChildren().clear();
+            anchorPaneScrollLog.setPrefHeight(570);
+            for (TextField tf : Settings.getInstance().getLogFields().get((String)newValue)) {
+                vbox.getChildren().add(tf);
+            }
+            anchorPaneScrollLog.setMinHeight(vbox.getChildren().size() * 30);
         });
     }
 
@@ -1013,7 +1027,7 @@ public class Controller implements Initializable {
             toKick.getServer().socket.close();
         } catch (IOException e) {
             FileUtils.log(Level.WARN, e.getLocalizedMessage());
-            Settings.getInstance().printError(Level.WARN, e.getStackTrace());
+            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS");
         }
     }
 
@@ -1131,7 +1145,7 @@ public class Controller implements Initializable {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
 
         FxUtils.showPopUp("exported LineChart successfully !!", true);
@@ -1335,7 +1349,7 @@ public class Controller implements Initializable {
             }
         } catch (NullPointerException e) {
             FileUtils.log(Level.WARN, e.getLocalizedMessage());
-            Settings.getInstance().printError(Level.WARN, e.getStackTrace());
+            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS");
         }
 
         Settings.getInstance().setPath(desktop.getPath());
@@ -1387,7 +1401,7 @@ public class Controller implements Initializable {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
         lbAddress.setText(ip + " : 50555");
     }

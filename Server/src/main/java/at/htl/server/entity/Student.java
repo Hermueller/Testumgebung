@@ -166,7 +166,7 @@ public class Student {
                 }
             });
         } catch (Exception e) {
-            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
     }
 
@@ -190,7 +190,7 @@ public class Student {
                 }
             });
         } catch (Exception e) {
-            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
     }
 
@@ -213,7 +213,7 @@ public class Student {
                 }
             });
         } catch (Exception e) {
-            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
     }
 

@@ -87,7 +87,7 @@ public class Server {
         student.setInterval(Settings.getInstance().getIntervalObject());
 
         FileUtils.log(this, Level.INFO, "finished connecting to " + socket);
-        Settings.getInstance().printErrorLine(Level.INFO, student.getName() + " logged in!", true);
+        Settings.getInstance().printErrorLine(Level.INFO, student.getName() + " logged in!", true, "CONNECT");
     }
 
     public static int getPORT() {

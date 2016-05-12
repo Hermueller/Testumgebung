@@ -138,8 +138,6 @@ public class Client {
             } catch (IOException e) {
                 FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.exToStr(e));
             }
-
-            Platform.runLater(() -> FxUtils.showPopUp("LOST CONNECTION", false));
         }
     }
 

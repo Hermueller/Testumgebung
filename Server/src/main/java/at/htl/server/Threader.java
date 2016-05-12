@@ -35,7 +35,7 @@ public class Threader implements Runnable {
             }
         } catch (IOException e) {
             FileUtils.log(this, Level.INFO, e.getMessage());
-            Settings.getInstance().printError(Level.INFO, e.getStackTrace());
+            Settings.getInstance().printError(Level.INFO, e.getStackTrace(), "WARNINGS");
         }
     }
 
@@ -49,7 +49,7 @@ public class Threader implements Runnable {
             return new ServerSocket(Server.getPORT());
         } catch (IOException e) {
             FileUtils.log(this, Level.ERROR, e.getMessage());
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
             return null;
         }
     }
@@ -65,7 +65,7 @@ public class Threader implements Runnable {
             new Server(socket);
         } catch (IOException | ClassNotFoundException e) {
             FileUtils.log(this, Level.ERROR, e.getMessage());
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
         return true;
     }
@@ -80,7 +80,7 @@ public class Threader implements Runnable {
                 ss.close();
             } catch (IOException e) {
                 FileUtils.log(this, Level.WARN, e.getMessage());
-                Settings.getInstance().printError(Level.WARN, e.getStackTrace());
+                Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS");
                 System.out.println("can't close ServerSocket");
             }
         }
