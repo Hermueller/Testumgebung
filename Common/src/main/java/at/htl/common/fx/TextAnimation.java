@@ -39,6 +39,7 @@ public class TextAnimation {
                 )
         );
         blink.setCycleCount(Timeline.INDEFINITE);
+        //blink.setCycleCount(5);
         return blink;
     }
 
