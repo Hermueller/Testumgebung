@@ -38,6 +38,7 @@ import java.util.ResourceBundle;
  * 25.02.2016: MET 005  default settings for testing
  * 20.03.2016: PHI 001  fixed bug (check ip-address on correctness)
  * 21.04.2016: PHI 060  added the finished-Mode
+ * 12.05.2016: MET 010  fixed FileUtils-Error
  */
 public class Controller implements Initializable {
 
@@ -171,21 +172,21 @@ public class Controller implements Initializable {
                         ));
                         client.start();
                     }
-                    setTimeLeft();
+                    LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(10);
+                    setTimeLeft(toTime);
                     setControls(false);
                     setMsg("Signed in!", false);
                 }
             } catch (Exception e) {
-                FileUtils.log(Level.ERROR, e.getMessage());
+                FileUtils.log(this, Level.ERROR, e.getMessage());
                 setMsg("Login failed!", true);
             }
         }
     }
 
-    private void setTimeLeft() {
-        LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(10);
+    private void setTimeLeft(LocalTime toTime) {
         countdown = new Countdown(txTimeLeft, toTime);
-        countdown.setDaemon(true);
+        countdown.setDaemon(false);
         countdown.start();
     }
 
@@ -202,9 +203,10 @@ public class Controller implements Initializable {
      */
     @FXML
     public void logout() {
+        countdown.interrupt();
+        countdown.reset();
         setControls(true);
         setMsg("Test successfully submitted", false);
-        client.stop();
     }
 
     @FXML

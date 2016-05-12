@@ -1,9 +1,7 @@
 package at.htl.common;
 
 import at.htl.common.fx.TextAnimation;
-import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
-import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -16,6 +14,8 @@ import java.util.concurrent.TimeUnit;
  * @timeline .
  * 10.03.2016: MET 001  created class
  * 10.03.2016: MET 040  created basic structure for the countdown
+ * 28.04.2016: MET 010  implemented function for resetting timer (incl. Design)
+ * 12.05.2016: MET 060  Fixed bug: Timer no longer continues after stopping
  */
 public class Countdown extends Thread {
 
@@ -23,16 +23,21 @@ public class Countdown extends Thread {
 
     private Text txCountdown;
     private LocalTime toTime;
+    SequentialTransition blinkThenFade;
 
     public Countdown(Text txCountdown, LocalTime toTime) {
         this.txCountdown = txCountdown;
         this.toTime = toTime;
     }
 
-    public String getToTime() {
+    public void setToTime(LocalTime toTime) {
+        this.toTime = toTime;
+    }
+
+    public String getTime() {
         Duration d = Duration.between(LocalTime.now(), toTime);
         if (d.toMillis() < 1000) {
-            this.interrupt();
+            interrupt();
         }
         return LocalTime.MIDNIGHT.plus(d).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
@@ -42,29 +47,34 @@ public class Countdown extends Thread {
         while (!isInterrupted()) {
             try {
                 sleep(TimeUnit.SECONDS.toMillis(PAUSE));
-                txCountdown.setText(getToTime());
+                txCountdown.setText(getTime());
             } catch (InterruptedException e) {
-                System.out.println("Clock beendet");
-                e.printStackTrace();
+                System.out.println("Interrupted Thread.sleep");
+                interrupt();
+                return;
             }
         }
         System.out.println("Clock beendet");
         txCountdown.setFill(Color.RED);
-
-        Timeline blinker = TextAnimation.createBlinker(txCountdown);
-        blinker.setOnFinished(event -> txCountdown.setText("Test closed!"));
-        FadeTransition fade = TextAnimation.createFade(txCountdown);
-
-        SequentialTransition blinkThenFade = new SequentialTransition(
+        blinkThenFade = new SequentialTransition(
                 txCountdown,
-                blinker,
-                fade
+                TextAnimation.createBlinker(txCountdown),
+                TextAnimation.createFade(txCountdown)
         );
         blinkThenFade.play();
     }
 
+    public void reset() {
+        if (blinkThenFade != null) {
+            blinkThenFade.stop();
+        }
+        txCountdown.setText("");
+        txCountdown.setVisible(true);
+        txCountdown.setFill(Color.BLACK);
+    }
+
     @Override
     public String toString() {
-        return getToTime();
+        return getTime();
     }
 }
