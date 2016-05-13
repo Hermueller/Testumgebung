@@ -11,11 +11,7 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -25,8 +21,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -37,8 +31,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import javafx.util.Callback;
@@ -67,7 +59,7 @@ import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
-import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * @timeline Text
@@ -116,6 +108,7 @@ import java.util.Arrays;
  * 06.05.2016: PHI 015  changed the layout and style
  * 07.05.2016: PHI 015  changed the chart from LineChart to AreaChart. Changed the code of the chart.
  * 12.05.2016: PHI 020  implemented the LogFilter-Method
+ * 13.05.2016: PHI 035  changed the view and code from the file extension filters.
  */
 public class Controller implements Initializable {
 
@@ -199,13 +192,17 @@ public class Controller implements Initializable {
     @FXML
     private Slider slHarvesterStudent;
     @FXML
-    private ComboBox cbNewFilter, cbUsedFilter, cbFilterSet;
+    private ComboBox cbFilterSet;
     @FXML
     private ToggleButton tbToggleSettings;
     @FXML
     private ColorPicker cpNewFilter;
     @FXML
     private TextField tfNewFilter;
+    @FXML
+    private ListView<CheckBox> lvFileFilters;
+    @FXML
+    private Accordion accordion;
 
     private List<String[]> filterSets = new LinkedList<>();
     //endregion
@@ -238,6 +235,9 @@ public class Controller implements Initializable {
     private Thread server;
     private Threader threader;
     //endregion
+
+
+
 
     //region INITIALIZE and Constructor
 
@@ -353,12 +353,7 @@ public class Controller implements Initializable {
                 Settings.getInstance().setInterval(new Interval(Integer.parseInt(ssTime)));
             }
 
-            Object[] objects = cbUsedFilter.getItems().toArray();
-            String[] endings = new String[objects.length];
-            for (int i = 0; i < endings.length; i++) {
-                endings[i] = (String)objects[i];
-            }
-            Settings.getInstance().setEndings(endings);
+            Settings.getInstance().setEndings(getSelectedFilters());
 
             threader = new Threader();
             server = new Thread(threader);
@@ -905,6 +900,12 @@ public class Controller implements Initializable {
 
     //region {GitHub-Issue: #34} Student-Settings Methods
 
+    private void createFilterItem(String filter) {
+        CheckBox item = new CheckBox(filter);
+        item.setSelected(true);
+        lvFileFilters.getItems().add(item);
+    }
+
     /**
      * initializes the filter-Sets
      */
@@ -945,21 +946,13 @@ public class Controller implements Initializable {
         filterSets.add(new String[]{".sql", ".xml", ".xsd", ".xsl"});
         filterSets.add(new String[]{".js", ".html", ".css"});
 
-        cbNewFilter.getItems().addAll(filterSets.get(0));
-        cbNewFilter.setCellFactory(callback);
-        cbNewFilter.setValue(".java");
-
-        cbUsedFilter.getItems().add(".java");
-        cbUsedFilter.setCellFactory(callback);
-        cbUsedFilter.setValue(".java");
-
         ChangeListener cl = ((observable, oldValue, newValue) -> {
-            cbUsedFilter.getItems().clear();
-            cbNewFilter.getItems().clear();
-            cbNewFilter.getItems().addAll(filterSets.get(cbFilterSet.getItems().indexOf(newValue)));
-            cbNewFilter.setValue(cbNewFilter.getItems().get(0));
-            cbUsedFilter.getItems().addAll(cbNewFilter.getItems());
-            cbUsedFilter.setValue(cbUsedFilter.getItems().get(0));
+
+            lvFileFilters.getItems().clear();
+
+            for (String filter : filterSets.get(cbFilterSet.getItems().indexOf(newValue))) {
+                createFilterItem(filter);
+            }
 
             cbFilterSet.setValue(newValue);
             cbFilterSetMain.setValue(newValue);
@@ -970,6 +963,12 @@ public class Controller implements Initializable {
 
         cbFilterSetMain.getItems().addAll(cbFilterSet.getItems());
         cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
+
+        for (String filter : filterSets.get(0)) {
+            createFilterItem(filter);
+        }
+
+        accordion.setExpandedPane(accordion.getPanes().get(1));
     }
 
     /**
@@ -1045,7 +1044,8 @@ public class Controller implements Initializable {
                     .findStudentByName(selected.getText());
 
             toChange.setInterval(new Interval(new_time));
-            setFiltersToStudent(toChange);
+            String[] filters = getSelectedFilters();
+            toChange.setFilter(filters);
         } else {
             for (Object obj : StudentView.getInstance().getLv().getItems()) {
                 String name = ((Button)obj).getText();
@@ -1053,23 +1053,25 @@ public class Controller implements Initializable {
                         .findStudentByName(name);
 
                 toChange.setInterval(new Interval(new_time));
-                setFiltersToStudent(toChange);
+                String[] filters = getSelectedFilters();
+                toChange.setFilter(filters);
             }
         }
     }
 
     /**
      * changes the filters for a specific student
-     *
-     * @param student   The student who will receive a new filter.
      */
-    public void setFiltersToStudent(Student student) {
-        Object[] objs = cbUsedFilter.getItems().toArray();
-        String[] filters = new String[objs.length];
+    public String[] getSelectedFilters() {
+        List<String> filterList = lvFileFilters.getItems().stream()
+                .filter(CheckBox::isSelected)
+                .map(CheckBox::getText)
+                .collect(Collectors.toCollection(LinkedList::new));
+        String[] filters = new String[filterList.size()];
         for (int i = 0; i < filters.length; i++) {
-            filters[i] = (String)objs[i];
+            filters[i] = filterList.get(i);
         }
-        student.setFilter(filters);
+        return filters;
     }
 
     /**
@@ -1085,32 +1087,7 @@ public class Controller implements Initializable {
         }
         newSet[newSet.length - 1] = tfNewFilter.getText();
         filterSets.set(index, newSet);
-        cbNewFilter.getItems().add(tfNewFilter.getText());
-    }
-
-    /**
-     * add file-extension filter
-     */
-    @FXML
-    public void addFilter() {
-        String selected = (String)cbNewFilter.getSelectionModel().getSelectedItem();
-
-        if (!cbUsedFilter.getItems().contains(selected)) {
-            cbUsedFilter.getItems().add(selected);
-        }
-    }
-
-    /**
-     * remove file-extension filter
-     */
-    @FXML
-    public void removeFilter() {
-        String selected = (String)cbUsedFilter.getSelectionModel().getSelectedItem();
-
-        cbUsedFilter.getItems().remove(selected);
-        if (cbUsedFilter.getItems().size() > 0) {
-            cbUsedFilter.setValue(cbUsedFilter.getItems().get(0));
-        }
+        lvFileFilters.getItems().add(new CheckBox(tfNewFilter.getText()));
     }
 
     //endregion

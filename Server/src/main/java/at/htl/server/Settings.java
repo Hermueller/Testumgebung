@@ -59,6 +59,7 @@ import java.util.HashMap;
  * 08.05.2016: PHI 005  added new method (calculateTime).
  * 11.05.2016: PHI 015  added the "initialize-" Methods + fixed the inputs to the Log-View
  * 12.05.2016: PHI 035  added the Log-Filter Methods
+ * 13.05.2016: PHI 001  changes the color of the students.
  */
 public class Settings {
 
@@ -365,7 +366,7 @@ public class Settings {
         Platform.runLater(() -> {
             for (Button btn : students) {
                 if (btn.getText().equals(student.getName())) {
-                    btn.setStyle("-fx-background-color: yellow");
+                    btn.setStyle("-fx-background-color: lawngreen");
                     break;
                 }
             }
@@ -382,7 +383,7 @@ public class Settings {
         Platform.runLater(() -> {
             for (Button btn : students) {
                 if (btn.getText().equals(student.getName())) {
-                    btn.setStyle("-fx-background-color: lawngreen");
+                    btn.setStyle("-fx-background-color: deepskyblue");
                     break;
                 }
             }
