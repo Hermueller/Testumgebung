@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @timeline .
+ * @timeline Pupil
  * 26.10.2015: MET 001  created class
  * 26.10.2015: MET 005  fields: catalogNumber, firstName, lastName, path, startTime
  * 13.11.2015: MET 002  added field enrolmentID (Matrikelnummer)

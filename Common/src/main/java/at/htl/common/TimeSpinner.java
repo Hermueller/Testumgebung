@@ -12,7 +12,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @timeline .
+ * @timeline TimeSpinner
  * 21.01.2016: GNA 001  created class
  * 08.02.2016: GNA 250  implementation of TimeSpinner which is not implemented in JavaFX
  */

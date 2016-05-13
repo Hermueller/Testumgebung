@@ -1,10 +1,10 @@
-package at.htl.common.trasfer;
+package at.htl.common.transfer;
 
 
 import java.io.Serializable;
 
 /**
- * @timeline .
+ * @timeline HarvestedPackage
  * 13.01.2016: PHI 001  Erstellen der Serializable-Klasse.
  * 21.04.2016: PHI 001  added the finished-Variable
  * 07.05.2016: PHI 001  added the loc-Array

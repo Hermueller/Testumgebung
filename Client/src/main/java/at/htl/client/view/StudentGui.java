@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * @timeline .
+ * @timeline StudentGui
  * 01.10.2015: GNA 130  configured prototype and created first working version
  * 15.10.2015: PON 040  created GUI for students
  * 18.10.2015: PHI 065  implementation of the GUI

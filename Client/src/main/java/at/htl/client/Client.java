@@ -6,7 +6,7 @@ import at.htl.common.actions.RobotActionQueue;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileStream;
 import at.htl.common.io.FileUtils;
-import at.htl.common.trasfer.LoginPackage;
+import at.htl.common.transfer.LoginPackage;
 import at.htl.common.actions.LittleHarvester;
 import javafx.application.Platform;
 import org.apache.logging.log4j.Level;
@@ -16,7 +16,7 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * @timeline .
+ * @timeline Client
  * 24.10.2015: PON 010  students can log out - thereby no longer be sent screenshots
  * 26.10.2015: MET 002  renamed this class from "Student" to "Client"
  * 31.10.2015: MET 075  function "download specification" implemented
@@ -160,7 +160,8 @@ public class Client {
     }
 
     /**
-     * client logs out -> stop all streams from this client.
+     * called when the client logs out.<br>
+     * stop all streams from this client.
      */
     public void stop() {
 

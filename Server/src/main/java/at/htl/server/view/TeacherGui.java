@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * @timeline .
+ * @timeline TeacherGui
  * 01.10.2015: PON 130  configured prototype and created first working version
  * 08.10.2015: PON 001  created class
  * 15.10.2015: PON 060  established repository for the project

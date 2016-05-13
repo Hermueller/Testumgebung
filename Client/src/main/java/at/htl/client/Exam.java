@@ -3,7 +3,7 @@ package at.htl.client;
 import at.htl.common.Pupil;
 
 /**
- * @timeline .
+ * @timeline Exam
  * 12.02.2016: MET 005  created class with serverIP, port and pupil
  */
 public class Exam {

@@ -1,9 +1,9 @@
-package at.htl.common.trasfer;
+package at.htl.common.transfer;
 
 import java.io.Serializable;
 
 /**
- * @timeline .
+ * @timeline LoginPackage
  * 31.10.2015: MET 005  created class
  * 19.11.2015: PON 002  added port
  */
@@ -21,7 +21,10 @@ public class LoginPackage implements Serializable {
      * is the package the client sends the teacher.
      * the transfer contains information from the client.
      *
+     * @param firstname  Specialises the firstname of the client.
      * @param lastname   Specialises the name of the client.
+     * @param catalogNr  Specialises the catalog number of the client.
+     * @param enrolmentID Specialises the enrolmentID of the client.
      * @param serverIP   Specialises the ip-address from the teacher.
      * @param dirOfWatch Specialises the directory where the client will work.
      * @param port       Specialises the port where the two will communicate.

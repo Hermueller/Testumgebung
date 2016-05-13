@@ -5,6 +5,10 @@ package at.htl.server.entity;
  * 30.10.2015: MET 005  created class for time between screenshots
  * 20.11.2015: MET 005  extended by toString() and a factor for getValue()
  */
+
+/**
+ * @author Tobias Melhorn
+ */
 public class Interval {
 
     private long value;
@@ -18,11 +22,22 @@ public class Interval {
         this.factor = 1;
     }
 
+    /**
+     * creates new interval with static value.
+     *
+     * @param value    The seconds between every harvest.
+     */
     public Interval(long value) {
         this(false);
         this.value = value;
     }
 
+    /**
+     * creates new interval with dynamic values.
+     *
+     * @param min   The minimum time between harvests (in sec.)
+     * @param max   The maximum time between harvests (in sec.)
+     */
     public Interval(long min, long max) {
         this(true);
         this.min = min;

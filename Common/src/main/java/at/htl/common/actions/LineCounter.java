@@ -16,6 +16,12 @@ import java.io.FileReader;
  * 21.04.2016: PHI 010  changed this class to a Singleton and added the variable "finished"
  * 07.05.2016: PHI 015  added new method (remembers how many lines for each filter)
  */
+
+/**
+ * counts the lines in a file for each file in a directory.
+ *
+ * @author Philipp Hermueller
+ */
 public class LineCounter {
 
     private static LineCounter instance = null;
@@ -33,19 +39,27 @@ public class LineCounter {
         return instance;
     }
 
+    /**
+     *
+     * @return  boolean (finished the student the test?)
+     */
     public boolean isFinished() {
         return finished;
     }
 
+    /**
+     *
+     * @param finished  The boolean which shows if the student finished the test.
+     */
     public void setFinished(boolean finished) {
         this.finished = finished;
     }
 
     /**
-     * Counts the lines of code in a file
+     * Counts the lines of code in a file.
      *
      * @param _filename Specifies the file in which the lines have to be counted
-     * @return the number of lines in the file
+     * @return          the number of lines in the file
      */
     public long countLines(String _filename) {
         long lines = 0;
@@ -68,7 +82,8 @@ public class LineCounter {
      *
      * @param folder Specifies the directory in which the files to count
      *               are located.
-     * @return the number of lines from all files in the directory
+     * @param filter file extension name.
+     * @return       The number of lines from all files in the directory
      *
      * @since 1.2.9.002
      */
@@ -88,6 +103,13 @@ public class LineCounter {
         return allLines;
     }
 
+    /**
+     * counts the lines in a file with a specific file extension.
+     *
+     * @param folder    the root folder which includes all files to count in.
+     * @param filter    Specialises the file-extension-names.
+     * @return          The Array which includes the number of lines for each file-extension.
+     */
     public Long[] countLinesWithFilter(final File folder, String[] filter) {
         Long[] lines = new Long[filter.length];
 

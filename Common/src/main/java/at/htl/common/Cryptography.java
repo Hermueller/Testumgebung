@@ -8,7 +8,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * @timeline .
+ * @timeline Cryptography
  * 06.11.2015: MET 001  created class
  * 06.11.2015: MET 060  implements encrypting and decrypting
  * 08.02.2016: GNA 005  added errors to log file

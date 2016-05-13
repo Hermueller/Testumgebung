@@ -12,6 +12,10 @@ import org.apache.logging.log4j.Level;
  * 10.03.2016: PON 060  Patrol Mode: Switcht alle Schüler durch
  * 14.04.2016: PHI 050  fixed bug
  */
+
+/**
+ * @author Patrick Pohn
+ */
 public class PatrolMode extends Thread {
 
     volatile boolean running = false;

@@ -6,7 +6,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 /**
- * @timeline .
+ * @timeline TimeShower
  * 02.01.2016: PHI 055  Klasse implementiert. Farbe ermöglicht.
  * 14.01.2016: PHI 010  Statt den Lines of Code wird jetzt die Uhrzeit angezeigt.
  */
@@ -15,7 +15,8 @@ public class TimeShower extends StackPane {
     /**
      * a node which displays a value on hover, but is otherwise empty
      *
-     * @param value      actual value (to add)
+     * @param value      actual value (to add).
+     * @param time       the before the test ends.
      */
     public TimeShower(Long value, String time) {
         setPrefSize(15, 15);
@@ -36,6 +37,7 @@ public class TimeShower extends StackPane {
     /**
      * createDirectory label with color and value
      *
+     * @param time       time before the test ends.
      * @param value      actual value (to add)
      * @return the colored label (with value)
      */

@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @timeline .
+ * @timeline Student
  * 26.10.2015: MET 001  crated class
  * 26.10.2015: MET 005  Name des Schülers, Verzeichnis der Screenshots
  * 31.10.2015: MET 005  Funktion für Verzeichnis der Screenshots verbessert
@@ -127,7 +127,7 @@ public class Student {
 
     /**
      * For each filter will be a new series created.
-     *
+     * <br>
      * is called when:  a student logs in
      */
     public void addSeries() {
@@ -172,7 +172,7 @@ public class Student {
 
     /**
      * adds for each series the data-point y=0.
-     *
+     * <br>
      * (if a series in a stackedAreaChart doesn't end at y=0, it will produce
      *      a graphical bug)
      */

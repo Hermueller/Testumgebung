@@ -62,7 +62,7 @@ import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
 /**
- * @timeline Text
+ * @timeline serverController
  * 15.10.2015: GNA 001  created class
  * 15.10.2015: PHI 035  Allowed time-input in the GUI for the screenshot-delay.
  * 19.10.2015: PON 020  list of connected pupils
@@ -77,7 +77,7 @@ import java.util.stream.Collectors;
  * 17.12.2015: PON 120  function "importPupilList" for importing student lists
  * 17.12.2015: PON 005  Bug found: exception Handling missing, registration of pupils
  * 30.12.2015: GNA 100  TimeSpinner Abagabe hinzugefügt
- * 31.12.2015: PHI 010  LineChart revised (if the student from the list changes -> the LineChart changes too).
+ * 31.12.2015: PHI 010  LineChart revised (if the student from the list changes then the LineChart changes too).
  * 01.01.2016: PHI 010  fixed bug in the LineChart.
  * 03.01.2016: GNA 120  Add time to Abgabe
  * 06.01.2016: PHI 025  BugFix (LineChart will not be influenced when the student changes)
@@ -92,9 +92,9 @@ import java.util.stream.Collectors;
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
  * 18.03.2016: PHI 005  export the log to an text-file
- * 21.03.2016: PHI 055  fixed bug in the screenshot-View  &&   created pop-up window for the log-export
+ * 21.03.2016: PHI 055  fixed bug in the screenshot-View  AND   created pop-up window for the log-export
  * 22.03.2016: PHI 225  create JAR with button; create properties; fixed minor bug in the view
- * 23.03.2016: PHI 145  added a new Tab called Student-Info (shows Student infos) && changed language+View of the application
+ * 23.03.2016: PHI 145  added a new Tab called Student-Info (shows Student infos) AND changed language+View of the application
  * 24.03.2016: PHI 105  created the LineChart-Export
  * 04.04.2016: GNA 045  Added test data
  * 14.04.2016: GNA 050  Testdata for fast mode
@@ -213,7 +213,7 @@ public class Controller implements Initializable {
     @FXML
     private ImageView ivLiveView;
     @FXML
-    public AnchorPane apStudentDetail;
+    private AnchorPane apStudentDetail;
     //endregion
 
     //region other Variables
@@ -224,7 +224,7 @@ public class Controller implements Initializable {
     @FXML
     private Label lbDate;
     @FXML
-    public SplitPane splitter;
+    private SplitPane splitter;
     @FXML
     private ListView<Button> lvStudents;
     @FXML
@@ -241,15 +241,15 @@ public class Controller implements Initializable {
 
     //region INITIALIZE and Constructor
 
+    /**
+     * empty constructor
+     */
     public Controller() {
 
     }
 
     /**
      * LOAD standard values.
-     *
-     * @param location
-     * @param resources
      */
     public void initialize(URL location, ResourceBundle resources) {
         lvStudents.setItems(Settings.getInstance().getObservableList());
@@ -417,11 +417,11 @@ public class Controller implements Initializable {
     public void OnActual(ActionEvent actionEvent) {
     }
 
-    private void setPrevScreenshot() {
+    public void setPrevScreenshot() {
 
     }
 
-    private void setNextScreenshot() {
+    public void setNextScreenshot() {
 
     }
 
@@ -431,7 +431,7 @@ public class Controller implements Initializable {
      * @param name  specialises the name of the student
      * @return      the path of the last screenshot
      */
-    private String getLastScreenshot(String name) {
+    public String getLastScreenshot(String name) {
         String pathOfFolder = Settings.getInstance()
                 .getPathOfImages().concat(
                         "/" + name
@@ -450,7 +450,7 @@ public class Controller implements Initializable {
         return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
     }
 
-    private int getScreenshotPos(String file) {
+    public int getScreenshotPos(String file) {
         int i = 0;
         for (String screen : Settings.getInstance().getListOfScreenshots()) {
             if (screen.equals(Settings.getInstance().getActualScreenshot())) {
@@ -468,11 +468,12 @@ public class Controller implements Initializable {
     /**
      * switching from Simple/Advanced-Mode to the other mode.
      *
-     * @param event Specifies the event from the click on the button
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/5">Advanced-Mode GitHub Issue</a>
      *
      * @since 1.9.22.067
      */
-    public void changeMode(ActionEvent event) {
+    @FXML
+    public void changeMode() {
         apOption.setVisible(!apOption.isVisible());
         apSimple.setVisible(!apSimple.isVisible());
         if (apOption.isVisible()) {
@@ -488,14 +489,10 @@ public class Controller implements Initializable {
 
     /**
      * show the path as a tooltip.
-     * <br /><br />
-     * The Github-issue to this method:
-     * <br />
-     * https://github.com/BeatingAngel/Testumgebung/issues/7
      *
-     * @since
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/7">Tooltip GitHub Issue</a>
      */
-    private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
+    public void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
         Tooltip mousePositionToolTip = new Tooltip("");
         lbPath.setOnMouseMoved(event -> {
             String msg = Settings.getInstance().getPath();
@@ -523,7 +520,7 @@ public class Controller implements Initializable {
 
     //region {GitHub-Issue: #12} Submission Methods
 
-    private void initializeTimeSpinner() {
+    public void initializeTimeSpinner() {
         TimeSpinner spinner = new TimeSpinner();
         TimeSpinner startspinner = new TimeSpinner();
         final boolean[] alreadyaddedtime = {false};
@@ -561,7 +558,7 @@ public class Controller implements Initializable {
         });
     }
 
-    private LocalTime doSomething(LocalTime newTime, boolean addtime) {
+    public LocalTime doSomething(LocalTime newTime, boolean addtime) {
         System.out.println(newTime);
         if (addtime) {
             newTime.plusMinutes(10);
@@ -580,15 +577,13 @@ public class Controller implements Initializable {
     //region {GitHub-Issue: #16} Fullscreen-Screenshot Methods
 
     /**
-     * show screenshot in fullscreen on click.
-     * <br /><br />
-     * The Github-issue to this method:
-     * <br />
-     * https://github.com/BeatingAngel/Testumgebung/issues/16
+     * shows screenshot in fullscreen on click.
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/16">Fullscreen GitHub Issue</a>
      *
      * @since 1.11.21.067
      */
-    private void setImageClick() {
+    public void setImageClick() {
         ivLiveView.setOnMouseClicked(event -> {
             Stage stage = new Stage();
             ImageView iv = new ImageView(ivLiveView.getImage());
@@ -625,7 +620,10 @@ public class Controller implements Initializable {
         }
     }
 
-    private void initializePatrol() {
+    /**
+     * changes the time for showing the student.
+     */
+    public void initializePatrol() {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem five = new MenuItem("5 seconds");
         MenuItem fifteen = new MenuItem("15 seconds");
@@ -649,9 +647,9 @@ public class Controller implements Initializable {
      * create pop-up window to ask for the version number
      * and create a properties-file for it and creates a JAR-file
      * for the student and the teacher.
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/23
+     * <br>
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/23">JAR GitHub Issue</a>
      *
      * @param actionEvent   event from the click on the button
      *
@@ -684,7 +682,7 @@ public class Controller implements Initializable {
 
     /**
      * creates the properties-file
-     * <br /><br />
+     * <br>
      * The properties include:
      * <ul>
      *     <li>Date from the creation of the JAR-file (current date)</li>
@@ -725,7 +723,7 @@ public class Controller implements Initializable {
 
     /**
      * writes the data from the properties-file into the Labels in the application
-     * <br /><br />
+     * <br>
      * The properties include:
      * <ul>
      *     <li>Date from the creation of the JAR-file</li>
@@ -747,10 +745,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * creates a jar-file for the student and teacher
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/23
+     * creates a jar-file for the student.
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/23">JAR GitHub Issue</a>
      *
      * @since 1.12.35.071
      */
@@ -780,13 +777,13 @@ public class Controller implements Initializable {
     /**
      * add files from the source to the jar file
      *
-     * source code from this method (http://stackoverflow.com/a/1281295)
+     * @see   <a href="http://stackoverflow.com/a/1281295">Method-code source</a>
      *
      * @param source        the source of the files to add
      * @param target        the stream from the jar-file
-     * @throws IOException
+     * @throws IOException  can't create JAR-File
      */
-    private void add(File source, JarOutputStream target) throws IOException
+    public void add(File source, JarOutputStream target) throws IOException
     {
         BufferedInputStream in = null;
         try
@@ -851,15 +848,14 @@ public class Controller implements Initializable {
 
     /**
      * writes the Log into a TEXT-file.
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/26
+     * <br>
      *
-     * @param actionEvent   event of the click on the button
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/26">Log GitHub Issue</a>
      *
-     * @since   1.11.33.051
+     * @since   Testumgebung: v1.11.33.051
      */
-    public void exportLog(ActionEvent actionEvent) {
+    @FXML
+    public void exportLog() {
         try {
             List<String> list = new LinkedList<>();
             ObservableList<Node> nodes = ((VBox)Settings.getInstance().getLogArea().getChildren().get(0)).getChildren();
@@ -881,7 +877,7 @@ public class Controller implements Initializable {
     /**
      * implements the values and listener for the comboBox (LogFilter)
      */
-    private void initializeLogFilters() {
+    public void initializeLogFilters() {
         cbLogFilter.getItems().addAll("ALL", "CONNECT", "DISCONNECT", "ERRORS", "WARNINGS", "OTHER");
         cbLogFilter.setValue("ALL");
         cbLogFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -900,16 +896,34 @@ public class Controller implements Initializable {
 
     //region {GitHub-Issue: #34} Student-Settings Methods
 
-    private void createFilterItem(String filter) {
+    /**
+     * creates a listItem for the List of file-extension-filters.
+     * <br>
+     * The List-Item is a checkbox with the name of the file-extension.
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
+     *
+     * @param filter    file extension name
+     */
+    public void createFilterItem(String filter) {
         CheckBox item = new CheckBox(filter);
         item.setSelected(true);
         lvFileFilters.getItems().add(item);
     }
 
     /**
-     * initializes the filter-Sets
+     * initializes the filter-Sets.
+     * <br>
+     * This includes:
+     * <ul>
+     *     <li>Set filter sets</li>
+     *     <li>fill sets with standard values</li>
+     *     <li>initializes callback</li>
+     * </ul>
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
-    private void initializeNewFilters() {
+    public void initializeNewFilters() {
         Callback<ListView<String>, ListCell<String>> callback =
                 new Callback<ListView<String>, ListCell<String>>() {
                     @Override public ListCell<String> call(ListView<String> param) {
@@ -972,9 +986,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * adjusts the progressbar to the slider
+     * adjusts the progressbar to the slider.
      */
-    private void initializeSlides() {
+    public void initializeSlides() {
         slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {
             pbHarvesterStudent.setProgress(new_val.doubleValue() / 60);
             String time = (new_val.intValue() < 10) ?
@@ -986,10 +1000,11 @@ public class Controller implements Initializable {
 
     /**
      * changes the header.
+     * <br>
      * + All changes of the settings will be applied to:
-     *      * All students
-     *      OR
-     *      * Selected student
+     * <ul><li>All students</li></ul>
+     * OR
+     * <ul><li>Selected student</li></ul>
      */
     @FXML
     public void toggleSettings() {
@@ -1017,6 +1032,7 @@ public class Controller implements Initializable {
 
     /**
      * kicks a student.
+     *
      * @param name  Specifies the name of the student.
      */
     public void kick(String name) {
@@ -1032,6 +1048,8 @@ public class Controller implements Initializable {
 
     /**
      * changes the time interval of the selected student.
+     *
+     * @see   <a href="https://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
     @FXML
     public void saveStudentChanges() {
@@ -1060,7 +1078,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * changes the filters for a specific student
+     * converts the selected checkboxes to an String[].
+     *
+     * @return    the selected filters as String[]
      */
     public String[] getSelectedFilters() {
         List<String> filterList = lvFileFilters.getItems().stream()
@@ -1075,16 +1095,14 @@ public class Controller implements Initializable {
     }
 
     /**
-     * adds a new filter to the current selected set
+     * adds a new filter to the current selected set.
      */
     @FXML
     public void addFilterToSet() {
         int index = cbFilterSet.getSelectionModel().getSelectedIndex();
         String[] set = filterSets.get(index);
         String[] newSet = new String[set.length + 1];
-        for (int i = 0; i < set.length; i++) {
-            newSet[i] = set[i];
-        }
+        System.arraycopy(set, 0, newSet, 0, set.length);
         newSet[newSet.length - 1] = tfNewFilter.getText();
         filterSets.set(index, newSet);
         lvFileFilters.getItems().add(new CheckBox(tfNewFilter.getText()));
@@ -1095,9 +1113,9 @@ public class Controller implements Initializable {
     //region {GitHub-Issue: #35} Chart Methods
 
     /**
-     * edits the chart and saves it in the settings
+     * saved the chart in a singleton class.
      */
-    private void initializeLOC() {
+    public void initializeLOC() {
         Settings.getInstance().setChart(loc);
 
         loc.setCursor(Cursor.CROSSHAIR);
@@ -1105,10 +1123,8 @@ public class Controller implements Initializable {
 
     /**
      * creates an image from the LineChart of a specific student and saves it.
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/35
      *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/35">Chart GitHub Issue</a>
      */
     @FXML
     public void exportLOC() {
@@ -1132,7 +1148,7 @@ public class Controller implements Initializable {
      * if the SelectedStudent changes, the Chart and ImageView
      * is cleared and the new Chart and Image will be shown.
      */
-    private void setOnChangeSize() {
+    public void setOnChangeSize() {
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Student st = Settings.getInstance().findStudentByName(newValue.getText());
 
@@ -1165,7 +1181,7 @@ public class Controller implements Initializable {
     /**
      * if the screensize changes, the size of the image and chart changes too.
      */
-    private void setDynamicScreenSize() {
+    public void setDynamicScreenSize() {
         spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
             AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
@@ -1197,7 +1213,7 @@ public class Controller implements Initializable {
      * @param element The Place where the Image will show
      * @param correct Was the userinput correct?
      */
-    private void setImage(ImageView element, boolean correct) {
+    public void setImage(ImageView element, boolean correct) {
         if (correct) {
             element.setImage(new Image("images/checked.png"));
         } else {
@@ -1212,7 +1228,7 @@ public class Controller implements Initializable {
      *              FALSE if it is a success-message.
      * @param msg   Specifies the message to show.
      */
-    private void setMsg(boolean error, String msg) {
+    public void setMsg(boolean error, String msg) {
         String color = (error ? "red" : "limegreen");   //bei Fehlermeldung rot, sonst grün
         lbAlert.setText(msg);
         lbAlert.setStyle("-fx-background-color: " + color);
@@ -1238,10 +1254,10 @@ public class Controller implements Initializable {
      * Imports a file of pupils
      * sets the observable list
      *
-     * @param actionEvent
-     * @throws IOException
+     * @throws IOException  can't read file
      */
-    public void importPupilList(ActionEvent actionEvent) throws IOException {
+    @FXML
+    public void importPupilList() throws IOException {
         FileChooser dc = new FileChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
         dc.setTitle("Wähle Die Schülerliste aus");
@@ -1310,7 +1326,7 @@ public class Controller implements Initializable {
     /**
      * selects the Desktop as Home-Path
      */
-    private void setHomePath() {
+    public void setHomePath() {
 
         File home = FileSystemView.getFileSystemView().getHomeDirectory();
         File[] files = home.listFiles();
@@ -1353,7 +1369,7 @@ public class Controller implements Initializable {
     /**
      * show the version number always in the bottom right corner.
      */
-    private void setVersionAnchor() {
+    public void setVersionAnchor() {
         AnchorPane.setBottomAnchor(lbVersion, 10.0);
         AnchorPane.setRightAnchor(lbVersion, 10.0);
     }
@@ -1361,7 +1377,7 @@ public class Controller implements Initializable {
     /**
      * sets the size of the images, which are shown after starting/stopping the server
      */
-    private void setFitHeight() {
+    public void setFitHeight() {
         ivPort.setFitHeight(25);
         ivAngabe.setFitHeight(25);
         ivPath.setFitHeight(25);

@@ -3,7 +3,7 @@ package at.htl.server;
 import at.htl.server.entity.Student;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
-import at.htl.common.trasfer.HandOutPackage;
+import at.htl.common.transfer.HandOutPackage;
 import at.htl.server.entity.Interval;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.HashMap;
 
 /**
- * @timeline .
+ * @timeline Settings
  * 15.10.2015: GNA 001  created class (name: "Time")
  * 15.10.2015: GNA 010  Verwaltung der Gui-Eingabewerte inplementiert
  * 19.10.2015: PHI 015  extended by a list of connected Students (String)
@@ -52,7 +52,7 @@ import java.util.HashMap;
  * 02.01.2016: PHI 005  Chart-Hover implemented.
  * 06.01.2016: PHI 045  fixed bug in the method for saving the LineChart-Series.
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
- * 10.02.2016: PON 001  Bug fixed: Sceenshots -> Screenshots
+ * 10.02.2016: PON 001  Bug fixed: Sceenshots to Screenshots
  * 21.03.2016: PHI 020  write error to the log in the application
  * 07.05.2016: PHI 020  improved the code from the chart (remembers how many lines of code for each filter)
  * 07.05.2016: PHI 035  improved exception handling
@@ -532,6 +532,7 @@ public class Settings {
      *
      * @param level         Specifies the level of the error.
      * @param stackList     Specifies all the messages of the error.
+     * @param filter        Specifies the file extension name.
      */
     public void printError(Level level, StackTraceElement[] stackList, String filter) {
         AnchorPane log = getLogArea();
@@ -551,6 +552,8 @@ public class Settings {
      *
      * @param level     Specifies the level of the error.
      * @param message   Specifies the message of the error.
+     * @param separator if a white line should be created.
+     * @param filter    file extension name.
      */
     public void printErrorLine(Level level, String message, boolean separator, String filter) {
         if (separator) {
