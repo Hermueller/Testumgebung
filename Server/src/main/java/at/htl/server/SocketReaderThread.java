@@ -44,6 +44,8 @@ class SocketReaderThread extends Thread {
 
                 HarvestedPackage harvestedPackage = (HarvestedPackage) in.readObject();
 
+                Settings.getInstance().printErrorLine(Level.INFO, "received package from " + student.getName(), true, "OTHER");
+
                 byte[] img = harvestedPackage.getImage();
                 server.saveImage(img, student);
 

@@ -109,6 +109,7 @@ import java.util.stream.Collectors;
  * 07.05.2016: PHI 015  changed the chart from LineChart to AreaChart. Changed the code of the chart.
  * 12.05.2016: PHI 020  implemented the LogFilter-Method
  * 13.05.2016: PHI 035  changed the view and code from the file extension filters.
+ * 18.05.2016: PHI 065  improved simple- and advanced-Mode
  */
 public class Controller implements Initializable {
 
@@ -117,8 +118,6 @@ public class Controller implements Initializable {
     private AnchorPane spOption;
     @FXML
     private AnchorPane apOption;
-    @FXML
-    private AnchorPane apSimple;
     @FXML
     private Button btnChange;
     @FXML
@@ -138,9 +137,9 @@ public class Controller implements Initializable {
     @FXML
     private ToggleButton TB_SS_rnd;
     @FXML
-    private TextField tfTimeSS;
+    private Slider slHarvester;
     @FXML
-    private ImageView ivTime;
+    private VBox vbAdvanced;
     @FXML
     private ComboBox cbFilterSetMain;
     @FXML
@@ -153,6 +152,10 @@ public class Controller implements Initializable {
     private Button btnStop;
     @FXML
     private Label lbVersion;
+    @FXML
+    private Label lbTime;
+    @FXML
+    private ProgressBar pbHarvester;
     //endregion
 
     //region HandIn Variables
@@ -163,7 +166,7 @@ public class Controller implements Initializable {
     @FXML
     private Button btnaddTime;
     @FXML
-    private AnchorPane apstarttime,aptime;
+    private AnchorPane apStartTime, apEndTime;
     //endregion
 
     //region Log Variables
@@ -267,7 +270,8 @@ public class Controller implements Initializable {
 
         initializeLOC();
         initializeSLOMM();
-        initializeSlides();
+        initializeSlides(slHarvesterStudent, pbHarvesterStudent, lbTimeInterval);
+        initializeSlides(slHarvester, pbHarvester, lbTime);
         initializeNewFilters();
         initializePatrol();
         initializeLogFilters();
@@ -279,6 +283,8 @@ public class Controller implements Initializable {
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         Settings.getInstance().setStartTime(LocalTime.now());
+        slHarvester.setValue(10);
+        slHarvesterStudent.setValue(10);
     }
 
     //endregion
@@ -294,23 +300,11 @@ public class Controller implements Initializable {
     public void startServer(ActionEvent actionEvent) {
         String path = Settings.getInstance().getPathOfImages();
         File handOut = Settings.getInstance().getHandOutFile();
-        String ssTime = tfTimeSS.getText();
+        int time = (int)slHarvester.getValue();
         String portStr = tfPort.getText();
         boolean isRnd = TB_SS_rnd.isSelected();
         boolean startable = true;
 
-        // checks the input of the time (number format)
-        if (!ssTime.matches("[0-9]+") && !isRnd) {
-            setMsg(true, "Time only includes numbers!!");
-            setImage(ivTime, false);
-            startable = false;
-        }
-        // checks the input of the time (time greater than zero)
-        if (!isRnd && ssTime.length() < 1) {
-            setMsg(true, "Please enter a time(in sec.)");
-            setImage(ivTime, false);
-            startable = false;
-        }
         // checks if the user selected a path
         if (path == null) {
             setMsg(true, "Please select a directory!");
@@ -350,7 +344,7 @@ public class Controller implements Initializable {
             if (isRnd) {
                 Settings.getInstance().setInterval(new Interval(1, 30));
             } else {
-                Settings.getInstance().setInterval(new Interval(Integer.parseInt(ssTime)));
+                Settings.getInstance().setInterval(new Interval(time));
             }
 
             Settings.getInstance().setEndings(getSelectedFilters());
@@ -364,7 +358,6 @@ public class Controller implements Initializable {
             setImage(ivPort, true);
             setImage(ivAngabe, true);
             setImage(ivPath, true);
-            setImage(ivTime, true);
             setImage(ivFileExtensions, true);
             btnChange.setDisable(true);
         }
@@ -384,7 +377,6 @@ public class Controller implements Initializable {
                 btnStart.setDisable(false);
                 btnStop.setDisable(true);
                 ivAngabe.setImage(null);
-                ivTime.setImage(null);
                 ivFileExtensions.setImage(null);
                 ivPort.setImage(null);
                 ivPath.setImage(null);
@@ -469,13 +461,13 @@ public class Controller implements Initializable {
      * switching from Simple/Advanced-Mode to the other mode.
      *
      * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/5">Advanced-Mode GitHub Issue</a>
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/6">Simple-Mode GitHub Issue</a>
      *
      * @since 1.9.22.067
      */
     @FXML
     public void changeMode() {
-        apOption.setVisible(!apOption.isVisible());
-        apSimple.setVisible(!apSimple.isVisible());
+        vbAdvanced.setVisible(!vbAdvanced.isVisible());
         if (apOption.isVisible()) {
             btnChange.setText("Simple Mode");
         } else {
@@ -540,22 +532,19 @@ public class Controller implements Initializable {
                     Settings.getInstance().setEndTime(newValue.plusMinutes(10));
                 }
 
-
-                System.out.println("ADDED 10 MINIUTES "+time[0]);
-                alreadyaddedtime[0] =true;
+                alreadyaddedtime[0] = true;
             });
-            System.out.println("NEW TIME  "+newValue);
         });
 
 
-        apTime.getChildren().add(spinner);
-        apstarttime.getChildren().add(startspinner);
+        apEndTime.getChildren().add(spinner);
+        apStartTime.getChildren().add(startspinner);
+    }
 
-
-        startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Settings.getInstance().setStartTime(newValue);
-            System.out.println("NEW STARTTIME  "+newValue);
-        });
+    @FXML
+    public void saveTime() {
+        Settings.getInstance().setStartTime(((TimeSpinner)apStartTime.getChildren().get(0)).getValue());
+        Settings.getInstance().setEndTime(((TimeSpinner)apEndTime.getChildren().get(0)).getValue());
     }
 
     public LocalTime doSomething(LocalTime newTime, boolean addtime) {
@@ -988,13 +977,13 @@ public class Controller implements Initializable {
     /**
      * adjusts the progressbar to the slider.
      */
-    public void initializeSlides() {
-        slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {
-            pbHarvesterStudent.setProgress(new_val.doubleValue() / 60);
+    public void initializeSlides(Slider slider, ProgressBar progressBar, Label label) {
+        slider.valueProperty().addListener((ov, old_val, new_val) -> {
+            progressBar.setProgress(new_val.doubleValue() / 60);
             String time = (new_val.intValue() < 10) ?
                     "0" + new_val.toString().substring(0,1) :
                     new_val.toString().substring(0,2);
-            lbTimeInterval.setText(time + " Seconds");
+            label.setText(time + " s");
         });
     }
 
@@ -1184,7 +1173,6 @@ public class Controller implements Initializable {
     public void setDynamicScreenSize() {
         spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
-            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
             ivLiveView.setFitWidth((double) newValue);
             loc.setPrefWidth((double) newValue);
             btnNext.setLayoutX((double)newValue - btnActual.getWidth() - btnNext.getWidth());
@@ -1192,7 +1180,6 @@ public class Controller implements Initializable {
         });
         spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
-            AnchorPane.setTopAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefHeight() / 2);
             ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
             loc.setPrefHeight((double)newValue - loc.getLayoutY() - 35);
             btnExportLOC.setLayoutY(loc.getLayoutY() + loc.getPrefHeight());
@@ -1356,12 +1343,10 @@ public class Controller implements Initializable {
      */
     public void changeSomeOptions(ActionEvent actionEvent) {
         if (TB_SS_rnd.isSelected()) {
-            tfTimeSS.setDisable(true);
-            tfTimeSS.setEditable(false);
+            slHarvester.setDisable(true);
             TB_SS_rnd.setText("ON");
         } else {
-            tfTimeSS.setDisable(false);
-            tfTimeSS.setEditable(true);
+            slHarvester.setDisable(false);
             TB_SS_rnd.setText("OFF");
         }
     }
@@ -1381,7 +1366,6 @@ public class Controller implements Initializable {
         ivPort.setFitHeight(25);
         ivAngabe.setFitHeight(25);
         ivPath.setFitHeight(25);
-        ivTime.setFitHeight(25);
         ivFileExtensions.setFitHeight(25);
     }
 
