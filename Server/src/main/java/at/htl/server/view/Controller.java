@@ -11,11 +11,7 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -25,8 +21,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -37,8 +31,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import javafx.util.Callback;
@@ -67,10 +59,10 @@ import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
-import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
- * @timeline Text
+ * @timeline serverController
  * 15.10.2015: GNA 001  created class
  * 15.10.2015: PHI 035  Allowed time-input in the GUI for the screenshot-delay.
  * 19.10.2015: PON 020  list of connected pupils
@@ -85,7 +77,7 @@ import java.util.Arrays;
  * 17.12.2015: PON 120  function "importPupilList" for importing student lists
  * 17.12.2015: PON 005  Bug found: exception Handling missing, registration of pupils
  * 30.12.2015: GNA 100  TimeSpinner Abagabe hinzugefügt
- * 31.12.2015: PHI 010  LineChart revised (if the student from the list changes -> the LineChart changes too).
+ * 31.12.2015: PHI 010  LineChart revised (if the student from the list changes then the LineChart changes too).
  * 01.01.2016: PHI 010  fixed bug in the LineChart.
  * 03.01.2016: GNA 120  Add time to Abgabe
  * 06.01.2016: PHI 025  BugFix (LineChart will not be influenced when the student changes)
@@ -100,9 +92,9 @@ import java.util.Arrays;
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
  * 18.03.2016: PHI 005  export the log to an text-file
- * 21.03.2016: PHI 055  fixed bug in the screenshot-View  &&   created pop-up window for the log-export
+ * 21.03.2016: PHI 055  fixed bug in the screenshot-View  AND   created pop-up window for the log-export
  * 22.03.2016: PHI 225  create JAR with button; create properties; fixed minor bug in the view
- * 23.03.2016: PHI 145  added a new Tab called Student-Info (shows Student infos) && changed language+View of the application
+ * 23.03.2016: PHI 145  added a new Tab called Student-Info (shows Student infos) AND changed language+View of the application
  * 24.03.2016: PHI 105  created the LineChart-Export
  * 04.04.2016: GNA 045  Added test data
  * 14.04.2016: GNA 050  Testdata for fast mode
@@ -116,6 +108,8 @@ import java.util.Arrays;
  * 06.05.2016: PHI 015  changed the layout and style
  * 07.05.2016: PHI 015  changed the chart from LineChart to AreaChart. Changed the code of the chart.
  * 12.05.2016: PHI 020  implemented the LogFilter-Method
+ * 13.05.2016: PHI 035  changed the view and code from the file extension filters.
+ * 18.05.2016: PHI 065  improved simple- and advanced-Mode
  */
 public class Controller implements Initializable {
 
@@ -124,8 +118,6 @@ public class Controller implements Initializable {
     private AnchorPane spOption;
     @FXML
     private AnchorPane apOption;
-    @FXML
-    private AnchorPane apSimple;
     @FXML
     private Button btnChange;
     @FXML
@@ -145,9 +137,9 @@ public class Controller implements Initializable {
     @FXML
     private ToggleButton TB_SS_rnd;
     @FXML
-    private TextField tfTimeSS;
+    private Slider slHarvester;
     @FXML
-    private ImageView ivTime;
+    private VBox vbAdvanced;
     @FXML
     private ComboBox cbFilterSetMain;
     @FXML
@@ -160,6 +152,10 @@ public class Controller implements Initializable {
     private Button btnStop;
     @FXML
     private Label lbVersion;
+    @FXML
+    private Label lbTime;
+    @FXML
+    private ProgressBar pbHarvester;
     //endregion
 
     //region HandIn Variables
@@ -170,7 +166,7 @@ public class Controller implements Initializable {
     @FXML
     private Button btnaddTime;
     @FXML
-    private AnchorPane apstarttime,aptime;
+    private AnchorPane apStartTime, apEndTime;
     //endregion
 
     //region Log Variables
@@ -199,13 +195,17 @@ public class Controller implements Initializable {
     @FXML
     private Slider slHarvesterStudent;
     @FXML
-    private ComboBox cbNewFilter, cbUsedFilter, cbFilterSet;
+    private ComboBox cbFilterSet;
     @FXML
     private ToggleButton tbToggleSettings;
     @FXML
     private ColorPicker cpNewFilter;
     @FXML
     private TextField tfNewFilter;
+    @FXML
+    private ListView<CheckBox> lvFileFilters;
+    @FXML
+    private Accordion accordion;
 
     private List<String[]> filterSets = new LinkedList<>();
     //endregion
@@ -216,7 +216,7 @@ public class Controller implements Initializable {
     @FXML
     private ImageView ivLiveView;
     @FXML
-    public AnchorPane apStudentDetail;
+    private AnchorPane apStudentDetail;
     //endregion
 
     //region other Variables
@@ -227,7 +227,7 @@ public class Controller implements Initializable {
     @FXML
     private Label lbDate;
     @FXML
-    public SplitPane splitter;
+    private SplitPane splitter;
     @FXML
     private ListView<Button> lvStudents;
     @FXML
@@ -239,17 +239,20 @@ public class Controller implements Initializable {
     private Threader threader;
     //endregion
 
+
+
+
     //region INITIALIZE and Constructor
 
+    /**
+     * empty constructor
+     */
     public Controller() {
 
     }
 
     /**
      * LOAD standard values.
-     *
-     * @param location
-     * @param resources
      */
     public void initialize(URL location, ResourceBundle resources) {
         lvStudents.setItems(Settings.getInstance().getObservableList());
@@ -267,7 +270,8 @@ public class Controller implements Initializable {
 
         initializeLOC();
         initializeSLOMM();
-        initializeSlides();
+        initializeSlides(slHarvesterStudent, pbHarvesterStudent, lbTimeInterval);
+        initializeSlides(slHarvester, pbHarvester, lbTime);
         initializeNewFilters();
         initializePatrol();
         initializeLogFilters();
@@ -279,6 +283,8 @@ public class Controller implements Initializable {
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         Settings.getInstance().setStartTime(LocalTime.now());
+        slHarvester.setValue(10);
+        slHarvesterStudent.setValue(10);
     }
 
     //endregion
@@ -294,23 +300,11 @@ public class Controller implements Initializable {
     public void startServer(ActionEvent actionEvent) {
         String path = Settings.getInstance().getPathOfImages();
         File handOut = Settings.getInstance().getHandOutFile();
-        String ssTime = tfTimeSS.getText();
+        int time = (int)slHarvester.getValue();
         String portStr = tfPort.getText();
         boolean isRnd = TB_SS_rnd.isSelected();
         boolean startable = true;
 
-        // checks the input of the time (number format)
-        if (!ssTime.matches("[0-9]+") && !isRnd) {
-            setMsg(true, "Time only includes numbers!!");
-            setImage(ivTime, false);
-            startable = false;
-        }
-        // checks the input of the time (time greater than zero)
-        if (!isRnd && ssTime.length() < 1) {
-            setMsg(true, "Please enter a time(in sec.)");
-            setImage(ivTime, false);
-            startable = false;
-        }
         // checks if the user selected a path
         if (path == null) {
             setMsg(true, "Please select a directory!");
@@ -350,15 +344,10 @@ public class Controller implements Initializable {
             if (isRnd) {
                 Settings.getInstance().setInterval(new Interval(1, 30));
             } else {
-                Settings.getInstance().setInterval(new Interval(Integer.parseInt(ssTime)));
+                Settings.getInstance().setInterval(new Interval(time));
             }
 
-            Object[] objects = cbUsedFilter.getItems().toArray();
-            String[] endings = new String[objects.length];
-            for (int i = 0; i < endings.length; i++) {
-                endings[i] = (String)objects[i];
-            }
-            Settings.getInstance().setEndings(endings);
+            Settings.getInstance().setEndings(getSelectedFilters());
 
             threader = new Threader();
             server = new Thread(threader);
@@ -369,7 +358,6 @@ public class Controller implements Initializable {
             setImage(ivPort, true);
             setImage(ivAngabe, true);
             setImage(ivPath, true);
-            setImage(ivTime, true);
             setImage(ivFileExtensions, true);
             btnChange.setDisable(true);
         }
@@ -389,7 +377,6 @@ public class Controller implements Initializable {
                 btnStart.setDisable(false);
                 btnStop.setDisable(true);
                 ivAngabe.setImage(null);
-                ivTime.setImage(null);
                 ivFileExtensions.setImage(null);
                 ivPort.setImage(null);
                 ivPath.setImage(null);
@@ -422,11 +409,11 @@ public class Controller implements Initializable {
     public void OnActual(ActionEvent actionEvent) {
     }
 
-    private void setPrevScreenshot() {
+    public void setPrevScreenshot() {
 
     }
 
-    private void setNextScreenshot() {
+    public void setNextScreenshot() {
 
     }
 
@@ -436,7 +423,7 @@ public class Controller implements Initializable {
      * @param name  specialises the name of the student
      * @return      the path of the last screenshot
      */
-    private String getLastScreenshot(String name) {
+    public String getLastScreenshot(String name) {
         String pathOfFolder = Settings.getInstance()
                 .getPathOfImages().concat(
                         "/" + name
@@ -455,7 +442,7 @@ public class Controller implements Initializable {
         return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
     }
 
-    private int getScreenshotPos(String file) {
+    public int getScreenshotPos(String file) {
         int i = 0;
         for (String screen : Settings.getInstance().getListOfScreenshots()) {
             if (screen.equals(Settings.getInstance().getActualScreenshot())) {
@@ -473,13 +460,14 @@ public class Controller implements Initializable {
     /**
      * switching from Simple/Advanced-Mode to the other mode.
      *
-     * @param event Specifies the event from the click on the button
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/5">Advanced-Mode GitHub Issue</a>
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/6">Simple-Mode GitHub Issue</a>
      *
      * @since 1.9.22.067
      */
-    public void changeMode(ActionEvent event) {
-        apOption.setVisible(!apOption.isVisible());
-        apSimple.setVisible(!apSimple.isVisible());
+    @FXML
+    public void changeMode() {
+        vbAdvanced.setVisible(!vbAdvanced.isVisible());
         if (apOption.isVisible()) {
             btnChange.setText("Simple Mode");
         } else {
@@ -493,14 +481,10 @@ public class Controller implements Initializable {
 
     /**
      * show the path as a tooltip.
-     * <br /><br />
-     * The Github-issue to this method:
-     * <br />
-     * https://github.com/BeatingAngel/Testumgebung/issues/7
      *
-     * @since
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/7">Tooltip GitHub Issue</a>
      */
-    private void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
+    public void initializeSLOMM() { //SLOMM . . . Show Label On Mouse Move
         Tooltip mousePositionToolTip = new Tooltip("");
         lbPath.setOnMouseMoved(event -> {
             String msg = Settings.getInstance().getPath();
@@ -528,7 +512,7 @@ public class Controller implements Initializable {
 
     //region {GitHub-Issue: #12} Submission Methods
 
-    private void initializeTimeSpinner() {
+    public void initializeTimeSpinner() {
         TimeSpinner spinner = new TimeSpinner();
         TimeSpinner startspinner = new TimeSpinner();
         final boolean[] alreadyaddedtime = {false};
@@ -548,25 +532,22 @@ public class Controller implements Initializable {
                     Settings.getInstance().setEndTime(newValue.plusMinutes(10));
                 }
 
-
-                System.out.println("ADDED 10 MINIUTES "+time[0]);
-                alreadyaddedtime[0] =true;
+                alreadyaddedtime[0] = true;
             });
-            System.out.println("NEW TIME  "+newValue);
         });
 
 
-        apTime.getChildren().add(spinner);
-        apstarttime.getChildren().add(startspinner);
-
-
-        startspinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Settings.getInstance().setStartTime(newValue);
-            System.out.println("NEW STARTTIME  "+newValue);
-        });
+        apEndTime.getChildren().add(spinner);
+        apStartTime.getChildren().add(startspinner);
     }
 
-    private LocalTime doSomething(LocalTime newTime, boolean addtime) {
+    @FXML
+    public void saveTime() {
+        Settings.getInstance().setStartTime(((TimeSpinner)apStartTime.getChildren().get(0)).getValue());
+        Settings.getInstance().setEndTime(((TimeSpinner)apEndTime.getChildren().get(0)).getValue());
+    }
+
+    public LocalTime doSomething(LocalTime newTime, boolean addtime) {
         System.out.println(newTime);
         if (addtime) {
             newTime.plusMinutes(10);
@@ -585,15 +566,13 @@ public class Controller implements Initializable {
     //region {GitHub-Issue: #16} Fullscreen-Screenshot Methods
 
     /**
-     * show screenshot in fullscreen on click.
-     * <br /><br />
-     * The Github-issue to this method:
-     * <br />
-     * https://github.com/BeatingAngel/Testumgebung/issues/16
+     * shows screenshot in fullscreen on click.
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/16">Fullscreen GitHub Issue</a>
      *
      * @since 1.11.21.067
      */
-    private void setImageClick() {
+    public void setImageClick() {
         ivLiveView.setOnMouseClicked(event -> {
             Stage stage = new Stage();
             ImageView iv = new ImageView(ivLiveView.getImage());
@@ -630,7 +609,10 @@ public class Controller implements Initializable {
         }
     }
 
-    private void initializePatrol() {
+    /**
+     * changes the time for showing the student.
+     */
+    public void initializePatrol() {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem five = new MenuItem("5 seconds");
         MenuItem fifteen = new MenuItem("15 seconds");
@@ -654,9 +636,9 @@ public class Controller implements Initializable {
      * create pop-up window to ask for the version number
      * and create a properties-file for it and creates a JAR-file
      * for the student and the teacher.
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/23
+     * <br>
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/23">JAR GitHub Issue</a>
      *
      * @param actionEvent   event from the click on the button
      *
@@ -689,7 +671,7 @@ public class Controller implements Initializable {
 
     /**
      * creates the properties-file
-     * <br /><br />
+     * <br>
      * The properties include:
      * <ul>
      *     <li>Date from the creation of the JAR-file (current date)</li>
@@ -730,7 +712,7 @@ public class Controller implements Initializable {
 
     /**
      * writes the data from the properties-file into the Labels in the application
-     * <br /><br />
+     * <br>
      * The properties include:
      * <ul>
      *     <li>Date from the creation of the JAR-file</li>
@@ -752,10 +734,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * creates a jar-file for the student and teacher
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/23
+     * creates a jar-file for the student.
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/23">JAR GitHub Issue</a>
      *
      * @since 1.12.35.071
      */
@@ -785,13 +766,13 @@ public class Controller implements Initializable {
     /**
      * add files from the source to the jar file
      *
-     * source code from this method (http://stackoverflow.com/a/1281295)
+     * @see   <a href="http://stackoverflow.com/a/1281295">Method-code source</a>
      *
      * @param source        the source of the files to add
      * @param target        the stream from the jar-file
-     * @throws IOException
+     * @throws IOException  can't create JAR-File
      */
-    private void add(File source, JarOutputStream target) throws IOException
+    public void add(File source, JarOutputStream target) throws IOException
     {
         BufferedInputStream in = null;
         try
@@ -856,15 +837,14 @@ public class Controller implements Initializable {
 
     /**
      * writes the Log into a TEXT-file.
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/26
+     * <br>
      *
-     * @param actionEvent   event of the click on the button
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/26">Log GitHub Issue</a>
      *
-     * @since   1.11.33.051
+     * @since   Testumgebung: v1.11.33.051
      */
-    public void exportLog(ActionEvent actionEvent) {
+    @FXML
+    public void exportLog() {
         try {
             List<String> list = new LinkedList<>();
             ObservableList<Node> nodes = ((VBox)Settings.getInstance().getLogArea().getChildren().get(0)).getChildren();
@@ -886,7 +866,7 @@ public class Controller implements Initializable {
     /**
      * implements the values and listener for the comboBox (LogFilter)
      */
-    private void initializeLogFilters() {
+    public void initializeLogFilters() {
         cbLogFilter.getItems().addAll("ALL", "CONNECT", "DISCONNECT", "ERRORS", "WARNINGS", "OTHER");
         cbLogFilter.setValue("ALL");
         cbLogFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -906,9 +886,33 @@ public class Controller implements Initializable {
     //region {GitHub-Issue: #34} Student-Settings Methods
 
     /**
-     * initializes the filter-Sets
+     * creates a listItem for the List of file-extension-filters.
+     * <br>
+     * The List-Item is a checkbox with the name of the file-extension.
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
+     *
+     * @param filter    file extension name
      */
-    private void initializeNewFilters() {
+    public void createFilterItem(String filter) {
+        CheckBox item = new CheckBox(filter);
+        item.setSelected(true);
+        lvFileFilters.getItems().add(item);
+    }
+
+    /**
+     * initializes the filter-Sets.
+     * <br>
+     * This includes:
+     * <ul>
+     *     <li>Set filter sets</li>
+     *     <li>fill sets with standard values</li>
+     *     <li>initializes callback</li>
+     * </ul>
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
+     */
+    public void initializeNewFilters() {
         Callback<ListView<String>, ListCell<String>> callback =
                 new Callback<ListView<String>, ListCell<String>>() {
                     @Override public ListCell<String> call(ListView<String> param) {
@@ -945,21 +949,13 @@ public class Controller implements Initializable {
         filterSets.add(new String[]{".sql", ".xml", ".xsd", ".xsl"});
         filterSets.add(new String[]{".js", ".html", ".css"});
 
-        cbNewFilter.getItems().addAll(filterSets.get(0));
-        cbNewFilter.setCellFactory(callback);
-        cbNewFilter.setValue(".java");
-
-        cbUsedFilter.getItems().add(".java");
-        cbUsedFilter.setCellFactory(callback);
-        cbUsedFilter.setValue(".java");
-
         ChangeListener cl = ((observable, oldValue, newValue) -> {
-            cbUsedFilter.getItems().clear();
-            cbNewFilter.getItems().clear();
-            cbNewFilter.getItems().addAll(filterSets.get(cbFilterSet.getItems().indexOf(newValue)));
-            cbNewFilter.setValue(cbNewFilter.getItems().get(0));
-            cbUsedFilter.getItems().addAll(cbNewFilter.getItems());
-            cbUsedFilter.setValue(cbUsedFilter.getItems().get(0));
+
+            lvFileFilters.getItems().clear();
+
+            for (String filter : filterSets.get(cbFilterSet.getItems().indexOf(newValue))) {
+                createFilterItem(filter);
+            }
 
             cbFilterSet.setValue(newValue);
             cbFilterSetMain.setValue(newValue);
@@ -970,27 +966,34 @@ public class Controller implements Initializable {
 
         cbFilterSetMain.getItems().addAll(cbFilterSet.getItems());
         cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
+
+        for (String filter : filterSets.get(0)) {
+            createFilterItem(filter);
+        }
+
+        accordion.setExpandedPane(accordion.getPanes().get(1));
     }
 
     /**
-     * adjusts the progressbar to the slider
+     * adjusts the progressbar to the slider.
      */
-    private void initializeSlides() {
-        slHarvesterStudent.valueProperty().addListener((ov, old_val, new_val) -> {
-            pbHarvesterStudent.setProgress(new_val.doubleValue() / 60);
+    public void initializeSlides(Slider slider, ProgressBar progressBar, Label label) {
+        slider.valueProperty().addListener((ov, old_val, new_val) -> {
+            progressBar.setProgress(new_val.doubleValue() / 60);
             String time = (new_val.intValue() < 10) ?
                     "0" + new_val.toString().substring(0,1) :
                     new_val.toString().substring(0,2);
-            lbTimeInterval.setText(time + " Seconds");
+            label.setText(time + " s");
         });
     }
 
     /**
      * changes the header.
+     * <br>
      * + All changes of the settings will be applied to:
-     *      * All students
-     *      OR
-     *      * Selected student
+     * <ul><li>All students</li></ul>
+     * OR
+     * <ul><li>Selected student</li></ul>
      */
     @FXML
     public void toggleSettings() {
@@ -1018,6 +1021,7 @@ public class Controller implements Initializable {
 
     /**
      * kicks a student.
+     *
      * @param name  Specifies the name of the student.
      */
     public void kick(String name) {
@@ -1033,6 +1037,8 @@ public class Controller implements Initializable {
 
     /**
      * changes the time interval of the selected student.
+     *
+     * @see   <a href="https://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
     @FXML
     public void saveStudentChanges() {
@@ -1045,7 +1051,8 @@ public class Controller implements Initializable {
                     .findStudentByName(selected.getText());
 
             toChange.setInterval(new Interval(new_time));
-            setFiltersToStudent(toChange);
+            String[] filters = getSelectedFilters();
+            toChange.setFilter(filters);
         } else {
             for (Object obj : StudentView.getInstance().getLv().getItems()) {
                 String name = ((Button)obj).getText();
@@ -1053,64 +1060,41 @@ public class Controller implements Initializable {
                         .findStudentByName(name);
 
                 toChange.setInterval(new Interval(new_time));
-                setFiltersToStudent(toChange);
+                String[] filters = getSelectedFilters();
+                toChange.setFilter(filters);
             }
         }
     }
 
     /**
-     * changes the filters for a specific student
+     * converts the selected checkboxes to an String[].
      *
-     * @param student   The student who will receive a new filter.
+     * @return    the selected filters as String[]
      */
-    public void setFiltersToStudent(Student student) {
-        Object[] objs = cbUsedFilter.getItems().toArray();
-        String[] filters = new String[objs.length];
+    public String[] getSelectedFilters() {
+        List<String> filterList = lvFileFilters.getItems().stream()
+                .filter(CheckBox::isSelected)
+                .map(CheckBox::getText)
+                .collect(Collectors.toCollection(LinkedList::new));
+        String[] filters = new String[filterList.size()];
         for (int i = 0; i < filters.length; i++) {
-            filters[i] = (String)objs[i];
+            filters[i] = filterList.get(i);
         }
-        student.setFilter(filters);
+        return filters;
     }
 
     /**
-     * adds a new filter to the current selected set
+     * adds a new filter to the current selected set.
      */
     @FXML
     public void addFilterToSet() {
         int index = cbFilterSet.getSelectionModel().getSelectedIndex();
         String[] set = filterSets.get(index);
         String[] newSet = new String[set.length + 1];
-        for (int i = 0; i < set.length; i++) {
-            newSet[i] = set[i];
-        }
+        System.arraycopy(set, 0, newSet, 0, set.length);
         newSet[newSet.length - 1] = tfNewFilter.getText();
         filterSets.set(index, newSet);
-        cbNewFilter.getItems().add(tfNewFilter.getText());
-    }
-
-    /**
-     * add file-extension filter
-     */
-    @FXML
-    public void addFilter() {
-        String selected = (String)cbNewFilter.getSelectionModel().getSelectedItem();
-
-        if (!cbUsedFilter.getItems().contains(selected)) {
-            cbUsedFilter.getItems().add(selected);
-        }
-    }
-
-    /**
-     * remove file-extension filter
-     */
-    @FXML
-    public void removeFilter() {
-        String selected = (String)cbUsedFilter.getSelectionModel().getSelectedItem();
-
-        cbUsedFilter.getItems().remove(selected);
-        if (cbUsedFilter.getItems().size() > 0) {
-            cbUsedFilter.setValue(cbUsedFilter.getItems().get(0));
-        }
+        lvFileFilters.getItems().add(new CheckBox(tfNewFilter.getText()));
     }
 
     //endregion
@@ -1118,9 +1102,9 @@ public class Controller implements Initializable {
     //region {GitHub-Issue: #35} Chart Methods
 
     /**
-     * edits the chart and saves it in the settings
+     * saved the chart in a singleton class.
      */
-    private void initializeLOC() {
+    public void initializeLOC() {
         Settings.getInstance().setChart(loc);
 
         loc.setCursor(Cursor.CROSSHAIR);
@@ -1128,10 +1112,8 @@ public class Controller implements Initializable {
 
     /**
      * creates an image from the LineChart of a specific student and saves it.
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/35
      *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/35">Chart GitHub Issue</a>
      */
     @FXML
     public void exportLOC() {
@@ -1155,7 +1137,7 @@ public class Controller implements Initializable {
      * if the SelectedStudent changes, the Chart and ImageView
      * is cleared and the new Chart and Image will be shown.
      */
-    private void setOnChangeSize() {
+    public void setOnChangeSize() {
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Student st = Settings.getInstance().findStudentByName(newValue.getText());
 
@@ -1188,10 +1170,9 @@ public class Controller implements Initializable {
     /**
      * if the screensize changes, the size of the image and chart changes too.
      */
-    private void setDynamicScreenSize() {
+    public void setDynamicScreenSize() {
         spOption.widthProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
-            AnchorPane.setLeftAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefWidth() / 2);
             ivLiveView.setFitWidth((double) newValue);
             loc.setPrefWidth((double) newValue);
             btnNext.setLayoutX((double)newValue - btnActual.getWidth() - btnNext.getWidth());
@@ -1199,7 +1180,6 @@ public class Controller implements Initializable {
         });
         spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
-            AnchorPane.setTopAnchor(apSimple, (double) newValue / 2 - apSimple.getPrefHeight() / 2);
             ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
             loc.setPrefHeight((double)newValue - loc.getLayoutY() - 35);
             btnExportLOC.setLayoutY(loc.getLayoutY() + loc.getPrefHeight());
@@ -1220,7 +1200,7 @@ public class Controller implements Initializable {
      * @param element The Place where the Image will show
      * @param correct Was the userinput correct?
      */
-    private void setImage(ImageView element, boolean correct) {
+    public void setImage(ImageView element, boolean correct) {
         if (correct) {
             element.setImage(new Image("images/checked.png"));
         } else {
@@ -1235,7 +1215,7 @@ public class Controller implements Initializable {
      *              FALSE if it is a success-message.
      * @param msg   Specifies the message to show.
      */
-    private void setMsg(boolean error, String msg) {
+    public void setMsg(boolean error, String msg) {
         String color = (error ? "red" : "limegreen");   //bei Fehlermeldung rot, sonst grün
         lbAlert.setText(msg);
         lbAlert.setStyle("-fx-background-color: " + color);
@@ -1261,10 +1241,10 @@ public class Controller implements Initializable {
      * Imports a file of pupils
      * sets the observable list
      *
-     * @param actionEvent
-     * @throws IOException
+     * @throws IOException  can't read file
      */
-    public void importPupilList(ActionEvent actionEvent) throws IOException {
+    @FXML
+    public void importPupilList() throws IOException {
         FileChooser dc = new FileChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
         dc.setTitle("Wähle Die Schülerliste aus");
@@ -1333,7 +1313,7 @@ public class Controller implements Initializable {
     /**
      * selects the Desktop as Home-Path
      */
-    private void setHomePath() {
+    public void setHomePath() {
 
         File home = FileSystemView.getFileSystemView().getHomeDirectory();
         File[] files = home.listFiles();
@@ -1363,12 +1343,10 @@ public class Controller implements Initializable {
      */
     public void changeSomeOptions(ActionEvent actionEvent) {
         if (TB_SS_rnd.isSelected()) {
-            tfTimeSS.setDisable(true);
-            tfTimeSS.setEditable(false);
+            slHarvester.setDisable(true);
             TB_SS_rnd.setText("ON");
         } else {
-            tfTimeSS.setDisable(false);
-            tfTimeSS.setEditable(true);
+            slHarvester.setDisable(false);
             TB_SS_rnd.setText("OFF");
         }
     }
@@ -1376,7 +1354,7 @@ public class Controller implements Initializable {
     /**
      * show the version number always in the bottom right corner.
      */
-    private void setVersionAnchor() {
+    public void setVersionAnchor() {
         AnchorPane.setBottomAnchor(lbVersion, 10.0);
         AnchorPane.setRightAnchor(lbVersion, 10.0);
     }
@@ -1384,11 +1362,10 @@ public class Controller implements Initializable {
     /**
      * sets the size of the images, which are shown after starting/stopping the server
      */
-    private void setFitHeight() {
+    public void setFitHeight() {
         ivPort.setFitHeight(25);
         ivAngabe.setFitHeight(25);
         ivPath.setFitHeight(25);
-        ivTime.setFitHeight(25);
         ivFileExtensions.setFitHeight(25);
     }
 

@@ -14,7 +14,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
- * @timeline .
+ * @timeline FileUtils
  * 29.10.2015: GNA 020  creating files and directories
  * 30.10.2015: MET 001  created class
  * 30.10.2015: MET 045  implementation of zipping files and directories
@@ -261,8 +261,8 @@ public class FileUtils {
     /**
      * creates the at.htl.client.styles for the error/warning/info.
      * <p>
-     * ERROR's in RED.
-     * WARNING's in YELLOW.
+     * ERROR's in RED.<br>
+     * WARNING's in YELLOW.<br>
      * INFO's in WHITE.
      *
      * @param level     Specifies the level of the error.

@@ -41,37 +41,12 @@
                                     <tabs>
                                         <Tab closable="false" text="Option">
                                             <content>
-                                                <AnchorPane id="option" fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0" stylesheets="@../styles/TeacherStyle.css">
+                                                <AnchorPane id="option" fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
                                                     <children>
                                                         <AnchorPane fx:id="apOption" layoutX="84.0" layoutY="121.0" prefHeight="466.0" prefWidth="808.0" AnchorPane.leftAnchor="84.0">
                                                             <children>
                                                                 <VBox layoutX="32.0" layoutY="18.0" prefHeight="437.0" prefWidth="732.0" spacing="20.0">
                                                                     <children>
-                                                                        <HBox prefHeight="26.0" prefWidth="200.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label prefHeight="26.0" prefWidth="414.0" text="Studentlist:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#importPupilList" prefHeight="26.0" prefWidth="232.0" text="Import" />
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <HBox prefHeight="27.0" prefWidth="262.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="50555" text="50555" />
-                                                                                <ImageView fx:id="ivPort" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                                    <HBox.margin>
-                                                                                        <Insets left="10.0" />
-                                                                                    </HBox.margin>
-                                                                                </ImageView>
-                                                                            </children>
-                                                                        </HBox>
                                                                         <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                                                             <children>
                                                                                 <Label fx:id="lbAngabe" layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Handout:">
@@ -87,7 +62,7 @@
                                                                                 </ImageView>
                                                                             </children>
                                                                         </HBox>
-                                                                        <HBox layoutX="25.0" layoutY="57.0" spacing="20.0">
+                                                                        <HBox layoutX="25.0" layoutY="57.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                                                             <children>
                                                                                 <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Location for screenshots, submissions, exports:">
                                                                                     <font>
@@ -102,46 +77,86 @@
                                                                                 </ImageView>
                                                                             </children>
                                                                         </HBox>
-                                                                        <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="528.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Random time between screenshots:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="234.0" selected="true" text="ON" />
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <HBox layoutX="25.0" layoutY="165.0" prefHeight="26.0" spacing="20.0">
+                                                                        <HBox layoutX="25.0" layoutY="165.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                                                             <children>
                                                                                 <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="414.0" text="Fix time between screenshots in seconds :">
                                                                                     <font>
                                                                                         <Font size="18.0" />
                                                                                     </font>
                                                                                 </Label>
-                                                                                <TextField fx:id="tfTimeSS" disable="true" editable="false" prefHeight="26.0" prefWidth="234.0" />
-                                                                                <ImageView fx:id="ivTime" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                                    <HBox.margin>
-                                                                                        <Insets left="10.0" />
-                                                                                    </HBox.margin>
-                                                                                </ImageView>
+                                                            <AnchorPane>
+                                                               <children>
+                                                                  <ProgressBar fx:id="pbHarvester" layoutX="8.0" layoutY="12.0" prefHeight="20.0" prefWidth="236.0" progress="0.0" />
+                                                                  <Slider fx:id="slHarvester" layoutX="3.0" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="242.0" value="1.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                            <Label fx:id="lbTime" prefHeight="26.0" prefWidth="51.0" text="00 s">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets top="10.0" />
+                                                               </padding>
+                                                            </Label>
                                                                             </children>
                                                                         </HBox>
-                                                                        <HBox prefHeight="37.0" prefWidth="456.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label prefHeight="26.0" prefWidth="414.0" text="Filename extensions:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                            <ComboBox fx:id="cbFilterSetMain" prefHeight="26.0" prefWidth="234.0" />
-                                                                                <ImageView fx:id="ivFileExtensions" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                                    <HBox.margin>
-                                                                                        <Insets left="10.0" />
-                                                                                    </HBox.margin>
-                                                                                </ImageView>
-                                                                            </children>
-                                                                        </HBox>
+                                                      <VBox fx:id="vbAdvanced" spacing="20.0" visible="false">
+                                                         <children>
+                                                                              <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                                  <children>
+                                                                                      <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Random time between screenshots (1s - 30s):">
+                                                                                          <font>
+                                                                                              <Font size="18.0" />
+                                                                                          </font>
+                                                                                      </Label>
+                                                                                      <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="234.0" text="OFF" />
+                                                                                  </children>
+                                                                              </HBox>
+                                                                              <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                                  <children>
+                                                                                      <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
+                                                                                          <font>
+                                                                                              <Font size="18.0" />
+                                                                                          </font>
+                                                                                      </Label>
+                                                                                      <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="50555" text="50555" />
+                                                                                      <ImageView fx:id="ivPort" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                                          <HBox.margin>
+                                                                                              <Insets left="10.0" />
+                                                                                          </HBox.margin>
+                                                                                      </ImageView>
+                                                                                  </children>
+                                                                              </HBox>
+                                                                              <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                                  <children>
+                                                                                      <Label prefHeight="26.0" prefWidth="414.0" text="Filename extensions:">
+                                                                                          <font>
+                                                                                              <Font size="18.0" />
+                                                                                          </font>
+                                                                                      </Label>
+                                                                  <ComboBox fx:id="cbFilterSetMain" prefHeight="26.0" prefWidth="234.0" />
+                                                                                      <ImageView fx:id="ivFileExtensions" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                                          <HBox.margin>
+                                                                                              <Insets left="10.0" />
+                                                                                          </HBox.margin>
+                                                                                      </ImageView>
+                                                                                  </children>
+                                                                              </HBox>
+                                                                              <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                                  <children>
+                                                                                      <Label prefHeight="26.0" prefWidth="414.0" text="Studentlist:">
+                                                                                          <font>
+                                                                                              <Font size="18.0" />
+                                                                                          </font>
+                                                                                      </Label>
+                                                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#importPupilList" prefHeight="26.0" prefWidth="232.0" text="Import" />
+                                                                                  </children>
+                                                               <padding>
+                                                                  <Insets bottom="40.0" />
+                                                               </padding>
+                                                                              </HBox>
+                                                         </children>
+                                                      </VBox>
                                                                         <Label fx:id="lbAlert" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="718.0">
                                                                             <font>
                                                                                 <Font size="18.0" />
@@ -157,85 +172,7 @@
                                                                 </VBox>
                                                             </children>
                                                         </AnchorPane>
-                                                        <Button fx:id="btnChange" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="121.0" text="Simple Mode" />
-                                                        <AnchorPane fx:id="apSimple" layoutX="84.0" layoutY="121.0" prefHeight="466.0" prefWidth="808.0" visible="false">
-                                                            <children>
-                                                                <VBox layoutX="32.0" layoutY="18.0" prefHeight="437.0" prefWidth="723.0" spacing="20.0">
-                                                                    <children>
-                                                                        <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Angabe:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <Button fx:id="btn1" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="26.0" prefWidth="234.0" text="Angabe" />
-                                                                                <ImageView fx:id="ivAngabe1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                                    <HBox.margin>
-                                                                                        <Insets left="10.0" />
-                                                                                    </HBox.margin>
-                                                                                </ImageView>
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <HBox layoutX="25.0" layoutY="57.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Speicherort (Screenshots, Abgaben):">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <Button alignment="CENTER" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="26.0" prefWidth="234.0" text="Choose your Directory" textAlignment="CENTER" />
-                                                                                <ImageView fx:id="ivPath1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                                    <HBox.margin>
-                                                                                        <Insets left="10.0" />
-                                                                                    </HBox.margin>
-                                                                                </ImageView>
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="528.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Zufall Zeitabstand zwischen Screenshots:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <ToggleButton fx:id="TB_SS_rnd1" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="234.0" selected="true" text="EIN" />
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <HBox fx:id="btnAngabe1" layoutX="25.0" layoutY="165.0" prefHeight="26.0">
-                                                                            <children>
-                                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="434.0" text="Fixe Zeitabstände zwischen Screenshots:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <TextField fx:id="tfTimeSS1" disable="true" editable="false" prefHeight="26.0" prefWidth="234.0" />
-                                                                                <Label prefHeight="26.0" prefWidth="40.0" text="Sek.">
-                                                                                    <font>
-                                                                                        <Font size="17.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <ImageView fx:id="ivTime1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                                                            </children>
-                                                                            <padding>
-                                                                                <Insets bottom="150.0" />
-                                                                            </padding>
-                                                                        </HBox>
-                                                                        <Label fx:id="lbAlert1" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="718.0">
-                                                                            <font>
-                                                                                <Font size="18.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                        <HBox spacing="280.0">
-                                                                            <children>
-                                                                                <Button fx:id="btnStart1" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
-                                                                                <Button fx:id="btnStop1" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
-                                                                            </children>
-                                                                        </HBox>
-                                                                    </children>
-                                                                </VBox>
-                                                            </children>
-                                                        </AnchorPane>
+                                                        <Button fx:id="btnChange" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="121.0" text="Advanced Mode" />
                                                         <Button fx:id="btnPatrolMode" layoutX="369.0" layoutY="28.0" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="236.0" text="Start Patrol" />
                                                         <Button layoutX="892.0" layoutY="28.0" mnemonicParsing="false" onAction="#setTestOptions" prefHeight="24.0" prefWidth="50.0" text="Test" />
                                                     </children>
@@ -272,7 +209,7 @@
                                              </font>
                                           </Label>
                                           <ComboBox fx:id="cbFilterSet" layoutX="198.0" layoutY="148.0" prefWidth="150.0" />
-                                          <Accordion layoutX="26.0" layoutY="211.0" prefHeight="280.0" prefWidth="957.0">
+                                          <Accordion fx:id="accordion" layoutX="26.0" layoutY="211.0" prefHeight="280.0" prefWidth="957.0">
                                             <panes>
                                               <TitledPane expanded="false" text="Add new filter to selected set">
                                                 <content>
@@ -295,24 +232,11 @@
                                                       </AnchorPane>
                                                 </content>
                                               </TitledPane>
-                                              <TitledPane expanded="false" text="Change filters which will be used (add/remove)">
+                                              <TitledPane text="Change filters which will be used (add/remove)">
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <Label layoutX="14.0" layoutY="35.0" prefHeight="26.0" prefWidth="153.0" text="Filters in Set:">
-                                                               <font>
-                                                                  <Font size="18.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <ComboBox fx:id="cbNewFilter" layoutX="175.0" layoutY="35.0" prefWidth="150.0" />
-                                                            <ComboBox fx:id="cbUsedFilter" layoutX="175.0" layoutY="99.0" prefWidth="150.0" />
-                                                            <Label layoutX="14.0" layoutY="99.0" prefHeight="26.0" prefWidth="126.0" text="Filters in use:">
-                                                               <font>
-                                                                  <Font size="18.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Button layoutX="368.0" layoutY="37.0" mnemonicParsing="false" onAction="#addFilter" text="Add" />
-                                                            <Button layoutX="368.0" layoutY="99.0" mnemonicParsing="false" onAction="#removeFilter" text="Remove" />
+                                                            <ListView fx:id="lvFileFilters" layoutX="23.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
@@ -386,23 +310,30 @@
                                             <content>
                                                 <AnchorPane fx:id="apHandIn" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
-                                                        <AnchorPane fx:id="apTime" layoutX="232.0" layoutY="115.0" prefHeight="51.0" prefWidth="235.0" />
-                                                        <Label layoutX="41.0" layoutY="111.0" text="Submission date">
+                                                        <AnchorPane fx:id="apEndTime" layoutX="262.0" layoutY="112.0" prefHeight="35.0" prefWidth="214.0" />
+                                                        <Label layoutX="41.0" layoutY="111.0" prefHeight="32.0" prefWidth="154.0" text="Submission date:">
                                                             <font>
                                                                 <Font size="18.0" />
                                                             </font>
                                                         </Label>
-                                                        <Button fx:id="btnaddTime" layoutX="502.0" layoutY="109.0" mnemonicParsing="false" text="+10 min" />
-                                                        <Label layoutX="37.0" layoutY="168.0" prefHeight="39.0" prefWidth="125.0" text="Starttime" />
-                                                        <AnchorPane fx:id="apstarttime" layoutX="232.0" layoutY="160.0" prefHeight="56.0" prefWidth="230.0" />
-                                                        <Label layoutX="41.0" layoutY="235.0" text="remaining time" />
-                                                        <TextField fx:id="tftime" layoutX="275.0" layoutY="241.0" />
-                                                        <Button fx:id="btnDeleteFiles" layoutX="56.0" layoutY="315.0" mnemonicParsing="false" onAction="#deleteFiles" text="zu löschende Dateien auswählen" />
+                                                        <Button fx:id="btnaddTime" layoutX="502.0" layoutY="112.0" mnemonicParsing="false" text="+10 min" />
+                                                        <Label layoutX="41.0" layoutY="168.0" prefHeight="32.0" prefWidth="154.0" text="Starttime:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></Label>
+                                                        <AnchorPane fx:id="apStartTime" layoutX="262.0" layoutY="167.0" prefHeight="35.0" prefWidth="214.0" />
+                                                        <Label layoutX="41.0" layoutY="235.0" prefHeight="32.0" prefWidth="154.0" text="remaining time:">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></Label>
+                                                        <TextField fx:id="tftime" layoutX="262.0" layoutY="241.0" />
+                                                        <Button fx:id="btnDeleteFiles" layoutX="41.0" layoutY="437.0" mnemonicParsing="false" onAction="#deleteFiles" text="zu löschende Dateien auswählen" />
                                           <Text layoutX="342.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Submission information">
                                              <font>
                                                 <Font size="23.0" />
                                              </font>
                                           </Text>
+                                          <Button layoutX="262.0" layoutY="315.0" mnemonicParsing="false" onAction="#saveTime" prefHeight="26.0" prefWidth="162.0" text="Save Changes" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>

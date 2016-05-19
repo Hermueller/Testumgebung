@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @timeline .
+ * @timeline Countdown
  * 10.03.2016: MET 001  created class
  * 10.03.2016: MET 040  created basic structure for the countdown
  * 28.04.2016: MET 010  implemented function for resetting timer (incl. Design)

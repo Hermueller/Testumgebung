@@ -4,7 +4,7 @@ import javafx.animation.*;
 import javafx.scene.Node;
 
 /**
- * @timeline .
+ * @timeline TextAnimation
  * 31.03.2016: MET 001  created class
  * 31.03.2016: MET 010  implemented method for blinking text
  * 31.03.2016: MET 005  implemented method for disappearing text

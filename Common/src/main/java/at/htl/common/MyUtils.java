@@ -5,7 +5,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 /**
- * @timeline .
+ * @timeline MyUtils
  * 29.01.2016: GNA 001  created class
  * 29.01.2016: GNA 005  implementation of exception converter
  * 12.02.2016: MET 003  function: converting string to int

@@ -8,7 +8,7 @@ import at.htl.common.Pupil;
 import at.htl.common.actions.LineCounter;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileUtils;
-import at.htl.common.trasfer.LoginPackage;
+import at.htl.common.transfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -22,7 +22,7 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 /**
- * @timeline .
+ * @timeline studentController
  * 15.10.2015: PON 001  created class
  * 18.10.2015: PHI 030  created login with text boxes
  * 14.10.2015: MET 030  new GUI design and created function setControls(value)

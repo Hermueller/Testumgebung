@@ -1,11 +1,11 @@
-package at.htl.common.trasfer;
+package at.htl.common.transfer;
 
 import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @timeline Text
+ * @timeline HandInPackage
  * 31.10.2015: MET 005  created class
  */
 public class HandInPackage implements Serializable {
@@ -15,7 +15,7 @@ public class HandInPackage implements Serializable {
     private LocalDateTime finishedTime;
 
     /**
-     * the trasfer the client sends the teacher back with information from their test.
+     * the transfer the client sends the teacher back with information from their test.
      *
      * @param file    Specialises the file of test.
      * @param comment Specialises a comment from the client.

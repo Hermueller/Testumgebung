@@ -1,15 +1,17 @@
-package at.htl.common.trasfer;
+package at.htl.common.transfer;
 
 import java.io.File;
 import java.io.Serializable;
 import java.time.LocalTime;
 
 /**
+ * @timeline HandOutPackage
+ * 31.10.2015: MET 005  created class
+ */
+
+/**
  * Diese Klasse verwaltet alle Informationen, die für den
  * "Client" bzw. für den Schüler relevant sind.
- *
- * @timeline Text
- * 31.10.2015: MET 005  created class
  */
 public class HandOutPackage implements Serializable {
 

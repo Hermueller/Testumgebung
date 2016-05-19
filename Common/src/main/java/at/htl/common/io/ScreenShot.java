@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * @timeline .
+ * @timeline ScreenShot
  * 30.10.2015: MET 001  created class
  * 30.10.2015: MET 015  improved saving of images and creating screenshots
  * 14.11.2015: MET 030  added custom format, quality, scale and suffix validation

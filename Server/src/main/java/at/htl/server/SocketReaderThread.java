@@ -3,7 +3,7 @@ package at.htl.server;
 import at.htl.common.MyUtils;
 import at.htl.server.entity.Student;
 import at.htl.common.io.FileUtils;
-import at.htl.common.trasfer.HarvestedPackage;
+import at.htl.common.transfer.HarvestedPackage;
 import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
@@ -43,6 +43,8 @@ class SocketReaderThread extends Thread {
             try {
 
                 HarvestedPackage harvestedPackage = (HarvestedPackage) in.readObject();
+
+                Settings.getInstance().printErrorLine(Level.INFO, "received package from " + student.getName(), true, "OTHER");
 
                 byte[] img = harvestedPackage.getImage();
                 server.saveImage(img, student);

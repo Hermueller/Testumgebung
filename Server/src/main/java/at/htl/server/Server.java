@@ -4,9 +4,8 @@ import at.htl.server.entity.Student;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.common.io.ScreenShot;
-import at.htl.common.trasfer.LoginPackage;
+import at.htl.common.transfer.LoginPackage;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import org.apache.logging.log4j.Level;
 
@@ -18,12 +17,7 @@ import java.net.Socket;
 import java.time.LocalDateTime;
 
 /**
- * Die Hauptklasse ist der TeacherServer. Wenn ein Schüler sich mit ihm verbindet,
- * schickt er ein LoginPacket. Sobald dieses Packet verarbeitet wurde, wird der
- * SocketReaderThread und der SocketWriterThread erzeugt, mit denen dann die
- * Netzwerkkommunikation ermöglicht ist.
- *
- * @timeline .
+ * @timeline Server
  * 21.10.2015: PHI 020  Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
  * 26.10.2015: MET 010  Verbesserung der Methode saveImage()
  * 27.10.2015: PHI 080  Live ÜberwachungsBild wird gesetzt
@@ -32,6 +26,13 @@ import java.time.LocalDateTime;
  * 12.12.2015: PHI 010  Kommentieren von Methoden
  * 22.12.2015: PHI 001  Ändern von "Hinzufügen" von Schülern zu "Einloggen" von Schülern.
  * 06.01.2016: PHI 025  Fehler gefunden und geändert bei der Anmeldung eines Schülers der schon gespeichert ist.
+ */
+
+/**
+ * Die Hauptklasse ist der TeacherServer. Wenn ein Schüler sich mit ihm verbindet,
+ * schickt er ein LoginPacket. Sobald dieses Packet verarbeitet wurde, wird der
+ * SocketReaderThread und der SocketWriterThread erzeugt, mit denen dann die
+ * Netzwerkkommunikation ermöglicht ist.
  */
 public class Server {
 

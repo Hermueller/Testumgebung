@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Level;
 import java.io.File;
 
 /**
- * @timeline .
+ * @timeline FxUtils
  * 03.01.2016: MET 001  created class
  * 03.01.2016: MET 020  improved selection of folders and files: chooseDirectory() and chooseFile()
  * 03.01.2016: MET 003  made setMsg() statically available
@@ -95,12 +95,12 @@ public class FxUtils {
     }
 
     /**
-     * shows a message in a pop-up window
-     * <br /><br />
-     * find the issue on GitHub:<p>
-     * https://github.com/BeatingAngel/Testumgebung/issues/27
+     * shows a message in a pop-up window.
+     *
+     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/27">PopUp GitHub Issue</a>
      *
      * @param message   the message to show in the pop-up.
+     * @param isSuccess true if success-message and false if error-message
      *
      * @since 1.11.34.060
      */

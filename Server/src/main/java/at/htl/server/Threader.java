@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * @timeline .
+ * @timeline Threader
  * 15.10.2015: PHI 001  created class
  * 15.10.2015: PHI 045  Akzeptieren von Students durch Thread implementiert
  * 26.10.2015: MET 030  Verbesserung des Codes
