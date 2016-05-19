@@ -11,6 +11,14 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
+import com.aquafx_project.AquaFx;
+import com.aquafx_project.controls.skin.styles.ControlSizeVariant;
+import com.guigarage.flatterfx.FlatterConfiguration;
+import com.guigarage.flatterfx.FlatterFX;
+import com.guigarage.flatterfx.FlatterInputType;
+import com.guigarage.flatterfx.emoji.Emoji;
+import com.guigarage.flatterfx.emoji.EmojiFactory;
+import com.guigarage.flatterfx.skin.FlatterLabelSkin;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -255,6 +263,9 @@ public class Controller implements Initializable {
      * LOAD standard values.
      */
     public void initialize(URL location, ResourceBundle resources) {
+        AquaFx.style();
+
+
         lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);

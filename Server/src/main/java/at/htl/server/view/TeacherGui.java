@@ -1,6 +1,8 @@
 package at.htl.server.view;
 
 import at.htl.server.Settings;
+import com.guigarage.flatterfx.FlatterFX;
+import com.guigarage.flatterfx.skin.FlatterComboBoxSkin;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +39,7 @@ public class TeacherGui extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
+
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Teacher.fxml"));
 
