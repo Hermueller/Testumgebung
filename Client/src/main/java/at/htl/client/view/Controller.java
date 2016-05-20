@@ -39,6 +39,7 @@ import java.util.ResourceBundle;
  * 20.03.2016: PHI 001  fixed bug (check ip-address on correctness)
  * 21.04.2016: PHI 060  added the finished-Mode
  * 12.05.2016: MET 010  fixed FileUtils-Error
+ * 20.05.2016: PHI 035  improved the connection-testing (+ testing connection on serverStart)
  */
 public class Controller implements Initializable {
 
@@ -84,6 +85,9 @@ public class Controller implements Initializable {
         setControls(true);
     }
 
+    /**
+     * sets the default values into the GUI.
+     */
     @FXML
     public void defaultSettings() {
         tfServerIP.setText("localhost");
@@ -95,14 +99,26 @@ public class Controller implements Initializable {
         tfPathOfProject.setText("/local/testC");
     }
 
+    /**
+     * checks the ip-connection and shows a pupUp-Window.
+     */
     @FXML
     public void testConnection() {
         String ip = tfServerIP.getText();
-        runSystemCommand("ping -c 2 ", ip);
+        runSystemCommand("ping -c 2 ", ip, true);
     }
 
-    private void runSystemCommand(String command, String ip) {
+    /**
+     * runs a system command and analyses the result of the command.
+     *
+     * @param command   is always "ping" command.
+     * @param ip        the ip to ping.
+     * @param popUp     if a popUp-Window should be shown or not.
+     * @return          boolean if the IP was successfully pinged or not.
+     */
+    private boolean runSystemCommand(String command, String ip, boolean popUp) {
         command += ip;
+        boolean connected = false;
         try {
             Process p = Runtime.getRuntime().exec(command);
             BufferedReader inputStream = new BufferedReader(
@@ -110,7 +126,6 @@ public class Controller implements Initializable {
 
             String s = "";
             double lossPercentage = -1;
-            boolean connected = false;
             String msg = "";
 
             while ((s = inputStream.readLine()) != null) {
@@ -123,20 +138,23 @@ public class Controller implements Initializable {
                 String loss = s.split(",")[2];
                 lossPercentage = Double.parseDouble(loss.split("%")[0].trim());
             }
-            if (lossPercentage > 0) {
+            if (lossPercentage > 0 && lossPercentage != 100) {
                 msg = lossPercentage + "% received";
-            } else if (lossPercentage < 0) {
+            } else if (lossPercentage == 100 || s == null) {
                 msg = "can't ping the following IP: " + ip;
             } else {
                 msg = "IP pinged successfully!!";
                 connected = true;
             }
 
-            FxUtils.showPopUp(msg, connected);
+            if (!(!popUp && connected)) {
+                FxUtils.showPopUp(msg, connected);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return connected;
     }
 
     /**
@@ -154,6 +172,12 @@ public class Controller implements Initializable {
      */
     @FXML
     public void login() {
+        String ip = tfServerIP.getText();
+        boolean connected = runSystemCommand("ping -c 2 ", ip, false);
+        if (!connected) {
+            return;
+        }
+
         setMsg("", false);
         if (setExam()) {
             FileUtils.log(this, Level.INFO, "Try to login");

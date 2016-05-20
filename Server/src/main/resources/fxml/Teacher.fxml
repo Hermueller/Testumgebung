@@ -64,7 +64,7 @@
                                                                         </HBox>
                                                                         <HBox layoutX="25.0" layoutY="57.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                                                             <children>
-                                                                                <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Location for screenshots, submissions, exports:">
+                                                                                <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Location for screenshots, submissions:">
                                                                                     <font>
                                                                                         <Font size="18.0" />
                                                                                     </font>
@@ -172,7 +172,7 @@
                                                                 </VBox>
                                                             </children>
                                                         </AnchorPane>
-                                                        <Button fx:id="btnChange" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="121.0" text="Advanced Mode" />
+                                                        <ToggleButton fx:id="btnChange" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="121.0" text="Advanced Mode" />
                                                         <Button fx:id="btnPatrolMode" layoutX="369.0" layoutY="28.0" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="236.0" text="Start Patrol" />
                                                         <Button layoutX="892.0" layoutY="28.0" mnemonicParsing="false" onAction="#setTestOptions" prefHeight="24.0" prefWidth="50.0" text="Test" />
                                                     </children>
@@ -308,32 +308,32 @@
 
                                         <Tab closable="false" text="Submission">
                                             <content>
-                                                <AnchorPane fx:id="apHandIn" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                <AnchorPane id="submission" fx:id="apHandIn" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
                                                         <AnchorPane fx:id="apEndTime" layoutX="262.0" layoutY="112.0" prefHeight="35.0" prefWidth="214.0" />
                                                         <Label layoutX="41.0" layoutY="111.0" prefHeight="32.0" prefWidth="154.0" text="Submission date:">
                                                             <font>
-                                                                <Font size="18.0" />
+                                                                <Font name="System Bold" size="18.0" />
                                                             </font>
                                                         </Label>
                                                         <Button fx:id="btnaddTime" layoutX="502.0" layoutY="112.0" mnemonicParsing="false" text="+10 min" />
                                                         <Label layoutX="41.0" layoutY="168.0" prefHeight="32.0" prefWidth="154.0" text="Starttime:">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font></Label>
                                                         <AnchorPane fx:id="apStartTime" layoutX="262.0" layoutY="167.0" prefHeight="35.0" prefWidth="214.0" />
                                                         <Label layoutX="41.0" layoutY="235.0" prefHeight="32.0" prefWidth="154.0" text="remaining time:">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font></Label>
                                                         <TextField fx:id="tftime" layoutX="262.0" layoutY="241.0" />
                                                         <Button fx:id="btnDeleteFiles" layoutX="41.0" layoutY="437.0" mnemonicParsing="false" onAction="#deleteFiles" text="zu löschende Dateien auswählen" />
-                                          <Text layoutX="342.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Submission information">
-                                             <font>
-                                                <Font size="23.0" />
-                                             </font>
-                                          </Text>
                                           <Button layoutX="262.0" layoutY="315.0" mnemonicParsing="false" onAction="#saveTime" prefHeight="26.0" prefWidth="162.0" text="Save Changes" />
+                                          <Label layoutX="351.0" layoutY="28.0" prefHeight="45.0" prefWidth="302.0" text="Submission information">
+                                             <font>
+                                                <Font name="System Bold" size="26.0" />
+                                             </font>
+                                          </Label>
                                                     </children>
                                                 </AnchorPane>
                                             </content>

@@ -127,7 +127,7 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane apOption;
     @FXML
-    private Button btnChange;
+    private ToggleButton btnChange;
     @FXML
     private TextField tfPort;
     @FXML
@@ -479,7 +479,7 @@ public class Controller implements Initializable {
     @FXML
     public void changeMode() {
         vbAdvanced.setVisible(!vbAdvanced.isVisible());
-        if (apOption.isVisible()) {
+        if (btnChange.isSelected()) {
             btnChange.setText("Simple Mode");
         } else {
             btnChange.setText("Advanced Mode");

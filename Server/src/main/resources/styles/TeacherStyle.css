@@ -1,10 +1,10 @@
-.java-series *.chart-area-symbol {
+.java-series .chart-area-symbol {
   -fx-background-color: #e9967a, #ffa07a;
 }
-.java-series *.chart-series-area-line {
+.java-series .chart-series-area-line {
   -fx-stroke: #e9967a;
 }
-.java-series *.chart-series-area-fill {
+.java-series .chart-series-area-fill {
   -fx-fill: #ffa07a55;
 }
 .css-series .chart-area-symbol {
@@ -16,7 +16,15 @@
 .css-series .chart-series-area-fill {
   -fx-fill: #fffacd55;
 }
-
+.default-color2 .chart-area-symbol {
+  -fx-background-color: #dda0dd, #d8bfd855 55;
+}
+.default-color2 .chart-series-area-line {
+  -fx-stroke: #dda0dd;
+}
+.default-color2 .chart-series-area-fill {
+  -fx-fill: #d8bfd855;
+}
 .chart-plot-background {
   -fx-background-color: transparent;
 }
@@ -44,12 +52,19 @@
 #apStudentSettings {
   -fx-background-color: #575757;
 }
-#apStudentSettings > .label {
+#apStudentSettings .label {
   -fx-text-fill: white;
 }
 .button {
   -fx-font-weight: bold;
 }
-#option {
-  -fx-background-image: url("../images/cyanWall.jpg");
+#option,
+#submission {
+  -fx-background-image: url("../images/foggy.jpg");
+  -fx-background-size: 100% 100%;
+}
+#option .label,
+#submission .label {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
 }
