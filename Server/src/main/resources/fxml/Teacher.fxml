@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
@@ -172,7 +173,7 @@
                                                                 </VBox>
                                                             </children>
                                                         </AnchorPane>
-                                                        <ToggleButton fx:id="btnChange" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="145.0" text="Advanced Mode" />
+                                                        <ToggleButton fx:id="tbMode" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="145.0" text="Advanced Mode" />
                                                         <Button fx:id="btnPatrolMode" layoutX="369.0" layoutY="28.0" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="236.0" text="Start Patrol" />
                                                         <Button layoutX="892.0" layoutY="28.0" mnemonicParsing="false" onAction="#setTestOptions" prefHeight="26.0" prefWidth="74.0" text="Test" />
                                                     </children>
@@ -360,6 +361,15 @@
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
+                              <Tab text="Help">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <WebView fx:id="wvHelp" layoutX="14.0" layoutY="14.0" prefHeight="638.0" prefWidth="970.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </Tab>
                                     </tabs>
                                 </TabPane>
                             </center>

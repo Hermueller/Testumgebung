@@ -7,7 +7,9 @@ import at.htl.common.io.ScreenShot;
 import at.htl.common.transfer.LoginPackage;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
+import javafx.util.Duration;
 import org.apache.logging.log4j.Level;
+import org.controlsfx.control.Notifications;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -26,6 +28,7 @@ import java.time.LocalDateTime;
  * 12.12.2015: PHI 010  Kommentieren von Methoden
  * 22.12.2015: PHI 001  Ändern von "Hinzufügen" von Schülern zu "Einloggen" von Schülern.
  * 06.01.2016: PHI 025  Fehler gefunden und geändert bei der Anmeldung eines Schülers der schon gespeichert ist.
+ * 21.05.2016: PHI 015  shows a notification if a student logs in.
  */
 
 /**
@@ -89,6 +92,14 @@ public class Server {
 
         FileUtils.log(this, Level.INFO, "finished connecting to " + socket);
         Settings.getInstance().printErrorLine(Level.INFO, student.getName() + " logged in!", true, "CONNECT");
+        Platform.runLater(() -> Notifications.create()
+                .title("Student logged in")
+                .text(
+                        "The student '".concat(student.getName())
+                                .concat(" " + student.getFirstName())
+                                .concat("' logged in."))
+                .hideAfter(Duration.seconds(5))
+                .showInformation());
     }
 
     public static int getPORT() {

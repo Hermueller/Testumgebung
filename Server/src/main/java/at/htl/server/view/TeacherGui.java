@@ -1,6 +1,7 @@
 package at.htl.server.view;
 
 import at.htl.server.Settings;
+import com.aquafx_project.AquaFx;
 import com.guigarage.flatterfx.FlatterFX;
 import com.guigarage.flatterfx.skin.FlatterComboBoxSkin;
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * @timeline TeacherGui

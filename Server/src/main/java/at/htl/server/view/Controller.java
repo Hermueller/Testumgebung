@@ -11,14 +11,10 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
-import com.aquafx_project.AquaFx;
+import com.aquafx_project.*;
 import com.aquafx_project.controls.skin.styles.ControlSizeVariant;
-import com.guigarage.flatterfx.FlatterConfiguration;
-import com.guigarage.flatterfx.FlatterFX;
-import com.guigarage.flatterfx.FlatterInputType;
-import com.guigarage.flatterfx.emoji.Emoji;
-import com.guigarage.flatterfx.emoji.EmojiFactory;
-import com.guigarage.flatterfx.skin.FlatterLabelSkin;
+import com.aquafx_project.controls.skin.styles.TextFieldType;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -40,9 +36,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.*;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import org.apache.logging.log4j.Level;
+import org.controlsfx.control.Notifications;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.imageio.ImageIO;
@@ -119,6 +119,7 @@ import java.util.stream.Collectors;
  * 13.05.2016: PHI 035  changed the view and code from the file extension filters.
  * 18.05.2016: PHI 065  improved simple- and advanced-Mode
  * 21.05.2016: PHI 015  fixed bug
+ * 21.05.2016: PHI 040  created the help-website
  */
 public class Controller implements Initializable {
 
@@ -128,7 +129,7 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane apOption;
     @FXML
-    private ToggleButton btnChange;
+    private ToggleButton tbMode;
     @FXML
     private TextField tfPort;
     @FXML
@@ -228,6 +229,11 @@ public class Controller implements Initializable {
     private AnchorPane apStudentDetail;
     //endregion
 
+    //region Web Help Variables
+    @FXML
+    WebView wvHelp;
+    //endregion
+
     //region other Variables
     @FXML
     private BorderPane bpDataView;
@@ -264,8 +270,7 @@ public class Controller implements Initializable {
      * LOAD standard values.
      */
     public void initialize(URL location, ResourceBundle resources) {
-        AquaFx.style();
-
+        styleStage();
 
         lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
@@ -287,6 +292,7 @@ public class Controller implements Initializable {
         initializeNewFilters();
         initializePatrol();
         initializeLogFilters();
+        initializeWebView();
 
         showIP_Address();
         initializeTimeSpinner();
@@ -297,6 +303,13 @@ public class Controller implements Initializable {
         Settings.getInstance().setStartTime(LocalTime.now());
         slHarvester.setValue(10);
         slHarvesterStudent.setValue(10);
+    }
+
+    /**
+     * styles the application.
+     */
+    public void styleStage() {
+        AquaFx.style();
     }
 
     //endregion
@@ -371,7 +384,7 @@ public class Controller implements Initializable {
             setImage(ivAngabe, true);
             setImage(ivPath, true);
             setImage(ivFileExtensions, true);
-            btnChange.setDisable(true);
+            tbMode.setDisable(true);
         }
     }
 
@@ -392,7 +405,7 @@ public class Controller implements Initializable {
                 ivFileExtensions.setImage(null);
                 ivPort.setImage(null);
                 ivPath.setImage(null);
-                btnChange.setDisable(false);
+                tbMode.setDisable(false);
             } else {
                 setMsg(true, "Server is already stopped");
             }
@@ -480,10 +493,10 @@ public class Controller implements Initializable {
     @FXML
     public void changeMode() {
         vbAdvanced.setVisible(!vbAdvanced.isVisible());
-        if (btnChange.isSelected()) {
-            btnChange.setText("Simple Mode");
+        if (tbMode.isSelected()) {
+            tbMode.setText("Simple Mode");
         } else {
-            btnChange.setText("Advanced Mode");
+            tbMode.setText("Advanced Mode");
         }
     }
 
@@ -1202,6 +1215,19 @@ public class Controller implements Initializable {
     }
 
     //endregion
+
+    //region {GitHub-Issue: #36} Help Website
+
+    /**
+     * shows the help-website in the help-tab.
+     */
+    public void initializeWebView() {
+        WebEngine webEngine = wvHelp.getEngine();
+        webEngine.setJavaScriptEnabled(true);
+        webEngine.load("http://BeatingAngel.github.io/Testumgebung/#program");
+    }
+
+    //region
 
     //region {GitHub-Issue: #--} Other Methods
 
