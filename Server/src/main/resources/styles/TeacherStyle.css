@@ -68,3 +68,6 @@
   -fx-text-fill: white;
   -fx-font-weight: bold;
 }
+.titled-pane > *.content {
+  -fx-border-color: white;
+}

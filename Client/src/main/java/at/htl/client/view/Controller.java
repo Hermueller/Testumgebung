@@ -231,6 +231,7 @@ public class Controller implements Initializable {
         countdown.reset();
         setControls(true);
         setMsg("Test successfully submitted", false);
+        client.stop();
     }
 
     @FXML

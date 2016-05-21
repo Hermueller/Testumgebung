@@ -133,7 +133,7 @@ public class Student {
     public void addSeries() {
 
         List<XYChart.Series<Number, Number>> list = new LinkedList<>();
-        for (String aFilter : filter) {
+        for (String aFilter : getFilter()) {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
             series.setName(getName() + "/" + aFilter + "/" + LocalTime.now().toString());
             list.add(series);

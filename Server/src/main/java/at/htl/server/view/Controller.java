@@ -118,6 +118,7 @@ import java.util.stream.Collectors;
  * 12.05.2016: PHI 020  implemented the LogFilter-Method
  * 13.05.2016: PHI 035  changed the view and code from the file extension filters.
  * 18.05.2016: PHI 065  improved simple- and advanced-Mode
+ * 21.05.2016: PHI 015  fixed bug
  */
 public class Controller implements Initializable {
 
@@ -978,10 +979,6 @@ public class Controller implements Initializable {
         cbFilterSetMain.getItems().addAll(cbFilterSet.getItems());
         cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
 
-        for (String filter : filterSets.get(0)) {
-            createFilterItem(filter);
-        }
-
         accordion.setExpandedPane(accordion.getPanes().get(1));
     }
 
@@ -1122,16 +1119,19 @@ public class Controller implements Initializable {
     }
 
     /**
-     * creates an image from the LineChart of a specific student and saves it.
+     * creates an image from the StackedAreaChart of a specific student and saves it.<br>
+     * The location of the picture is the "exports"-folder.<br>
+     * The name of the picture is "catalogNumber-LastName-LineChart".<br><br>
+     * example:   07-Mustermann-LineChart.png
      *
      * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/35">Chart GitHub Issue</a>
      */
     @FXML
     public void exportLOC() {
+        loc.setLegendVisible(true);
+
         WritableImage image = loc.snapshot(new SnapshotParameters(), null);
-
         String studentInfo = lbCatalogNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
-
         File file = new File(Settings.getInstance().getPathOfExports().concat("/" + studentInfo));
 
         try {
@@ -1140,6 +1140,7 @@ public class Controller implements Initializable {
             FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
             Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
+        loc.setLegendVisible(false);
 
         FxUtils.showPopUp("exported LineChart successfully !!", true);
     }

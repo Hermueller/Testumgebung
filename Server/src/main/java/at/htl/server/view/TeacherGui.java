@@ -89,13 +89,13 @@ public class TeacherGui extends Application {
         scene1.setCursor(Cursor.CLOSED_HAND);
 
         //ask questions
-        Label text = new Label("Haben Sie den Server auch gestoppt?");
+        Label text = new Label("Are you sure to close to Application?");
         text.setLayoutX(21);
         text.setLayoutY(23);
         text.setPrefHeight(35);
         text.setPrefWidth(385);
 
-        Label text2 = new Label("Wollen Sie das Fenster wirklich schließen?");
+        Label text2 = new Label("Have you stopped the server?");
         text2.setLayoutX(21);
         text2.setLayoutY(67);
         text2.setPrefHeight(35);
@@ -110,7 +110,7 @@ public class TeacherGui extends Application {
         cancel.setUnderline(true);
 
         //quit the window
-        Button ok = new Button("OKEY");
+        Button ok = new Button("CLOSE");
         ok.setLayoutX(268);
         ok.setLayoutY(206);
         ok.setPrefHeight(35);
