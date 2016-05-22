@@ -361,11 +361,13 @@
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                              <Tab text="Help">
+                              <Tab id="helpTab" text="Help">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <WebView fx:id="wvHelp" layoutX="14.0" layoutY="14.0" prefHeight="638.0" prefWidth="970.0" />
+                                          <WebView fx:id="wvHelp" layoutY="29.0" prefHeight="637.0" prefWidth="1003.0" />
+                                          <Label fx:id="lbStat" layoutX="14.0" layoutY="7.0" prefHeight="16.0" prefWidth="86.0" text="Status: offline" />
+                                          <Button fx:id="btnReload" layoutX="911.0" layoutY="2.0" mnemonicParsing="false" onAction="#reloadWebsite" prefHeight="26.0" prefWidth="81.0" text="reload" />
                                        </children>
                                     </AnchorPane>
                                 </content>

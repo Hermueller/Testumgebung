@@ -122,6 +122,7 @@ import java.util.stream.Collectors;
  * 21.05.2016: PHI 015  fixed bug
  * 21.05.2016: PHI 040  created the help-website
  * 22.05.2016: PHI 020  extended the help-website-tab. The help-website can be seen offline AND online.
+ * 22.05.2016: PHI 035  the help-website can be reloaded (can go during runtime from offline to online).
  */
 public class Controller implements Initializable {
 
@@ -234,6 +235,10 @@ public class Controller implements Initializable {
     //region Web Help Variables
     @FXML
     WebView wvHelp;
+    @FXML
+    Label lbStat;
+    @FXML
+    Button btnReload;
     //endregion
 
     //region other Variables
@@ -1204,12 +1209,15 @@ public class Controller implements Initializable {
             loc.setPrefWidth((double) newValue);
             btnNext.setLayoutX((double)newValue - btnActual.getWidth() - btnNext.getWidth());
             btnActual.setLayoutX((double)newValue - btnActual.getWidth());
+            btnReload.setLayoutX((double)newValue - btnReload.getWidth() - 20);
+            wvHelp.setPrefWidth((double)newValue);
         });
         spOption.heightProperty().addListener((observable, oldValue, newValue) -> {
             AnchorPane.setTopAnchor(apOption, (double) newValue / 2 - apOption.getPrefHeight() / 2);
             ivLiveView.setFitHeight((double) newValue - apInfo.getPrefHeight());
             loc.setPrefHeight((double)newValue - loc.getLayoutY() - 35);
             btnExportLOC.setLayoutY(loc.getLayoutY() + loc.getPrefHeight());
+            wvHelp.setPrefHeight((double)newValue - btnReload.getHeight());
         });
         ivLiveView.setPreserveRatio(true);
         ivLiveView.setSmooth(true);
@@ -1235,8 +1243,10 @@ public class Controller implements Initializable {
             if (applicationHasInternetConnection) {
                 webEngine.setJavaScriptEnabled(true);
                 url = "http://BeatingAngel.github.io/Testumgebung/#program";
+                lbStat.setText("Status: online");
             } else {
                 url = Server.class.getResource("/").toExternalForm().split("Server")[0].concat("index.html");
+                lbStat.setText("Status: offline");
             }
             webEngine.load(url);
         } catch (Exception exc) {
@@ -1245,7 +1255,15 @@ public class Controller implements Initializable {
         }
     }
 
-    //region
+    /**
+     * reloads the help-website.
+     */
+    @FXML
+    public void reloadWebsite() {
+        initializeWebView();
+    }
+
+    //endregion
 
     //region {GitHub-Issue: #--} Other Methods
 

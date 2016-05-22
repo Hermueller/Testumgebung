@@ -71,3 +71,6 @@
 .titled-pane > *.content {
   -fx-border-color: white;
 }
+#helpTab {
+  -fx-background-color: honeydew;
+}

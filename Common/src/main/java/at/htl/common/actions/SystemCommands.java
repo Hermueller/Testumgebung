@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 /**
  * @timeline SystemCommands
  * 22.05.2016: PHI 015  created class and improved the runSystemCommand-method.
+ * 22.05.2016: PHI 002  created method to check internet-connection.
  */
 
 /**
