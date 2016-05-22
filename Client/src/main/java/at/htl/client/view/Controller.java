@@ -6,6 +6,7 @@ import at.htl.common.Countdown;
 import at.htl.common.MyUtils;
 import at.htl.common.Pupil;
 import at.htl.common.actions.LineCounter;
+import at.htl.common.actions.SystemCommands;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileUtils;
 import at.htl.common.transfer.LoginPackage;
@@ -105,56 +106,7 @@ public class Controller implements Initializable {
     @FXML
     public void testConnection() {
         String ip = tfServerIP.getText();
-        runSystemCommand("ping -c 2 ", ip, true);
-    }
-
-    /**
-     * runs a system command and analyses the result of the command.
-     *
-     * @param command   is always "ping" command.
-     * @param ip        the ip to ping.
-     * @param popUp     if a popUp-Window should be shown or not.
-     * @return          boolean if the IP was successfully pinged or not.
-     */
-    private boolean runSystemCommand(String command, String ip, boolean popUp) {
-        command += ip;
-        boolean connected = false;
-        try {
-            Process p = Runtime.getRuntime().exec(command);
-            BufferedReader inputStream = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()));
-
-            String s = "";
-            double lossPercentage = -1;
-            String msg = "";
-
-            while ((s = inputStream.readLine()) != null) {
-                if (s.startsWith("---")) {
-                    break;
-                }
-            }
-            s = inputStream.readLine();
-            if (s != null) {
-                String loss = s.split(",")[2];
-                lossPercentage = Double.parseDouble(loss.split("%")[0].trim());
-            }
-            if (lossPercentage > 0 && lossPercentage != 100) {
-                msg = lossPercentage + "% received";
-            } else if (lossPercentage == 100 || s == null) {
-                msg = "can't ping the following IP: " + ip;
-            } else {
-                msg = "IP pinged successfully!!";
-                connected = true;
-            }
-
-            if (!(!popUp && connected)) {
-                FxUtils.showPopUp(msg, connected);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return connected;
+        SystemCommands.runSystemCommand("ping -c 2 ", ip, true, true);
     }
 
     /**
@@ -173,7 +125,7 @@ public class Controller implements Initializable {
     @FXML
     public void login() {
         String ip = tfServerIP.getText();
-        boolean connected = runSystemCommand("ping -c 2 ", ip, false);
+        boolean connected = SystemCommands.runSystemCommand("ping -c 2 ", ip, true, false);
         if (!connected) {
             return;
         }

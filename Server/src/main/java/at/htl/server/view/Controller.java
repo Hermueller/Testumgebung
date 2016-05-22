@@ -1,6 +1,7 @@
 package at.htl.server.view;
 
 import at.htl.common.MyUtils;
+import at.htl.common.actions.SystemCommands;
 import at.htl.server.entity.Student;
 import at.htl.common.TimeSpinner;
 import at.htl.common.fx.FxUtils;
@@ -120,6 +121,7 @@ import java.util.stream.Collectors;
  * 18.05.2016: PHI 065  improved simple- and advanced-Mode
  * 21.05.2016: PHI 015  fixed bug
  * 21.05.2016: PHI 040  created the help-website
+ * 22.05.2016: PHI 020  extended the help-website-tab. The help-website can be seen offline AND online.
  */
 public class Controller implements Initializable {
 
@@ -1219,12 +1221,28 @@ public class Controller implements Initializable {
     //region {GitHub-Issue: #36} Help Website
 
     /**
-     * shows the help-website in the help-tab.
+     * shows the help-website in the help-tab.<br>
+     * If the application has internet-connection then the online website is shown.<br>
+     * If the application has no internet-connection then the outdated, offline website is shown.
      */
     public void initializeWebView() {
         WebEngine webEngine = wvHelp.getEngine();
-        webEngine.setJavaScriptEnabled(true);
-        webEngine.load("http://BeatingAngel.github.io/Testumgebung/#program");
+
+        boolean applicationHasInternetConnection = SystemCommands.checkInternetConnection();
+
+        String url;
+        try {
+            if (applicationHasInternetConnection) {
+                webEngine.setJavaScriptEnabled(true);
+                url = "http://BeatingAngel.github.io/Testumgebung/#program";
+            } else {
+                url = Server.class.getResource("/").toExternalForm().split("Server")[0].concat("index.html");
+            }
+            webEngine.load(url);
+        } catch (Exception exc) {
+            FileUtils.log(Level.WARN, exc.getMessage());
+            Settings.getInstance().printError(Level.WARN, exc.getStackTrace(), "WARNINGS");
+        }
     }
 
     //region
