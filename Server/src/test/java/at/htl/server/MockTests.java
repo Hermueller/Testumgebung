@@ -1,9 +1,6 @@
 package at.htl.server;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mock;
@@ -44,7 +41,7 @@ public class MockTests {
         ts = null;
     }
 
-    @Test
+    @Test @Ignore
     public void t101_AcceptStudents() throws IOException {
 
     }

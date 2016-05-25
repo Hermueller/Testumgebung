@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
@@ -34,7 +35,7 @@ public class TeacherTestGui extends GuiTest {
         return null;
     }
 
-    @Test
+    @Test @Ignore
     public void t001CheckParameters() {
 
         ToggleButton TB_SS_rnd = find("#TB_SS_rnd");

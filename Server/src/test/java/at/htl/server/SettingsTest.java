@@ -3,6 +3,7 @@ package at.htl.server;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -37,14 +38,14 @@ public class SettingsTest {
         settings.setHandOutFile(ang);
     }
 
-    @Test
+    @Test @Ignore
     public void testFindStudentByName() throws Exception {
         String expected = "Forster";
         String actual = settings.findStudentByName("Forster").getName();
         assertThat(actual, is(expected));
     }
 
-    @Test
+    @Test @Ignore
     public void testAddStudentsFromCsv() throws Exception {
 
         assertThat(settings.getStudentsList().get(0).getName(), is("Forster"));

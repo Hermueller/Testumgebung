@@ -2,6 +2,7 @@ package at.htl.common;
 
 import at.htl.common.io.FileUtils;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -20,7 +21,7 @@ public class FileUtilsTest {
 
     private static final String TEMP_PATH = "src/test/resources/temp";
 
-    @Test
+    @Test @Ignore
     public void t001CreateDirectories() throws Exception {
         FileUtils.delete(TEMP_PATH);
         FileUtils.createDirectory(TEMP_PATH);
@@ -39,7 +40,7 @@ public class FileUtilsTest {
         assertFalse(FileUtils.createDirectory(test5));
     }
 
-    @Test
+    @Test @Ignore
     public void t002CreateFiles() throws Exception {
         String fileName = TEMP_PATH + "/test1/test1.txt";
         assertTrue(FileUtils.createFile(fileName));
@@ -54,7 +55,7 @@ public class FileUtilsTest {
         assertTrue(FileUtils.createFile(fileName));
     }
 
-    @Test
+    @Test @Ignore
     public void t003ZipDirectory() throws Exception {
         String fileName = TEMP_PATH + "/test1";
         String zipFileName = TEMP_PATH + "/test1.zip";
@@ -63,20 +64,20 @@ public class FileUtilsTest {
         //assertTrue(FileUtils.zip(zipFileName, zipFileName));
     }
 
-    @Test
+    @Test @Ignore
     public void t004UnzipArchive() throws Exception {
         String fileName = TEMP_PATH + "/test1_unzip";
         String zipFileName = TEMP_PATH + "/test1.zip";
         assertTrue(FileUtils.unzip(zipFileName, fileName));
     }
 
-    @Test
+    @Test @Ignore
     public void t010Delete() throws Exception {
         FileUtils.delete(TEMP_PATH);
         assertFalse(FileUtils.exists(TEMP_PATH));
     }
 
-    @Test
+    @Test @Ignore
     public void t20ClassName() throws Exception {
 
     }

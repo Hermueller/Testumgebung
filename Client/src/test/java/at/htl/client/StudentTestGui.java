@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
@@ -35,7 +36,7 @@ public class StudentTestGui extends GuiTest {
         return null;
     }
 
-    @Test
+    @Test @Ignore
     public void t001_testAttributes() throws IOException, InterruptedException {
         tfUsername = find("#tfUsername");
         tfTeacherIP = find("#tfTeacherIP");

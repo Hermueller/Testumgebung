@@ -22,7 +22,7 @@ import java.net.Socket;
  * 31.10.2015: MET 075  function "download specification" implemented
  * 01.11.2015: MET 015  hand in a watched folder automatically zipped
  * 01.11.2015: MET 005  Bug found: hand in only immediately after login
- * 08.02.2016: GNA 005  Added Errors to LogFile
+ * 08.02.2016: GNA 005  Added Errors to LogFilesdfdf
  */
 public class Client {
 
