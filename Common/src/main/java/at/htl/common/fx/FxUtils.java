@@ -25,6 +25,7 @@ import java.io.File;
  * 03.01.2016: MET 003  made setMsg() statically available
  * 22.04.2016: PHI 120  changed the style of the PopUp-Window
  * 07.05.2016: PHI 035  styled the PopUp-Window
+ * 28.05.2016: PHI 010  popUp-Window can be closed with ENTER-key
  */
 public class FxUtils {
 

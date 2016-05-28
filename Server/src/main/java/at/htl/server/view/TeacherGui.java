@@ -39,6 +39,7 @@ import javafx.stage.StageStyle;
  * 21.03.2016: PHI 001  catch all exceptions
  * 31.03.2016: MET 075  Apache-Maven-Plugin for creating jar-Files
  * 15.04.2016: MET 002  solved Style-Error of the Server-GUI
+ * 28.05.2016: PHI 015  added new shortcuts (ESC, F1)
  */
 public class TeacherGui extends Application {
 
