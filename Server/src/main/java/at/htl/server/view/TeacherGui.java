@@ -6,13 +6,16 @@ import com.guigarage.flatterfx.FlatterFX;
 import com.guigarage.flatterfx.skin.FlatterComboBoxSkin;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -54,6 +57,8 @@ public class TeacherGui extends Application {
         stage.setTitle("Teacher Client");
         stage.setScene(scene);
 
+        setShortCuts(scene, stage);
+
         Thread.setDefaultUncaughtExceptionHandler((t, e) ->
                 Settings.getInstance().printMessage(t, e));
 
@@ -70,6 +75,25 @@ public class TeacherGui extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    /**
+     * initializes shortcuts for the program
+     *
+     * @param scene The scene from where the keyEvent comes
+     * @param stage The stage which will be closed/hidden/...
+     */
+    public void setShortCuts(Scene scene, Stage stage) {
+        scene.setOnKeyReleased(event -> {
+
+            if (event.getCode() == KeyCode.ESCAPE) {    // ESC -> CLOSE
+                askCancel(stage);
+            }
+            else if (event.getCode() == KeyCode.F1) {   // F1  -> HELP
+                getHostServices().showDocument("http://BeatingAngel.github.io/Testumgebung/#program");
+            }
+
+        });
     }
 
     /**
@@ -91,7 +115,7 @@ public class TeacherGui extends Application {
         scene1.setCursor(Cursor.CLOSED_HAND);
 
         //ask questions
-        Label text = new Label("Are you sure to close to Application?");
+        Label text = new Label("Should the application be closed?");
         text.setLayoutX(21);
         text.setLayoutY(23);
         text.setPrefHeight(35);

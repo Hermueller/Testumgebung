@@ -341,7 +341,7 @@
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab fx:id="logTab" closable="false" text="Programm Log">
+                                        <Tab id="logTab" fx:id="logTab" closable="false" text="Programm Log">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -361,7 +361,7 @@
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                              <Tab id="helpTab" text="Help">
+                              <Tab id="helpTab" fx:id="tbHelp" text="Help">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>

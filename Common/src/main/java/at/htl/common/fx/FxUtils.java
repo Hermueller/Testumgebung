@@ -1,11 +1,14 @@
 package at.htl.common.fx;
 
 import at.htl.common.io.FileUtils;
+import com.aquafx_project.AquaFx;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -146,6 +149,15 @@ public class FxUtils {
         dialogScene.getStylesheets().add("styles/sharedStyle.css");
         dialog.setScene(dialogScene);
         dialog.setResizable(false);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setFullScreen(false);
+
+        dialogScene.setOnKeyReleased((event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                dialog.close();
+            }
+        });
+
         dialog.show();
         FileUtils.log(Level.INFO, message);
     }

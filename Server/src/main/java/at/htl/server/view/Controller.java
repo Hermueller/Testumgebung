@@ -32,6 +32,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -239,6 +242,8 @@ public class Controller implements Initializable {
     Label lbStat;
     @FXML
     Button btnReload;
+    @FXML
+    Tab tbHelp;
     //endregion
 
     //region other Variables
