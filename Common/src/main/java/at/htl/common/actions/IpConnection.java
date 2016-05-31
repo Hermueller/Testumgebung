@@ -6,8 +6,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
- * @timeline SystemCommands
- * 22.05.2016: PHI 015  created class and improved the runSystemCommand-method.
+ * @timeline IpConnection
+ * 22.05.2016: PHI 015  created class and improved the isIpReachable-method.
  * 22.05.2016: PHI 002  created method to check internet-connection.
  */
 
@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
  *
  * @author Philipp Hermüller
  */
-public class SystemCommands {
+public class IpConnection {
 
     /**
      * runs a system command and analyses the result of the command.
@@ -27,7 +27,7 @@ public class SystemCommands {
      * @param successPopUp   only creates a popUp-Window if the ping was successful.
      * @return               boolean if the IP was successfully pinged or not.
      */
-    public static boolean runSystemCommand(String command, String ip, boolean errorPopUp, boolean successPopUp) {
+    public static boolean isIpReachable(String command, String ip, boolean errorPopUp, boolean successPopUp) {
         command += ip;
         boolean connected = false;
         try {
@@ -74,6 +74,6 @@ public class SystemCommands {
      * @return  internet-connectivity.
      */
     public static boolean checkInternetConnection() {
-        return runSystemCommand("ping -c 2 ", "www.google.com", false, false);
+        return isIpReachable("ping -c 2 ", "www.google.com", false, false);
     }
 }

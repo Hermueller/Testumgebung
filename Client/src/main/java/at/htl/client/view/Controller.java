@@ -5,8 +5,8 @@ import at.htl.client.Exam;
 import at.htl.common.Countdown;
 import at.htl.common.MyUtils;
 import at.htl.common.Pupil;
+import at.htl.common.actions.IpConnection;
 import at.htl.common.actions.LineCounter;
-import at.htl.common.actions.SystemCommands;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileUtils;
 import at.htl.common.transfer.LoginPackage;
@@ -16,8 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.Level;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -106,7 +104,7 @@ public class Controller implements Initializable {
     @FXML
     public void testConnection() {
         String ip = tfServerIP.getText();
-        SystemCommands.runSystemCommand("ping -c 2 ", ip, true, true);
+        IpConnection.isIpReachable("ping -c 2 ", ip, true, true);
     }
 
     /**
@@ -125,7 +123,7 @@ public class Controller implements Initializable {
     @FXML
     public void login() {
         String ip = tfServerIP.getText();
-        boolean connected = SystemCommands.runSystemCommand("ping -c 2 ", ip, true, false);
+        boolean connected = IpConnection.isIpReachable("ping -c 2 ", ip, true, false);
         if (!connected) {
             return;
         }

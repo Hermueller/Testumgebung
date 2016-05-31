@@ -6,10 +6,9 @@ import at.htl.common.actions.LittleHarvester;
 import at.htl.common.actions.RobotAction;
 import at.htl.common.actions.RobotActionQueue;
 import at.htl.common.fx.StudentView;
-import at.htl.common.io.FileStream;
+import at.htl.common.io.DocumentsTransfer;
 import at.htl.common.io.FileUtils;
 import javafx.application.Platform;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import org.apache.logging.log4j.Level;
 
@@ -68,7 +67,7 @@ class SocketWriterThread extends Thread {
      * sends the test-file to the students.
      */
     public void handOut() {
-        FileStream.send(out, Settings.getInstance().getHandOutFile());
+        DocumentsTransfer.send(out, Settings.getInstance().getHandOutFile());
     }
 
     public void run() {

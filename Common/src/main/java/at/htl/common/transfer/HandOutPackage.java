@@ -13,6 +13,7 @@ import java.time.LocalTime;
  * Diese Klasse verwaltet alle Informationen, die für den
  * "Client" bzw. für den Schüler relevant sind.
  */
+@Deprecated
 public class HandOutPackage implements Serializable {
 
     private File file;

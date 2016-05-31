@@ -19,9 +19,16 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FileUtilsTest {
 
-    private static final String TEMP_PATH = "src/test/resources/temp";
+    private static final String TEMP_PATH = System.getProperty("java.io.tmpdir");
 
-    @Test @Ignore
+
+    @Test
+    public void t000Status() throws Exception {
+        System.out.println(System.getProperty("java.io.tmpdir"));
+
+    }
+
+    @Test
     public void t001CreateDirectories() throws Exception {
         FileUtils.delete(TEMP_PATH);
         FileUtils.createDirectory(TEMP_PATH);
@@ -40,7 +47,7 @@ public class FileUtilsTest {
         assertFalse(FileUtils.createDirectory(test5));
     }
 
-    @Test @Ignore
+    @Test
     public void t002CreateFiles() throws Exception {
         String fileName = TEMP_PATH + "/test1/test1.txt";
         assertTrue(FileUtils.createFile(fileName));
@@ -55,7 +62,7 @@ public class FileUtilsTest {
         assertTrue(FileUtils.createFile(fileName));
     }
 
-    @Test @Ignore
+    @Test
     public void t003ZipDirectory() throws Exception {
         String fileName = TEMP_PATH + "/test1";
         String zipFileName = TEMP_PATH + "/test1.zip";
@@ -64,20 +71,23 @@ public class FileUtilsTest {
         //assertTrue(FileUtils.zip(zipFileName, zipFileName));
     }
 
-    @Test @Ignore
+    @Test
+    // TODO Houston, wir haben ein Problem
     public void t004UnzipArchive() throws Exception {
         String fileName = TEMP_PATH + "/test1_unzip";
         String zipFileName = TEMP_PATH + "/test1.zip";
         assertTrue(FileUtils.unzip(zipFileName, fileName));
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void t010Delete() throws Exception {
         FileUtils.delete(TEMP_PATH);
         assertFalse(FileUtils.exists(TEMP_PATH));
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void t20ClassName() throws Exception {
 
     }

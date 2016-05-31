@@ -1,7 +1,7 @@
 package at.htl.server.view;
 
 import at.htl.common.MyUtils;
-import at.htl.common.actions.SystemCommands;
+import at.htl.common.actions.IpConnection;
 import at.htl.server.entity.Student;
 import at.htl.common.TimeSpinner;
 import at.htl.common.fx.FxUtils;
@@ -13,9 +13,6 @@ import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
 import com.aquafx_project.*;
-import com.aquafx_project.controls.skin.styles.ControlSizeVariant;
-import com.aquafx_project.controls.skin.styles.TextFieldType;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -32,9 +29,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -44,9 +38,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.*;
 import javafx.util.Callback;
-import javafx.util.Duration;
 import org.apache.logging.log4j.Level;
-import org.controlsfx.control.Notifications;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.imageio.ImageIO;
@@ -1241,7 +1233,7 @@ public class Controller implements Initializable {
     public void initializeWebView() {
         WebEngine webEngine = wvHelp.getEngine();
 
-        boolean applicationHasInternetConnection = SystemCommands.checkInternetConnection();
+        boolean applicationHasInternetConnection = IpConnection.checkInternetConnection();
 
         String url;
         try {

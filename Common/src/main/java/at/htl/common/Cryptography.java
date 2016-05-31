@@ -13,6 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
  * 06.11.2015: MET 060  implements encrypting and decrypting
  * 08.02.2016: GNA 005  added errors to log file
  */
+@Deprecated
 public class Cryptography {
 
     private static final String CIPHERING_METHOD = "AES";

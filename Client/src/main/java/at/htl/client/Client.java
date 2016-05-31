@@ -4,7 +4,7 @@ import at.htl.common.MyUtils;
 import at.htl.common.actions.RobotAction;
 import at.htl.common.actions.RobotActionQueue;
 import at.htl.common.fx.FxUtils;
-import at.htl.common.io.FileStream;
+import at.htl.common.io.DocumentsTransfer;
 import at.htl.common.io.FileUtils;
 import at.htl.common.transfer.LoginPackage;
 import at.htl.common.actions.LittleHarvester;
@@ -63,7 +63,7 @@ public class Client {
      * gets the file from the teacher for the test and saves it
      */
     public void loadFiles() {
-        FileStream.receive(in, loginPackage.getDirOfWatch() + "/angabe.zip");
+        DocumentsTransfer.receive(in, loginPackage.getDirOfWatch() + "/angabe.zip");
         processor.start();
         reader.start();
     }
@@ -80,7 +80,7 @@ public class Client {
             FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getLastname() + "/angabe.zip");
             FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getLastname() + "/handInFile.zip");
             FileUtils.zip(loginPackage.getDirOfWatch(), zipFileName);
-            FileStream.send(getOut(), new File(String.format("%s/%s",
+            DocumentsTransfer.send(getOut(), new File(String.format("%s/%s",
                     loginPackage.getDirOfWatch(), zipFileName)));
             return true;
         }

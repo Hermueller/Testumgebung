@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
  * @timeline HandInPackage
  * 31.10.2015: MET 005  created class
  */
+@Deprecated
 public class HandInPackage implements Serializable {
 
     private File file;

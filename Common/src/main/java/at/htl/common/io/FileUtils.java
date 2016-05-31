@@ -1,6 +1,5 @@
 package at.htl.common.io;
 
-import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
@@ -39,7 +38,7 @@ public class FileUtils {
      * creates a empty directory
      *
      * @param fileName path of directory
-     * @return successful
+     * @return true, if a successful deletion, else false
      */
     public static boolean createDirectory(String fileName) {
         boolean created = false;
@@ -59,7 +58,7 @@ public class FileUtils {
      * creates a empty
      *
      * @param fileName path of file
-     * @return successful
+     * @return true, if a successful deletion, else false
      */
     public static boolean createFile(String fileName) {
         boolean created = false;
@@ -83,7 +82,7 @@ public class FileUtils {
      *
      * @param file     to be saved file
      * @param fileName path with filename (e.g. .../directory/file.pdf)
-     * @return successful
+     * @return true, if a successful deletion, else false
      */
     public static boolean saveAsFile(byte[] file, String fileName) {
         boolean saved = false;
@@ -100,7 +99,7 @@ public class FileUtils {
      * checks whether a file or a directory exists
      *
      * @param fileName path of a file or directory
-     * @return exists
+     * @return true, if file exists
      */
     public static boolean exists(String fileName) {
         return new File(fileName).exists();
@@ -111,7 +110,7 @@ public class FileUtils {
      *
      * @param fileName    path of source file or directory
      * @param zipFileName path of zip archive
-     * @return successful
+     * @return true, if a successful deletion, else false
      */
     public static boolean zip(String fileName, String zipFileName) {
         if (fileName.contains(".zip")) {
@@ -214,10 +213,10 @@ public class FileUtils {
 
 
     /**
-     * deletes a list of paths
+     * deletes multiple paths
      *
-     * @param paths paths of deleting
-     * @return successful
+     * @param paths list of paths to delete
+     * @return true, if a successful deletion, else false
      */
     public static boolean deleteAll(LinkedList<String> paths) {
         boolean error = false;
@@ -237,7 +236,7 @@ public class FileUtils {
      * deletes files and directories
      *
      * @param fileName path of deleting
-     * @return successful
+     * @return true, if a successful deletion, else false
      */
     public static boolean delete(String fileName) {
         boolean deleted = false;

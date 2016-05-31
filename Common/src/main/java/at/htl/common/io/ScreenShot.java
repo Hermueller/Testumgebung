@@ -24,6 +24,7 @@ public class ScreenShot {
     /**
      * picture format for the sreenshots
      */
+    // TODO Auswahl des Formates (PNG oder JPEG) in Property-File
     public enum Format {
         JPG, PNG;
 
@@ -33,6 +34,7 @@ public class ScreenShot {
         }
     }
 
+    // TODO Die Bildgröße (SCALE) sollte einstellbar sein
     public static final Format DEFAULT_FORMAT = Format.JPG;
     public static final float DEFAULT_QUALITY = 1.0f;
     public static final double DEFAULT_SCALE = 1.0;
