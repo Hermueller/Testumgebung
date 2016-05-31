@@ -39,7 +39,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.*;
 import javafx.util.Callback;
 import org.apache.logging.log4j.Level;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileSystemView;
@@ -889,7 +888,6 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
         }
-        throw new NotImplementedException();
     }
 
     /**
