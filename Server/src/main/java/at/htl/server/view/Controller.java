@@ -118,6 +118,7 @@ import java.util.stream.Collectors;
  * 22.05.2016: PHI 020  extended the help-website-tab. The help-website can be seen offline AND online.
  * 22.05.2016: PHI 035  the help-website can be reloaded (can go during runtime from offline to online).
  * 02.06.2016: PHI 030  implemented the advanced settings for the image (only in GUI).
+ * 02.06.2016: PHI 015  check test-mode (properties-file).
  */
 public class Controller implements Initializable {
 
@@ -252,6 +253,8 @@ public class Controller implements Initializable {
     @FXML
     private ListView<Button> lvStudents;
     @FXML
+    private Button btnTestMode;
+    @FXML
     private Button btnPatrolMode;
     private boolean patrolMode = false;
     private PatrolMode pm = new PatrolMode();
@@ -261,6 +264,30 @@ public class Controller implements Initializable {
     //endregion
 
 
+    /**
+     * checks if the properties-file allows the test-mode or not.
+     * If not, the button will be hidden.
+     */
+    private void readTestMode() {
+        /*DirectoryChooser dc = new DirectoryChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        dc.setTitle("Wähle dein Ziel-Verzeichnis");
+        File choosedFile = dc.showDialog(new Stage());
+        if (choosedFile != null) {
+            Settings.getInstance().setPath(choosedFile.getPath());
+        }*/
+
+        Properties prop = new Properties();
+        String propFileName = "settings.properties";
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+        try {
+            prop.load(inputStream);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
+        }
+
+        btnTestMode.setVisible(prop.getProperty("testmode").toLowerCase().equals("true"));
+    }
 
 
     //region INITIALIZE and Constructor
@@ -303,6 +330,7 @@ public class Controller implements Initializable {
         showIP_Address();
         initializeTimeSpinner();
         readProperties();
+        readTestMode();
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
