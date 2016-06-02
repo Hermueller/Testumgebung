@@ -104,7 +104,7 @@ public class Controller implements Initializable {
     @FXML
     public void testConnection() {
         String ip = tfServerIP.getText();
-        IpConnection.isIpReachable("ping -c 2 ", ip, true, true);
+        IpConnection.isIpReachable(ip, true, true);
     }
 
     /**
@@ -123,7 +123,7 @@ public class Controller implements Initializable {
     @FXML
     public void login() {
         String ip = tfServerIP.getText();
-        boolean connected = IpConnection.isIpReachable("ping -c 2 ", ip, true, false);
+        boolean connected = IpConnection.isIpReachable(ip, true, false);
         if (!connected) {
             return;
         }

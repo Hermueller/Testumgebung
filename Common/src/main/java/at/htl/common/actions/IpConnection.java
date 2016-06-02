@@ -4,6 +4,7 @@ import at.htl.common.fx.FxUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 
 /**
  * @timeline IpConnection
@@ -21,37 +22,21 @@ public class IpConnection {
     /**
      * runs a system command and analyses the result of the command.
      *
-     * @param command        is always "ping" command.
      * @param ip             the ip to ping.
      * @param errorPopUp     only creates a popUp-Window if the ping failed.
      * @param successPopUp   only creates a popUp-Window if the ping was successful.
      * @return               boolean if the IP was successfully pinged or not.
      */
-    public static boolean isIpReachable(String command, String ip, boolean errorPopUp, boolean successPopUp) {
-        command += ip;
+    public static boolean isIpReachable(String ip, boolean errorPopUp, boolean successPopUp) {
         boolean connected = false;
+
         try {
-            Process p = Runtime.getRuntime().exec(command);
-            BufferedReader inputStream = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()));
+            String msg;
 
-            String s = "";
-            double lossPercentage = -1;
-            String msg = "";
+            InetAddress address = InetAddress.getByName(ip);
+            boolean reachable = address.isReachable(5000);
 
-            while ((s = inputStream.readLine()) != null) {
-                if (s.startsWith("---")) {
-                    break;
-                }
-            }
-            s = inputStream.readLine();
-            if (s != null) {
-                String loss = s.split(",")[2];
-                lossPercentage = Double.parseDouble(loss.split("%")[0].trim());
-            }
-            if (lossPercentage > 0 && lossPercentage != 100) {
-                msg = lossPercentage + "% received";
-            } else if (lossPercentage == 100 || s == null) {
+            if (!reachable) {
                 msg = "can't ping the following IP: " + ip;
             } else {
                 msg = "IP pinged successfully!!";
@@ -65,6 +50,7 @@ public class IpConnection {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return connected;
     }
 
@@ -74,6 +60,6 @@ public class IpConnection {
      * @return  internet-connectivity.
      */
     public static boolean checkInternetConnection() {
-        return isIpReachable("ping -c 2 ", "www.google.com", false, false);
+        return isIpReachable("www.google.com", false, false);
     }
 }

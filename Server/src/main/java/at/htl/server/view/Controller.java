@@ -117,6 +117,7 @@ import java.util.stream.Collectors;
  * 21.05.2016: PHI 040  created the help-website
  * 22.05.2016: PHI 020  extended the help-website-tab. The help-website can be seen offline AND online.
  * 22.05.2016: PHI 035  the help-website can be reloaded (can go during runtime from offline to online).
+ * 02.06.2016: PHI 030  implemented the advanced settings for the image (only in GUI).
  */
 public class Controller implements Initializable {
 
@@ -163,6 +164,8 @@ public class Controller implements Initializable {
     private Label lbTime;
     @FXML
     private ProgressBar pbHarvester;
+    @FXML
+    private TabPane tpAdvancedSettings;
     //endregion
 
     //region HandIn Variables
@@ -495,7 +498,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void changeMode() {
-        vbAdvanced.setVisible(!vbAdvanced.isVisible());
+        tpAdvancedSettings.setVisible(!tpAdvancedSettings.isVisible());
         if (tbMode.isSelected()) {
             tbMode.setText("Simple Mode");
         } else {
