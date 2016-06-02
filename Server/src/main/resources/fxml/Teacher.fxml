@@ -14,6 +14,7 @@
 
 <!--
 -->
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1213.0" stylesheets="@../styles/TeacherStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.server.view.Controller">
     <children>
         <SplitPane fx:id="splitter" dividerPositions="0.5" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -247,7 +248,7 @@
                                                             </children>
                                                         </AnchorPane>
                                                         <ToggleButton fx:id="tbMode" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="145.0" text="Advanced Mode" />
-                                                        <Button fx:id="btnPatrolMode" layoutX="369.0" layoutY="28.0" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="236.0" text="Start Patrol" />
+                                                        <Button fx:id="btnPatrolMode" layoutX="361.0" layoutY="587.0" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="236.0" text="Start Patrol" />
                                                         <Button layoutX="892.0" layoutY="28.0" mnemonicParsing="false" onAction="#setTestOptions" prefHeight="26.0" prefWidth="74.0" text="Test" />
                                                     </children>
                                                 </AnchorPane>
