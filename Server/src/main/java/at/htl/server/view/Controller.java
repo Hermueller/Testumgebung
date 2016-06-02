@@ -74,6 +74,7 @@ import java.util.stream.Collectors;
  * 05.11.2015: PON 015  implemented selecting of specification file
  * 06.11.2015: PON 002  expansion to the password field
  * 12.11.2015: PON 002  save password in the repository
+ * 19.11.2015: GNA 150  Bug fixes in Teacher-GUI
  * 29.11.2015: PHI 025  Handout + shows error messages in the GUI.
  * 07.12.2015: PHI 030  Live-View and LOC-Chart will always be the size of the window.
  * 07.12.2015: PHI 020  changed at.htl.client.styles of the LineChart.

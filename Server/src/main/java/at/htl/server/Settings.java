@@ -31,7 +31,7 @@ import java.util.HashMap;
 /**
  * @timeline Settings
  * 15.10.2015: GNA 001  created class (name: "Time")
- * 15.10.2015: GNA 010  Verwaltung der Gui-Eingabewerte inplementiert
+ * 15.10.2015: GNA 020  Verwaltung der Gui-Eingabewerte inplementiert
  * 19.10.2015: PHI 015  extended by a list of connected Students (String)
  * 24.10.2015: PHI 003  extended to the String "pathOfImages" (location of the test)
  * 26.10.2015: MET 005  Singleton-Pattern corrected and renamed class from "Time" to "Setting"
@@ -51,6 +51,7 @@ import java.util.HashMap;
  * 01.01.2016: PHI 055  Fixed bug in the LineChart and saves students.
  * 02.01.2016: PHI 005  Chart-Hover implemented.
  * 06.01.2016: PHI 045  fixed bug in the method for saving the LineChart-Series.
+ * 06.01.2016: GNA 150  fixed bugs that occur after the start
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
  * 10.02.2016: PON 001  Bug fixed: Sceenshots to Screenshots
  * 21.03.2016: PHI 020  write error to the log in the application

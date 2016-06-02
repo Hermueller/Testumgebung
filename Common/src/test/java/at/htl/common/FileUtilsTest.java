@@ -22,13 +22,12 @@ public class FileUtilsTest {
     private static final String TEMP_PATH = System.getProperty("java.io.tmpdir");
 
     @Test
-    public void t000Status() throws Exception {
+    public void t001Status() throws Exception {
         System.out.println(System.getProperty("java.io.tmpdir"));
-
     }
 
     @Test
-    public void t001CreateDirectories() throws Exception {
+    public void t002CreateDirectories() throws Exception {
         FileUtils.delete(TEMP_PATH);
         FileUtils.createDirectory(TEMP_PATH);
         String test1 = TEMP_PATH + "test1/";
@@ -47,7 +46,7 @@ public class FileUtilsTest {
     }
 
     @Test
-    public void t002CreateFiles() throws Exception {
+    public void t003CreateFiles() throws Exception {
         String fileName = TEMP_PATH + "test1/test1.txt";
         assertTrue(FileUtils.createFile(fileName));
         assertFalse(FileUtils.createFile(fileName));
@@ -62,28 +61,22 @@ public class FileUtilsTest {
     }
 
     @Test
-    public void t003ZipDirectory() throws Exception {
+    public void t004ZipDirectory() throws Exception {
         String fileName = TEMP_PATH + "test1/";
         String zipFileName = TEMP_PATH + "test1.zip";
         assertTrue(FileUtils.zip(fileName, zipFileName));
     }
 
     @Test
-    public void t004UnzipArchive() throws Exception {
+    public void t005UnzipArchive() throws Exception {
         String fileName = TEMP_PATH + "test1_unzip";
         String zipFileName = TEMP_PATH + "test1.zip";
         assertTrue(FileUtils.unzip(zipFileName, fileName));
     }
 
     @Test
-    //@Ignore
     public void t010Delete() throws Exception {
         FileUtils.delete(TEMP_PATH);
         assertFalse(FileUtils.exists(TEMP_PATH));
-    }
-
-    @Test
-    public void t20ClassName() throws Exception {
-
     }
 }
