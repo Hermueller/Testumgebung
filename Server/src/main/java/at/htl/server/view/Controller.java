@@ -54,10 +54,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
@@ -132,6 +129,8 @@ public class Controller implements Initializable {
     private ToggleButton tbMode;
     @FXML
     private TextField tfPort;
+    @FXML
+    private ImageView IVlabel;
     @FXML
     private ImageView ivPort;
     @FXML
@@ -306,6 +305,9 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         styleStage();
 
+
+
+        IVlabel.setImage(new Image("images/newlabel.png"));
         lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
@@ -1329,8 +1331,13 @@ public class Controller implements Initializable {
      * @param event Information from the click on the button.
      */
     public void chooseDirectory(ActionEvent event) {
+        /**/
+        String path = Settings.getInstance().getPath();
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
+
+
+
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null) {
