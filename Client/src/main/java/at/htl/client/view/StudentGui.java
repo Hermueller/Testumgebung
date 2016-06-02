@@ -17,6 +17,8 @@ import javafx.stage.Stage;
  * 31.03.2016: MET 075  Apache-Maven-Plugin for creating jar-Files
  * 14.04.2016: MET 080  bugs fixed that were produced in the separation of client and server
  * 15.04.2016: MET 002  solved Style-Error of the Client-GUI
+ * 02.06.2016: MET 020  New design of the GUI: unified language, tooltips, checkbox
+ * 02.06.2016: MET 015  Inform the teacher whether the student finished the test
  */
 public class StudentGui extends Application {
 

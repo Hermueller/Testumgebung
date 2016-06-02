@@ -66,6 +66,8 @@ public class Controller implements Initializable {
     @FXML
     private Button btnLogin;
     @FXML
+    private CheckBox cbFinished;
+    @FXML
     private Button btnLogout;
     @FXML
     private Label lbAlert;
@@ -73,8 +75,6 @@ public class Controller implements Initializable {
     private Label lbTimeLeft;
     @FXML
     private Text txTimeLeft;
-    @FXML
-    private ToggleButton tbtnStatus;
     //endregion
 
     private Client client;
@@ -186,13 +186,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void setMode() {
-        LineCounter.getInstance().setFinished(tbtnStatus.isSelected());
-
-        if (tbtnStatus.isSelected()) {
-            tbtnStatus.setText("finished test");
-        } else {
-            tbtnStatus.setText("in work");
-        }
+        LineCounter.getInstance().setFinished(cbFinished.isSelected());
     }
 
     /**
@@ -210,6 +204,7 @@ public class Controller implements Initializable {
         tfPathOfProject.setEditable(value);
         btnChooseDirectory.setDisable(!value);
         btnLogin.setDisable(!value);
+        cbFinished.setVisible(!value);
         btnLogout.setDisable(value);
         lbTimeLeft.setVisible(!value);
         txTimeLeft.setVisible(!value);

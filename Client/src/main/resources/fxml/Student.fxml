@@ -22,10 +22,6 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Server-IP:" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Matrikel-Nr.:" GridPane.rowIndex="1" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Schüler:" GridPane.rowIndex="2" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Verzeichnis:" GridPane.rowIndex="3" />
                 <GridPane GridPane.columnIndex="1">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,7 +32,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <TextField fx:id="tfServerIP" promptText="Adresse" />
+                        <TextField fx:id="tfServerIP" promptText="Address" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" GridPane.columnIndex="1">
                             <font>
                                 <Font size="18.0" />
@@ -70,7 +66,7 @@
                     </children>
                 </GridPane>
                 <TextField fx:id="tfPathOfProject" promptText="/local/TestC01/Mustermann" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Button fx:id="btnChooseDirectory" mnemonicParsing="false" onAction="#chooseProjectDirectory" text="Auswählen" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                <Button fx:id="btnChooseDirectory" mnemonicParsing="false" onAction="#chooseProjectDirectory" text="Choose" GridPane.columnIndex="2" GridPane.rowIndex="3">
                     <GridPane.margin>
                         <Insets left="10.0" />
                     </GridPane.margin>
@@ -80,22 +76,37 @@
                         <Insets left="10.0" />
                     </GridPane.margin>
                 </Button>
+            <Label text="Server-IP:">
+               <tooltip>
+                  <Tooltip text="Please ask, the teacher will write the server-ip on the board." />
+               </tooltip>
+            </Label>
+            <Label text="Matrikel-Nr.:" GridPane.rowIndex="1" />
+            <Label text="Pupil name:" GridPane.rowIndex="2">
+               <tooltip>
+                  <Tooltip text="catalog number, first name, last name" />
+               </tooltip>
+            </Label>
+            <Label text="Directory:" GridPane.rowIndex="3" />
             </children>
         </GridPane>
-        <Button fx:id="btnLogin" layoutX="166.0" layoutY="217.0" mnemonicParsing="false" onAction="#login" text="Anmelden" />
-        <Button fx:id="btnLogout" layoutX="323.0" layoutY="217.0" mnemonicParsing="false" onAction="#logout" text="Abmelden" />
+        <Button fx:id="btnLogin" layoutX="163.0" layoutY="217.0" mnemonicParsing="false" onAction="#login" text="Login" />
+        <Button fx:id="btnLogout" layoutX="350.0" layoutY="217.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
         <Label fx:id="lbAlert" alignment="CENTER" layoutX="25.0" layoutY="353.0" prefHeight="25.0" prefWidth="550.0" text="" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
       <Button layoutX="548.0" layoutY="6.0" mnemonicParsing="false" onAction="#defaultSettings" text="Test" />
-      <Text fx:id="txTimeLeft" layoutX="198.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="txTimeLeft" layoutX="160.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Text>
-      <Label fx:id="lbTimeLeft" layoutX="62.0" layoutY="287.0" text="Verbleibende Zeit:" />
+      <Label fx:id="lbTimeLeft" layoutX="62.0" layoutY="287.0" text="Time left:" />
       <CheckBox fx:id="cbNoLogin" layoutX="518.0" layoutY="10.0" mnemonicParsing="false" />
-      <ToggleButton fx:id="tbtnStatus" layoutX="25.0" layoutY="19.0" mnemonicParsing="false" onAction="#setMode" prefWidth="120.0" text="in work" />
+      <CheckBox fx:id="cbFinished" layoutX="248.0" layoutY="221.0" mnemonicParsing="false" text="Finished">
+         <tooltip>
+            <Tooltip text="Inform the teacher when you're done with the test." />
+         </tooltip></CheckBox>
     </children>
 </AnchorPane>
