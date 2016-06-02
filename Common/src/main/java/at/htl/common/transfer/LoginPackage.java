@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @timeline LoginPackage
- * 31.10.2015: MET 005  created class
+ * 31.10.2015: MET 005  created class2
  * 19.11.2015: PON 002  added port
  */
 public class LoginPackage implements Serializable {

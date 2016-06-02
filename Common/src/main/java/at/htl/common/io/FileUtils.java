@@ -126,8 +126,7 @@ public class FileUtils {
         } else {
             log(Level.INFO, String.format("creating zip file %s ...", zipFileName));
             try {
-                ZipOutputStream zos = new ZipOutputStream(
-                        new FileOutputStream(new File(zipFileName)));
+                ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(new File(zipFileName)));
                 wrapRecursive(zos, file, fileName);
                 zos.close();
                 log(Level.INFO, "finished creating zip archive " + zipFileName);
