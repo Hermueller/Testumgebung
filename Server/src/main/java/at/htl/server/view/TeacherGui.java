@@ -37,7 +37,7 @@ import javafx.stage.StageStyle;
  * 22.12.2015: PHI 010  Optische Fehler in der GUI ausgebessert.
  * 31.01.2016: PHI 001  bugfix (Schließen des Fensters)
  * 21.03.2016: PHI 001  catch all exceptions
- * 31.03.2016: MET 075  Apache-Maven-Plugin for creating jar-Files
+ * 31.03.2016: PON 075  Apache-Maven-Plugin for creating jar-Files
  * 15.04.2016: MET 002  solved Style-Error of the Server-GUI
  * 28.05.2016: PHI 015  added new shortcuts (ESC, F1)
  */

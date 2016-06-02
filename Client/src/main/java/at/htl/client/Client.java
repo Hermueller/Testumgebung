@@ -160,7 +160,7 @@ public class Client {
     }
 
     /**
-     * called when the client logs out.<br>
+     * called when the client logs out.
      * stop all streams from this client.
      */
     public void stop() {
@@ -184,5 +184,4 @@ public class Client {
         //handIn();
         closeOut();
     }
-
 }

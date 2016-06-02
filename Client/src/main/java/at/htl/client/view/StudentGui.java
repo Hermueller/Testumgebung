@@ -15,7 +15,6 @@ import javafx.stage.Stage;
  * 05.11.2015: PON 010  repair of this class
  * 29.11.2015: PHI 035  Strukturierung bei der Ansicht geändert
  * 31.03.2016: MET 075  Apache-Maven-Plugin for creating jar-Files
- * 14.04.2016: MET 030  complete project newly structured by dividing into modules
  * 14.04.2016: MET 080  bugs fixed that were produced in the separation of client and server
  * 15.04.2016: MET 002  solved Style-Error of the Client-GUI
  */

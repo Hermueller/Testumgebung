@@ -19,7 +19,7 @@ import static org.hamcrest.core.Is.is;
  * @timeline .
  * 12.11.2015: PON 001  created test class
  * 12.11.2015: PON 070  implemented parameter tests
- * 12.02.2015: MET 002  t001CheckParameters() improved by using Singleton-Pattern
+ * 12.02.2016: MET 002  t001CheckParameters() improved by using Singleton-Pattern
  */
 public class TeacherTestGui extends GuiTest {
 

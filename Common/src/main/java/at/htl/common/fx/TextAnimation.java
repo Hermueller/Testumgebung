@@ -49,5 +49,4 @@ public class TextAnimation {
         fade.setToValue(0);
         return fade;
     }
-
 }
