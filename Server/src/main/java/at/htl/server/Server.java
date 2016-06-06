@@ -30,6 +30,7 @@ import java.time.format.DateTimeFormatter;
  * 22.12.2015: PHI 001  Ändern von "Hinzufügen" von Schülern zu "Einloggen" von Schülern.
  * 06.01.2016: PHI 025  Fehler gefunden und geändert bei der Anmeldung eines Schülers der schon gespeichert ist.
  * 21.05.2016: PHI 015  shows a notification if a student logs in.
+ * 06.06.2016: GNA 030  Changed path of screenshots
  */
 
 /**
