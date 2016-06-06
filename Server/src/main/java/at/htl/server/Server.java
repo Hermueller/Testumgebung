@@ -31,6 +31,7 @@ import java.time.format.DateTimeFormatter;
  * 06.01.2016: PHI 025  Fehler gefunden und geändert bei der Anmeldung eines Schülers der schon gespeichert ist.
  * 21.05.2016: PHI 015  shows a notification if a student logs in.
  * 06.06.2016: GNA 030  Changed path of screenshots
+ * 06.06.2016: PHI 003  Creates the path extension dynamically.
  */
 
 /**
@@ -123,12 +124,13 @@ public class Server {
         //SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd'_'HH:mm:ss");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
         String formattedTime = formatter.format(date);
-        String path = String.format("%s/%s-%s.jpg",
+        String path = String.format("%s/%s-%s." + Settings.getInstance().getScreenShot().DEFAULT_FORMAT.toString(),
                 Settings.getInstance().getPathOfImages() + "/" + student.getName(),
                 student.getName(),
                 formattedTime);
 
-        ScreenShot.save(image, path);
+        ScreenShot screenShot = Settings.getInstance().getScreenShot();
+        screenShot.save(image, path);
 
         showImage(path, student);
     }

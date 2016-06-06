@@ -1,5 +1,6 @@
 package at.htl.server;
 
+import at.htl.common.io.ScreenShot;
 import at.htl.server.entity.Student;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
@@ -61,6 +62,7 @@ import java.util.HashMap;
  * 11.05.2016: PHI 015  added the "initialize-" Methods + fixed the inputs to the Log-View
  * 12.05.2016: PHI 035  added the Log-Filter Methods
  * 13.05.2016: PHI 001  changes the color of the students.
+ * 06.06.2016: PHI 015  implemented the methods for the screenshot properties.
  */
 public class Settings {
 
@@ -90,6 +92,7 @@ public class Settings {
     private HashMap<String, List<TextField>> logFields = new HashMap<>();
     private String currentLogFilter = "ALL";
     private long sleepTime = 5000;
+    private ScreenShot screenShot = new ScreenShot();
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -108,6 +111,31 @@ public class Settings {
     }
 
     //region Getter and Setter
+
+
+    //region Screenshot Methods
+
+    public void setScreenshotFormat(String formatStr) {
+        for (ScreenShot.Format format : ScreenShot.Format.values()) {
+            if (format.name().equals(formatStr)) {
+                screenShot.setDEFAULT_FORMAT(format);
+            }
+        }
+    }
+
+    public void setScreenshotQuality(float quality) {
+        screenShot.setDEFAULT_QUALITY(quality);
+    }
+
+    public void setScreenshotScale(double scale) {
+        screenShot.setDEFAULT_SCALE(scale);
+    }
+
+    public ScreenShot getScreenShot() {
+        return screenShot;
+    }
+
+    //endregion
 
     public void setCurrentLogFilter(String currentLogFilter) {
         this.currentLogFilter = currentLogFilter;

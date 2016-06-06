@@ -28,17 +28,19 @@ public class ScreenShotTest {
 
     @Test @Ignore
     public void t005ValidSuffix() {
+        ScreenShot screenShot = new ScreenShot();
         String fileName = "/opt/test.1.png";
-        assertThat(ScreenShot.validSuffix(fileName), is(true));
+        assertThat(screenShot.validSuffix(fileName), is(true));
         fileName = "/opt/readme.txt";
-        assertFalse(ScreenShot.validSuffix(fileName));
+        assertFalse(screenShot.validSuffix(fileName));
     }
 
     @Test @Ignore
     public void t006Screenshot() throws Exception {
-        byte[] screenShot = ScreenShot.get();
+        ScreenShot scrSh = new ScreenShot();
+        byte[] screenShot = scrSh.get();
         String fileName = "src/test/resources/test.jpg";
-        ScreenShot.save(screenShot, fileName);
+        scrSh.save(screenShot, fileName);
         assertTrue(FileUtils.exists(fileName));
         FileUtils.delete(fileName);
         assertFalse(FileUtils.exists(fileName));
