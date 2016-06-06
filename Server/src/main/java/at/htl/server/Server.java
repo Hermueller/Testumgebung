@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @timeline Server
@@ -117,10 +118,14 @@ public class Server {
      * @param student Specifies the client from which the screenshot is.
      */
     public void saveImage(byte[] image, Student student) {
+        LocalDateTime date = LocalDateTime.now();
+        //SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd'_'HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        String formattedTime = formatter.format(date);
         String path = String.format("%s/%s-%s.jpg",
                 Settings.getInstance().getPathOfImages() + "/" + student.getName(),
                 student.getName(),
-                LocalDateTime.now());
+                formattedTime);
 
         ScreenShot.save(image, path);
 
