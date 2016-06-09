@@ -54,7 +54,10 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
@@ -71,7 +74,6 @@ import java.util.stream.Collectors;
  * 05.11.2015: PON 015  implemented selecting of specification file
  * 06.11.2015: PON 002  expansion to the password field
  * 12.11.2015: PON 002  save password in the repository
- * 19.11.2015: GNA 150  Bug fixes in Teacher-GUI
  * 29.11.2015: PHI 025  Handout + shows error messages in the GUI.
  * 07.12.2015: PHI 030  Live-View and LOC-Chart will always be the size of the window.
  * 07.12.2015: PHI 020  changed at.htl.client.styles of the LineChart.
@@ -116,7 +118,6 @@ import java.util.stream.Collectors;
  * 22.05.2016: PHI 020  extended the help-website-tab. The help-website can be seen offline AND online.
  * 22.05.2016: PHI 035  the help-website can be reloaded (can go during runtime from offline to online).
  * 02.06.2016: PHI 030  implemented the advanced settings for the image (only in GUI).
- * 02.06.2016: PHI 015  check test-mode (properties-file).
  */
 public class Controller implements Initializable {
 
@@ -129,8 +130,6 @@ public class Controller implements Initializable {
     private ToggleButton tbMode;
     @FXML
     private TextField tfPort;
-    @FXML
-    private ImageView IVlabel;
     @FXML
     private ImageView ivPort;
     @FXML
@@ -253,8 +252,6 @@ public class Controller implements Initializable {
     @FXML
     private ListView<Button> lvStudents;
     @FXML
-    private Button btnTestMode;
-    @FXML
     private Button btnPatrolMode;
     private boolean patrolMode = false;
     private PatrolMode pm = new PatrolMode();
@@ -264,30 +261,6 @@ public class Controller implements Initializable {
     //endregion
 
 
-    /**
-     * checks if the properties-file allows the test-mode or not.
-     * If not, the button will be hidden.
-     */
-    private void readTestMode() {
-        /*DirectoryChooser dc = new DirectoryChooser();
-        dc.setInitialDirectory(new File(System.getProperty("user.home")));
-        dc.setTitle("Wähle dein Ziel-Verzeichnis");
-        File choosedFile = dc.showDialog(new Stage());
-        if (choosedFile != null) {
-            Settings.getInstance().setPath(choosedFile.getPath());
-        }*/
-
-        Properties prop = new Properties();
-        String propFileName = "settings.properties";
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-        try {
-            prop.load(inputStream);
-        } catch (IOException e) {
-            FileUtils.log(Level.ERROR, e.getMessage());
-        }
-
-        btnTestMode.setVisible(prop.getProperty("testmode").toLowerCase().equals("true"));
-    }
 
 
     //region INITIALIZE and Constructor
@@ -305,9 +278,6 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         styleStage();
 
-
-
-        IVlabel.setImage(new Image("images/newlabel.png"));
         lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
@@ -333,7 +303,6 @@ public class Controller implements Initializable {
         showIP_Address();
         initializeTimeSpinner();
         readProperties();
-        readTestMode();
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
@@ -443,6 +412,10 @@ public class Controller implements Initializable {
                 ivPort.setImage(null);
                 ivPath.setImage(null);
                 tbMode.setDisable(false);
+
+                for (Button b : lvStudents.getItems()) {
+                    b.setStyle("-fx-background-color: crimson");
+                }
             } else {
                 setMsg(true, "Server is already stopped");
             }
@@ -1331,13 +1304,8 @@ public class Controller implements Initializable {
      * @param event Information from the click on the button.
      */
     public void chooseDirectory(ActionEvent event) {
-        /**/
-        String path = Settings.getInstance().getPath();
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
-
-
-
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null) {
@@ -1489,6 +1457,9 @@ public class Controller implements Initializable {
             Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
         lbAddress.setText(ip + " : 50555");
+    }
+
+    public void changeImageFormat(ActionEvent actionEvent) {
     }
 
     //endregion

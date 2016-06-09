@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @timeline Server
@@ -29,6 +30,8 @@ import java.time.LocalDateTime;
  * 22.12.2015: PHI 001  Ändern von "Hinzufügen" von Schülern zu "Einloggen" von Schülern.
  * 06.01.2016: PHI 025  Fehler gefunden und geändert bei der Anmeldung eines Schülers der schon gespeichert ist.
  * 21.05.2016: PHI 015  shows a notification if a student logs in.
+ * 06.06.2016: GNA 030  Changed path of screenshots
+ * 06.06.2016: PHI 003  Creates the path extension dynamically.
  */
 
 /**
@@ -117,12 +120,17 @@ public class Server {
      * @param student Specifies the client from which the screenshot is.
      */
     public void saveImage(byte[] image, Student student) {
-        String path = String.format("%s/%s-%s.jpg",
+        LocalDateTime date = LocalDateTime.now();
+        //SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd'_'HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        String formattedTime = formatter.format(date);
+        String path = String.format("%s/%s-%s." + Settings.getInstance().getScreenShot().DEFAULT_FORMAT.toString(),
                 Settings.getInstance().getPathOfImages() + "/" + student.getName(),
                 student.getName(),
-                LocalDateTime.now());
+                formattedTime);
 
-        ScreenShot.save(image, path);
+        ScreenShot screenShot = Settings.getInstance().getScreenShot();
+        screenShot.save(image, path);
 
         showImage(path, student);
     }
@@ -143,7 +151,7 @@ public class Server {
                     (StudentView.getInstance().getIv())
                             .setImage(new javafx.scene.image.Image("file:" + fileName));
                     Settings.getInstance().addScreenshot("file:" + fileName);
-                    Settings.getInstance().setActualScreenshot("file" + fileName);
+                    Settings.getInstance().setActualScreenshot(fileName);
                 }
             }
         });
