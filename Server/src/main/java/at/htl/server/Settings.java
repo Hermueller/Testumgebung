@@ -37,7 +37,7 @@ import java.util.HashMap;
  * 26.10.2015: MET 005  Singleton-Pattern corrected and renamed class from "Time" to "Setting"
  * 26.10.2015: MET 003  list of students instead of String (better because storage options)
  * 27.10.2015: PHI 035  adding and deleting of "Pupils"
- * 30.10.2015: PHI 030  implemented random time between screenshots
+ * 30.10.2015: PHI 030  implemented random quickinfo between screenshots
  * 30.10.2015: MET 005  created fixed/random "Interval" between screenshots
  * 31.10.2015: MET 010  functionS implemented: set test start and test end
  * 31.10.2015: MET 005  expansion to handOutFile and getHandOutPacket ()
@@ -228,49 +228,49 @@ public class Settings {
     }
 
     /**
-     * @return the time when the test starts.
+     * @return the quickinfo when the test starts.
      */
     public LocalTime getStartTime() {
         return startTime;
     }
 
     /**
-     * @param startTime Specialises the time when the test starts.
+     * @param startTime Specialises the quickinfo when the test starts.
      */
     public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
     /**
-     * @return the time when the test ends.
+     * @return the quickinfo when the test ends.
      */
     public LocalTime getEndTime() {
         return endTime;
     }
 
     /**
-     * @param endTime Specialises the time when the test ends.
+     * @param endTime Specialises the quickinfo when the test ends.
      */
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
     /**
-     * @return the time to wait for the next screenshot.
+     * @return the quickinfo to wait for the next screenshot.
      */
     public long getInterval() {
         return interval.getValue();
     }
 
     /**
-     * @return the object which includes the time interval
+     * @return the object which includes the quickinfo interval
      */
     public Interval getIntervalObject() {
         return interval;
     }
 
     /**
-     * @param interval Specialises the class with the calculations for the next interval-time.
+     * @param interval Specialises the class with the calculations for the next interval-quickinfo.
      */
     public void setInterval(Interval interval) {
         this.interval = interval;
@@ -491,18 +491,18 @@ public class Settings {
     }
 
     /**
-     * calculates the time (x-axis point) for the chart.
+     * calculates the quickinfo (x-axis point) for the chart.
      *
-     * @return  the time for the chart in seconds. (x-axis point)
+     * @return  the quickinfo for the chart in seconds. (x-axis point)
      */
     public long calculateTime() {
-        //set start-time
+        //set start-quickinfo
         if (starting == null) {
             starting = LocalDateTime.now();
         }
         LocalDateTime now = starting;
 
-        //calculate time in seconds
+        //calculate quickinfo in seconds
         long _hours = now.until(LocalDateTime.now(), ChronoUnit.HOURS);
         now = now.plusHours(_hours);
 

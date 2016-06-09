@@ -329,7 +329,7 @@ $.cleanData = (function( orig ) {
 		for ( i = 0; (elem = elems[i]) != null; i++ ) {
 			try {
 
-				// Only trigger remove when necessary to save time
+				// Only trigger remove when necessary to save quickinfo
 				events = $._data( elem, "events" );
 				if ( events && events.remove ) {
 					$( elem ).triggerHandler( "remove" );
@@ -3881,7 +3881,7 @@ function Datepicker() {
 		onSelect: null, // Define a callback function when a date is selected
 		onChangeMonthYear: null, // Define a callback function when the month or year is changed
 		onClose: null, // Define a callback function when the datepicker is closed
-		numberOfMonths: 1, // Number of months to show at a time
+		numberOfMonths: 1, // Number of months to show at a quickinfo
 		showCurrentAtPos: 0, // The position in multipe months at which to show the current month (starting at 0)
 		stepMonths: 1, // Number of months to step back/forward
 		stepBigMonths: 12, // Number of months to step back/forward for the big links
@@ -5384,7 +5384,7 @@ $.extend(Datepicker.prototype, {
 			printDate, dRow, tbody, daySettings, otherMonth, unselectable,
 			tempDate = new Date(),
 			today = this._daylightSavingAdjust(
-				new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())), // clear time
+				new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())), // clear quickinfo
 			isRTL = this._get(inst, "isRTL"),
 			showButtonPanel = this._get(inst, "showButtonPanel"),
 			hideIfNoPrevNext = this._get(inst, "hideIfNoPrevNext"),
@@ -5668,7 +5668,7 @@ $.extend(Datepicker.prototype, {
 		return (numMonths == null ? [1, 1] : (typeof numMonths === "number" ? [1, numMonths] : numMonths));
 	},
 
-	/* Determine the current maximum date - ensure no time components are set. */
+	/* Determine the current maximum date - ensure no quickinfo components are set. */
 	_getMinMaxDate: function(inst, minMax) {
 		return this._determineDate(inst, this._get(inst, minMax + "Date"), null);
 	},
@@ -9280,7 +9280,7 @@ $.ui.ddmanager = {
 	},
 	drag: function( draggable, event ) {
 
-		// If you have a highly dynamic page, you might try this option. It renders positions every time you move the mouse.
+		// If you have a highly dynamic page, you might try this option. It renders positions every quickinfo you move the mouse.
 		if ( draggable.options.refreshPositions ) {
 			$.ui.ddmanager.prepareOffsets( draggable, event );
 		}
@@ -9334,7 +9334,7 @@ $.ui.ddmanager = {
 	},
 	dragStop: function( draggable, event ) {
 		draggable.element.parentsUntil( "body" ).unbind( "scroll.droppable" );
-		// Call prepareOffsets one final time since IE does not fire return scroll events when overflow was caused by drag (see #5003)
+		// Call prepareOffsets one final quickinfo since IE does not fire return scroll events when overflow was caused by drag (see #5003)
 		if ( !draggable.options.refreshPositions ) {
 			$.ui.ddmanager.prepareOffsets( draggable, event );
 		}
@@ -10148,7 +10148,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 		// apply original class
 		animated.attr( "class", baseClass );
 
-		// map all animated objects again - this time collecting a promise
+		// map all animated objects again - this quickinfo collecting a promise
 		allAnimations = allAnimations.map(function() {
 			var styleInfo = this,
 				dfd = $.Deferred(),
@@ -12396,7 +12396,7 @@ var selectmenu = $.widget( "ui.selectmenu", {
 			return;
 		}
 
-		// If this is the first time the menu is being opened, render the items
+		// If this is the first quickinfo the menu is being opened, render the items
 		if ( !this.menuItems ) {
 			this._refreshMenu();
 		} else {
@@ -14162,7 +14162,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 			queries = [[$.isFunction(this.options.items) ? this.options.items.call(this.element[0], event, { item: this.currentItem }) : $(this.options.items, this.element), this]],
 			connectWith = this._connectWith();
 
-		if(connectWith && this.ready) { //Shouldn't be run the first time through due to massive slow-down
+		if(connectWith && this.ready) { //Shouldn't be run the first quickinfo through due to massive slow-down
 			for (i = connectWith.length - 1; i >= 0; i--){
 				cur = $(connectWith[i], this.document[0]);
 				for (j = cur.length - 1; j >= 0; j--){
@@ -15477,7 +15477,7 @@ var tabs = $.widget( "ui.tabs", {
 
 			// Update aria-selected immediately so that AT think the tab is already selected.
 			// Otherwise AT may confuse the user by stating that they need to activate the tab,
-			// but the tab will already be activated by the time the announcement finishes.
+			// but the tab will already be activated by the quickinfo the announcement finishes.
 			focusedTab.attr( "aria-selected", "false" );
 			this.tabs.eq( selectedIndex ).attr( "aria-selected", "true" );
 

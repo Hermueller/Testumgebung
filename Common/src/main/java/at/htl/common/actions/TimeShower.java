@@ -37,7 +37,7 @@ public class TimeShower extends StackPane {
     /**
      * createDirectory label with color and value
      *
-     * @param time       time before the test ends.
+     * @param time       quickinfo before the test ends.
      * @param value      actual value (to add)
      * @return the colored label (with value)
      */

@@ -12,7 +12,10 @@ import at.htl.common.io.FileUtils;
 import at.htl.common.transfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.Level;
 
@@ -62,6 +65,8 @@ public class Controller implements Initializable {
     @FXML
     private CheckBox cbNoLogin;
     @FXML
+    private Button btnTestMode;
+    @FXML
     private Button btnChooseDirectory;
     @FXML
     private Button btnLogin;
@@ -81,6 +86,10 @@ public class Controller implements Initializable {
     private Countdown countdown;
 
     public void initialize(URL location, ResourceBundle resources) {
+        if (MyUtils.readProperty("settings.properties", "testmode").toLowerCase().equals("false")) {
+            cbNoLogin.setVisible(false);
+            btnTestMode.setVisible(false);
+        }
         setControls(true);
     }
 
@@ -146,7 +155,7 @@ public class Controller implements Initializable {
                         ));
                         client.start();
                     }
-                    LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(10);
+                    LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
                     setTimeLeft(toTime);
                     setControls(false);
                     setMsg("Signed in!", false);
@@ -159,6 +168,7 @@ public class Controller implements Initializable {
     }
 
     private void setTimeLeft(LocalTime toTime) {
+        StudentGui.showQuickInfo(toTime);
         countdown = new Countdown(txTimeLeft, toTime);
         countdown.setDaemon(false);
         countdown.start();

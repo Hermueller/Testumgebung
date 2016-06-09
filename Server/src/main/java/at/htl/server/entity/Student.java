@@ -150,7 +150,7 @@ public class Student {
      * Adds the LinesOfCodes from each filter to its series.
      *
      * @param locs          Specifies the number of lines in the code for each filter.
-     * @param time          Specifies the time (in sec.) when to lines where counted.
+     * @param time          Specifies the quickinfo (in sec.) when to lines where counted.
      */
     public void addValueToLast(Long[] locs, Long time) {
         try {
@@ -231,8 +231,8 @@ public class Student {
      * To remember the Lines of Code for exactly this client.
      * Saves the Lines of Code.
      *
-     * @param _loc  Specifies the lines of code at an specific time.
-     * @param _time Specifies the time when the program counted the lines.
+     * @param _loc  Specifies the lines of code at an specific quickinfo.
+     * @param _time Specifies the quickinfo when the program counted the lines.
      */
     public void addLoC_Time(Long _loc, Long _time) {
         locs.add(_loc);

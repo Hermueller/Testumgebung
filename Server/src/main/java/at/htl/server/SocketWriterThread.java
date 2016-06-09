@@ -43,9 +43,9 @@ class SocketWriterThread extends Thread {
     }
 
     /**
-     * the time to wait, before taking another screenshot.
+     * the quickinfo to wait, before taking another screenshot.
      *
-     * @return the time to wait.
+     * @return the quickinfo to wait.
      */
     public long getWaitTime() {
         return student.getInterval().getValue();

@@ -2,7 +2,7 @@ package at.htl.server.entity;
 
 /**
  * @timeline .
- * 30.10.2015: MET 005  created class for time between screenshots
+ * 30.10.2015: MET 005  created class for quickinfo between screenshots
  * 20.11.2015: MET 005  extended by toString() and a factor for getValue()
  */
 
@@ -35,8 +35,8 @@ public class Interval {
     /**
      * creates new interval with dynamic values.
      *
-     * @param min   The minimum time between harvests (in sec.)
-     * @param max   The maximum time between harvests (in sec.)
+     * @param min   The minimum quickinfo between harvests (in sec.)
+     * @param max   The maximum quickinfo between harvests (in sec.)
      */
     public Interval(long min, long max) {
         this(true);

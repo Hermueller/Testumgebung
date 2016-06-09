@@ -24,7 +24,7 @@ public class HandOutPackage implements Serializable {
      * A package with information for the test.
      *
      * @param file    Specialises the file where the test-questions are listed.
-     * @param endTime Specialises the time the test ends.
+     * @param endTime Specialises the quickinfo the test ends.
      * @param comment Specialises a comment from the teacher to the client for the test.
      */
     public HandOutPackage(File file, LocalTime endTime, String comment) {

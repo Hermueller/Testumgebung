@@ -64,10 +64,10 @@ import java.util.stream.Collectors;
 /**
  * @timeline serverController
  * 15.10.2015: GNA 001  created class
- * 15.10.2015: PHI 035  Allowed time-input in the GUI for the screenshot-delay.
+ * 15.10.2015: PHI 035  Allowed quickinfo-input in the GUI for the screenshot-delay.
  * 19.10.2015: PON 020  list of connected pupils
  * 24.10.2015: PON 020  teachers can now select the folder where the screenshots are saved
- * 26.10.2015: PHI 050  created method for the messages from the start and stop of the server (+random time).
+ * 26.10.2015: PHI 050  created method for the messages from the start and stop of the server (+random quickinfo).
  * 05.11.2015: PON 015  implemented selecting of specification file
  * 06.11.2015: PON 002  expansion to the password field
  * 12.11.2015: PON 002  save password in the repository
@@ -80,16 +80,16 @@ import java.util.stream.Collectors;
  * 30.12.2015: GNA 100  TimeSpinner Abagabe hinzugefügt
  * 31.12.2015: PHI 010  LineChart revised (if the student from the list changes then the LineChart changes too).
  * 01.01.2016: PHI 010  fixed bug in the LineChart.
- * 03.01.2016: GNA 120  Add time to Abgabe
+ * 03.01.2016: GNA 120  Add quickinfo to Abgabe
  * 06.01.2016: PHI 025  BugFix (LineChart will not be influenced when the student changes)
  * 15.01.2016: PHI 060  Shows check-pictures for errors and success when the server is started.
- * 20.01.2016: PHI 040  Simple- and Advanced-Mode created. / input time now in seconds
+ * 20.01.2016: PHI 040  Simple- and Advanced-Mode created. / input quickinfo now in seconds
  * 22.01.2016: GNA 030  added Startspinner
  * 23.01.2016: PHI 020  Tooltip and Version created.
  * 24.01.2016: PHI 035  Shows the screenshot in fullscreen on click and closes on another click. +RandomTimeBugFix
  * 10.02.2016: GNA 120  Send Start and Abgabe Zeit for automatic Abgabe
  * 10.03.2016: PHI 120  BugFix (Screenshot, Lines-of-Code Chart)
- * 11.03.2016: GNA 030  BugFix to send time data
+ * 11.03.2016: GNA 030  BugFix to send quickinfo data
  * 12.03.2016: PHI 125  show last screenshot of the student if the selection changed (no waitTime)
  * 15.03.2016: PHI 030  show the log on the application and check the portnumber
  * 18.03.2016: PHI 005  export the log to an text-file
@@ -672,7 +672,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * changes the time for showing the student.
+     * changes the quickinfo for showing the student.
      */
     public void initializePatrol() {
         ContextMenu contextMenu = new ContextMenu();
@@ -1093,7 +1093,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * changes the time interval of the selected student.
+     * changes the quickinfo interval of the selected student.
      *
      * @see   <a href="https://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
@@ -1444,7 +1444,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * disables the textfield of the time-interval if the button 'random' is clicked and
+     * disables the textfield of the quickinfo-interval if the button 'random' is clicked and
      * enables it if the 'random'-Button is OFF
      *
      * @param actionEvent Information from the click on the button

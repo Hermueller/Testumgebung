@@ -1,8 +1,10 @@
 package at.htl.common;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
+import at.htl.common.io.FileUtils;
+import org.apache.logging.log4j.Level;
+
+import java.io.*;
+import java.util.Properties;
 
 /**
  * @timeline MyUtils
@@ -40,4 +42,18 @@ public class MyUtils {
         e.printStackTrace(new PrintWriter(writer));
         return writer.toString();
     }
+
+    public static String readProperty(String fileName, String propertyName) {
+        Properties prop = new Properties();
+        InputStream inputStream = MyUtils.class.getClassLoader().getResourceAsStream(fileName);
+        try {
+            prop.load(inputStream);
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
+        }
+        return prop.getProperty(propertyName);
+    }
+
+
+
 }
