@@ -143,7 +143,7 @@ public class Server {
                     (StudentView.getInstance().getIv())
                             .setImage(new javafx.scene.image.Image("file:" + fileName));
                     Settings.getInstance().addScreenshot("file:" + fileName);
-                    Settings.getInstance().setActualScreenshot("file" + fileName);
+                    Settings.getInstance().setActualScreenshot(fileName);
                 }
             }
         });

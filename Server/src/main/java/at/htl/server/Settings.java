@@ -1,10 +1,10 @@
 package at.htl.server;
 
-import at.htl.server.entity.Student;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.common.transfer.HandOutPackage;
 import at.htl.server.entity.Interval;
+import at.htl.server.entity.Student;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,9 +24,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.HashMap;
 
 /**
  * @timeline Settings

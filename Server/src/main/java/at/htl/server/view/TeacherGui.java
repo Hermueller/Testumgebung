@@ -1,24 +1,18 @@
 package at.htl.server.view;
 
 import at.htl.server.Settings;
-import com.aquafx_project.AquaFx;
-import com.guigarage.flatterfx.FlatterFX;
-import com.guigarage.flatterfx.skin.FlatterComboBoxSkin;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * @timeline TeacherGui
@@ -40,6 +34,7 @@ import javafx.stage.StageStyle;
  * 31.03.2016: PON 075  Apache-Maven-Plugin for creating jar-Files
  * 15.04.2016: MET 002  solved Style-Error of the Server-GUI
  * 28.05.2016: PHI 015  added new shortcuts (ESC, F1)
+ * 02.06.2016: PON 010  No Multiple Alerts
  */
 public class TeacherGui extends Application {
 
@@ -102,9 +97,15 @@ public class TeacherGui extends Application {
      *
      * @param stage Specialises the root-window of the program.
      */
+    Stage stage1;
+
     public void askCancel(Stage stage) {
         //createDirectory Window
-        Stage stage1 = new Stage();
+        try{stage1.close();}
+        catch (Exception e){
+
+        }
+        stage1 = new Stage();
         stage1.setResizable(false);
         AnchorPane root1 = new AnchorPane();
         Scene scene1 = new Scene(root1, 431, 279);
@@ -159,6 +160,7 @@ public class TeacherGui extends Application {
         pane.setStyle("-fx-background-color: #808080");
 
         root1.getChildren().add(pane);
+
 
 
         stage1.setScene(scene1);

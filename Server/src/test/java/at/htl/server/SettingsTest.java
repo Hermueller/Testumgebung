@@ -1,5 +1,6 @@
 package at.htl.server;
 
+import javafx.application.Platform;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -21,6 +22,7 @@ import static org.hamcrest.core.Is.is;
  * 10.02.2016: PON 005  added deleteDirecotrys method
  * 10.02.2016: PON 010  test findStudentByName
  */
+
 public class SettingsTest {
 
     public static Settings settings = Settings.getInstance();
@@ -31,18 +33,28 @@ public class SettingsTest {
 
     @BeforeClass
     public static void init() throws IOException {
-        dic = FileUtils.getFile("src", "test", "resources", "Dirs");
-        ang = FileUtils.getFile("src", "test", "resources", "Angabe.zip");
-        settings.setPath(dic.getPath());
-        settings.addStudentsFromCsv(FileUtils.getFile("src", "test", "resources", "ListeSchueler4AHIF.csv"));
-        settings.setHandOutFile(ang);
+
+            dic = new File(System.getProperty("java.io.tmpdir"));
+            ang = FileUtils.getFile("src", "test", "resources","testFiles", "Angabe.zip");
+            settings.setPath(dic.getPath());
+            try {
+                settings.addStudentsFromCsv(FileUtils.getFile("src", "test", "resources","testFiles", "ListeSchueler4AHIF.csv"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            settings.setHandOutFile(ang);
+
     }
 
     @Test @Ignore
     public void testFindStudentByName() throws Exception {
-        String expected = "Forster";
-        String actual = settings.findStudentByName("Forster").getName();
-        assertThat(actual, is(expected));
+
+        Platform.runLater(() -> {
+            String expected = "Forster";
+            String actual = settings.findStudentByName("Forster").getName();
+            assertThat(actual, is(expected));
+        });
+
     }
 
     @Test @Ignore

@@ -1,18 +1,18 @@
 package at.htl.server.view;
 
 import at.htl.common.MyUtils;
-import at.htl.common.actions.IpConnection;
-import at.htl.server.entity.Student;
 import at.htl.common.TimeSpinner;
+import at.htl.common.actions.IpConnection;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.server.PatrolMode;
+import at.htl.server.Server;
 import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
-import at.htl.server.Server;
-import com.aquafx_project.*;
+import at.htl.server.entity.Student;
+import com.aquafx_project.AquaFx;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -428,16 +428,28 @@ public class Controller implements Initializable {
 
         List<String> screens = Settings.getInstance().getListOfScreenshots();
 
-        String fileName = screens.get((getScreenshotPos(Settings.getInstance().getActualScreenshot()))-1);
+            int c = screens.size() - 2;
 
-        (StudentView.getInstance().getIv())
-                .setImage(new javafx.scene.image.Image("file:" + fileName));
+
+            //String fileName = screens.get((getScreenshotPos(Settings.getInstance().getActualScreenshot()))-1);
+
+            if(c>=0) {
+                Settings.getInstance().setLooksAtScreenshots(true);
+                Settings.getInstance().setActualScreenshot(screens.get(c));
+
+                String s = screens.get(c);
+
+                (StudentView.getInstance().getIv())
+                        .setImage(new javafx.scene.image.Image("file:" + screens.get(c)));
+            }
     }
 
     public void onNextButtonClick(ActionEvent actionEvent) {
     }
 
     public void OnActual(ActionEvent actionEvent) {
+        Settings.getInstance().setLooksAtScreenshots(false);
+
     }
 
     public void setPrevScreenshot() {
