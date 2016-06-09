@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * @timeline ScreenShot
@@ -18,8 +19,50 @@ import java.io.IOException;
  * 14.11.2015: MET 010  provided class with comments
  * 14.11.2015: MET 005  created enum with toString()
  * 02.01.2016: MET 005  improved saving images by using FileUtils
+ * 06.06.2016: PHI 030  dynamical image properties from the user.
  */
-public class ScreenShot {
+public class ScreenShot implements Serializable {
+
+    public Format DEFAULT_FORMAT = Format.JPG;
+    public float DEFAULT_QUALITY = 0.2f;
+    public double DEFAULT_SCALE = 0.5;
+
+    public ScreenShot(Format DEFAULT_FORMAT, float DEFAULT_QUALITY, double DEFAULT_SCALE) {
+        this.DEFAULT_FORMAT = DEFAULT_FORMAT;
+        this.DEFAULT_QUALITY = DEFAULT_QUALITY;
+        this.DEFAULT_SCALE = DEFAULT_SCALE;
+    }
+
+    public ScreenShot() {
+    }
+
+    //region Getter-Setter
+
+    public Format getDEFAULT_FORMAT() {
+        return DEFAULT_FORMAT;
+    }
+
+    public void setDEFAULT_FORMAT(Format DEFAULT_FORMAT) {
+        this.DEFAULT_FORMAT = DEFAULT_FORMAT;
+    }
+
+    public float getDEFAULT_QUALITY() {
+        return DEFAULT_QUALITY;
+    }
+
+    public void setDEFAULT_QUALITY(float DEFAULT_QUALITY) {
+        this.DEFAULT_QUALITY = DEFAULT_QUALITY;
+    }
+
+    public double getDEFAULT_SCALE() {
+        return DEFAULT_SCALE;
+    }
+
+    public void setDEFAULT_SCALE(double DEFAULT_SCALE) {
+        this.DEFAULT_SCALE = DEFAULT_SCALE;
+    }
+
+    //endregion
 
     /**
      * picture format for the sreenshots
@@ -34,17 +77,12 @@ public class ScreenShot {
         }
     }
 
-    // TODO Die Bildgröße (SCALE) sollte einstellbar sein
-    public static final Format DEFAULT_FORMAT = Format.JPG;
-    public static final float DEFAULT_QUALITY = 1.0f;
-    public static final double DEFAULT_SCALE = 1.0;
-
     /**
      * take a screenshot and returns it as a specific format
      *
      * @return ByteArray (Screenshot)
      */
-    public static byte[] get() {
+    public byte[] get() {
         return get(null, DEFAULT_FORMAT, DEFAULT_QUALITY, DEFAULT_SCALE);
     }
 
@@ -57,7 +95,7 @@ public class ScreenShot {
      * @param scale   factor for reduction or enlargement
      * @return ByteArray (Screenshot)
      */
-    public static byte[] get(
+    public byte[] get(
             Robot robot, Format format, float quality, double scale) {
         Rectangle shotArea = new Rectangle(
                 Toolkit.getDefaultToolkit().getScreenSize());
@@ -78,7 +116,7 @@ public class ScreenShot {
      * @param scale factor for reduction or enlargement
      * @return BufferedImage with altered size
      */
-    private static BufferedImage getScaledImage(BufferedImage img, double scale) {
+    private BufferedImage getScaledImage(BufferedImage img, double scale) {
         if (scale != DEFAULT_SCALE) {
             int width = (int) (img.getWidth() * scale);
             int height = (int) (img.getHeight() * scale);
@@ -102,11 +140,12 @@ public class ScreenShot {
      * @return ByteArray for later writing as a FileOutputStream
      * @throws IOException
      */
-    private static byte[] convert(BufferedImage img,
+    private byte[] convert(BufferedImage img,
                                   Format format,
                                   float quality) throws IOException {
         ImageWriter writer = ImageIO.getImageWritersByFormatName(
                 format.toString()).next();
+        // TODO: PNG-Format isn't working
         ImageWriteParam writeParam = writer.getDefaultWriteParam();
         writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
         writeParam.setCompressionQuality(quality);
@@ -126,7 +165,7 @@ public class ScreenShot {
      * @param fileName path with filename (e.g. .../Screenshots/example.jpg)
      * @return Successfully saved?
      */
-    public static boolean save(byte[] img, String fileName) {
+    public boolean save(byte[] img, String fileName) {
         return validSuffix(fileName) && FileUtils.saveAsFile(img, fileName);
     }
 
@@ -136,7 +175,7 @@ public class ScreenShot {
      * @param fileName to be checked fileName
      * @return Valid fileName?
      */
-    public static boolean validSuffix(String fileName) {
+    public boolean validSuffix(String fileName) {
         String[] split = fileName.split("\\.");
         String suffix = split[split.length - 1];
         try {

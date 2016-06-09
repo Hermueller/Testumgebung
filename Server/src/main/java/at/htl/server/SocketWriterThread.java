@@ -1,6 +1,7 @@
 package at.htl.server;
 
 import at.htl.common.MyUtils;
+import at.htl.common.io.ScreenShot;
 import at.htl.server.entity.Student;
 import at.htl.common.actions.LittleHarvester;
 import at.htl.common.actions.RobotAction;
@@ -27,6 +28,7 @@ import java.util.concurrent.TimeUnit;
  * 12.01.2016: PHI 055  Writer fragt jetzt auch nach dem Lines of Code.
  * 13.01.2016: PHI 045  Schweren Fehler behoben bei der Abfrage nach LinesOfCode & Screenshot (PipeÜberlastung)
  * 13.01.2016: PHI 015  Einführen des TransferPackets.
+ * 06.06.2016: PHI 002  implemented the new Screenshot object.
  */
 class SocketWriterThread extends Thread {
 
@@ -59,7 +61,11 @@ class SocketWriterThread extends Thread {
      * @param student The client, of the screenshot and LinesOfCode
      */
     private void sendLittleHarvester(Student student) {
-        jobs.add(new LittleHarvester(student.getName(), student.getPathOfWatch(), student.getFilter()));
+        ScreenShot screenShot = Settings.getInstance().getScreenShot();
+        jobs.add(new LittleHarvester(student.getName(),
+                student.getPathOfWatch(),
+                student.getFilter(),
+                screenShot));
     }
 
 

@@ -1,7 +1,6 @@
 package at.htl.server;
 
 import at.htl.server.entity.Interval;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class IntervalTest {
 
-    @Test @Ignore
+    @Test
     public void t001FixValue() throws Exception {
         Interval a = new Interval(20);
         assertThat(a.getValue(), is(20L));
@@ -27,7 +26,7 @@ public class IntervalTest {
         assertFalse(b.isRandom());
     }
 
-    @Test @Ignore
+    @Test
     public void t002RandomValue() throws Exception {
         int min = 100;
         int max = 500;
@@ -38,7 +37,7 @@ public class IntervalTest {
         }
     }
 
-    @Test @Ignore
+    @Test
     public void t003Factor() throws Exception {
         int fixValue = 50;
         Interval a = new Interval(fixValue);

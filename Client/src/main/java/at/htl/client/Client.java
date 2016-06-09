@@ -165,7 +165,7 @@ public class Client {
      */
     public void stop() {
 
-        RobotAction action = new LittleHarvester(
+        /*RobotAction action = new LittleHarvester(
                 loginPackage.getLastname(), loginPackage.getDirOfWatch(), new String[0]);
 
         try {
@@ -177,7 +177,7 @@ public class Client {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         processor.interrupt();
         reader.interrupt();
