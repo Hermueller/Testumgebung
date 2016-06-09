@@ -412,6 +412,10 @@ public class Controller implements Initializable {
                 ivPort.setImage(null);
                 ivPath.setImage(null);
                 tbMode.setDisable(false);
+
+                for (Button b : lvStudents.getItems()) {
+                    b.setStyle("-fx-background-color: crimson");
+                }
             } else {
                 setMsg(true, "Server is already stopped");
             }
@@ -1453,6 +1457,9 @@ public class Controller implements Initializable {
             Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
         lbAddress.setText(ip + " : 50555");
+    }
+
+    public void changeImageFormat(ActionEvent actionEvent) {
     }
 
     //endregion
