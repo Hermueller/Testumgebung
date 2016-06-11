@@ -39,7 +39,15 @@ public class Countdown extends Thread {
         if (d.toMillis() < 1000) {
             interrupt();
         }
-        return LocalTime.MIDNIGHT.plus(d).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        String pattern;
+        if (d.getSeconds() / 60  >= 60) {
+            pattern = "HH:mm:ss";
+        } else if (d.getSeconds() >= 60) {
+            pattern = "mm:ss";
+        } else {
+            pattern = "s";
+        }
+        return LocalTime.MIDNIGHT.plus(d).format(DateTimeFormatter.ofPattern(pattern));
     }
 
     @Override
@@ -54,6 +62,7 @@ public class Countdown extends Thread {
                 return;
             }
         }
+        txCountdown.setText("00:00:00");
         System.out.println("Clock beendet");
         txCountdown.setFill(Color.RED);
         blinkThenFade = new SequentialTransition(

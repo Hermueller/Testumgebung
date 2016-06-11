@@ -12,11 +12,21 @@ import at.htl.common.io.FileUtils;
 import at.htl.common.transfer.LoginPackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.logging.log4j.Level;
 
 import java.net.URL;
@@ -42,6 +52,8 @@ import java.util.ResourceBundle;
  * 21.04.2016: PHI 060  added the finished-Mode
  * 12.05.2016: MET 010  fixed FileUtils-Error
  * 20.05.2016: PHI 035  improved the connection-testing (+ testing connection on serverStart)
+ * 09.06.2016: MET 100  Show quick info (time, status, transparent background, positioning, ...)
+ * 11.06.2016: MET 030  Moving the quick window
  */
 public class Controller implements Initializable {
 
@@ -80,10 +92,16 @@ public class Controller implements Initializable {
     private Label lbTimeLeft;
     @FXML
     private Text txTimeLeft;
+    @FXML
+    private Slider sliderPos;
     //endregion
 
     private Client client;
     private Countdown countdown;
+    private Stage quickInfo;
+
+    public Controller() {
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
         if (MyUtils.readProperty("settings.properties", "testmode").toLowerCase().equals("false")) {
@@ -155,7 +173,7 @@ public class Controller implements Initializable {
                         ));
                         client.start();
                     }
-                    LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
+                    LocalTime toTime = LocalTime.now().plusMinutes(61).plusSeconds(30);
                     setTimeLeft(toTime);
                     setControls(false);
                     setMsg("Signed in!", false);
@@ -168,11 +186,60 @@ public class Controller implements Initializable {
     }
 
     private void setTimeLeft(LocalTime toTime) {
-        StudentGui.showQuickInfo(toTime);
+        showQuickInfo(toTime);
         countdown = new Countdown(txTimeLeft, toTime);
         countdown.setDaemon(false);
         countdown.start();
     }
+
+    public void showQuickInfo(LocalTime toTime) {
+        quickInfo = new Stage();
+        quickInfo.initStyle(StageStyle.TRANSPARENT);
+        quickInfo.setAlwaysOnTop(true);
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        quickInfo.setX(primaryScreenBounds.getMinX());
+        quickInfo.setY(primaryScreenBounds.getMinY());
+
+        sliderPos.valueProperty().addListener((ov, old_val, new_val) -> {
+            quickInfo.setX((Screen.getPrimary().getVisualBounds().getWidth() - quickInfo.getWidth())
+                    * new_val.doubleValue() / sliderPos.getMax());
+        });
+        /*sliderPos.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2){
+                    if (quickInfo.isShowing()) {
+                        quickInfo.hide();
+                    } else {
+                        quickInfo.show();
+                    }
+                }
+            }
+        });*/
+
+        HBox hBox = new HBox(5);
+        hBox.setBackground(Background.EMPTY);
+        Text text = new Text(0, 18,"00:00:00");
+        text.setStrokeType(StrokeType.OUTSIDE);
+        text.setFont(Font.font("System", FontWeight.BOLD, 18));
+        //ImageView iv = new ImageView(new Image("/images/eye-green.png"));
+        //iv.setFitHeight(22);
+        //iv.setFitWidth(35);
+
+        Countdown countdown = new Countdown(text, toTime);
+        countdown.setDaemon(false);
+        countdown.start();
+
+        hBox.getChildren().addAll(text, iv);
+
+        Scene scene = new Scene(hBox);
+        scene.setFill(null);
+        quickInfo.initStyle(StageStyle.TRANSPARENT);
+        quickInfo.setScene(scene);
+
+        quickInfo.show();
+    }
+
 
     public boolean isLoggedIn() {
         return btnLogin.isDisable();
@@ -189,6 +256,7 @@ public class Controller implements Initializable {
     public void logout() {
         countdown.interrupt();
         countdown.reset();
+        quickInfo.hide();
         setControls(true);
         setMsg("Test successfully submitted", false);
         client.stop();
