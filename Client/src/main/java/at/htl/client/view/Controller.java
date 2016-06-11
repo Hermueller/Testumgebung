@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.StrokeType;
@@ -53,7 +52,8 @@ import java.util.ResourceBundle;
  * 12.05.2016: MET 010  fixed FileUtils-Error
  * 20.05.2016: PHI 035  improved the connection-testing (+ testing connection on serverStart)
  * 09.06.2016: MET 100  Show quick info (time, status, transparent background, positioning, ...)
- * 11.06.2016: MET 030  Moving the quick window
+ * 11.06.2016: MET 040  Moving the QuickInfo-Window
+ * 11.06.2016: MET 020  Show and hide the QuickInfo-Window
  */
 public class Controller implements Initializable {
 
@@ -205,7 +205,7 @@ public class Controller implements Initializable {
             quickInfo.setX((Screen.getPrimary().getVisualBounds().getWidth() - quickInfo.getWidth())
                     * new_val.doubleValue() / sliderPos.getMax());
         });
-        /*sliderPos.setOnMouseClicked(mouseEvent -> {
+        sliderPos.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if(mouseEvent.getClickCount() == 2){
                     if (quickInfo.isShowing()) {
@@ -215,16 +215,16 @@ public class Controller implements Initializable {
                     }
                 }
             }
-        });*/
+        });
 
         HBox hBox = new HBox(5);
         hBox.setBackground(Background.EMPTY);
         Text text = new Text(0, 18,"00:00:00");
         text.setStrokeType(StrokeType.OUTSIDE);
         text.setFont(Font.font("System", FontWeight.BOLD, 18));
-        //ImageView iv = new ImageView(new Image("/images/eye-green.png"));
-        //iv.setFitHeight(22);
-        //iv.setFitWidth(35);
+        ImageView iv = new ImageView(new Image("/images/eye-green.png"));
+        iv.setFitHeight(22);
+        iv.setFitWidth(35);
 
         Countdown countdown = new Countdown(text, toTime);
         countdown.setDaemon(false);
