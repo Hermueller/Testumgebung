@@ -65,8 +65,8 @@
       <file leaf-file-name="Settings.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30927834">
-              <caret line="393" column="28" selection-start-line="393" selection-start-column="28" selection-end-line="393" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.40592784">
+              <caret line="398" column="67" selection-start-line="398" selection-start-column="67" selection-end-line="398" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -1533,7 +1533,7 @@
       <workItem from="1465477444617" duration="511000" />
       <workItem from="1465470833983" duration="8760000" />
       <workItem from="1465646764619" duration="10831000" />
-      <workItem from="1465659637158" duration="766000" />
+      <workItem from="1465659637158" duration="824000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
       <created>1446721170116</created>
@@ -1799,7 +1799,13 @@
       <option name="project" value="LOCAL" />
       <updated>1465660317504</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="implemented the student counter (was lost in the push)">
+      <created>1465660434028</created>
+      <option name="number" value="00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1465660434028</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1835,7 +1841,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173253000" />
+    <option name="totallyTimeSpent" value="173311000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2353,8 +2359,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30927834">
-          <caret line="393" column="28" selection-start-line="393" selection-start-column="28" selection-end-line="393" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.40592784">
+          <caret line="398" column="67" selection-start-line="398" selection-start-column="67" selection-end-line="398" selection-end-column="67" />
           <folding />
         </state>
       </provider>
