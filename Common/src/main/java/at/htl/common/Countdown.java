@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
  * 10.03.2016: MET 040  created basic structure for the countdown
  * 28.04.2016: MET 010  implemented function for resetting timer (incl. Design)
  * 12.05.2016: MET 060  Fixed bug: Timer no longer continues after stopping
+ * 11.06.2016: MET 010  dynamic time display
  */
 public class Countdown extends Thread {
 
