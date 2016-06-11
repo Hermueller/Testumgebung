@@ -34,7 +34,7 @@ public class IpConnection {
             String msg;
 
             InetAddress address = InetAddress.getByName(ip);
-            boolean reachable = address.isReachable(5000);
+            boolean reachable = address.isReachable(2000);
 
             if (!reachable) {
                 msg = "can't ping the following IP: " + ip;

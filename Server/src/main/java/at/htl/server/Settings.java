@@ -1,5 +1,6 @@
 package at.htl.server;
 
+import at.htl.common.io.ScreenShot;
 import at.htl.server.entity.Student;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
@@ -31,13 +32,13 @@ import java.util.HashMap;
 /**
  * @timeline Settings
  * 15.10.2015: GNA 001  created class (name: "Time")
- * 15.10.2015: GNA 010  Verwaltung der Gui-Eingabewerte inplementiert
+ * 15.10.2015: GNA 020  Verwaltung der Gui-Eingabewerte inplementiert
  * 19.10.2015: PHI 015  extended by a list of connected Students (String)
  * 24.10.2015: PHI 003  extended to the String "pathOfImages" (location of the test)
  * 26.10.2015: MET 005  Singleton-Pattern corrected and renamed class from "Time" to "Setting"
  * 26.10.2015: MET 003  list of students instead of String (better because storage options)
  * 27.10.2015: PHI 035  adding and deleting of "Pupils"
- * 30.10.2015: PHI 030  implemented random quickinfo between screenshots
+ * 30.10.2015: PHI 030  implemented random time between screenshots
  * 30.10.2015: MET 005  created fixed/random "Interval" between screenshots
  * 31.10.2015: MET 010  functionS implemented: set test start and test end
  * 31.10.2015: MET 005  expansion to handOutFile and getHandOutPacket ()
@@ -51,6 +52,7 @@ import java.util.HashMap;
  * 01.01.2016: PHI 055  Fixed bug in the LineChart and saves students.
  * 02.01.2016: PHI 005  Chart-Hover implemented.
  * 06.01.2016: PHI 045  fixed bug in the method for saving the LineChart-Series.
+ * 06.01.2016: GNA 150  fixed bugs that occur after the start
  * 10.02.2016: PON 005  Für Testzwecke wird überprüft ob eine Listview in Studentview initializiert wurde
  * 10.02.2016: PON 001  Bug fixed: Sceenshots to Screenshots
  * 21.03.2016: PHI 020  write error to the log in the application
@@ -60,6 +62,8 @@ import java.util.HashMap;
  * 11.05.2016: PHI 015  added the "initialize-" Methods + fixed the inputs to the Log-View
  * 12.05.2016: PHI 035  added the Log-Filter Methods
  * 13.05.2016: PHI 001  changes the color of the students.
+ * 06.06.2016: PHI 015  implemented the methods for the screenshot properties.
+ * 11.06.2016: PHI 045  recovered lost code from the last merge AND implemented student count
  */
 public class Settings {
 
@@ -89,6 +93,9 @@ public class Settings {
     private HashMap<String, List<TextField>> logFields = new HashMap<>();
     private String currentLogFilter = "ALL";
     private long sleepTime = 5000;
+    private ScreenShot screenShot = new ScreenShot();
+    private Label lbCount;
+    private int studentCount = 0;
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -107,6 +114,35 @@ public class Settings {
     }
 
     //region Getter and Setter
+
+
+    //region Screenshot Methods
+
+    public void setScreenshotFormat(String formatStr) {
+        for (ScreenShot.Format format : ScreenShot.Format.values()) {
+            if (format.name().equals(formatStr)) {
+                screenShot.setDEFAULT_FORMAT(format);
+            }
+        }
+    }
+
+    public void setScreenshotQuality(float quality) {
+        screenShot.setDEFAULT_QUALITY(quality);
+    }
+
+    public void setScreenshotScale(double scale) {
+        screenShot.setDEFAULT_SCALE(scale);
+    }
+
+    public ScreenShot getScreenShot() {
+        return screenShot;
+    }
+
+    //endregion
+
+    public void setLbCount(Label lbCount) {
+        this.lbCount = lbCount;
+    }
 
     public void setCurrentLogFilter(String currentLogFilter) {
         this.currentLogFilter = currentLogFilter;
@@ -227,49 +263,49 @@ public class Settings {
     }
 
     /**
-     * @return the quickinfo when the test starts.
+     * @return the time when the test starts.
      */
     public LocalTime getStartTime() {
         return startTime;
     }
 
     /**
-     * @param startTime Specialises the quickinfo when the test starts.
+     * @param startTime Specialises the time when the test starts.
      */
     public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
     /**
-     * @return the quickinfo when the test ends.
+     * @return the time when the test ends.
      */
     public LocalTime getEndTime() {
         return endTime;
     }
 
     /**
-     * @param endTime Specialises the quickinfo when the test ends.
+     * @param endTime Specialises the time when the test ends.
      */
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
     /**
-     * @return the quickinfo to wait for the next screenshot.
+     * @return the time to wait for the next screenshot.
      */
     public long getInterval() {
         return interval.getValue();
     }
 
     /**
-     * @return the object which includes the quickinfo interval
+     * @return the object which includes the time interval
      */
     public Interval getIntervalObject() {
         return interval;
     }
 
     /**
-     * @param interval Specialises the class with the calculations for the next interval-quickinfo.
+     * @param interval Specialises the class with the calculations for the next interval-time.
      */
     public void setInterval(Interval interval) {
         this.interval = interval;
@@ -490,18 +526,18 @@ public class Settings {
     }
 
     /**
-     * calculates the quickinfo (x-axis point) for the chart.
+     * calculates the time (x-axis point) for the chart.
      *
-     * @return  the quickinfo for the chart in seconds. (x-axis point)
+     * @return  the time for the chart in seconds. (x-axis point)
      */
     public long calculateTime() {
-        //set start-quickinfo
+        //set start-time
         if (starting == null) {
             starting = LocalDateTime.now();
         }
         LocalDateTime now = starting;
 
-        //calculate quickinfo in seconds
+        //calculate time in seconds
         long _hours = now.until(LocalDateTime.now(), ChronoUnit.HOURS);
         now = now.plusHours(_hours);
 

@@ -50,7 +50,7 @@ class SocketReaderThread extends Thread {
                 server.saveImage(img, student);
 
                 //save and show Lines of Code
-                Settings.getInstance().addValue(harvestedPackage.getLoc(), student);
+                //Settings.getInstance().addValue(harvestedPackage.getLoc(), student);
 
                 finished = harvestedPackage.isFinished();
                 if (finished) {

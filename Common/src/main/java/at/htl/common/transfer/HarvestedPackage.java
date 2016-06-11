@@ -13,12 +13,10 @@ public class HarvestedPackage implements Serializable {
     protected static final Long serialVersionUID = 1L;
 
     private byte[] image;
-    private Long[] loc;
     private boolean finished = false;
 
-    public HarvestedPackage(byte[] image, Long[] loc, boolean finished) {
+    public HarvestedPackage(byte[] image, boolean finished) {
         this.image = image;
-        this.loc = loc;
         this.finished = finished;
     }
 
@@ -28,14 +26,6 @@ public class HarvestedPackage implements Serializable {
 
     public void setImage(byte[] image) {
         this.image = image;
-    }
-
-    public Long[] getLoc() {
-        return loc;
-    }
-
-    public void setLoc(Long[] loc) {
-        this.loc = loc;
     }
 
     public boolean isFinished() {
