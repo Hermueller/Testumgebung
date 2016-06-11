@@ -1,7 +1,9 @@
 package at.htl.common.transfer;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.time.LocalTime;
 
 /**
@@ -13,10 +15,9 @@ import java.time.LocalTime;
  * Diese Klasse verwaltet alle Informationen, die für den
  * "Client" bzw. für den Schüler relevant sind.
  */
-@Deprecated
 public class HandOutPackage implements Serializable {
 
-    private File file;
+    private byte[] file;
     private LocalTime endTime;
     private String comment;
 
@@ -28,13 +29,13 @@ public class HandOutPackage implements Serializable {
      * @param comment Specialises a comment from the teacher to the client for the test.
      */
     public HandOutPackage(File file, LocalTime endTime, String comment) {
-        this.file = file;
+        setFile(file);
         this.endTime = endTime;
         this.comment = comment;
     }
 
     //region Getter ans Setter
-    public File getFile() {
+    public byte[] getFile() {
         return file;
     }
 
@@ -44,6 +45,14 @@ public class HandOutPackage implements Serializable {
 
     public String getComment() {
         return comment;
+    }
+
+    public void setFile(File file) {
+        try {
+            this.file = Files.readAllBytes(file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //endregion

@@ -257,8 +257,6 @@ public class Settings {
      * @return the package of information for the client.
      */
     public HandOutPackage getHandOutPacket() {
-        // Prüfung, ob nötige Daten vorhanden fehlt
-        // funktioniert noch nicht
         return new HandOutPackage(handOutFile, endTime, "Good Luck!");
     }
 

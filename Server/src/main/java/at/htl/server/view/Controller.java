@@ -1251,18 +1251,18 @@ public class Controller implements Initializable {
     public void initializeWebView() {
         WebEngine webEngine = wvHelp.getEngine();
 
-        boolean applicationHasInternetConnection = IpConnection.checkInternetConnection();
+        //boolean applicationHasInternetConnection = IpConnection.checkInternetConnection();
 
         String url;
         try {
-            if (applicationHasInternetConnection) {
-                webEngine.setJavaScriptEnabled(true);
-                url = "http://BeatingAngel.github.io/Testumgebung/#program";
-                lbStat.setText("Status: online");
-            } else {
+            //if (applicationHasInternetConnection) {
+            //    webEngine.setJavaScriptEnabled(true);
+            //    url = "http://BeatingAngel.github.io/Testumgebung/#program";
+            //    lbStat.setText("Status: online");
+            //} else {
                 url = Server.class.getResource("/").toExternalForm().split("Server")[0].concat("index.html");
                 lbStat.setText("Status: offline");
-            }
+            //}
             webEngine.load(url);
         } catch (Exception exc) {
             FileUtils.log(Level.WARN, exc.getMessage());
@@ -1280,7 +1280,7 @@ public class Controller implements Initializable {
 
     //endregion
 
-    //region {GitHub-Issue: #--} Image Properties
+    //region {GitHub-Issue: #40} Image Properties
 
     @FXML
     public void changeImageFormat() {

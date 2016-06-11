@@ -6,6 +6,7 @@ import at.htl.common.actions.RobotActionQueue;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.io.DocumentsTransfer;
 import at.htl.common.io.FileUtils;
+import at.htl.common.transfer.HandOutPackage;
 import at.htl.common.transfer.LoginPackage;
 import at.htl.common.actions.LittleHarvester;
 import javafx.application.Platform;
@@ -23,6 +24,7 @@ import java.net.Socket;
  * 01.11.2015: MET 015  hand in a watched folder automatically zipped
  * 01.11.2015: MET 005  Bug found: hand in only immediately after login
  * 08.02.2016: GNA 005  Added Errors to LogFilesdfdf
+ * 11.06.2016: PHI 020  Implemented the new Object-Stream.
  */
 public class Client {
 
@@ -63,7 +65,12 @@ public class Client {
      * gets the file from the teacher for the test and saves it
      */
     public void loadFiles() {
-        DocumentsTransfer.receive(in, loginPackage.getDirOfWatch() + "/angabe.zip");
+        try {
+            DocumentsTransfer.receiveObject(in.readObject(), loginPackage.getDirOfWatch() + "/angabe.zip");
+        } catch (IOException | ClassNotFoundException e) {
+            FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exToStr(e));
+        }
+
         processor.start();
         reader.start();
     }
@@ -93,14 +100,18 @@ public class Client {
     private class ReaderThread extends Thread {
         public void run() {
             try {
-                RobotAction action;
-                while ((action = (RobotAction) in.readObject()) != null) {
+                Object obj = in.readObject();
+                while (obj.getClass().toString().contains(HandOutPackage.class.toString())) {
+                    obj = in.readObject();
+                }
+                RobotAction action = (RobotAction) obj;
+                do {
                     if (!action.equals(jobs.peekLast())) {
                         jobs.add(action);
                     } else {
                         FileUtils.log(this, Level.ERROR, "Discarding duplicate request");
                     }
-                }
+                } while ((action = (RobotAction) in.readObject()) != null);
             } catch (EOFException eof) {
                 //FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exToStr(eof));
             } catch (Exception ex) {

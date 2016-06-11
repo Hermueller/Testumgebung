@@ -73,7 +73,7 @@ class SocketWriterThread extends Thread {
      * sends the test-file to the students.
      */
     public void handOut() {
-        DocumentsTransfer.send(out, Settings.getInstance().getHandOutFile());
+        DocumentsTransfer.sendObject(out, Settings.getInstance().getHandOutPacket());
     }
 
     public void run() {
