@@ -73,7 +73,9 @@ class SocketWriterThread extends Thread {
      * sends the test-file to the students.
      */
     public void handOut() {
+        System.out.println("HANDING OUT");
         DocumentsTransfer.sendObject(out, Settings.getInstance().getHandOutPacket());
+        System.out.println("FINISHED");
     }
 
     public void run() {

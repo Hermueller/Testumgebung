@@ -72,7 +72,7 @@ public class Settings {
     private ObservableList<Button> students;
     private List<Student> studentsList = new LinkedList<>();
     private AnchorPane logArea;
-    private File handOutFile;
+    private File handOutFile = null;
     private LocalTime startTime;
     private LocalTime endTime = LocalTime.now().plusMinutes(10);
     private Interval interval;

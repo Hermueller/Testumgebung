@@ -349,11 +349,11 @@ public class Controller implements Initializable {
             startable = false;
         }
         // checks if the user selected a path
-        if (handOut == null) {
+        /*if (handOut == null) {
             setMsg(true, "Please select a handout!");
             setImage(ivAngabe, false);
             startable = false;
-        }
+        }*/
         // if no port is set, the default port will be set
         if (!portStr.matches("[0-9]+") || (portStr.length() != 4 && portStr.length() != 5)) {
             int port = Integer.parseInt(portStr);

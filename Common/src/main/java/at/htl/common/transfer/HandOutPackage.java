@@ -9,6 +9,8 @@ import java.time.LocalTime;
 /**
  * @timeline HandOutPackage
  * 31.10.2015: MET 005  created class
+ * 11.06.2016: PHI 020  fixed the File problem in the socket
+ * 11.06.2016: PHI 015  fixed the null-value File problem
  */
 
 /**
@@ -49,7 +51,9 @@ public class HandOutPackage implements Serializable {
 
     public void setFile(File file) {
         try {
-            this.file = Files.readAllBytes(file.toPath());
+            if (file != null) {
+                this.file = Files.readAllBytes(file.toPath());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

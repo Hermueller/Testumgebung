@@ -74,6 +74,7 @@ public class Client {
     public void loadFiles() {
         HandOutPackage handOutPackage = null;
         try {
+            System.out.println("READING");
             handOutPackage = DocumentsTransfer.receiveObject(
                     in.readObject(), loginPackage.getDirOfWatch() + "/angabe.zip");
         } catch (IOException | ClassNotFoundException e) {

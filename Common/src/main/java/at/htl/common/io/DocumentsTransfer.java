@@ -101,16 +101,21 @@ public class DocumentsTransfer {
      */
     public static HandOutPackage receiveObject(Object obj, String path) {
         try {
+            System.out.println("CASTING");
+
             HandOutPackage handOutPackage = (HandOutPackage)obj;
+
+            System.out.print("GOT HANDOUT  -  ");
 
             byte[] handout = handOutPackage.getFile();
 
             if (handout != null) {
+                System.out.print("SAVING  -  ");
                 File placeToSave = new File(path);
                 Files.write(placeToSave.toPath(), handout);
             }
 
-            System.out.println(handOutPackage.getComment());
+            System.out.print(handOutPackage.getComment());
 
             return handOutPackage;
 
