@@ -2,6 +2,7 @@ package at.htl.server.view;
 
 import at.htl.common.MyUtils;
 import at.htl.common.actions.IpConnection;
+import at.htl.common.io.ScreenShot;
 import at.htl.server.entity.Student;
 import at.htl.common.TimeSpinner;
 import at.htl.common.fx.FxUtils;
@@ -118,6 +119,7 @@ import java.util.stream.Collectors;
  * 22.05.2016: PHI 020  extended the help-website-tab. The help-website can be seen offline AND online.
  * 22.05.2016: PHI 035  the help-website can be reloaded (can go during runtime from offline to online).
  * 02.06.2016: PHI 030  implemented the advanced settings for the image (only in GUI).
+ * 11.06.2016: PHI 030  implemented student count AND recovered lost code from the last merge.
  */
 public class Controller implements Initializable {
 
@@ -143,9 +145,9 @@ public class Controller implements Initializable {
     @FXML
     private ImageView ivPath;
     @FXML
-    private ToggleButton TB_SS_rnd;
+    private ToggleButton TB_SS_rnd, tbImageFormat;
     @FXML
-    private Slider slHarvester;
+    private Slider slHarvester, slImageScale;
     @FXML
     private VBox vbAdvanced;
     @FXML
@@ -153,17 +155,17 @@ public class Controller implements Initializable {
     @FXML
     private ImageView ivFileExtensions;
     @FXML
-    private Label lbAlert;
+    private Label lbAlert, lbTimeScale;
     @FXML
     private Button btnStart;
     @FXML
     private Button btnStop;
     @FXML
-    private Label lbVersion;
+    private Label lbVersion, lbCount;
     @FXML
     private Label lbTime;
     @FXML
-    private ProgressBar pbHarvester;
+    private ProgressBar pbHarvester, pbImageScale;
     @FXML
     private TabPane tpAdvancedSettings;
     //endregion
@@ -293,8 +295,9 @@ public class Controller implements Initializable {
 
         initializeLOC();
         initializeSLOMM();
-        initializeSlides(slHarvesterStudent, pbHarvesterStudent, lbTimeInterval);
-        initializeSlides(slHarvester, pbHarvester, lbTime);
+        initializeSlides(slHarvesterStudent, pbHarvesterStudent, lbTimeInterval, 60, false);
+        initializeSlides(slHarvester, pbHarvester, lbTime, 60, false);
+        initializeSlides(slImageScale, pbImageScale, lbTimeScale, 1, true);
         initializeNewFilters();
         initializePatrol();
         initializeLogFilters();
@@ -304,18 +307,21 @@ public class Controller implements Initializable {
         initializeTimeSpinner();
         readProperties();
 
+        Settings.getInstance().setLbCount(lbCount);
+
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         Settings.getInstance().setStartTime(LocalTime.now());
         slHarvester.setValue(10);
         slHarvesterStudent.setValue(10);
+        slImageScale.setValue(0.2);
     }
 
     /**
      * styles the application.
      */
     public void styleStage() {
-        AquaFx.style();
+        //AquaFx.style();
     }
 
     //endregion
@@ -1007,13 +1013,20 @@ public class Controller implements Initializable {
     /**
      * adjusts the progressbar to the slider.
      */
-    public void initializeSlides(Slider slider, ProgressBar progressBar, Label label) {
+    public void initializeSlides(Slider slider, ProgressBar progressBar, Label label,
+                                                                  int maxTime, boolean show_decimals) {
         slider.valueProperty().addListener((ov, old_val, new_val) -> {
-            progressBar.setProgress(new_val.doubleValue() / 60);
+            progressBar.setProgress(new_val.doubleValue() / maxTime);
             String time = (new_val.intValue() < 10) ?
                     "0" + new_val.toString().substring(0,1) :
                     new_val.toString().substring(0,2);
-            label.setText(time + " s");
+            time += " s";
+            if (show_decimals) {
+                time = String.valueOf(new_val.doubleValue()).substring(0,3);
+                float quality = new_val.floatValue();
+                Settings.getInstance().getScreenShot().setDEFAULT_QUALITY(quality);
+            }
+            label.setText(time);
         });
     }
 
@@ -1267,6 +1280,22 @@ public class Controller implements Initializable {
 
     //endregion
 
+    //region {GitHub-Issue: #--} Image Properties
+
+    @FXML
+    public void changeImageFormat() {
+        if (tbImageFormat.isSelected()) {
+            tbImageFormat.setText("PNG");
+            Settings.getInstance().getScreenShot().setDEFAULT_FORMAT(ScreenShot.Format.PNG);
+        }
+        else {
+            tbImageFormat.setText("JPG");
+            Settings.getInstance().getScreenShot().setDEFAULT_FORMAT(ScreenShot.Format.JPG);
+        }
+    }
+
+    //endregion
+
     //region {GitHub-Issue: #--} Other Methods
 
     /**
@@ -1457,9 +1486,6 @@ public class Controller implements Initializable {
             Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
         lbAddress.setText(ip + " : 50555");
-    }
-
-    public void changeImageFormat(ActionEvent actionEvent) {
     }
 
     //endregion
