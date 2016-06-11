@@ -394,6 +394,24 @@ public class Settings {
     //region Student-Actions
 
     /**
+     * shows the number of logged in students on the teacher GUI
+     *
+     * @param addOne    if the counter increasing by one then TRUE.
+     */
+    public void changeStudentCount(boolean addOne) {
+        String text = "";
+        if (addOne) {
+            studentCount++;
+        } else {
+            studentCount--;
+        }
+        if (studentCount < 10) {
+            text = "0";
+        }
+        lbCount.setText(text + studentCount);
+    }
+
+    /**
      * Notifies the teacher that the client has logged in.
      *
      * @param student the client who logged in.
@@ -406,6 +424,7 @@ public class Settings {
                     break;
                 }
             }
+            changeStudentCount(true);
         });
     }
 
@@ -439,6 +458,7 @@ public class Settings {
                     break;
                 }
             }
+            changeStudentCount(false);
         });
     }
 
