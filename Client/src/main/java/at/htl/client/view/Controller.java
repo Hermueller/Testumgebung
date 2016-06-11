@@ -175,6 +175,7 @@ public class Controller implements Initializable {
                         ));
                         client.start();
                     }
+                    System.out.println(client.getEndTime().toString());
                     LocalTime toTime = LocalTime.now().plusMinutes(61).plusSeconds(30);
                     setTimeLeft(toTime);
                     setControls(false);

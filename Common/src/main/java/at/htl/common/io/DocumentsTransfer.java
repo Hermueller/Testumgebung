@@ -97,9 +97,9 @@ public class DocumentsTransfer {
      *
      * @param obj   the received HandOutPackage.
      * @param path  the path where the file will be created.
-     * @return      TRUE if it was a success.
+     * @return      the received package.
      */
-    public static boolean receiveObject(Object obj, String path) {
+    public static HandOutPackage receiveObject(Object obj, String path) {
         try {
             HandOutPackage handOutPackage = (HandOutPackage)obj;
 
@@ -112,12 +112,12 @@ public class DocumentsTransfer {
 
             System.out.println(handOutPackage.getComment());
 
-            return true;
+            return handOutPackage;
 
         } catch (IOException e) {
             FileUtils.log(DocumentsTransfer.class, Level.ERROR, "failed at receiving the object! " + MyUtils.exToStr(e));
         }
-        return false;
+        return null;
     }
 
 }

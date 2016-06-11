@@ -74,7 +74,7 @@ public class Settings {
     private AnchorPane logArea;
     private File handOutFile;
     private LocalTime startTime;
-    private LocalTime endTime;
+    private LocalTime endTime = LocalTime.now().plusMinutes(10);
     private Interval interval;
     private String path;
     private String pathOfImages;
@@ -257,7 +257,7 @@ public class Settings {
      * @return the package of information for the client.
      */
     public HandOutPackage getHandOutPacket() {
-        return new HandOutPackage(handOutFile, endTime, "Good Luck!");
+        return new HandOutPackage(getHandOutFile(), getEndTime(), "Good Luck!");
     }
 
     /**

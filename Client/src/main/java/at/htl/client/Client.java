@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Level;
 import java.awt.*;
 import java.io.*;
 import java.net.Socket;
+import java.time.LocalTime;
 
 /**
  * @timeline Client
@@ -25,6 +26,7 @@ import java.net.Socket;
  * 01.11.2015: MET 005  Bug found: hand in only immediately after login
  * 08.02.2016: GNA 005  Added Errors to LogFilesdfdf
  * 11.06.2016: PHI 020  Implemented the new Object-Stream.
+ * 11.06.2016: PHI 030  implemented the endTime.
  */
 public class Client {
 
@@ -36,6 +38,7 @@ public class Client {
     private final ProcessorThread processor;
     private final ReaderThread reader;
     private final LoginPackage loginPackage;
+    private LocalTime endTime = null;
 
     public Client(LoginPackage loginPackage)
             throws IOException, AWTException {
@@ -61,14 +64,24 @@ public class Client {
         this.out = out;
     }
 
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
     /**
      * gets the file from the teacher for the test and saves it
      */
     public void loadFiles() {
+        HandOutPackage handOutPackage = null;
         try {
-            DocumentsTransfer.receiveObject(in.readObject(), loginPackage.getDirOfWatch() + "/angabe.zip");
+            handOutPackage = DocumentsTransfer.receiveObject(
+                    in.readObject(), loginPackage.getDirOfWatch() + "/angabe.zip");
         } catch (IOException | ClassNotFoundException e) {
             FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exToStr(e));
+        }
+
+        if (handOutPackage != null) {
+            endTime = handOutPackage.getEndTime();
         }
 
         processor.start();
