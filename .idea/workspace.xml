@@ -45,8 +45,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.18783543">
-              <caret line="164" column="34" selection-start-line="163" selection-start-column="34" selection-end-line="164" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.38551402">
+              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1615,19 +1615,7 @@
       <workItem from="1465470833983" duration="8760000" />
       <workItem from="1465646764619" duration="10831000" />
       <workItem from="1465751778548" duration="136000" />
-      <workItem from="1465751939311" duration="5190000" />
-    </task>
-    <task id="LOCAL-00002" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
-      <created>1446723486655</created>
-      <option name="number" value="00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1446723486655</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
-      <created>1446723565178</created>
-      <option name="number" value="00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1446723565178</updated>
+      <workItem from="1465751939311" duration="7451000" />
     </task>
     <task id="LOCAL-00004" summary="Version 1.0.7.007 - Auswahl der Angaben Datei">
       <created>1446727915724</created>
@@ -1911,7 +1899,19 @@
       <option name="project" value="LOCAL" />
       <updated>1465757324633</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="1.15.26.208 - #50 Provided controls in the Student-GUI with tooltips">
+      <created>1465757347250</created>
+      <option name="number" value="00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1465757347250</updated>
+    </task>
+    <task id="LOCAL-00052" summary="1.15.26.209 - #50 Auto size of the QuickInfo-Window &#10;&#10;Bug: the size QuickInfo-Window does not change correctly">
+      <created>1465759646276</created>
+      <option name="number" value="00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1465759646276</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1947,7 +1947,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177813000" />
+    <option name="totallyTimeSpent" value="180074000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1969,10 +1969,10 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22316866" sideWeight="0.60339254" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18012924" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24361159" sideWeight="0.48707592" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11413969" sideWeight="0.39660743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22316866" sideWeight="0.39660743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23909532" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23909532" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15831988" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2028,7 +2028,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.13.38.095 - Implemented set time left" />
     <MESSAGE value="1.13.38.096 - Countdown (Styling and Animation)" />
     <MESSAGE value="1.13.39 - Executable project" />
     <MESSAGE value="1.13.39.001 - login function improved&#10;&#10;Output of messages, login, ..." />
@@ -2053,7 +2052,8 @@
     <MESSAGE value="1.15.26.206 - Implementation of the correct remaining time" />
     <MESSAGE value="1.15.26.207 - #50 Provided controls in the Student-GUI with tooltips" />
     <MESSAGE value="1.15.26.208 - #50 Provided controls in the Student-GUI with tooltips" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.15.26.208 - #50 Provided controls in the Student-GUI with tooltips" />
+    <MESSAGE value="1.15.26.209 - #50 Auto size of the QuickInfo-Window &#10;&#10;Bug: the size QuickInfo-Window does not change correctly" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.15.26.209 - #50 Auto size of the QuickInfo-Window &#10;&#10;Bug: the size QuickInfo-Window does not change correctly" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2447,8 +2447,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18783543">
-          <caret line="164" column="34" selection-start-line="163" selection-start-column="34" selection-end-line="164" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.38551402">
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding />
         </state>
       </provider>
