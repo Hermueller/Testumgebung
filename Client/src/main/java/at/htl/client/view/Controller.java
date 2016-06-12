@@ -59,6 +59,7 @@ import java.util.ResourceBundle;
  * 12.06.2016: MET 005  fixed login failures, show Slider after login
  * 12.06.2016: MET 010  order of the methods and reduction on a countdown
  * 12.06.2016: MET 005  connection messages
+ * 12.06.2016: MET 010  implementation of the correct remaining time
  */
 public class Controller implements Initializable {
 
@@ -135,8 +136,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void testConnection() {
-        String ip = tfServerIP.getText();
-        IpConnection.isIpReachable(ip, true, true);
+        IpConnection.isIpReachable(tfServerIP.getText(), true, true);
     }
 
     /**
@@ -156,28 +156,28 @@ public class Controller implements Initializable {
     public void login() {
         setMsg("Establish connection with server ...", false);
         if (IpConnection.isIpReachable(tfServerIP.getText(), true, false)) {
-            if (setExam()) {
+            if (setExam() && isLoggedOut()) {
                 setMsg("Try to login ...", false);
                 try {
-                    if (isLoggedOut()) {
-                        if (!cbNoLogin.isSelected()) {
-                            client = new Client(new LoginPackage(
-                                    Exam.getInstance().getPupil().getFirstName(),
-                                    Exam.getInstance().getPupil().getLastName(),
-                                    Exam.getInstance().getPupil().getCatalogNumber(),
-                                    Exam.getInstance().getPupil().getEnrolmentID(),
-                                    Exam.getInstance().getServerIP(),
-                                    Exam.getInstance().getPupil().getPathOfProject(),
-                                    Exam.getInstance().getPort()
-                            ));
-                            client.start();
-                            System.out.println(client.getEndTime().toString());
-                        }
-                        LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
-                        setTimeLeft(toTime);
-                        setControls(false);
-                        setMsg("Signed in!", false);
+                    LocalTime toTime;
+                    if (!cbNoLogin.isSelected()) {
+                        toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
+                    } else {
+                        client = new Client(new LoginPackage(
+                                Exam.getInstance().getPupil().getFirstName(),
+                                Exam.getInstance().getPupil().getLastName(),
+                                Exam.getInstance().getPupil().getCatalogNumber(),
+                                Exam.getInstance().getPupil().getEnrolmentID(),
+                                Exam.getInstance().getServerIP(),
+                                Exam.getInstance().getPupil().getPathOfProject(),
+                                Exam.getInstance().getPort()
+                        ));
+                        client.start();
+                        toTime = client.getEndTime();
                     }
+                    setTimeLeft(toTime);
+                    setControls(false);
+                    setMsg("Signed in!", false);
                 } catch (Exception e) {
                     FileUtils.log(this, Level.ERROR, e.getMessage());
                     setMsg("Login failed!", true);
@@ -209,8 +209,8 @@ public class Controller implements Initializable {
                     * new_val.doubleValue() / sliderPos.getMax());
         });
         sliderPos.setOnMouseClicked(mouseEvent -> {
-            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                if(mouseEvent.getClickCount() == 2){
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                if (mouseEvent.getClickCount() == 2) {
                     if (quickInfo.isShowing()) {
                         quickInfo.hide();
                     } else {
@@ -222,7 +222,7 @@ public class Controller implements Initializable {
 
         HBox hBox = new HBox(5);
         hBox.setBackground(Background.EMPTY);
-        Text text = new Text(0, 18,"00:00:00");
+        Text text = new Text(0, 18, "00:00:00");
         text.setStrokeType(StrokeType.OUTSIDE);
         text.setFont(Font.font("System", FontWeight.BOLD, 18));
         ImageView iv = new ImageView(new Image("/images/eye-green.png"));

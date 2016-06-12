@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="1.15.22.159 - Display of a monitoring symbol when connected">
+    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
     </list>
@@ -46,8 +46,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40186915">
-              <caret line="60" column="43" selection-start-line="60" selection-start-column="43" selection-end-line="60" selection-end-column="43" />
+            <state vertical-scroll-proportion="-2.3506262">
+              <caret line="61" column="24" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -1616,7 +1616,7 @@
       <workItem from="1465470833983" duration="8760000" />
       <workItem from="1465646764619" duration="10831000" />
       <workItem from="1465751778548" duration="136000" />
-      <workItem from="1465751939311" duration="3708000" />
+      <workItem from="1465751939311" duration="4117000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
       <created>1446721170116</created>
@@ -1894,7 +1894,13 @@
       <option name="project" value="LOCAL" />
       <updated>1465754962549</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="1.15.26.205 - Connection messages">
+      <created>1465755721295</created>
+      <option name="number" value="00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1465755721295</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1930,7 +1936,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="176331000" />
+    <option name="totallyTimeSpent" value="176740000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1952,7 +1958,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22316866" sideWeight="0.60339254" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18012924" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24361159" sideWeight="0.48707592" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22316866" sideWeight="0.39660743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46678025" sideWeight="0.39660743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23909532" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2011,7 +2017,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.11.30.18 - #19 Countdown" />
     <MESSAGE value="1.11.30.18 - Fixed a bug in the Client-Controller" />
     <MESSAGE value="1.13.38.093 - Added &quot;Time Left&quot; in Student-GUI" />
     <MESSAGE value="1.13.38.093 - show or hide time left&#10;&#10;show time left by login and hide time left by Logout" />
@@ -2036,7 +2041,8 @@
     <MESSAGE value="1.15.26.200 - Fixed login failures, show Slider after login" />
     <MESSAGE value="1.15.26.201 - Countdown with several Texts" />
     <MESSAGE value="1.15.26.202 - Order of the methods and reduction on a countdown" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.15.26.202 - Order of the methods and reduction on a countdown" />
+    <MESSAGE value="1.15.26.205 - Connection messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.15.26.205 - Connection messages" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2430,8 +2436,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40186915">
-          <caret line="60" column="43" selection-start-line="60" selection-start-column="43" selection-end-line="60" selection-end-column="43" />
+        <state vertical-scroll-proportion="-2.3506262">
+          <caret line="61" column="24" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="68" />
           <folding />
         </state>
       </provider>
