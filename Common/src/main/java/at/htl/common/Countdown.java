@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,18 +19,28 @@ import java.util.concurrent.TimeUnit;
  * 28.04.2016: MET 010  implemented function for resetting timer (incl. Design)
  * 12.05.2016: MET 060  Fixed bug: Timer no longer continues after stopping
  * 11.06.2016: MET 010  dynamic time display
+ * 12.06.2016: MET 030  countdown with several Texts
  */
 public class Countdown extends Thread {
 
     private final static int PAUSE = 1; // seconds
 
-    private Text txCountdown;
     private LocalTime toTime;
+    private List<Text> texts;
     SequentialTransition blinkThenFade;
 
-    public Countdown(Text txCountdown, LocalTime toTime) {
-        this.txCountdown = txCountdown;
+    public Countdown(LocalTime toTime) {
+        texts = new LinkedList<>();
         this.toTime = toTime;
+    }
+
+    public Countdown(LocalTime toTime, Text text) {
+        this(toTime);
+        addText(text);
+    }
+
+    public void addText(Text text) {
+        texts.add(text);
     }
 
     public void setToTime(LocalTime toTime) {
@@ -56,31 +68,41 @@ public class Countdown extends Thread {
         while (!isInterrupted()) {
             try {
                 sleep(TimeUnit.SECONDS.toMillis(PAUSE));
-                txCountdown.setText(getTime());
+                for (Text text : texts) {
+                    text.setText(getTime());
+                }
             } catch (InterruptedException e) {
                 System.out.println("Interrupted Thread.sleep");
                 interrupt();
                 return;
             }
         }
-        txCountdown.setText("00:00:00");
-        System.out.println("Clock beendet");
-        txCountdown.setFill(Color.RED);
-        blinkThenFade = new SequentialTransition(
-                txCountdown,
-                TextAnimation.createBlinker(txCountdown),
-                TextAnimation.createFade(txCountdown)
-        );
-        blinkThenFade.play();
+        setAfter();
+    }
+
+    private void setAfter() {
+        for (Text text : texts) {
+            text.setText("00:00:00");
+            System.out.println("Clock beendet");
+            text.setFill(Color.RED);
+            blinkThenFade = new SequentialTransition(
+                    text,
+                    TextAnimation.createBlinker(text),
+                    TextAnimation.createFade(text)
+            );
+            blinkThenFade.play();
+        }
     }
 
     public void reset() {
-        if (blinkThenFade != null) {
-            blinkThenFade.stop();
+        for (Text text : texts) {
+            if (blinkThenFade != null) {
+                blinkThenFade.stop();
+            }
+            text.setText("");
+            text.setVisible(true);
+            text.setFill(Color.BLACK);
         }
-        txCountdown.setText("");
-        txCountdown.setVisible(true);
-        txCountdown.setFill(Color.BLACK);
     }
 
     @Override

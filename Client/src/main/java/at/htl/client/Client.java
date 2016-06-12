@@ -8,7 +8,6 @@ import at.htl.common.io.DocumentsTransfer;
 import at.htl.common.io.FileUtils;
 import at.htl.common.transfer.HandOutPackage;
 import at.htl.common.transfer.LoginPackage;
-import at.htl.common.actions.LittleHarvester;
 import javafx.application.Platform;
 import org.apache.logging.log4j.Level;
 

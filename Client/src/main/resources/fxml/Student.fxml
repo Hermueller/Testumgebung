@@ -97,7 +97,7 @@
                 <Font size="18.0" />
             </font>
         </Label>
-      <Button fx:id="btnTestMode" layoutX="548.0" layoutY="6.0" mnemonicParsing="false" onAction="#defaultSettings" text="Test" />
+      <Button fx:id="btnTestMode" layoutX="548.0" layoutY="6.0" mnemonicParsing="false" onAction="#setDefaultSettings" text="Test" />
       <Text fx:id="txTimeLeft" layoutX="160.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font name="System Bold" size="24.0" />

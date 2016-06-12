@@ -2,8 +2,6 @@ package at.htl.common.actions;
 
 import at.htl.common.fx.FxUtils;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.InetAddress;
 
 /**
@@ -22,10 +20,10 @@ public class IpConnection {
     /**
      * runs a system command and analyses the result of the command.
      *
-     * @param ip             the ip to ping.
-     * @param errorPopUp     only creates a popUp-Window if the ping failed.
-     * @param successPopUp   only creates a popUp-Window if the ping was successful.
-     * @return               boolean if the IP was successfully pinged or not.
+     * @param ip           the ip to ping.
+     * @param errorPopUp   only creates a popUp-Window if the ping failed.
+     * @param successPopUp only creates a popUp-Window if the ping was successful.
+     * @return boolean if the IP was successfully pinged or not.
      */
     public static boolean isIpReachable(String ip, boolean errorPopUp, boolean successPopUp) {
         boolean connected = false;
@@ -57,7 +55,7 @@ public class IpConnection {
     /**
      * checks if the application has internet connection.
      *
-     * @return  internet-connectivity.
+     * @return internet-connectivity.
      */
     public static boolean checkInternetConnection() {
         return isIpReachable("www.google.com", false, false);
