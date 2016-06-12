@@ -61,6 +61,8 @@ import java.util.ResourceBundle;
  * 12.06.2016: MET 005  connection messages
  * 12.06.2016: MET 010  implementation of the correct remaining time
  * 12.06.2016: MET 010  provided controls in the Student-GUI with tooltips
+ * 12.06.2016: MET 030  auto size of the QuickInfo-Window (Bug: the size does not change correctly)
+
  */
 public class Controller implements Initializable {
 
@@ -99,6 +101,7 @@ public class Controller implements Initializable {
     private Label lbTimeLeft;
     @FXML
     private Text txTimeLeft;
+    private Text txTimeLeftQuick;
     @FXML
     private Slider sliderPos;
     //endregion
@@ -177,6 +180,7 @@ public class Controller implements Initializable {
                         toTime = client.getEndTime();
                     }
                     setTimeLeft(toTime);
+                    showQuickInfo();
                     setControls(false);
                     setMsg("Signed in!", false);
                 } catch (Exception e) {
@@ -191,53 +195,56 @@ public class Controller implements Initializable {
 
     private void setTimeLeft(LocalTime toTime) {
         countdown = new Countdown(toTime, txTimeLeft);
-        showQuickInfo(toTime);
         countdown.setDaemon(false);
         countdown.start();
     }
 
-    public void showQuickInfo(LocalTime toTime) {
-        quickInfo = new Stage();
-        quickInfo.initStyle(StageStyle.TRANSPARENT);
-        quickInfo.setAlwaysOnTop(true);
+    public void showQuickInfo() {
+        if (quickInfo == null) {
+            quickInfo = new Stage();
+            quickInfo.initStyle(StageStyle.TRANSPARENT);
+            quickInfo.setAlwaysOnTop(true);
 
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        quickInfo.setX(primaryScreenBounds.getMinX());
-        quickInfo.setY(primaryScreenBounds.getMinY());
-
-        sliderPos.valueProperty().addListener((ov, old_val, new_val) -> {
-            quickInfo.setX((Screen.getPrimary().getVisualBounds().getWidth() - quickInfo.getWidth())
-                    * new_val.doubleValue() / sliderPos.getMax());
-        });
-        sliderPos.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                if (mouseEvent.getClickCount() == 2) {
-                    if (quickInfo.isShowing()) {
-                        quickInfo.hide();
-                    } else {
-                        quickInfo.show();
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            quickInfo.setX(primaryScreenBounds.getMinX());
+            quickInfo.setY(primaryScreenBounds.getMinY());
+            sliderPos.valueProperty().addListener((ov, old_val, new_val) -> {
+                quickInfo.setX((primaryScreenBounds.getWidth() - quickInfo.getWidth())
+                        * new_val.doubleValue() / sliderPos.getMax());
+            });
+            sliderPos.setOnMouseClicked(mouseEvent -> {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        if (quickInfo.isShowing()) {
+                            quickInfo.hide();
+                        } else {
+                            quickInfo.show();
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        HBox hBox = new HBox(5);
-        hBox.setBackground(Background.EMPTY);
-        Text text = new Text(0, 18, "00:00:00");
-        text.setStrokeType(StrokeType.OUTSIDE);
-        text.setFont(Font.font("System", FontWeight.BOLD, 18));
-        ImageView iv = new ImageView(new Image("/images/eye-green.png"));
-        iv.setFitHeight(22);
-        iv.setFitWidth(35);
+            HBox hBox = new HBox(5);
+            hBox.setBackground(Background.EMPTY);
+            txTimeLeftQuick = new Text(0, 18, "00:00:00");
+            txTimeLeftQuick.setStrokeType(StrokeType.OUTSIDE);
+            txTimeLeftQuick.setFont(Font.font("System", FontWeight.BOLD, 18));
+            ImageView iv = new ImageView(new Image("/images/eye-green.png"));
+            iv.setFitHeight(22);
+            iv.setFitWidth(35);
 
-        countdown.addText(text);
-        hBox.getChildren().addAll(text, iv);
+            hBox.getChildren().addAll(txTimeLeftQuick, iv);
 
-        Scene scene = new Scene(hBox);
-        scene.setFill(null);
-        quickInfo.initStyle(StageStyle.TRANSPARENT);
-        quickInfo.setScene(scene);
-
+            Scene scene = new Scene(hBox);
+            scene.setFill(null);
+            quickInfo.minWidthProperty().bind(hBox.widthProperty());
+            quickInfo.minHeightProperty().bind(hBox.heightProperty());
+            quickInfo.initStyle(StageStyle.TRANSPARENT);
+            quickInfo.setScene(scene);
+        }
+        countdown.addText(txTimeLeftQuick);
+        quickInfo.sizeToScene();
+        quickInfo.setResizable(true);
         quickInfo.show();
     }
 
