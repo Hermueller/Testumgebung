@@ -58,6 +58,7 @@ import java.util.ResourceBundle;
  * 11.06.2016: MET 055  display of a monitoring symbol when connected
  * 12.06.2016: MET 005  fixed login failures, show Slider after login
  * 12.06.2016: MET 010  order of the methods and reduction on a countdown
+ * 12.06.2016: MET 005  connection messages
  */
 public class Controller implements Initializable {
 
@@ -153,40 +154,37 @@ public class Controller implements Initializable {
      */
     @FXML
     public void login() {
-        String ip = tfServerIP.getText();
-        boolean connected = IpConnection.isIpReachable(ip, true, false);
-        if (!connected) {
-            return;
-        }
-
-        setMsg("", false);
-        if (setExam()) {
-            FileUtils.log(this, Level.INFO, "Try to login");
-            setMsg("Try to login ...", false);
-            try {
-                if (isLoggedOut()) {
-                    if (!cbNoLogin.isSelected()) {
-                        client = new Client(new LoginPackage(
-                                Exam.getInstance().getPupil().getFirstName(),
-                                Exam.getInstance().getPupil().getLastName(),
-                                Exam.getInstance().getPupil().getCatalogNumber(),
-                                Exam.getInstance().getPupil().getEnrolmentID(),
-                                Exam.getInstance().getServerIP(),
-                                Exam.getInstance().getPupil().getPathOfProject(),
-                                Exam.getInstance().getPort()
-                        ));
-                        client.start();
-                        System.out.println(client.getEndTime().toString());
+        setMsg("Establish connection with server ...", false);
+        if (IpConnection.isIpReachable(tfServerIP.getText(), true, false)) {
+            if (setExam()) {
+                setMsg("Try to login ...", false);
+                try {
+                    if (isLoggedOut()) {
+                        if (!cbNoLogin.isSelected()) {
+                            client = new Client(new LoginPackage(
+                                    Exam.getInstance().getPupil().getFirstName(),
+                                    Exam.getInstance().getPupil().getLastName(),
+                                    Exam.getInstance().getPupil().getCatalogNumber(),
+                                    Exam.getInstance().getPupil().getEnrolmentID(),
+                                    Exam.getInstance().getServerIP(),
+                                    Exam.getInstance().getPupil().getPathOfProject(),
+                                    Exam.getInstance().getPort()
+                            ));
+                            client.start();
+                            System.out.println(client.getEndTime().toString());
+                        }
+                        LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
+                        setTimeLeft(toTime);
+                        setControls(false);
+                        setMsg("Signed in!", false);
                     }
-                    LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
-                    setTimeLeft(toTime);
-                    setControls(false);
-                    setMsg("Signed in!", false);
+                } catch (Exception e) {
+                    FileUtils.log(this, Level.ERROR, e.getMessage());
+                    setMsg("Login failed!", true);
                 }
-            } catch (Exception e) {
-                FileUtils.log(this, Level.ERROR, e.getMessage());
-                setMsg("Login failed!", true);
             }
+        } else {
+            setMsg("Connecting to server failed!", true);
         }
     }
 
