@@ -62,7 +62,6 @@ import java.util.ResourceBundle;
  * 12.06.2016: MET 010  implementation of the correct remaining time
  * 12.06.2016: MET 010  provided controls in the Student-GUI with tooltips
  * 12.06.2016: MET 030  auto size of the QuickInfo-Window (Bug: the size does not change correctly)
-
  */
 public class Controller implements Initializable {
 

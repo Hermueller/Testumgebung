@@ -8,6 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/resources/settings.properties" afterPath="$PROJECT_DIR$/Client/src/main/resources/settings.properties" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,11 +44,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38551402">
-              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/src/main/resources/config.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Client/src/main/resources/settings.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -177,7 +199,6 @@
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/time/TimeGui.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/time/QuickInfoGui.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/time/Controller.java" />
-        <option value="$PROJECT_DIR$/Client/src/main/resources/settings.properties" />
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/quickinfo/Controller.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/quickinfo/QuickInfoGui.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/StudentGui.java" />
@@ -186,6 +207,7 @@
         <option value="$PROJECT_DIR$/Common/src/main/java/at/htl/common/Countdown.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
+        <option value="$PROJECT_DIR$/Client/src/main/resources/settings.properties" />
       </list>
     </option>
   </component>
@@ -1615,13 +1637,7 @@
       <workItem from="1465470833983" duration="8760000" />
       <workItem from="1465646764619" duration="10831000" />
       <workItem from="1465751778548" duration="136000" />
-      <workItem from="1465751939311" duration="7451000" />
-    </task>
-    <task id="LOCAL-00004" summary="Version 1.0.7.007 - Auswahl der Angaben Datei">
-      <created>1446727915724</created>
-      <option name="number" value="00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1446727915724</updated>
+      <workItem from="1465751939311" duration="7600000" />
     </task>
     <task id="LOCAL-00005" summary="1.0.7.008&#10;&#10;LogOut Button ist Disabled und sollte mit dem Togglebutton aktiviert werden&#10;In der StudentGui und TeacherGui wird nach einem Passwort nachgefragt&#10;Das Passwort wird dann im LogIn-Packet gespeichert&#10;&#10;Probleme:&#10;LogOut Button lässt sich im Programmcode nicht aktivierten &#10;">
       <created>1446812160413</created>
@@ -1911,7 +1927,13 @@
       <option name="project" value="LOCAL" />
       <updated>1465759646276</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="1.15.26.209 - #50 Auto size of the QuickInfo-Window &#10;&#10;Bug: the size QuickInfo-Window does not change correctly">
+      <created>1465759663564</created>
+      <option name="number" value="00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1465759663564</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1947,7 +1969,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="180074000" />
+    <option name="totallyTimeSpent" value="180223000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2330,20 +2352,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/main/resources/settings.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/main/resources/config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/fx/FxUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2447,8 +2455,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38551402">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/main/resources/config.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/main/resources/settings.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
           <folding />
         </state>
       </provider>
