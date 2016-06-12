@@ -56,7 +56,8 @@ import java.util.ResourceBundle;
  * 11.06.2016: MET 040  moving the QuickInfo-Window
  * 11.06.2016: MET 020  show and hide the QuickInfo-Window
  * 11.06.2016: MET 055  display of a monitoring symbol when connected
- * 11.06.2016: MET 005  fixed login failures, show Slider after login
+ * 12.06.2016: MET 005  fixed login failures, show Slider after login
+ * 12.06.2016: MET 010  order of the methods and reduction on a countdown
  */
 public class Controller implements Initializable {
 
@@ -118,7 +119,7 @@ public class Controller implements Initializable {
      * sets the default values into the GUI.
      */
     @FXML
-    public void defaultSettings() {
+    public void setDefaultSettings() {
         tfServerIP.setText("localhost");
         tfPort.setText("50555");
         tfEnrolmentID.setText("in120001");
@@ -177,7 +178,7 @@ public class Controller implements Initializable {
                         client.start();
                         System.out.println(client.getEndTime().toString());
                     }
-                    LocalTime toTime = LocalTime.now().plusMinutes(61).plusSeconds(30);
+                    LocalTime toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
                     setTimeLeft(toTime);
                     setControls(false);
                     setMsg("Signed in!", false);
@@ -190,8 +191,8 @@ public class Controller implements Initializable {
     }
 
     private void setTimeLeft(LocalTime toTime) {
+        countdown = new Countdown(toTime, txTimeLeft);
         showQuickInfo(toTime);
-        countdown = new Countdown(txTimeLeft, toTime);
         countdown.setDaemon(false);
         countdown.start();
     }
@@ -230,10 +231,7 @@ public class Controller implements Initializable {
         iv.setFitHeight(22);
         iv.setFitWidth(35);
 
-        Countdown countdown = new Countdown(text, toTime);
-        countdown.setDaemon(false);
-        countdown.start();
-
+        countdown.addText(text);
         hBox.getChildren().addAll(text, iv);
 
         Scene scene = new Scene(hBox);
@@ -242,76 +240,6 @@ public class Controller implements Initializable {
         quickInfo.setScene(scene);
 
         quickInfo.show();
-    }
-
-
-    public boolean isLoggedIn() {
-        return btnLogin.isDisable();
-    }
-
-    public boolean isLoggedOut() {
-        return btnLogout.isDisable();
-    }
-
-    /**
-     * Disconnects from the server.
-     */
-    @FXML
-    public void logout() {
-        countdown.interrupt();
-        countdown.reset();
-        quickInfo.hide();
-        setControls(true);
-        setMsg("Test successfully submitted", false);
-        client.stop();
-    }
-
-    @FXML
-    public void setMode() {
-        LineCounter.getInstance().setFinished(cbFinished.isSelected());
-    }
-
-    /**
-     * Enables and disables controls depending on login and logout
-     *
-     * @param value enable controls?
-     */
-    public void setControls(boolean value) {
-        tfServerIP.setEditable(value);
-        tfPort.setEditable(value);
-        tfEnrolmentID.setEditable(value);
-        tfCatalogNumber.setEditable(value);
-        tfFirstName.setEditable(value);
-        tfLastName.setEditable(value);
-        tfPathOfProject.setEditable(value);
-        btnChooseDirectory.setDisable(!value);
-        btnLogin.setDisable(!value);
-        cbFinished.setVisible(!value);
-        btnLogout.setDisable(value);
-        lbTimeLeft.setVisible(!value);
-        txTimeLeft.setVisible(!value);
-        sliderPos.setVisible(!value);
-    }
-
-    /**
-     * Saves the valid values in the repository "Exam"
-     *
-     * @return successful
-     */
-    public boolean setExam() {
-        if (validForm()) {
-            Exam.getInstance().setServerIP(tfServerIP.getText());
-            Exam.getInstance().setPort(Integer.valueOf(tfPort.getText()));
-            Exam.getInstance().setPupil(new Pupil(
-                    Integer.valueOf(tfCatalogNumber.getText()),
-                    tfEnrolmentID.getText(),
-                    tfFirstName.getText(),
-                    tfLastName.getText(),
-                    tfPathOfProject.getText())
-            );
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -354,19 +282,75 @@ public class Controller implements Initializable {
     }
 
     /**
-     * colors the logout-button to see easier if the finished test will
-     * be sent on logout.
+     * Enables and disables controls depending on login and logout
      *
-     * @param event Information from the click on the ToggleButton.
+     * @param value enable controls?
      */
-    /*public void handleSelect(ActionEvent event) {
-        if (((ToggleButton) event.getSource()).isSelected()) {
-            btnLogOut.setStyle("-fx-background-color: lawngreen");
-        } else {
-            btnLogOut.setStyle("-fx-background-color: crimson");
-        }
+    public void setControls(boolean value) {
+        tfServerIP.setEditable(value);
+        tfPort.setEditable(value);
+        tfEnrolmentID.setEditable(value);
+        tfCatalogNumber.setEditable(value);
+        tfFirstName.setEditable(value);
+        tfLastName.setEditable(value);
+        tfPathOfProject.setEditable(value);
+        btnChooseDirectory.setDisable(!value);
+        btnLogin.setDisable(!value);
+        cbFinished.setVisible(!value);
+        btnLogout.setDisable(value);
+        lbTimeLeft.setVisible(!value);
+        txTimeLeft.setVisible(!value);
+        sliderPos.setVisible(!value);
     }
-    */
+
+    /**
+     * Saves the valid values in the repository "Exam"
+     *
+     * @return true, if a successful storage, else false
+     */
+    public boolean setExam() {
+        if (validForm()) {
+            Exam.getInstance().setServerIP(tfServerIP.getText());
+            Exam.getInstance().setPort(Integer.valueOf(tfPort.getText()));
+            Exam.getInstance().setPupil(new Pupil(
+                    Integer.valueOf(tfCatalogNumber.getText()),
+                    tfEnrolmentID.getText(),
+                    tfFirstName.getText(),
+                    tfLastName.getText(),
+                    tfPathOfProject.getText())
+            );
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean isLoggedIn() {
+        return btnLogin.isDisable();
+    }
+
+    @FXML
+    public void setMode() {
+        LineCounter.getInstance().setFinished(cbFinished.isSelected());
+    }
+
+
+    /**
+     * Disconnects from the server.
+     */
+    @FXML
+    public void logout() {
+        countdown.interrupt();
+        countdown.reset();
+        quickInfo.hide();
+        setControls(true);
+        setMsg("Test successfully submitted", false);
+        client.stop();
+    }
+
+    public boolean isLoggedOut() {
+        return btnLogout.isDisable();
+    }
 
     /**
      * Sets an message on the screen of the student.
