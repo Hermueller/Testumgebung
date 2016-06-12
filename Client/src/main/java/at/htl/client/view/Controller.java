@@ -60,6 +60,7 @@ import java.util.ResourceBundle;
  * 12.06.2016: MET 010  order of the methods and reduction on a countdown
  * 12.06.2016: MET 005  connection messages
  * 12.06.2016: MET 010  implementation of the correct remaining time
+ * 12.06.2016: MET 010  provided controls in the Student-GUI with tooltips
  */
 public class Controller implements Initializable {
 
@@ -160,7 +161,7 @@ public class Controller implements Initializable {
                 setMsg("Try to login ...", false);
                 try {
                     LocalTime toTime;
-                    if (!cbNoLogin.isSelected()) {
+                    if (cbNoLogin.isSelected()) {
                         toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
                     } else {
                         client = new Client(new LoginPackage(
