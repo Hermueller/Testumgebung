@@ -32,6 +32,8 @@ import java.time.format.DateTimeFormatter;
  * 21.05.2016: PHI 015  shows a notification if a student logs in.
  * 06.06.2016: GNA 030  Changed path of screenshots
  * 06.06.2016: PHI 003  Creates the path extension dynamically.
+ * 12.06.2016: PHI 003  removed duplicate code (HandOutPackage was sent twice -> bug)
+ * 12.06.2016: PHI 030  the server differs between the IPAddress and not the lastname now.
  */
 
 /**
@@ -61,30 +63,36 @@ public class Server {
         LoginPackage packet = (LoginPackage) in.readObject();
 
         Student student;
-        if (Settings.getInstance().findStudentByName(packet.getLastname()) != null) {
-            student = Settings.getInstance().findStudentByName(packet.getLastname());
-            if (student.getPathOfWatch() == null) {
-                student.setPathOfWatch(packet.getDirOfWatch());
-            }
+        String studentNameBefore;
+
+        if (Settings.getInstance().findStudentByAddress(socket.getInetAddress()) != null) {
+            student = Settings.getInstance().findStudentByAddress(socket.getInetAddress());
+            student.setPathOfWatch(packet.getDirOfWatch());
+            student.setPathOfImages(Settings.getInstance().getPathOfImages());
+            student.setCatalogNumber(packet.getCatalogNr());
+            student.setEnrolmentID(packet.getEnrolmentID());
+            student.setFirstName(packet.getFirstname());
+            studentNameBefore = student.getName();
+            student.setName(packet.getLastname());
         } else {
             student = new Student(packet.getLastname());
+            student.setStudentAddress(socket.getInetAddress());
             student.setPathOfWatch(packet.getDirOfWatch());
             student.setPathOfImages(Settings.getInstance().getPathOfImages());
             student.setCatalogNumber(packet.getCatalogNr());
             student.setEnrolmentID(packet.getEnrolmentID());
             student.setFirstName(packet.getFirstname());
             Settings.getInstance().addStudent(student);
+            studentNameBefore = student.getName();
         }
         FileUtils.log(this, Level.INFO, "I got the Package: " + packet.getDirOfWatch());
-        Settings.getInstance().loginStudent(student);
+        Settings.getInstance().loginStudent(student, studentNameBefore);
 
         reader = new SocketReaderThread(student, in, this);
         writer = new SocketWriterThread(student, out);
 
         reader.setDaemon(true);
         writer.setDaemon(true);
-
-        writer.handOut();
 
         reader.start();
         writer.start();

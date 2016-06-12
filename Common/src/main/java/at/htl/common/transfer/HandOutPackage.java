@@ -11,6 +11,7 @@ import java.time.LocalTime;
  * 31.10.2015: MET 005  created class
  * 11.06.2016: PHI 020  fixed the File problem in the socket
  * 11.06.2016: PHI 015  fixed the null-value File problem
+ * 12.06.2016: PHI 010  added the file extension.
  */
 
 /**
@@ -20,6 +21,7 @@ import java.time.LocalTime;
 public class HandOutPackage implements Serializable {
 
     private byte[] file;
+    private String fileExtension;
     private LocalTime endTime;
     private String comment;
 
@@ -32,6 +34,7 @@ public class HandOutPackage implements Serializable {
      */
     public HandOutPackage(File file, LocalTime endTime, String comment) {
         setFile(file);
+        setFileExtension(file);
         this.endTime = endTime;
         this.comment = comment;
     }
@@ -57,6 +60,14 @@ public class HandOutPackage implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getFileExtension() {
+        return fileExtension;
+    }
+
+    public void setFileExtension(File file) {
+        fileExtension = file.getName().split("\\.")[1];
     }
 
     //endregion

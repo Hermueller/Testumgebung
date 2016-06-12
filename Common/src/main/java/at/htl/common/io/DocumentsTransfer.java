@@ -13,6 +13,7 @@ import java.nio.file.Files;
  * 01.11.2015: MET 040  sending and receiving files
  * 08.02.2016: GNA 020  Errors und Infos in LogFile gespeichert
  * 11.06.2016: PHI 070  Objects will now be sent through sockets.
+ * 12.06.2016: PHI 010  Every file extension type can be saved now.
  */
 public class DocumentsTransfer {
 
@@ -94,28 +95,26 @@ public class DocumentsTransfer {
 
     /**
      * extracts the information from the received HandOutPackage.
+     * Saves the file from the package.
      *
      * @param obj   the received HandOutPackage.
      * @param path  the path where the file will be created.
      * @return      the received package.
      */
-    public static HandOutPackage receiveObject(Object obj, String path) {
+    public static HandOutPackage receiveObject(Object obj, String path, String fileName) {
         try {
-            System.out.println("CASTING");
 
             HandOutPackage handOutPackage = (HandOutPackage)obj;
-
-            System.out.print("GOT HANDOUT  -  ");
 
             byte[] handout = handOutPackage.getFile();
 
             if (handout != null) {
-                System.out.print("SAVING  -  ");
+                path += "/" + fileName + "." + handOutPackage.getFileExtension();
                 File placeToSave = new File(path);
                 Files.write(placeToSave.toPath(), handout);
             }
 
-            System.out.print(handOutPackage.getComment());
+            System.out.println(handOutPackage.getComment());
 
             return handOutPackage;
 

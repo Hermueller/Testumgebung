@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -64,6 +65,7 @@ import java.util.HashMap;
  * 13.05.2016: PHI 001  changes the color of the students.
  * 06.06.2016: PHI 015  implemented the methods for the screenshot properties.
  * 11.06.2016: PHI 045  recovered lost code from the last merge AND implemented student count
+ * 12.06.2016: PHI 020  improved student login method.
  */
 public class Settings {
 
@@ -414,11 +416,15 @@ public class Settings {
      *
      * @param student the client who logged in.
      */
-    public void loginStudent(final Student student) {
+    public void loginStudent(final Student student, final String studentNameBefore) {
         Platform.runLater(() -> {
             for (Button btn : students) {
-                if (btn.getText().equals(student.getName())) {
+                System.out.println(btn.getText() + " vs. " + student.getName() + " // " + studentNameBefore);
+                if (btn.getText().equals(studentNameBefore)) {
                     btn.setStyle("-fx-background-color: lawngreen");
+                    if (!student.getName().equals(studentNameBefore)) {
+                        btn.setText(student.getName());
+                    }
                     break;
                 }
             }
@@ -469,6 +475,21 @@ public class Settings {
     public Student findStudentByName(String name) {
         for (Student _student : studentsList) {
             if (_student.getName().equals(name)) {
+                return _student;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * searches for a student by his InetAddress.
+     *
+     * @param address   the address of the student.
+     * @return          the student with the correct address.
+     */
+    public Student findStudentByAddress(InetAddress address) {
+        for (Student _student : studentsList) {
+            if (_student.getStudentAddress().toString().equals(address.toString())) {
                 return _student;
             }
         }

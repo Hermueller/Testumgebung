@@ -74,9 +74,8 @@ public class Client {
     public void loadFiles() {
         HandOutPackage handOutPackage = null;
         try {
-            System.out.println("READING");
             handOutPackage = DocumentsTransfer.receiveObject(
-                    in.readObject(), loginPackage.getDirOfWatch() + "/angabe.zip");
+                    in.readObject(), loginPackage.getDirOfWatch(), "angabe");
         } catch (IOException | ClassNotFoundException e) {
             FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exToStr(e));
         }

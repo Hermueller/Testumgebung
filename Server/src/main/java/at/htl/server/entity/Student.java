@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import org.apache.logging.log4j.Level;
 
+import java.net.InetAddress;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -28,6 +29,7 @@ import java.util.List;
  * 04.05.2016: PHI 005  added new variables
  * 07.05.2016: PHI 085  implemented methods to shown how many lines of code for each filter was found in the directory
  * 08.05.2016: PHI 035  fixed bug in stackedAreaChart with the method finishSeries. + fixed addNewestToChart-Method
+ * 12.06.2016: PHI 002  added the InetAddress methods.
  */
 public class Student {
 
@@ -37,6 +39,8 @@ public class Student {
     private String firstName;
     private String enrolmentID;
     private int catalogNumber;
+
+    private InetAddress studentAddress;
 
     private Server server;
     private String[] filter;
@@ -53,6 +57,10 @@ public class Student {
     //region Getter and Setter
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPathOfWatch() {
@@ -123,6 +131,14 @@ public class Student {
 
     public List<Long> getTimes() {
         return times;
+    }
+
+    public InetAddress getStudentAddress() {
+        return studentAddress;
+    }
+
+    public void setStudentAddress(InetAddress studentAddress) {
+        this.studentAddress = studentAddress;
     }
 
     /**
