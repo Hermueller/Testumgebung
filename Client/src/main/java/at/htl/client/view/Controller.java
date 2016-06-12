@@ -56,6 +56,7 @@ import java.util.ResourceBundle;
  * 11.06.2016: MET 040  moving the QuickInfo-Window
  * 11.06.2016: MET 020  show and hide the QuickInfo-Window
  * 11.06.2016: MET 055  display of a monitoring symbol when connected
+ * 11.06.2016: MET 005  fixed login failures, show Slider after login
  */
 public class Controller implements Initializable {
 
@@ -174,8 +175,8 @@ public class Controller implements Initializable {
                                 Exam.getInstance().getPort()
                         ));
                         client.start();
+                        System.out.println(client.getEndTime().toString());
                     }
-                    System.out.println(client.getEndTime().toString());
                     LocalTime toTime = LocalTime.now().plusMinutes(61).plusSeconds(30);
                     setTimeLeft(toTime);
                     setControls(false);
@@ -289,6 +290,7 @@ public class Controller implements Initializable {
         btnLogout.setDisable(value);
         lbTimeLeft.setVisible(!value);
         txTimeLeft.setVisible(!value);
+        sliderPos.setVisible(!value);
     }
 
     /**
