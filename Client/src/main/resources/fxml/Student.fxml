@@ -118,13 +118,19 @@
                 <Font size="18.0" />
             </font>
         </Label>
-      <Button fx:id="btnTestMode" layoutX="548.0" layoutY="6.0" mnemonicParsing="false" onAction="#setDefaultSettings" text="Test" />
+      <Button fx:id="btnTestMode" layoutX="548.0" layoutY="6.0" mnemonicParsing="false" onAction="#setDefaultSettings" text="Test">
+         <tooltip>
+            <Tooltip text="Fills the form with test data." />
+         </tooltip></Button>
       <Text fx:id="txTimeLeft" layoutX="160.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Text>
       <Label fx:id="lbTimeLeft" layoutX="62.0" layoutY="287.0" text="Time left:" />
-      <CheckBox fx:id="cbNoLogin" layoutX="518.0" layoutY="10.0" mnemonicParsing="false" />
+      <CheckBox fx:id="cbNoLogin" layoutX="518.0" layoutY="10.0" mnemonicParsing="false">
+         <tooltip>
+            <Tooltip text="Login without connection to the server." />
+         </tooltip></CheckBox>
       <CheckBox fx:id="cbFinished" layoutX="248.0" layoutY="221.0" mnemonicParsing="false" text="Finished">
          <tooltip>
             <Tooltip text="Inform the teacher when you're done with the test." />
