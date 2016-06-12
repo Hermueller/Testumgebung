@@ -8,8 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/resources/fxml/Student.fxml" afterPath="$PROJECT_DIR$/Client/src/main/resources/fxml/Student.fxml" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,8 +45,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5903399">
-              <caret line="62" column="24" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="74" />
+            <state vertical-scroll-proportion="0.18783543">
+              <caret line="164" column="34" selection-start-line="163" selection-start-column="34" selection-end-line="164" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -1617,13 +1615,7 @@
       <workItem from="1465470833983" duration="8760000" />
       <workItem from="1465646764619" duration="10831000" />
       <workItem from="1465751778548" duration="136000" />
-      <workItem from="1465751939311" duration="4953000" />
-    </task>
-    <task id="LOCAL-00001" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
-      <created>1446721170116</created>
-      <option name="number" value="00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1446721170116</updated>
+      <workItem from="1465751939311" duration="5190000" />
     </task>
     <task id="LOCAL-00002" summary="Version 1.0.7.006 - Teacher.fxml funktioniert wieder">
       <created>1446723486655</created>
@@ -1907,7 +1899,19 @@
       <option name="project" value="LOCAL" />
       <updated>1465756177189</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="1.15.26.207 - #50 Provided controls in the Student-GUI with tooltips">
+      <created>1465757104047</created>
+      <option name="number" value="00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1465757104047</updated>
+    </task>
+    <task id="LOCAL-00050" summary="1.15.26.208 - #50 Provided controls in the Student-GUI with tooltips">
+      <created>1465757324630</created>
+      <option name="number" value="00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1465757324633</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1943,7 +1947,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177576000" />
+    <option name="totallyTimeSpent" value="177813000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2024,8 +2028,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.13.38.093 - Added &quot;Time Left&quot; in Student-GUI" />
-    <MESSAGE value="1.13.38.093 - show or hide time left&#10;&#10;show time left by login and hide time left by Logout" />
     <MESSAGE value="1.13.38.095 - Implemented set time left" />
     <MESSAGE value="1.13.38.096 - Countdown (Styling and Animation)" />
     <MESSAGE value="1.13.39 - Executable project" />
@@ -2049,7 +2051,9 @@
     <MESSAGE value="1.15.26.202 - Order of the methods and reduction on a countdown" />
     <MESSAGE value="1.15.26.205 - Connection messages" />
     <MESSAGE value="1.15.26.206 - Implementation of the correct remaining time" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.15.26.206 - Implementation of the correct remaining time" />
+    <MESSAGE value="1.15.26.207 - #50 Provided controls in the Student-GUI with tooltips" />
+    <MESSAGE value="1.15.26.208 - #50 Provided controls in the Student-GUI with tooltips" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.15.26.208 - #50 Provided controls in the Student-GUI with tooltips" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2443,8 +2447,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5903399">
-          <caret line="62" column="24" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="74" />
+        <state vertical-scroll-proportion="0.18783543">
+          <caret line="164" column="34" selection-start-line="163" selection-start-column="34" selection-end-line="164" selection-end-column="34" />
           <folding />
         </state>
       </provider>
