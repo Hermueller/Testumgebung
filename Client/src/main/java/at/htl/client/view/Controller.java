@@ -60,6 +60,7 @@ import java.util.ResourceBundle;
  * 12.06.2016: MET 010  order of the methods and reduction on a countdown
  * 12.06.2016: MET 005  connection messages
  * 12.06.2016: MET 010  implementation of the correct remaining time
+ * 14.06.2016: PHI 002  added new validation: pattern A-Z
  */
 public class Controller implements Initializable {
 
@@ -160,7 +161,7 @@ public class Controller implements Initializable {
                 setMsg("Try to login ...", false);
                 try {
                     LocalTime toTime;
-                    if (!cbNoLogin.isSelected()) {
+                    if (cbNoLogin.isSelected()) {
                         toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
                     } else {
                         client = new Client(new LoginPackage(
@@ -253,6 +254,7 @@ public class Controller implements Initializable {
         String firstName = tfFirstName.getText();
         String lastName = tfLastName.getText();
         String pathOfProject = tfPathOfProject.getText();
+
         boolean validity = false;
         if (serverIP.isEmpty()) {
             setMsg("Specify the IP-Address of the server!", true);
@@ -271,6 +273,8 @@ public class Controller implements Initializable {
             setMsg("Enter your correct first name", true);
         } else if (lastName.isEmpty() || lastName.length() > 20) {
             setMsg("Enter your correct last name", true);
+        } else if (!lastName.matches("[A-Z][a-z]+") || !firstName.matches("[A-Z][a-z]+")) {
+            setMsg("Unknown letter. Allowed: A-Z", true);
         } else if (pathOfProject.isEmpty()) {
             setMsg("Specify the path of project!", true);
         } else {

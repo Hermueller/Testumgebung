@@ -25,10 +25,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * @timeline Settings
@@ -66,6 +63,7 @@ import java.util.HashMap;
  * 06.06.2016: PHI 015  implemented the methods for the screenshot properties.
  * 11.06.2016: PHI 045  recovered lost code from the last merge AND implemented student count
  * 12.06.2016: PHI 020  improved student login method.
+ * 14.04.2016: PHI 030  sorted list of the students + fixed bugs in the findStudentByAddress-Method
  */
 public class Settings {
 
@@ -419,7 +417,6 @@ public class Settings {
     public void loginStudent(final Student student, final String studentNameBefore) {
         Platform.runLater(() -> {
             for (Button btn : students) {
-                System.out.println(btn.getText() + " vs. " + student.getName() + " // " + studentNameBefore);
                 if (btn.getText().equals(studentNameBefore)) {
                     btn.setStyle("-fx-background-color: lawngreen");
                     if (!student.getName().equals(studentNameBefore)) {
@@ -428,6 +425,7 @@ public class Settings {
                     break;
                 }
             }
+            sortList();
             changeStudentCount(true);
         });
     }
@@ -472,6 +470,7 @@ public class Settings {
      * @param name  of the Student
      * @return      the StudentObject with the correct name
      */
+    @Deprecated
     public Student findStudentByName(String name) {
         for (Student _student : studentsList) {
             if (_student.getName().equals(name)) {
@@ -487,9 +486,9 @@ public class Settings {
      * @param address   the address of the student.
      * @return          the student with the correct address.
      */
-    public Student findStudentByAddress(InetAddress address) {
+    public Student findStudentByAddress(String address) {
         for (Student _student : studentsList) {
-            if (_student.getStudentAddress().toString().equals(address.toString())) {
+            if (_student.getStudentAddress().toString().equals(address)) {
                 return _student;
             }
         }
@@ -518,8 +517,17 @@ public class Settings {
                 btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
                 btn.setStyle("-fx-background-color: crimson");
                 btn.setContextMenu(contextMenu);
+                btn.setId(student.getStudentAddress().toString());
                 students.add(btn);
+                sortList();
             });
+    }
+
+    /**
+     * sorts the list of the students by their name. A -> Z
+     */
+    private void sortList() {
+        students.sort((o1, o2) -> o1.getText().compareTo(o2.getText()));
     }
 
     //endregion

@@ -1,7 +1,6 @@
 package at.htl.server.view;
 
 import at.htl.common.MyUtils;
-import at.htl.common.actions.IpConnection;
 import at.htl.common.io.ScreenShot;
 import at.htl.server.entity.Student;
 import at.htl.common.TimeSpinner;
@@ -13,7 +12,6 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
-import com.aquafx_project.*;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -288,7 +286,7 @@ public class Controller implements Initializable {
 
         setDynamicScreenSize();
         setVersionAnchor();
-        setOnChangeSize();
+        setOnStudentChange();
         setFitHeight();
         setImageClick();
         setHomePath();
@@ -349,11 +347,11 @@ public class Controller implements Initializable {
             startable = false;
         }
         // checks if the user selected a path
-        /*if (handOut == null) {
+        if (handOut == null) {
             setMsg(true, "Please select a handout!");
             setImage(ivAngabe, false);
             startable = false;
-        }*/
+        }
         // if no port is set, the default port will be set
         if (!portStr.matches("[0-9]+") || (portStr.length() != 4 && portStr.length() != 5)) {
             int port = Integer.parseInt(portStr);
@@ -1058,18 +1056,18 @@ public class Controller implements Initializable {
         Button selected = (Button)StudentView.getInstance()
                 .getLv().getSelectionModel().getSelectedItem();
         if (selected != null) {
-            kick(selected.getText());
+            kick(selected.getId());
         }
     }
 
     /**
      * kicks a student.
      *
-     * @param name  Specifies the name of the student.
+     * @param address  Specifies the InetAddress of the student.
      */
-    public void kick(String name) {
+    public void kick(String address) {
         Student toKick = Settings.getInstance()
-                .findStudentByName(name);
+                .findStudentByAddress(address);
         try {
             toKick.getServer().socket.close();
         } catch (IOException e) {
@@ -1091,16 +1089,16 @@ public class Controller implements Initializable {
             Button selected = (Button) StudentView.getInstance()
                     .getLv().getSelectionModel().getSelectedItem();
             Student toChange = Settings.getInstance()
-                    .findStudentByName(selected.getText());
+                    .findStudentByAddress(selected.getId());
 
             toChange.setInterval(new Interval(new_time));
             String[] filters = getSelectedFilters();
             toChange.setFilter(filters);
         } else {
             for (Object obj : StudentView.getInstance().getLv().getItems()) {
-                String name = ((Button)obj).getText();
+                String address = ((Button)obj).getId();
                 Student toChange = Settings.getInstance()
-                        .findStudentByName(name);
+                        .findStudentByAddress(address);
 
                 toChange.setInterval(new Interval(new_time));
                 String[] filters = getSelectedFilters();
@@ -1184,11 +1182,11 @@ public class Controller implements Initializable {
      * if the SelectedStudent changes, the Chart and ImageView
      * is cleared and the new Chart and Image will be shown.
      */
-    public void setOnChangeSize() {
+    public void setOnStudentChange() {
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            Student st = Settings.getInstance().findStudentByName(newValue.getText());
+            Student st = Settings.getInstance().findStudentByAddress(newValue.getId());
 
-            //   CHANGE LINECHART
+            //   CHANGE CHART
             loc.getData().clear();
             if (st.getSeries().size() > 0) {
                 for (List<XYChart.Series<Number, Number>> seriesList : st.getSeries()) {

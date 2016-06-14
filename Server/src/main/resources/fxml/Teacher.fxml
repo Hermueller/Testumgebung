@@ -386,7 +386,7 @@
                                                 <AnchorPane id="submission" fx:id="apHandIn" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
                                                         <AnchorPane fx:id="apEndTime" layoutX="262.0" layoutY="112.0" prefHeight="35.0" prefWidth="214.0" />
-                                                        <Label layoutX="41.0" layoutY="111.0" prefHeight="32.0" prefWidth="154.0" text="Submission date:">
+                                                        <Label layoutX="41.0" layoutY="111.0" prefHeight="32.0" prefWidth="154.0" text="Submission time:">
                                                             <font>
                                                                 <Font name="System Bold" size="18.0" />
                                                             </font>

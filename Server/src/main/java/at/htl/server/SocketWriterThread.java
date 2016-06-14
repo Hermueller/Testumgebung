@@ -2,6 +2,7 @@ package at.htl.server;
 
 import at.htl.common.MyUtils;
 import at.htl.common.io.ScreenShot;
+import at.htl.common.transfer.HandOutPackage;
 import at.htl.server.entity.Student;
 import at.htl.common.actions.LittleHarvester;
 import at.htl.common.actions.RobotAction;
@@ -73,11 +74,14 @@ class SocketWriterThread extends Thread {
      * sends the test-file to the students.
      */
     public void handOut() {
-        DocumentsTransfer.sendObject(out, Settings.getInstance().getHandOutPacket());
+        HandOutPackage _package = Settings.getInstance().getHandOutPacket();
+        DocumentsTransfer.sendObject(out, _package);
     }
 
     public void run() {
         handOut();
+
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

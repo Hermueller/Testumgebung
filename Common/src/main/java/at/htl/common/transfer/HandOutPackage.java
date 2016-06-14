@@ -20,7 +20,7 @@ import java.time.LocalTime;
  */
 public class HandOutPackage implements Serializable {
 
-    private byte[] file;
+    private byte[] file = new byte[0];
     private String fileExtension;
     private LocalTime endTime;
     private String comment;

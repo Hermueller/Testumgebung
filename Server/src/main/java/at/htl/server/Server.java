@@ -65,8 +65,8 @@ public class Server {
         Student student;
         String studentNameBefore;
 
-        if (Settings.getInstance().findStudentByAddress(socket.getInetAddress()) != null) {
-            student = Settings.getInstance().findStudentByAddress(socket.getInetAddress());
+        if (Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString()) != null) {
+            student = Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString());
             student.setPathOfWatch(packet.getDirOfWatch());
             student.setPathOfImages(Settings.getInstance().getPathOfImages());
             student.setCatalogNumber(packet.getCatalogNr());

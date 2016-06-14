@@ -78,7 +78,6 @@ public class Client {
         } catch (IOException | ClassNotFoundException e) {
             FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exToStr(e));
         }
-
         if (handOutPackage != null) {
             endTime = handOutPackage.getEndTime();
         }

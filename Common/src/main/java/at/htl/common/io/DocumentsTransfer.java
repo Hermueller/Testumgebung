@@ -49,7 +49,7 @@ public class DocumentsTransfer {
      * sends the HandOutPackage to its users.
      *
      * @param oos           The stream from the socket to the client.
-     * @param outPackage    Specialises the HandOutPacke which will be sent to the clients
+     * @param outPackage    Specialises the HandOutPackage which will be sent to the clients
      * @return              TRUE if it was a success.
      */
     public static boolean sendObject(ObjectOutputStream oos, HandOutPackage outPackage) {
@@ -108,7 +108,7 @@ public class DocumentsTransfer {
 
             byte[] handout = handOutPackage.getFile();
 
-            if (handout != null) {
+            if (handout.length != 0) {
                 path += "/" + fileName + "." + handOutPackage.getFileExtension();
                 File placeToSave = new File(path);
                 Files.write(placeToSave.toPath(), handout);

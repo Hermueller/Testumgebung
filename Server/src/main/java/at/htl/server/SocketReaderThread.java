@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
  * @timeline .
  * 31.10.2015: MET 010  Änderung
  * 21.04.2016: PHI 015  added the coloring from the student
+ * 14.06.2016: PHI 002  fixed bug
  */
 class SocketReaderThread extends Thread {
 
@@ -65,7 +66,7 @@ class SocketReaderThread extends Thread {
                 } else {
                     Settings.getInstance().finishStudent(student);
                 }
-                student.finishSeries();
+                //student.finishSeries();
                 server.shutdown();
                 return;
             }
