@@ -61,6 +61,8 @@ import java.util.ResourceBundle;
  * 12.06.2016: MET 005  connection messages
  * 12.06.2016: MET 010  implementation of the correct remaining time
  * 14.06.2016: PHI 002  added new validation: pattern A-Z
+ * 12.06.2016: MET 010  provided controls in the Student-GUI with tooltips
+ * 12.06.2016: MET 030  auto size of the QuickInfo-Window (Bug: the size does not change correctly)
  */
 public class Controller implements Initializable {
 
@@ -99,6 +101,7 @@ public class Controller implements Initializable {
     private Label lbTimeLeft;
     @FXML
     private Text txTimeLeft;
+    private Text txTimeLeftQuick;
     @FXML
     private Slider sliderPos;
     //endregion
@@ -161,7 +164,7 @@ public class Controller implements Initializable {
                 setMsg("Try to login ...", false);
                 try {
                     LocalTime toTime;
-                    if (cbNoLogin.isSelected()) {
+                    if (!cbNoLogin.isSelected()) {
                         toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
                     } else {
                         client = new Client(new LoginPackage(
@@ -177,6 +180,7 @@ public class Controller implements Initializable {
                         toTime = client.getEndTime();
                     }
                     setTimeLeft(toTime);
+                    showQuickInfo();
                     setControls(false);
                     setMsg("Signed in!", false);
                 } catch (Exception e) {
