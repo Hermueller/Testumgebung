@@ -164,7 +164,7 @@ public class Controller implements Initializable {
                 setMsg("Try to login ...", false);
                 try {
                     LocalTime toTime;
-                    if (!cbNoLogin.isSelected()) {
+                    if (cbNoLogin.isSelected()) {
                         toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
                     } else {
                         client = new Client(new LoginPackage(
@@ -180,7 +180,7 @@ public class Controller implements Initializable {
                         toTime = client.getEndTime();
                     }
                     setTimeLeft(toTime);
-                    showQuickInfo();
+                    //showQuickInfo();
                     setControls(false);
                     setMsg("Signed in!", false);
                 } catch (Exception e) {
@@ -195,13 +195,13 @@ public class Controller implements Initializable {
 
     private void setTimeLeft(LocalTime toTime) {
         countdown = new Countdown(toTime, txTimeLeft);
-        showQuickInfo(toTime);
         countdown.setDaemon(false);
         countdown.start();
     }
 
-    public void showQuickInfo(LocalTime toTime) {
+    public void showQuickInfo() {
         quickInfo = new Stage();
+        quickInfo.setTitle("QuickInfo");
         quickInfo.initStyle(StageStyle.TRANSPARENT);
         quickInfo.setAlwaysOnTop(true);
 

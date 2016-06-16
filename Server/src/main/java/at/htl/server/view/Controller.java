@@ -950,6 +950,7 @@ public class Controller implements Initializable {
      *
      * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
+
     public void initializeNewFilters() {
         Callback<ListView<String>, ListCell<String>> callback =
                 new Callback<ListView<String>, ListCell<String>>() {

@@ -54,6 +54,7 @@ public class DocumentsTransfer {
      */
     public static boolean sendObject(ObjectOutputStream oos, HandOutPackage outPackage) {
         try {
+            //Thread.sleep(30000);
             oos.writeObject(outPackage);
             oos.flush();
             return true;

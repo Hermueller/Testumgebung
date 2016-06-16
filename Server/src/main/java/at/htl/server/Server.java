@@ -1,10 +1,9 @@
 package at.htl.server;
 
-import at.htl.server.entity.Student;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
-import at.htl.common.io.ScreenShot;
 import at.htl.common.transfer.LoginPackage;
+import at.htl.server.entity.Student;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
@@ -132,15 +131,15 @@ public class Server {
         //SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd'_'HH:mm:ss");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
         String formattedTime = formatter.format(date);
-        String path = String.format("%s/%s-%s." + Settings.getInstance().getScreenShot().DEFAULT_FORMAT.toString(),
+        /*String path = String.format("%s/%s-%s." + Settings.getInstance().getScreenShot().DEFAULT_FORMAT.toString(),
                 Settings.getInstance().getPathOfImages() + "/" + student.getName(),
                 student.getName(),
-                formattedTime);
+                formattedTime);*/
 
-        ScreenShot screenShot = Settings.getInstance().getScreenShot();
-        screenShot.save(image, path);
+        //ScreenShot screenShot = Settings.getInstance().getScreenshot();
+        //screenShot.save(image, path);
 
-        showImage(path, student);
+        //showImage(path, student);
     }
 
     /**
