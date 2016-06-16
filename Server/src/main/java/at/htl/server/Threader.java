@@ -34,8 +34,8 @@ public class Threader implements Runnable {
                 createTeacherServer(socket);
             }
         } catch (IOException e) {
-            FileUtils.log(this, Level.INFO, e.getMessage());
-            Settings.getInstance().printError(Level.INFO, e.getStackTrace(), "WARNINGS");
+            FileUtils.log(this, Level.ERROR, e.getMessage());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
     }
 

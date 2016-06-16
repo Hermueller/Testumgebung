@@ -1248,7 +1248,7 @@ public class Controller implements Initializable {
      * If the application has no internet-connection then the outdated, offline website is shown.
      */
     public void initializeWebView() {
-        WebEngine webEngine = wvHelp.getEngine();
+        /*WebEngine webEngine = wvHelp.getEngine();
 
         //boolean applicationHasInternetConnection = IpConnection.checkInternetConnection();
 
@@ -1266,7 +1266,7 @@ public class Controller implements Initializable {
         } catch (Exception exc) {
             FileUtils.log(Level.WARN, exc.getMessage());
             Settings.getInstance().printError(Level.WARN, exc.getStackTrace(), "WARNINGS");
-        }
+        }*/
     }
 
     /**
@@ -1347,6 +1347,7 @@ public class Controller implements Initializable {
      *
      * @throws IOException  can't read file
      */
+    @Deprecated
     @FXML
     public void importPupilList() throws IOException {
         FileChooser dc = new FileChooser();

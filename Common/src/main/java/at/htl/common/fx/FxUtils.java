@@ -94,8 +94,10 @@ public class FxUtils {
      *              FALSE  if it is a success-message
      */
     public static void setMsg(Label alert, String text, boolean error) {
-        alert.setText(text);
-        alert.setStyle("-fx-background-color: " + (error ? "red" : "limegreen"));
+        Platform.runLater(() -> {
+            alert.setText(text);
+            alert.setStyle("-fx-background-color: " + (error ? "red" : "limegreen"));
+        });
     }
 
     /**

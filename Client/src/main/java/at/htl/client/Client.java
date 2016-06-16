@@ -78,8 +78,9 @@ public class Client {
     public void loadFiles() {
         HandOutPackage handOutPackage = null;
         try {
+            Object obj = in.readObject();
             handOutPackage = DocumentsTransfer.receiveObject(
-                    in.readObject(), loginPackage.getDirOfWatch(), "angabe");
+                    obj, loginPackage.getDirOfWatch(), "angabe");
         } catch (IOException | ClassNotFoundException e) {
             FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exToStr(e));
         }
@@ -89,7 +90,6 @@ public class Client {
         } else {
             signedIn = false;
         }
-
         processor.start();
         reader.start();
     }

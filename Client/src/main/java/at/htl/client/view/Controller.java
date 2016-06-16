@@ -181,14 +181,17 @@ public class Controller implements Initializable {
                         client.start();
                         toTime = client.getEndTime();
                     }
-                    SignedInThread t = new SignedInThread();
-                    t.start();
-                    t.setDaemon(true);
+                    //SignedInThread t = new SignedInThread();
+                    //t.start();
+                    //t.setDaemon(true);
+                    setMsg("Signed in!", false);
+
                     setTimeLeft(toTime);
                     //showQuickInfo();
                     setControls(false);
                 } catch (Exception e) {
                     FileUtils.log(this, Level.ERROR, e.getMessage());
+                    e.printStackTrace();
                     setMsg("Login failed!", true);
                 }
             }
