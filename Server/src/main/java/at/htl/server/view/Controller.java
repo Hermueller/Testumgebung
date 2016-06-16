@@ -118,6 +118,7 @@ import java.util.stream.Collectors;
  * 22.05.2016: PHI 035  the help-website can be reloaded (can go during runtime from offline to online).
  * 02.06.2016: PHI 030  implemented the advanced settings for the image (only in GUI).
  * 11.06.2016: PHI 030  implemented student count AND recovered lost code from the last merge.
+ * 16.06.2016: PHI 040  fixed some bugs (in the last commit) and implemented pdf,jpg submission
  */
 public class Controller implements Initializable {
 
@@ -348,7 +349,7 @@ public class Controller implements Initializable {
         }
         // checks if the user selected a path
         if (handOut == null) {
-            setMsg(true, "Please select a handout!");
+            setMsg(true, "Please select a handout (pdf, jpg)!");
             setImage(ivAngabe, false);
             startable = false;
         }
