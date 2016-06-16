@@ -63,6 +63,8 @@ import java.util.ResourceBundle;
  * 14.06.2016: PHI 002  added new validation: pattern A-Z
  * 12.06.2016: MET 010  provided controls in the Student-GUI with tooltips
  * 12.06.2016: MET 030  auto size of the QuickInfo-Window (Bug: the size does not change correctly)
+ * 16.06.2016: MET 040  login status "Signed in!" when student really logged in  (
+ * 16.06.2016: PON 040  login status "Signed in!" when student really logged in
  */
 public class Controller implements Initializable {
 
@@ -161,7 +163,7 @@ public class Controller implements Initializable {
         setMsg("Establish connection with server ...", false);
         if (IpConnection.isIpReachable(tfServerIP.getText(), true, false)) {
             if (setExam() && isLoggedOut()) {
-                setMsg("Try to login ...", false);
+                setMsg("Trying to login ...", false);
                 try {
                     LocalTime toTime;
                     if (cbNoLogin.isSelected()) {
@@ -179,10 +181,12 @@ public class Controller implements Initializable {
                         client.start();
                         toTime = client.getEndTime();
                     }
+                    SignedInThread t = new SignedInThread();
+                    t.start();
+                    t.setDaemon(true);
                     setTimeLeft(toTime);
                     //showQuickInfo();
                     setControls(false);
-                    setMsg("Signed in!", false);
                 } catch (Exception e) {
                     FileUtils.log(this, Level.ERROR, e.getMessage());
                     setMsg("Login failed!", true);
@@ -190,6 +194,24 @@ public class Controller implements Initializable {
             }
         } else {
             setMsg("Connecting to server failed!", true);
+        }
+    }
+
+    private class SignedInThread extends Thread {
+        @Override
+        public void run() {
+            for (int i = 0; i < 10; i++) {
+                if (client.isSignedIn()) {
+                    setMsg("Signed in!", false);
+                    return;
+                }
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            setMsg("Time überschritten", true);
         }
     }
 

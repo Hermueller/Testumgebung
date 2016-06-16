@@ -38,6 +38,7 @@ public class Client {
     private final ReaderThread reader;
     private final LoginPackage loginPackage;
     private LocalTime endTime = null;
+    private boolean signedIn = false;
 
     public Client(LoginPackage loginPackage)
             throws IOException, AWTException {
@@ -67,6 +68,10 @@ public class Client {
         return endTime;
     }
 
+    public boolean isSignedIn() {
+        return signedIn;
+    }
+
     /**
      * gets the file from the teacher for the test and saves it
      */
@@ -80,6 +85,9 @@ public class Client {
         }
         if (handOutPackage != null) {
             endTime = handOutPackage.getEndTime();
+            signedIn = true;
+        } else {
+            signedIn = false;
         }
 
         processor.start();
