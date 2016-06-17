@@ -20,17 +20,18 @@ import java.util.ResourceBundle;
  * @timeline advancedSettingsController
  * 17.06.2016: PHI 065  created class
  * 17.06.2016: PHI 035  connected the user-settings with the amount of points in the chart
+ * 17.06.2016: PHI 075  scale can be changed by the user
  */
 public class Controller implements Initializable {
 
     @FXML
     private ToggleButton TB_SS_rnd, tbImageFormat;
     @FXML
-    private ProgressBar pbImageScale;
+    private ProgressBar pbImageScale, pbImageQuality;
     @FXML
-    private Slider slImageScale;
+    private Slider slImageScale, slImageQuality;
     @FXML
-    private Label lbTimeScale;
+    private Label lbImageScale, lbImageQuality;
     @FXML
     private ComboBox cbFilterSetMain;
     @FXML
@@ -41,9 +42,11 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initializeSlides(slImageScale, pbImageScale, lbTimeScale, 1, true);
+        initializeSlides(slImageScale, pbImageScale, lbImageScale, 100);
+        initializeSlides(slImageQuality, pbImageQuality, lbImageQuality, 100);
         initializeNewFilters();
-        slImageScale.setValue(0.2);
+        slImageQuality.setValue(20);
+        slImageScale.setValue(100);
 
         tfPoints.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -69,11 +72,9 @@ public class Controller implements Initializable {
     public void changeImageFormat() {
         if (tbImageFormat.isSelected()) {
             tbImageFormat.setText("PNG");
-            Settings.getInstance().getScreenShot().setDEFAULT_FORMAT(ScreenShot.Format.PNG);
         }
         else {
             tbImageFormat.setText("JPG");
-            Settings.getInstance().getScreenShot().setDEFAULT_FORMAT(ScreenShot.Format.JPG);
         }
     }
 
@@ -81,19 +82,13 @@ public class Controller implements Initializable {
      * adjusts the progressbar to the slider.
      */
     public void initializeSlides(Slider slider, ProgressBar progressBar, Label label,
-                                 int maxTime, boolean show_decimals) {
+                                 int maxTime) {
         slider.valueProperty().addListener((ov, old_val, new_val) -> {
             progressBar.setProgress(new_val.doubleValue() / maxTime);
-            String time = (new_val.intValue() < 10) ?
-                    "0" + new_val.toString().substring(0,1) :
-                    new_val.toString().substring(0,2);
-            time += " s";
-            if (show_decimals) {
-                time = String.valueOf(new_val.doubleValue()).substring(0,3);
-                float quality = new_val.floatValue();
-                Settings.getInstance().getScreenShot().setDEFAULT_QUALITY(quality);
-            }
-            label.setText(time);
+            String value = (new_val.intValue() < 10) ?
+                    "0" + new_val.toString().split("\\.")[0] :
+                    new_val.toString().split("\\.")[0];
+            label.setText(value);
         });
     }
 
@@ -162,10 +157,11 @@ public class Controller implements Initializable {
     @FXML
     public void saveSettings() {
         AdvancedSettingsPackage.getInstance().setRandom(TB_SS_rnd.isSelected());
-        AdvancedSettingsPackage.getInstance().setImageScale(slImageScale.getValue());
+        AdvancedSettingsPackage.getInstance().setImageScale(slImageScale.getValue() / 100);
+        AdvancedSettingsPackage.getInstance().setImageQuality(slImageQuality.getValue() / 100);
         AdvancedSettingsPackage.getInstance().setFilterSet(
                 (String)cbFilterSetMain.getSelectionModel().getSelectedItem());
-        AdvancedSettingsPackage.getInstance().setJpgFormat(tbImageFormat.isSelected());
+        AdvancedSettingsPackage.getInstance().setJpgFormat(!tbImageFormat.isSelected());
         AdvancedSettingsPackage.getInstance().setPoints(points);
         Stage stage = (Stage)TB_SS_rnd.getScene().getWindow();
 

@@ -79,11 +79,11 @@
                                    </Label>
                                    <AnchorPane>
                                        <children>
-                                           <ProgressBar fx:id="pbImageScale" layoutX="8.0" layoutY="12.0" prefHeight="20.0" prefWidth="236.0" progress="0.0" />
-                                           <Slider fx:id="slImageScale" blockIncrement="0.2" majorTickUnit="1.0" max="1.0" minorTickCount="1" prefHeight="44.0" prefWidth="242.0" />
+                                           <ProgressBar fx:id="pbImageQuality" layoutX="8.0" layoutY="12.0" prefHeight="20.0" prefWidth="236.0" progress="0.0" />
+                                           <Slider fx:id="slImageQuality" majorTickUnit="10.0" min="10.0" minorTickCount="10" prefHeight="44.0" prefWidth="242.0" />
                                        </children>
                                    </AnchorPane>
-                                   <Label fx:id="lbTimeScale" prefHeight="26.0" prefWidth="51.0" text="00">
+                                   <Label fx:id="lbImageQuality" prefHeight="26.0" prefWidth="51.0" text="00">
                                        <font>
                                            <Font size="18.0" />
                                        </font>
@@ -93,6 +93,29 @@
                                    </Label>
                                </children>
                            </HBox>
+                        <HBox layoutX="20.0" layoutY="204.0" prefHeight="44.0" prefWidth="731.0" spacing="20.0">
+                           <children>
+                              <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="414.0" text="Image scale:">
+                                 <font>
+                                    <Font name="System" size="18.0" />
+                                 </font>
+                              </Label>
+                              <AnchorPane>
+                                 <children>
+                                    <ProgressBar fx:id="pbImageScale" layoutX="8.0" layoutY="12.0" prefHeight="20.0" prefWidth="236.0" progress="0.0" />
+                                    <Slider fx:id="slImageScale" majorTickUnit="10.0" min="10.0" minorTickCount="10" prefHeight="44.0" prefWidth="242.0" />
+                                 </children>
+                              </AnchorPane>
+                              <Label fx:id="lbImageScale" prefHeight="26.0" prefWidth="51.0" text="00">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
                            <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                <children>
                                    <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="476.0" text="Image format:">

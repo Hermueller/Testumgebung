@@ -4,6 +4,7 @@ package at.htl.server.advanced;
  * @timeline AdvancedSettingsPackage
  * 17.06.2016: PHI 035  created class
  * 17.06.2016: PHI 005  implemented the points
+ * 17.06.2016: PHI 005  scale can be changed by the user
  */
 public class AdvancedSettingsPackage {
 
@@ -11,7 +12,8 @@ public class AdvancedSettingsPackage {
 
     private boolean random = false;
     private boolean jpgFormat = true;
-    private double imageScale = 0.2;
+    private double imageScale = 1.0;
+    private double imageQuality = 0.2;
     private String filterSet = "ALL";
     private int points = 5;
 
@@ -24,6 +26,14 @@ public class AdvancedSettingsPackage {
             instance = new AdvancedSettingsPackage();
         }
         return instance;
+    }
+
+    public double getImageQuality() {
+        return imageQuality;
+    }
+
+    public void setImageQuality(double imageQuality) {
+        this.imageQuality = imageQuality;
     }
 
     public int getPoints() {

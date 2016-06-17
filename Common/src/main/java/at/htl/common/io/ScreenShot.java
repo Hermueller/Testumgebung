@@ -20,12 +20,13 @@ import java.io.Serializable;
  * 14.11.2015: MET 005  created enum with toString()
  * 02.01.2016: MET 005  improved saving images by using FileUtils
  * 06.06.2016: PHI 030  dynamical image properties from the user.
+ * 17.06.2016: PHI 030  scale can be changed by the user
  */
 public class ScreenShot implements Serializable {
 
     public Format DEFAULT_FORMAT = Format.JPG;
     public float DEFAULT_QUALITY = 0.2f;
-    public double DEFAULT_SCALE = 0.5;
+    public double DEFAULT_SCALE = 0.2;
 
     public ScreenShot(Format DEFAULT_FORMAT, float DEFAULT_QUALITY, double DEFAULT_SCALE) {
         this.DEFAULT_FORMAT = DEFAULT_FORMAT;
@@ -38,24 +39,12 @@ public class ScreenShot implements Serializable {
 
     //region Getter-Setter
 
-    public Format getDEFAULT_FORMAT() {
-        return DEFAULT_FORMAT;
-    }
-
     public void setDEFAULT_FORMAT(Format DEFAULT_FORMAT) {
         this.DEFAULT_FORMAT = DEFAULT_FORMAT;
     }
 
-    public float getDEFAULT_QUALITY() {
-        return DEFAULT_QUALITY;
-    }
-
     public void setDEFAULT_QUALITY(float DEFAULT_QUALITY) {
         this.DEFAULT_QUALITY = DEFAULT_QUALITY;
-    }
-
-    public double getDEFAULT_SCALE() {
-        return DEFAULT_SCALE;
     }
 
     public void setDEFAULT_SCALE(double DEFAULT_SCALE) {
@@ -104,6 +93,7 @@ public class ScreenShot implements Serializable {
             BufferedImage img = r.createScreenCapture(shotArea);
             return convert(getScaledImage(img, scale), format, quality);
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("failed to make a screenshot");
         }
         return null;
@@ -117,7 +107,7 @@ public class ScreenShot implements Serializable {
      * @return BufferedImage with altered size
      */
     private BufferedImage getScaledImage(BufferedImage img, double scale) {
-        if (scale != DEFAULT_SCALE) {
+        if (scale != 1.0) {
             int width = (int) (img.getWidth() * scale);
             int height = (int) (img.getHeight() * scale);
 

@@ -52,6 +52,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -123,6 +125,7 @@ import java.util.stream.Collectors;
  * 16.06.2016: PHI 040  fixed some bugs (in the last commit) and implemented pdf,jpg submission
  * 16.06.2016: PHI 035  opens extra window for the advanced settings
  * 17.06.2016: PHI 035  changed the style of the advanced settings chart
+ * 17.06.2016: PHI 045  scale can be changed by the user
  */
 public class Controller implements Initializable {
 
@@ -533,9 +536,12 @@ public class Controller implements Initializable {
             stage.setOnCloseRequest(event -> {
                 TB_SS_rnd.setSelected(AdvancedSettingsPackage.getInstance().isRandom());
                 changeSomeOptions();
-                slImageScale.setValue(AdvancedSettingsPackage.getInstance().getImageScale());
-                tbImageFormat.setSelected(AdvancedSettingsPackage.getInstance().isJpgFormat());
-                changeImageFormat();
+                Settings.getInstance().setScreenshotQuality(
+                        (float)convertToOneDecimalPoint(AdvancedSettingsPackage.getInstance().getImageQuality()));
+                Settings.getInstance().setScreenshotFormat(
+                        AdvancedSettingsPackage.getInstance().isJpgFormat() ? "JPG" : "PNG");
+                Settings.getInstance().setScreenshotScale(
+                        convertToOneDecimalPoint(AdvancedSettingsPackage.getInstance().getImageScale()));
                 cbFilterSetMain.getSelectionModel().select(AdvancedSettingsPackage.getInstance().getFilterSet());
                 Settings.getInstance().setPoints(AdvancedSettingsPackage.getInstance().getPoints());
                 stage.close();
@@ -543,6 +549,12 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public double convertToOneDecimalPoint(double value) {
+        int oneD = (int)(value*10);
+
+        return oneD / 10.0;
     }
 
     //endregion
