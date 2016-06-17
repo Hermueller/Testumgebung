@@ -30,6 +30,7 @@ import java.util.List;
  * 07.05.2016: PHI 085  implemented methods to shown how many lines of code for each filter was found in the directory
  * 08.05.2016: PHI 035  fixed bug in stackedAreaChart with the method finishSeries. + fixed addNewestToChart-Method
  * 12.06.2016: PHI 002  added the InetAddress methods.
+ * 16.06.2016: PHI 120  implemented the LoC again. Shows only the last 10 points.
  */
 public class Student {
 
@@ -177,7 +178,7 @@ public class Student {
                         XYChart.Series<Number, Number> actual = list.get(i);
 
                         if (actual.getData().size() > 10) {
-                            push(actual, actual.getData().size(), locs[i]);
+                            pushData(actual, locs[i]);
                         } else {
                             XYChart.Data<Number, Number> data = new XYChart.Data<>(actual.getData().size(), locs[i]);
                             actual.getData().add(data);
@@ -194,19 +195,14 @@ public class Student {
      * removes the first data object and add one new at the end of the series.
      *
      * @param series    the operating series
-     * @param time      the index/time of the data-point
      * @param loc       the amount of lines of code
      */
-    public void push(XYChart.Series<Number, Number> series, long time, long loc) {
-        series.getData().remove(0);
-
-        for (XYChart.Data<Number, Number> data : series.getData()) {
-            data.setXValue((long)data.getXValue() - 1);
-            System.out.println("-- " + data.getYValue());
+    public void pushData(XYChart.Series<Number, Number> series, long loc) {
+        int i;
+        for (i = 0; i < series.getData().size() - 1; i++) {
+            series.getData().get(i).setYValue(series.getData().get(i+1).getYValue());
         }
-        System.out.println("\n\n");
-
-        series.getData().add(new XYChart.Data<>(series.getData().size(), loc));
+        series.getData().get(i).setYValue(loc);
     }
 
     /**

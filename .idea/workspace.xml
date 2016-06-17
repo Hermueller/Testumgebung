@@ -6,14 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="1.15.29.213 - Change the test mode to FALSE">
+    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/LineCounter.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/LineCounter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/LittleHarvester.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/LittleHarvester.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/HarvestedPackage.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/HarvestedPackage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketReaderThread.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketReaderThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/Student.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/Student.java" />
     </list>
     <ignored path="RemoteControl.iws" />
@@ -49,16 +44,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="114" column="33" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Settings.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -78,8 +63,8 @@
       <file leaf-file-name="Student.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/Student.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65335053">
-              <caret line="206" column="35" selection-start-line="206" selection-start-column="35" selection-end-line="206" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.34793815">
+              <caret line="32" column="81" selection-start-line="32" selection-start-column="81" selection-end-line="32" selection-end-column="81" />
               <folding />
             </state>
           </provider>
@@ -109,17 +94,7 @@
         <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="375" column="26" selection-start-line="375" selection-start-column="26" selection-end-line="375" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LineCounter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/LineCounter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="111" column="7" selection-start-line="111" selection-start-column="7" selection-end-line="111" selection-end-column="7" />
+              <caret line="120" column="39" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -1458,13 +1433,7 @@
       <workItem from="1466081661975" duration="15000" />
       <workItem from="1466082129559" duration="1177000" />
       <workItem from="1466084972254" duration="483000" />
-      <workItem from="1466143931778" duration="2177000" />
-    </task>
-    <task id="LOCAL-00009" summary="1.0.8.002&#10;&#10;Kleiner Teacher Test hinzugefügt der die Parameter prüft&#10;&#10;">
-      <created>1447930970701</created>
-      <option name="number" value="00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1447930970701</updated>
+      <workItem from="1466143931778" duration="4721000" />
     </task>
     <task id="LOCAL-00010" summary="1.0.8.004&#10;&#10;Ports hinzugefügt&#10;&#10;">
       <created>1447935610029</created>
@@ -1754,7 +1723,13 @@
       <option name="project" value="LOCAL" />
       <updated>1466085672773</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="1.15.29.214 - fixed BIG Student bug. Implemented the LoC again.">
+      <created>1466146451591</created>
+      <option name="number" value="00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1466146451594</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1790,7 +1765,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="186503000" />
+    <option name="totallyTimeSpent" value="189047000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1873,7 +1848,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.14.00.002 - Bug fixed and ShowPopUp by using FxUtils" />
     <MESSAGE value="1.14.00.004 - #32 Jar with dependencies" />
     <MESSAGE value="1.14.00.005 - Added comments of the previous weeks" />
     <MESSAGE value="1.14.00.006 - Push rejected &#10;&#10;Push has been cancelled, because there were conflicts during update. Check that conflicts were resolved correctly, and invoke push again. View files updated during the push" />
@@ -1898,7 +1872,8 @@
     <MESSAGE value="inserted diagrams of the moduls (Server, Client, Common)" />
     <MESSAGE value="1.15.28.210 - fixed bugs" />
     <MESSAGE value="1.15.29.213 - only specific submission files work (f.e. PFG,JPG)" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.15.29.213 - only specific submission files work (f.e. PFG,JPG)" />
+    <MESSAGE value="1.15.29.214 - fixed BIG Student bug. Implemented the LoC again." />
+    <option name="LAST_COMMIT_MESSAGE" value="1.15.29.214 - fixed BIG Student bug. Implemented the LoC again." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2087,6 +2062,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="84" column="15" selection-start-line="84" selection-start-column="15" selection-end-line="84" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2302,15 +2278,15 @@
     <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="375" column="26" selection-start-line="375" selection-start-column="26" selection-end-line="375" selection-end-column="26" />
+          <caret line="120" column="39" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/Student.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65335053">
-          <caret line="206" column="35" selection-start-line="206" selection-start-column="35" selection-end-line="206" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.34793815">
+          <caret line="32" column="81" selection-start-line="32" selection-start-column="81" selection-end-line="32" selection-end-column="81" />
           <folding />
         </state>
       </provider>
