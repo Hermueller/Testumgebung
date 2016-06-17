@@ -110,8 +110,8 @@ public class LineCounter {
      * @param filter    Specialises the file-extension-names.
      * @return          The Array which includes the number of lines for each file-extension.
      */
-    public Long[] countLinesWithFilter(final File folder, String[] filter) {
-        Long[] lines = new Long[filter.length];
+    public long[] countLinesWithFilter(final File folder, String[] filter) {
+        long[] lines = new long[filter.length];
 
         for (int i = 0; i < filter.length; i++) {
             lines[i] = countLinesInFilesFromFolder(folder, filter[i]);

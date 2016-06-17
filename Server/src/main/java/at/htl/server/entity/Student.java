@@ -168,7 +168,7 @@ public class Student {
      * @param locs          Specifies the number of lines in the code for each filter.
      * @param time          Specifies the quickinfo (in sec.) when to lines where counted.
      */
-    public void addValueToLast(Long[] locs, Long time) {
+    public void addValueToLast(long[] locs, long time) {
         try {
             Platform.runLater(() -> {
                 if (filterSeries.size() > 0) {
@@ -176,14 +176,37 @@ public class Student {
                     for (int i = 0; i < list.size(); i++) {
                         XYChart.Series<Number, Number> actual = list.get(i);
 
-                        XYChart.Data<Number, Number> data = new XYChart.Data<>(time, locs[i]);
-                        actual.getData().add(data);
+                        if (actual.getData().size() > 10) {
+                            push(actual, actual.getData().size(), locs[i]);
+                        } else {
+                            XYChart.Data<Number, Number> data = new XYChart.Data<>(actual.getData().size(), locs[i]);
+                            actual.getData().add(data);
+                        }
                     }
                 }
             });
         } catch (Exception e) {
             at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
         }
+    }
+
+    /**
+     * removes the first data object and add one new at the end of the series.
+     *
+     * @param series    the operating series
+     * @param time      the index/time of the data-point
+     * @param loc       the amount of lines of code
+     */
+    public void push(XYChart.Series<Number, Number> series, long time, long loc) {
+        series.getData().remove(0);
+
+        for (XYChart.Data<Number, Number> data : series.getData()) {
+            data.setXValue((long)data.getXValue() - 1);
+            System.out.println("-- " + data.getYValue());
+        }
+        System.out.println("\n\n");
+
+        series.getData().add(new XYChart.Data<>(series.getData().size(), loc));
     }
 
     /**
@@ -238,11 +261,6 @@ public class Student {
     }
     //endregion
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
     /**
      * To remember the Lines of Code for exactly this client.
      * Saves the Lines of Code.
@@ -250,8 +268,13 @@ public class Student {
      * @param _loc  Specifies the lines of code at an specific quickinfo.
      * @param _time Specifies the quickinfo when the program counted the lines.
      */
-    public void addLoC_Time(Long _loc, Long _time) {
+    public void addLoC_Time(long _loc, long _time) {
         locs.add(_loc);
         times.add(_time);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -58,9 +58,9 @@ public class LittleHarvester implements RobotAction {
         }
         previous.set(bytes);
 
-        //Long[] loc = LineCounter.getInstance().countLinesWithFilter(new File(studentPath), filter);
+        long[] loc = LineCounter.getInstance().countLinesWithFilter(new File(studentPath), filter);
 
-        return new HarvestedPackage(bytes, LineCounter.getInstance().isFinished());
+        return new HarvestedPackage(bytes, LineCounter.getInstance().isFinished(), loc);
     }
 
     @Override

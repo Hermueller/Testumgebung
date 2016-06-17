@@ -14,10 +14,16 @@ public class HarvestedPackage implements Serializable {
 
     private byte[] image;
     private boolean finished = false;
+    private long[] lines;
 
-    public HarvestedPackage(byte[] image, boolean finished) {
+    public HarvestedPackage(byte[] image, boolean finished, long[] lines) {
         this.image = image;
         this.finished = finished;
+        this.lines = lines;
+    }
+
+    public long[] getLines() {
+        return lines;
     }
 
     public byte[] getImage() {

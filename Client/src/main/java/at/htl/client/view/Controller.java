@@ -187,7 +187,7 @@ public class Controller implements Initializable {
                     setMsg("Signed in!", false);
 
                     setTimeLeft(toTime);
-                    //showQuickInfo();
+                    showQuickInfo();
                     setControls(false);
                 } catch (Exception e) {
                     FileUtils.log(this, Level.ERROR, e.getMessage());
@@ -373,7 +373,7 @@ public class Controller implements Initializable {
     public void logout() {
         countdown.interrupt();
         countdown.reset();
-        quickInfo.hide();
+        quickInfo.close();
         setControls(true);
         setMsg("Test successfully submitted", false);
         client.stop();

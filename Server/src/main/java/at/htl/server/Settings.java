@@ -560,7 +560,7 @@ public class Settings {
      * @param locs    Specialises the number of lines in the code.
      * @param student Specialises the client who owes the file of code.
      */
-    public void addValue(Long[] locs, Student student) {
+    public void addValue(long[] locs, Student student) {
 
         if (locs.length < 1) {
             return;

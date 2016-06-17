@@ -51,7 +51,7 @@ class SocketReaderThread extends Thread {
                 server.saveImage(img, student);
 
                 //save and show Lines of Code
-                //Settings.getInstance().addValue(harvestedPackage.getLoc(), student);
+                Settings.getInstance().addValue(harvestedPackage.getLines(), student);
 
                 finished = harvestedPackage.isFinished();
                 if (finished) {
@@ -66,7 +66,7 @@ class SocketReaderThread extends Thread {
                 } else {
                     Settings.getInstance().finishStudent(student);
                 }
-                //student.finishSeries();
+                student.finishSeries();
                 server.shutdown();
                 return;
             }
