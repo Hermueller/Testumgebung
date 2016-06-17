@@ -16,9 +16,9 @@
    <children>
       <ScrollPane prefHeight="600.0" prefWidth="732.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="592.0" prefWidth="721.0">
                <children>
-                   <VBox fx:id="vbAdvanced" prefHeight="204.0" prefWidth="732.0" spacing="20.0">
+                   <VBox fx:id="vbAdvanced" prefHeight="588.0" prefWidth="732.0" spacing="20.0">
                        <children>
                            <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                <children>
@@ -60,7 +60,7 @@
                                    </ImageView>
                                </children>
                            </HBox>
-                           <HBox prefHeight="37.0" prefWidth="732.0" spacing="20.0">
+                           <HBox prefHeight="26.0" prefWidth="732.0" spacing="20.0">
                                <children>
                                    <Label prefHeight="26.0" prefWidth="414.0" text="Studentlist:">
                                        <font>
@@ -69,9 +69,6 @@
                                    </Label>
                                    <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#importPupilList" prefHeight="26.0" prefWidth="232.0" text="Import" />
                                </children>
-                               <padding>
-                                   <Insets bottom="40.0" />
-                               </padding>
                            </HBox>
                            <HBox prefHeight="44.0" prefWidth="731.0" spacing="20.0">
                                <children>
@@ -106,9 +103,9 @@
                                    <ToggleButton fx:id="tbImageFormat" mnemonicParsing="false" onAction="#changeImageFormat" prefHeight="26.0" prefWidth="123.0" text="JPG" />
                                </children>
                            </HBox>
-                           <HBox prefHeight="44.0" prefWidth="731.0" spacing="20.0">
+                           <HBox prefHeight="26.0" prefWidth="731.0" spacing="20.0">
                                <children>
-                                   <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="455.0" text="Import Image Settings">
+                                   <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="455.0" text="Import Image Settings:">
                                        <font>
                                            <Font size="18.0" />
                                        </font>
@@ -117,7 +114,28 @@
                                    <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="124.0" text="Import" />
                                </children>
                            </HBox>
-                           <Button onAction="#saveSettings">SAVE</Button>
+                        <HBox layoutX="20.0" layoutY="354.0" prefHeight="36.0" prefWidth="731.0" spacing="10.0">
+                           <children>
+                              <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="455.0" text="Amount of points shown in chart:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <AnchorPane />
+                              <Button mnemonicParsing="false" onAction="#subtractPoint" prefHeight="26.0" prefWidth="29.0" text="-">
+                                 <HBox.margin>
+                                    <Insets left="3.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <TextField fx:id="tfPoints" alignment="CENTER" onAction="#savePoints" prefHeight="26.0" prefWidth="78.0" text="10" />
+                              <Button layoutX="505.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPoint" prefHeight="26.0" prefWidth="29.0" text="+" />
+                           </children>
+                        </HBox>
+                           <Button onAction="#saveSettings" prefHeight="26.0" prefWidth="107.0" text="SAVE">
+                           <VBox.margin>
+                              <Insets left="300.0" top="50.0" />
+                           </VBox.margin>
+                        </Button>
                        </children>
                        <padding>
                            <Insets left="10.0" top="10.0" />

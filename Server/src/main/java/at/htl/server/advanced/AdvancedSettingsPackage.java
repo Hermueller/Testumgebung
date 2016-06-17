@@ -3,6 +3,7 @@ package at.htl.server.advanced;
 /**
  * @timeline AdvancedSettingsPackage
  * 17.06.2016: PHI 035  created class
+ * 17.06.2016: PHI 005  implemented the points
  */
 public class AdvancedSettingsPackage {
 
@@ -11,7 +12,8 @@ public class AdvancedSettingsPackage {
     private boolean random = false;
     private boolean jpgFormat = true;
     private double imageScale = 0.2;
-    private String filterSet;
+    private String filterSet = "ALL";
+    private int points = 5;
 
     private AdvancedSettingsPackage() {
 
@@ -22,6 +24,14 @@ public class AdvancedSettingsPackage {
             instance = new AdvancedSettingsPackage();
         }
         return instance;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public boolean isRandom() {

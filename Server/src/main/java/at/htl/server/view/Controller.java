@@ -13,6 +13,7 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
+import com.aquafx_project.AquaFx;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
@@ -121,6 +122,7 @@ import java.util.stream.Collectors;
  * 11.06.2016: PHI 030  implemented student count AND recovered lost code from the last merge.
  * 16.06.2016: PHI 040  fixed some bugs (in the last commit) and implemented pdf,jpg submission
  * 16.06.2016: PHI 035  opens extra window for the advanced settings
+ * 17.06.2016: PHI 035  changed the style of the advanced settings chart
  */
 public class Controller implements Initializable {
 
@@ -524,6 +526,7 @@ public class Controller implements Initializable {
             stage.setTitle("Advanced Settings");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setScene(scene);
+            AquaFx.styleStage(stage, StageStyle.UNDECORATED);
 
             stage.show();
 
@@ -534,6 +537,7 @@ public class Controller implements Initializable {
                 tbImageFormat.setSelected(AdvancedSettingsPackage.getInstance().isJpgFormat());
                 changeImageFormat();
                 cbFilterSetMain.getSelectionModel().select(AdvancedSettingsPackage.getInstance().getFilterSet());
+                Settings.getInstance().setPoints(AdvancedSettingsPackage.getInstance().getPoints());
                 stage.close();
             });
         } catch (IOException e) {

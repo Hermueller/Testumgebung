@@ -4,6 +4,7 @@ import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
 import at.htl.server.Settings;
+import com.sun.tools.classfile.Opcode;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -33,6 +34,7 @@ import java.util.List;
  * 12.06.2016: PHI 002  added the InetAddress methods.
  * 16.06.2016: PHI 120  implemented the LoC again. Shows only the last 10 points.
  * 17.06.2016: PHI 055  fixed the Chart.
+ * 17.06.2016: PHI 005  connected the points in the chart with the user-settings
  */
 public class Student {
 
@@ -186,7 +188,7 @@ public class Student {
                     for (int i = 0; i < list.size(); i++) {
                         XYChart.Series<Number, Number> actual = list.get(i);
 
-                        if (actual.getData().size() > 10) {
+                        if (actual.getData().size() > Settings.getInstance().getPoints()) {
                             pushData(actual, locs[i]);
                         } else {
                             XYChart.Data<Number, Number> data = new XYChart.Data<>(actual.getData().size(), locs[i]);

@@ -3,12 +3,12 @@ package at.htl.server.advanced;
 import at.htl.common.io.ScreenShot;
 import at.htl.server.Settings;
 import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 /**
  * @timeline advancedSettingsController
  * 17.06.2016: PHI 065  created class
+ * 17.06.2016: PHI 035  connected the user-settings with the amount of points in the chart
  */
 public class Controller implements Initializable {
 
@@ -32,14 +33,23 @@ public class Controller implements Initializable {
     private Label lbTimeScale;
     @FXML
     private ComboBox cbFilterSetMain;
+    @FXML
+    private TextField tfPoints;
 
     private List<String[]> filterSets = new LinkedList<>();
+    private int points = 10;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeSlides(slImageScale, pbImageScale, lbTimeScale, 1, true);
         initializeNewFilters();
         slImageScale.setValue(0.2);
+
+        tfPoints.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                tfPoints.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     @FXML
@@ -149,21 +159,6 @@ public class Controller implements Initializable {
         cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
     }
 
-    /**
-     * creates a listItem for the List of file-extension-filters.
-     * <br>
-     * The List-Item is a checkbox with the name of the file-extension.
-     *
-     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
-     *
-     * param filter    file extension name
-     */
-    /*public void createFilterItem(String filter) {
-        CheckBox item = new CheckBox(filter);
-        item.setSelected(true);
-        lvFileFilters.getItems().add(item);
-    }*/
-
     @FXML
     public void saveSettings() {
         AdvancedSettingsPackage.getInstance().setRandom(TB_SS_rnd.isSelected());
@@ -171,6 +166,34 @@ public class Controller implements Initializable {
         AdvancedSettingsPackage.getInstance().setFilterSet(
                 (String)cbFilterSetMain.getSelectionModel().getSelectedItem());
         AdvancedSettingsPackage.getInstance().setJpgFormat(tbImageFormat.isSelected());
-        ((Stage)TB_SS_rnd.getScene().getWindow()).close();
+        AdvancedSettingsPackage.getInstance().setPoints(points);
+        Stage stage = (Stage)TB_SS_rnd.getScene().getWindow();
+
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+    }
+
+    @FXML
+    public void addPoint() {
+        points++;
+        tfPoints.setText(Integer.toString(points));
+    }
+
+    @FXML
+    public void subtractPoint() {
+        if (points - 1 > 4) {
+            points--;
+        }
+        tfPoints.setText(Integer.toString(points));
+    }
+
+    @FXML
+    public void savePoints() {
+        int points = Integer.parseInt(tfPoints.getText());
+        if (points > 4) {
+            this.points = points;
+        } else {
+            tfPoints.setText("5");
+            this.points = 5;
+        }
     }
 }
