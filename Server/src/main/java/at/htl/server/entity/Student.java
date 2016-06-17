@@ -1,9 +1,8 @@
 package at.htl.server.entity;
 
-import at.htl.common.actions.TimeShower;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
-import com.sun.scenario.Settings;
+import at.htl.server.Settings;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import org.apache.logging.log4j.Level;
@@ -31,6 +30,7 @@ import java.util.List;
  * 08.05.2016: PHI 035  fixed bug in stackedAreaChart with the method finishSeries. + fixed addNewestToChart-Method
  * 12.06.2016: PHI 002  added the InetAddress methods.
  * 16.06.2016: PHI 120  implemented the LoC again. Shows only the last 10 points.
+ * 17.06.2016: PHI 055  fixed the Chart.
  */
 public class Student {
 
@@ -149,6 +149,14 @@ public class Student {
      */
     public void addSeries() {
 
+        Platform.runLater(() -> {
+            if (Settings.getInstance().getListView().getSelectionModel().getSelectedItem().getId()
+                    .equals(studentAddress.toString())) {
+                Settings.getInstance().getChart().getData().clear();
+            }
+        });
+        filterSeries.clear();
+
         List<XYChart.Series<Number, Number>> list = new LinkedList<>();
         for (String aFilter : getFilter()) {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
@@ -167,9 +175,8 @@ public class Student {
      * Adds the LinesOfCodes from each filter to its series.
      *
      * @param locs          Specifies the number of lines in the code for each filter.
-     * @param time          Specifies the quickinfo (in sec.) when to lines where counted.
      */
-    public void addValueToLast(long[] locs, long time) {
+    public void addValueToLast(long[] locs) {
         try {
             Platform.runLater(() -> {
                 if (filterSeries.size() > 0) {
@@ -187,7 +194,7 @@ public class Student {
                 }
             });
         } catch (Exception e) {
-            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
+            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
         }
     }
 
@@ -225,7 +232,7 @@ public class Student {
                 }
             });
         } catch (Exception e) {
-            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
+            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
         }
     }
 
@@ -248,7 +255,7 @@ public class Student {
                 }
             });
         } catch (Exception e) {
-            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
+            at.htl.server.Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
         }
     }
 

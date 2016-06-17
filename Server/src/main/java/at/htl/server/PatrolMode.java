@@ -48,7 +48,7 @@ public class PatrolMode extends Thread {
                 }
             } catch (Exception e) {
                 FileUtils.log(Level.WARN, e.getMessage());
-                Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS");
+                Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
             }
 
         }

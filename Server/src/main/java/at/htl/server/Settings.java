@@ -64,6 +64,7 @@ import java.util.*;
  * 11.06.2016: PHI 045  recovered lost code from the last merge AND implemented student count
  * 12.06.2016: PHI 020  improved student login method.
  * 14.04.2016: PHI 030  sorted list of the students + fixed bugs in the findStudentByAddress-Method
+ * 17.04.2016: PHI 030  fixed sort-bug and implemented the ListView
  */
 public class Settings {
 
@@ -96,6 +97,7 @@ public class Settings {
     private ScreenShot screenShot = new ScreenShot();
     private Label lbCount;
     private int studentCount = 0;
+    private ListView<Button> listView;
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -139,6 +141,14 @@ public class Settings {
     }
 
     //endregion
+
+    public ListView<Button> getListView() {
+        return listView;
+    }
+
+    public void setListView(ListView<Button> listView) {
+        this.listView = listView;
+    }
 
     public void setLbCount(Label lbCount) {
         this.lbCount = lbCount;
@@ -425,7 +435,9 @@ public class Settings {
                     break;
                 }
             }
-            sortList();
+            if (students.size() > 1) {
+                sortList();
+            }
             changeStudentCount(true);
         });
     }
@@ -566,10 +578,10 @@ public class Settings {
             return;
         }
 
-        long time = calculateTime();
+        //long time = calculateTime();
 
         //saves values to the client
-        student.addValueToLast(locs, time);
+        student.addValueToLast(locs);
     }
 
     /**
@@ -607,7 +619,7 @@ public class Settings {
      * @param e     the error
      */
     public void printMessage(Thread t, Throwable e) {
-        printError(Level.ERROR, e.getStackTrace(), "ERRORS");
+        printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
     }
 
     /**
@@ -617,14 +629,16 @@ public class Settings {
      * @param stackList     Specifies all the messages of the error.
      * @param filter        Specifies the file extension name.
      */
-    public void printError(Level level, StackTraceElement[] stackList, String filter) {
+    public void printError(Level level, StackTraceElement[] stackList, String filter, String message) {
         AnchorPane log = getLogArea();
         if (log != null) {
             boolean separator = true;
             for (StackTraceElement ste : stackList) {
-                printErrorLine(level, ste.toString(), separator, filter);
                 if (separator) {
+                    printErrorLine(level, message, true, filter);
                     separator = false;
+                } else {
+                    printErrorLine(level, ste.toString(), false, filter);
                 }
             }
         }

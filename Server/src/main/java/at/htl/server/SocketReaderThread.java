@@ -66,7 +66,7 @@ class SocketReaderThread extends Thread {
                 } else {
                     Settings.getInstance().finishStudent(student);
                 }
-                student.finishSeries();
+                //student.finishSeries();
                 server.shutdown();
                 return;
             }
@@ -81,7 +81,7 @@ class SocketReaderThread extends Thread {
             in.close();
         } catch (IOException e) {
             FileUtils.log(this, Level.WARN, "Error by closing of ObjectInputStream!" + MyUtils.exToStr(e));
-            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS");
+            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
         }
     }
 }

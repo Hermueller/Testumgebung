@@ -280,6 +280,7 @@ public class Controller implements Initializable {
         styleStage();
 
         lvStudents.setItems(Settings.getInstance().getObservableList());
+        Settings.getInstance().setListView(lvStudents);
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
         Settings.getInstance().setLogArea(anchorPaneScrollLog);
@@ -1074,7 +1075,7 @@ public class Controller implements Initializable {
             toKick.getServer().socket.close();
         } catch (IOException e) {
             FileUtils.log(Level.WARN, e.getLocalizedMessage());
-            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS");
+            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
         }
     }
 
@@ -1173,7 +1174,7 @@ public class Controller implements Initializable {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage() + " ;; " + e.getLocalizedMessage());
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
         }
         loc.setLegendVisible(false);
 
@@ -1435,7 +1436,7 @@ public class Controller implements Initializable {
             }
         } catch (NullPointerException e) {
             FileUtils.log(Level.WARN, e.getLocalizedMessage());
-            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS");
+            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
         }
 
         Settings.getInstance().setPath(desktop.getPath());
@@ -1484,7 +1485,7 @@ public class Controller implements Initializable {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS");
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
         }
         lbAddress.setText(ip + " : 50555");
     }
