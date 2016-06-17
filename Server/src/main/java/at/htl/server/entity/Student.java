@@ -1,10 +1,12 @@
 package at.htl.server.entity;
 
+import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
 import at.htl.server.Settings;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import org.apache.logging.log4j.Level;
 
 import java.net.InetAddress;
@@ -150,7 +152,7 @@ public class Student {
     public void addSeries() {
 
         Platform.runLater(() -> {
-            if (Settings.getInstance().getListView().getSelectionModel().getSelectedItem().getId()
+            if (((Button)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem()).getId()
                     .equals(studentAddress.toString())) {
                 Settings.getInstance().getChart().getData().clear();
             }

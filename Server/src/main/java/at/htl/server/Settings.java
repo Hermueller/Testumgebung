@@ -97,7 +97,6 @@ public class Settings {
     private ScreenShot screenShot = new ScreenShot();
     private Label lbCount;
     private int studentCount = 0;
-    private ListView<Button> listView;
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -141,14 +140,6 @@ public class Settings {
     }
 
     //endregion
-
-    public ListView<Button> getListView() {
-        return listView;
-    }
-
-    public void setListView(ListView<Button> listView) {
-        this.listView = listView;
-    }
 
     public void setLbCount(Label lbCount) {
         this.lbCount = lbCount;

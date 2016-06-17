@@ -2,6 +2,7 @@ package at.htl.server.view;
 
 import at.htl.common.MyUtils;
 import at.htl.common.io.ScreenShot;
+import at.htl.server.advanced.AdvancedSettingsPackage;
 import at.htl.server.entity.Student;
 import at.htl.common.TimeSpinner;
 import at.htl.common.fx.FxUtils;
@@ -12,16 +13,16 @@ import at.htl.server.Settings;
 import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
+import javafx.scene.*;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -119,6 +120,7 @@ import java.util.stream.Collectors;
  * 02.06.2016: PHI 030  implemented the advanced settings for the image (only in GUI).
  * 11.06.2016: PHI 030  implemented student count AND recovered lost code from the last merge.
  * 16.06.2016: PHI 040  fixed some bugs (in the last commit) and implemented pdf,jpg submission
+ * 16.06.2016: PHI 035  opens extra window for the advanced settings
  */
 public class Controller implements Initializable {
 
@@ -128,7 +130,7 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane apOption;
     @FXML
-    private ToggleButton tbMode;
+    private Button tbMode;
     @FXML
     private TextField tfPort;
     @FXML
@@ -280,7 +282,6 @@ public class Controller implements Initializable {
         styleStage();
 
         lvStudents.setItems(Settings.getInstance().getObservableList());
-        Settings.getInstance().setListView(lvStudents);
         StudentView.getInstance().setIv(ivLiveView);
         StudentView.getInstance().setLv(lvStudents);
         Settings.getInstance().setLogArea(anchorPaneScrollLog);
@@ -508,11 +509,35 @@ public class Controller implements Initializable {
      */
     @FXML
     public void changeMode() {
-        tpAdvancedSettings.setVisible(!tpAdvancedSettings.isVisible());
-        if (tbMode.isSelected()) {
-            tbMode.setText("Simple Mode");
-        } else {
-            tbMode.setText("Advanced Mode");
+        Parent root;
+        try {
+            final Stage stage = new Stage();
+
+            root = FXMLLoader.load(getClass().getResource("/fxml/AdvancedSettings.fxml"));
+
+            final Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/TeacherStyle.css");
+            stage.getIcons().add(new Image(
+                    "images/spying_eye.png"
+            ));
+
+            stage.setTitle("Advanced Settings");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setScene(scene);
+
+            stage.show();
+
+            stage.setOnCloseRequest(event -> {
+                TB_SS_rnd.setSelected(AdvancedSettingsPackage.getInstance().isRandom());
+                changeSomeOptions();
+                slImageScale.setValue(AdvancedSettingsPackage.getInstance().getImageScale());
+                tbImageFormat.setSelected(AdvancedSettingsPackage.getInstance().isJpgFormat());
+                changeImageFormat();
+                cbFilterSetMain.getSelectionModel().select(AdvancedSettingsPackage.getInstance().getFilterSet());
+                stage.close();
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -952,7 +977,6 @@ public class Controller implements Initializable {
      *
      * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
-
     public void initializeNewFilters() {
         Callback<ListView<String>, ListCell<String>> callback =
                 new Callback<ListView<String>, ListCell<String>>() {
@@ -1445,10 +1469,9 @@ public class Controller implements Initializable {
     /**
      * disables the textfield of the quickinfo-interval if the button 'random' is clicked and
      * enables it if the 'random'-Button is OFF
-     *
-     * @param actionEvent Information from the click on the button
      */
-    public void changeSomeOptions(ActionEvent actionEvent) {
+    @FXML
+    public void changeSomeOptions() {
         if (TB_SS_rnd.isSelected()) {
             slHarvester.setDisable(true);
             TB_SS_rnd.setText("ON");
