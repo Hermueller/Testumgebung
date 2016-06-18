@@ -308,7 +308,8 @@ public class Student {
             pw.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            FileUtils.log(Level.ERROR, e.getMessage());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
         }
     }
 
@@ -340,7 +341,8 @@ public class Student {
             parentDir.mkdirs();
             f.createNewFile();
         }catch(Exception e){
-            e.printStackTrace();
+            FileUtils.log(Level.ERROR, e.getMessage());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
         }
     }
 

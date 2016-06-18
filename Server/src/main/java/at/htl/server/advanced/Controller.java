@@ -1,16 +1,22 @@
 package at.htl.server.advanced;
 
+import at.htl.common.io.FileUtils;
+import at.htl.server.Settings;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.apache.logging.log4j.Level;
 
+import java.io.*;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -19,6 +25,7 @@ import java.util.ResourceBundle;
  * 17.06.2016: PHI 035  connected the user-settings with the amount of points in the chart
  * 17.06.2016: PHI 075  scale can be changed by the user
  * 18.06.2016: PHI 010  data-points-file is optional for the user.
+ * 18.06.2016: PHI 045  properties-file can be imported and applied.
  */
 public class Controller implements Initializable {
 
@@ -186,6 +193,49 @@ public class Controller implements Initializable {
         } else {
             tfPoints.setText("5");
             this.points = 5;
+        }
+    }
+
+    /**
+     * imports a properties file as the new settings.
+     */
+    @FXML
+    public void importSettings() {
+        FileChooser dc = new FileChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        dc.setTitle("Choose you properties-file");
+        File choosedFile = dc.showOpenDialog(new Stage());
+        if (choosedFile != null) {
+            extractInformation(choosedFile);
+        }
+    }
+
+    /**
+     * applies the settings from the file to the program.
+     *
+     * @param file  the file to extract the info from.
+     */
+    private void extractInformation(File file) {
+        try {
+            Properties prop = new Properties();
+            FileInputStream stream = new FileInputStream(file);
+            prop.load(stream);
+
+            if (prop.getProperty("format").toUpperCase().equals("JPG")) {
+                tbImageFormat.setSelected(false);
+            }
+            if (prop.getProperty("createFile").toUpperCase().equals("TRUE")) {
+                tbDataPoints.setSelected(true);
+            }
+            tfPoints.setText(prop.getProperty("dataPoints"));
+            points = Integer.parseInt(prop.getProperty("dataPoints"));
+            slImageScale.setValue(Double.parseDouble(prop.getProperty("scale"))*100);
+            slImageQuality.setValue(Double.parseDouble(prop.getProperty("quality"))*100);
+            cbFilterSetMain.setValue(prop.getProperty("filter"));
+
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
         }
     }
 }

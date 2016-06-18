@@ -128,13 +128,13 @@
                            </HBox>
                            <HBox prefHeight="26.0" prefWidth="731.0" spacing="20.0">
                                <children>
-                                   <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="455.0" text="Import Image Settings:">
+                                   <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="455.0" text="Import Settings:">
                                        <font>
                                            <Font size="18.0" />
                                        </font>
                                    </Label>
                                    <AnchorPane />
-                                   <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="124.0" text="Import" />
+                                   <Button mnemonicParsing="false" onAction="#importSettings" prefHeight="26.0" prefWidth="124.0" text="Import" />
                                </children>
                            </HBox>
                         <HBox layoutX="20.0" layoutY="354.0" prefHeight="36.0" prefWidth="731.0" spacing="10.0">
@@ -166,7 +166,7 @@
                         </HBox>
                            <Button onAction="#saveSettings" prefHeight="26.0" prefWidth="107.0" text="SAVE">
                            <VBox.margin>
-                              <Insets left="300.0" top="50.0" />
+                              <Insets left="300.0" />
                            </VBox.margin>
                         </Button>
                        </children>
