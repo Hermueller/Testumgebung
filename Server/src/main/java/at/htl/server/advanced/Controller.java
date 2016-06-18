@@ -1,5 +1,6 @@
 package at.htl.server.advanced;
 
+import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Settings;
 import javafx.beans.value.ChangeListener;
@@ -26,6 +27,7 @@ import java.util.ResourceBundle;
  * 17.06.2016: PHI 075  scale can be changed by the user
  * 18.06.2016: PHI 010  data-points-file is optional for the user.
  * 18.06.2016: PHI 045  properties-file can be imported and applied.
+ * 18.06.2016: PHI 020  properties-file can be created from the GUI.
  */
 public class Controller implements Initializable {
 
@@ -216,9 +218,11 @@ public class Controller implements Initializable {
      * @param file  the file to extract the info from.
      */
     private void extractInformation(File file) {
+        Properties prop = new Properties();
+        InputStream stream = null;
+
         try {
-            Properties prop = new Properties();
-            FileInputStream stream = new FileInputStream(file);
+            stream = new FileInputStream(file);
             prop.load(stream);
 
             if (prop.getProperty("format").toUpperCase().equals("JPG")) {
@@ -236,6 +240,67 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
             Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    FileUtils.log(Level.ERROR, e.getMessage());
+                    Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
+                }
+            }
         }
+    }
+
+    /**
+     * extracts all the settings from the GUI into a properties file.
+     * That file will be saved in the exports-directory.
+     */
+    @FXML
+    public void exportSettings() {
+        Properties prop = new Properties();
+        OutputStream output = null;
+
+        try {
+
+            if (Settings.getInstance().getPathOfExports() != null) {
+                output = new FileOutputStream(Settings.getInstance().getPathOfExports() + "/settings.properties");
+
+                // set the properties value
+                prop.setProperty("format", tbImageFormat.getText());
+                prop.setProperty("quality", Double.toString(convertToOneDecimalPoint(slImageQuality.getValue() / 100)));
+                prop.setProperty("scale", Double.toString(convertToOneDecimalPoint(slImageScale.getValue() / 100)));
+                prop.setProperty("dataPoints", tfPoints.getText());
+                prop.setProperty("createFile", Boolean.toString(tbDataPoints.isSelected()));
+                prop.setProperty("filter", (String) cbFilterSetMain.getValue());
+
+                // save properties to project root folder
+                prop.store(output, null);
+
+                FxUtils.showPopUp("Properties-file created!", true);
+            } else {
+                FxUtils.showPopUp("No directory selected!", false);
+            }
+
+        } catch (IOException e) {
+            FileUtils.log(Level.ERROR, e.getMessage());
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    FileUtils.log(Level.ERROR, e.getMessage());
+                    Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
+                }
+            }
+
+        }
+    }
+
+    public double convertToOneDecimalPoint(double value) {
+        int oneD = (int)(value*10);
+
+        return oneD / 10.0;
     }
 }

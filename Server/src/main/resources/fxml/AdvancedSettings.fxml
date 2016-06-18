@@ -164,11 +164,19 @@
                               <ToggleButton fx:id="tbDataPoints" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="234.0" selected="true" text="ON" />
                            </children>
                         </HBox>
-                           <Button onAction="#saveSettings" prefHeight="26.0" prefWidth="107.0" text="SAVE">
+                        <HBox spacing="140.0">
+                           <children>
+                              <Button layoutX="320.0" layoutY="526.0" onAction="#exportSettings" prefHeight="26.0" prefWidth="173.0" text="EXPORT SETTINGS" />
+                                 <Button onAction="#saveSettings" prefHeight="26.0" prefWidth="107.0" text="SAVE">
+                                 <VBox.margin>
+                                    <Insets left="300.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
                            <VBox.margin>
-                              <Insets left="300.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
-                        </Button>
+                        </HBox>
                        </children>
                        <padding>
                            <Insets left="10.0" top="10.0" />
