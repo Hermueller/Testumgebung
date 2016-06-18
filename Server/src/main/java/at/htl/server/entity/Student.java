@@ -4,6 +4,7 @@ import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
 import at.htl.server.Settings;
+import at.htl.server.advanced.AdvancedSettingsPackage;
 import com.sun.tools.classfile.Opcode;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
@@ -37,6 +38,7 @@ import java.util.List;
  * 17.06.2016: PHI 055  fixed the Chart.
  * 17.06.2016: PHI 005  connected the points in the chart with the user-settings
  * 18.06.2016: PHI 135  every data-point is written in a csv-file.
+ * 18.06.2016: PHI 015  data-points-file is now optional for the user.
  */
 public class Student {
 
@@ -194,19 +196,21 @@ public class Student {
                     for (int i = 0; i < list.size(); i++) {
                         XYChart.Series<Number, Number> actual = list.get(i);
 
-                        if (actual.getData().size() > Settings.getInstance().getPoints()) {
+                        if (actual.getData().size() > AdvancedSettingsPackage.getInstance().getPoints()) {
                             pushData(actual, locs[i]);
                         } else {
                             XYChart.Data<Number, Number> data = new XYChart.Data<>(actual.getData().size(), locs[i]);
                             actual.getData().add(data);
                         }
                     }
-                    String[] stringLocs = new String[locs.length];
+                    if (AdvancedSettingsPackage.getInstance().isSaveDataPoints()) {
+                        String[] stringLocs = new String[locs.length];
 
-                    for(int ii = 0; ii < locs.length; ii++){
-                        stringLocs[ii] = String.valueOf(locs[ii]);
+                        for (int ii = 0; ii < locs.length; ii++) {
+                            stringLocs[ii] = String.valueOf(locs[ii]);
+                        }
+                        writeToFile(stringLocs, false);
                     }
-                    writeToFile(stringLocs, false);
                 }
             });
         } catch (Exception e) {
@@ -303,14 +307,16 @@ public class Student {
     }
 
     public void createLocFile() {
-        locFile = new File(
-                Settings.getInstance().getPathOfHandInFiles() + "/" + catalogNumber + "-" + name + ".csv");
+        if (AdvancedSettingsPackage.getInstance().isSaveDataPoints()) {
+            locFile = new File(
+                    Settings.getInstance().getPathOfHandInFiles() + "/" + catalogNumber + "-" + name + ".csv");
 
-        if (locFile.exists()) {
-            locFile.delete();
+            if (locFile.exists()) {
+                locFile.delete();
+            }
+            createFile(locFile);
+            writeToFile(filter, false);
         }
-        createFile(locFile);
-        writeToFile(filter, false);
     }
 
     void createFile(File f){

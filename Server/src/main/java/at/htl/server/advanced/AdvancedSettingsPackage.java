@@ -5,6 +5,7 @@ package at.htl.server.advanced;
  * 17.06.2016: PHI 035  created class
  * 17.06.2016: PHI 005  implemented the points
  * 17.06.2016: PHI 005  scale can be changed by the user
+ * 18.06.2016: PHI 002  added the saveDataPoint.
  */
 public class AdvancedSettingsPackage {
 
@@ -16,6 +17,7 @@ public class AdvancedSettingsPackage {
     private double imageQuality = 0.2;
     private String filterSet = "ALL";
     private int points = 5;
+    private boolean saveDataPoints = true;
 
     private AdvancedSettingsPackage() {
 
@@ -74,5 +76,13 @@ public class AdvancedSettingsPackage {
 
     public void setFilterSet(String filterSet) {
         this.filterSet = filterSet;
+    }
+
+    public boolean isSaveDataPoints() {
+        return saveDataPoints;
+    }
+
+    public void setSaveDataPoints(boolean saveDataPoints) {
+        this.saveDataPoints = saveDataPoints;
     }
 }

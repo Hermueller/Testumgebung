@@ -98,7 +98,6 @@ public class Settings {
     private ScreenShot screenShot = new ScreenShot();
     private Label lbCount;
     private int studentCount = 0;
-    private int points = 5;
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -142,14 +141,6 @@ public class Settings {
     }
 
     //endregion
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
 
     public void setLbCount(Label lbCount) {
         this.lbCount = lbCount;

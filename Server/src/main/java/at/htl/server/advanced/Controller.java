@@ -2,6 +2,7 @@ package at.htl.server.advanced;
 
 import at.htl.server.Settings;
 import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,11 +21,12 @@ import java.util.ResourceBundle;
  * 17.06.2016: PHI 065  created class
  * 17.06.2016: PHI 035  connected the user-settings with the amount of points in the chart
  * 17.06.2016: PHI 075  scale can be changed by the user
+ * 18.06.2016: PHI 010  data-points-file is optional for the user.
  */
 public class Controller implements Initializable {
 
     @FXML
-    private ToggleButton TB_SS_rnd, tbImageFormat;
+    private ToggleButton TB_SS_rnd, tbImageFormat, tbDataPoints;
     @FXML
     private ProgressBar pbImageScale, pbImageQuality;
     @FXML
@@ -54,12 +56,12 @@ public class Controller implements Initializable {
         });
     }
 
-    @FXML
-    public void changeSomeOptions() {
-        if (TB_SS_rnd.isSelected()) {
-            TB_SS_rnd.setText("ON");
+    public void changeSomeOptions(ActionEvent event) {
+        ToggleButton source = (ToggleButton) event.getSource();
+        if (source.isSelected()) {
+            source.setText("ON");
         } else {
-            TB_SS_rnd.setText("OFF");
+            source.setText("OFF");
         }
     }
 
@@ -162,8 +164,9 @@ public class Controller implements Initializable {
                 (String)cbFilterSetMain.getSelectionModel().getSelectedItem());
         AdvancedSettingsPackage.getInstance().setJpgFormat(!tbImageFormat.isSelected());
         AdvancedSettingsPackage.getInstance().setPoints(points);
-        Stage stage = (Stage)TB_SS_rnd.getScene().getWindow();
+        AdvancedSettingsPackage.getInstance().setSaveDataPoints(tbDataPoints.isSelected());
 
+        Stage stage = (Stage)TB_SS_rnd.getScene().getWindow();
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 

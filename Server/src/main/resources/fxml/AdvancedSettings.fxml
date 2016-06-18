@@ -16,7 +16,7 @@
    <children>
       <ScrollPane prefHeight="600.0" prefWidth="732.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="592.0" prefWidth="721.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="597.0" prefWidth="721.0">
                <children>
                    <VBox fx:id="vbAdvanced" prefHeight="588.0" prefWidth="732.0" spacing="20.0">
                        <children>
@@ -152,6 +152,16 @@
                               </Button>
                               <TextField fx:id="tfPoints" alignment="CENTER" onAction="#savePoints" prefHeight="26.0" prefWidth="78.0" text="10" />
                               <Button layoutX="505.0" layoutY="10.0" mnemonicParsing="false" onAction="#addPoint" prefHeight="26.0" prefWidth="29.0" text="+" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="332.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                           <children>
+                              <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Save data-points in csv-file:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <ToggleButton fx:id="tbDataPoints" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="234.0" selected="true" text="ON" />
                            </children>
                         </HBox>
                            <Button onAction="#saveSettings" prefHeight="26.0" prefWidth="107.0" text="SAVE">

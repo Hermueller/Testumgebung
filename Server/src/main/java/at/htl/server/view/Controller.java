@@ -543,7 +543,7 @@ public class Controller implements Initializable {
                 Settings.getInstance().setScreenshotScale(
                         convertToOneDecimalPoint(AdvancedSettingsPackage.getInstance().getImageScale()));
                 cbFilterSetMain.getSelectionModel().select(AdvancedSettingsPackage.getInstance().getFilterSet());
-                Settings.getInstance().setPoints(AdvancedSettingsPackage.getInstance().getPoints());
+
                 stage.close();
             });
         } catch (IOException e) {
@@ -1461,7 +1461,7 @@ public class Controller implements Initializable {
      * selects the Desktop as Home-Path
      */
     public void setHomePath() {
-
+        /*
         File home = FileSystemView.getFileSystemView().getHomeDirectory();
         File[] files = home.listFiles();
         File desktop = home;
@@ -1479,7 +1479,7 @@ public class Controller implements Initializable {
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
         }
 
-        Settings.getInstance().setPath(desktop.getPath());
+        Settings.getInstance().setPath(desktop.getPath());*/
     }
 
     /**
