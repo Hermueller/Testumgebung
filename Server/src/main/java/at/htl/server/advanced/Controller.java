@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
  * 18.06.2016: PHI 010  data-points-file is optional for the user.
  * 18.06.2016: PHI 045  properties-file can be imported and applied.
  * 18.06.2016: PHI 020  properties-file can be created from the GUI.
+ * 18.06.2016: PHI 015  fixed graphic bug in progressbar by using math.
  */
 public class Controller implements Initializable {
 
@@ -99,7 +100,7 @@ public class Controller implements Initializable {
     public void initializeSlides(Slider slider, ProgressBar progressBar, Label label,
                                  int maxTime) {
         slider.valueProperty().addListener((ov, old_val, new_val) -> {
-            progressBar.setProgress(new_val.doubleValue() / maxTime);
+            progressBar.setProgress(((new_val.doubleValue()-10) / maxTime)*(10.0/9.0));
             String value = (new_val.intValue() < 10) ?
                     "0" + new_val.toString().split("\\.")[0] :
                     new_val.toString().split("\\.")[0];
