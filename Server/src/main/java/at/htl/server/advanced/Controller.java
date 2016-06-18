@@ -1,15 +1,12 @@
 package at.htl.server.advanced;
 
-import at.htl.server.Settings;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.LinkedList;
@@ -56,6 +53,11 @@ public class Controller implements Initializable {
         });
     }
 
+    /**
+     * changes the text of the source between ON and OFF.
+     *
+     * @param event     the event of the click.
+     */
     public void changeSomeOptions(ActionEvent event) {
         ToggleButton source = (ToggleButton) event.getSource();
         if (source.isSelected()) {
@@ -69,6 +71,9 @@ public class Controller implements Initializable {
     public void importPupilList() {
     }
 
+    /**
+     * changes the image format between PNG and JPG
+     */
     @FXML
     public void changeImageFormat() {
         if (tbImageFormat.isSelected()) {
@@ -106,30 +111,6 @@ public class Controller implements Initializable {
      * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
     public void initializeNewFilters() {
-        Callback<ListView<String>, ListCell<String>> callback =
-                new Callback<ListView<String>, ListCell<String>>() {
-                    @Override public ListCell<String> call(ListView<String> param) {
-                        final ListCell<String> cell = new ListCell<String>() {
-                            {
-                                super.setPrefWidth(100);
-                            }
-                            @Override public void updateItem(String item,
-                                                             boolean empty) {
-                                super.updateItem(item, empty);
-                                if (item != null) {
-                                    setText(item);
-                                    Rectangle rec = new Rectangle(20, 20);
-                                    rec.setFill(Settings.getInstance().getFilterColors().get(item));
-                                    setGraphic(rec);
-                                }
-                                else {
-                                    setText(null);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
 
         cbFilterSetMain.getItems().addAll("ALL-SETS", "JAVA", "C-SHARP", "SQL", "WEB");
         cbFilterSetMain.setValue("ALL-SETS");
@@ -155,6 +136,9 @@ public class Controller implements Initializable {
         cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
     }
 
+    /**
+     * saves the advanced settings in a package for the later usage.
+     */
     @FXML
     public void saveSettings() {
         AdvancedSettingsPackage.getInstance().setRandom(TB_SS_rnd.isSelected());
@@ -170,12 +154,19 @@ public class Controller implements Initializable {
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
+    /**
+     * increases the amount of points in the chart by one.
+     */
     @FXML
     public void addPoint() {
         points++;
         tfPoints.setText(Integer.toString(points));
     }
 
+    /**
+     * decreases the amount of points in the chart by one.
+     * The amount can't be beneath 5.
+     */
     @FXML
     public void subtractPoint() {
         if (points - 1 > 4) {
@@ -184,6 +175,9 @@ public class Controller implements Initializable {
         tfPoints.setText(Integer.toString(points));
     }
 
+    /**
+     * saves the amount of points for the chart from the input-textfield.
+     */
     @FXML
     public void savePoints() {
         int points = Integer.parseInt(tfPoints.getText());

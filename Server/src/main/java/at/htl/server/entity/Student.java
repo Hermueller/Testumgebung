@@ -283,19 +283,25 @@ public class Student {
         this.pathOfWatch = pathOfWatch;
     }
 
+    /**
+     * a data-point-series is written into the file.
+     *
+     * @param values    the values to write.
+     * @param _break    TRUE if an empty line should be generated. (f.e. when student logged out)
+     */
     public void writeToFile(String[] values, boolean _break) {
         try {
             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(locFile, true)));
             StringBuilder sb = new StringBuilder();
-
-            System.out.println("BUILDING: " + values);
 
             for(int i = 0; i < values.length; i++) {
                 sb.append(values[i]);
                 if (i + 1 < values.length) {
                     sb.append(";");
                 }
-                System.out.println(sb.toString());
+            }
+            if (_break) {
+                sb.append("\n");
             }
 
             pw.println(sb.toString());
@@ -306,6 +312,10 @@ public class Student {
         }
     }
 
+    /**
+     * sets the name for the file and creates it.
+     * The first line of the file (header) will be created.
+     */
     public void createLocFile() {
         if (AdvancedSettingsPackage.getInstance().isSaveDataPoints()) {
             locFile = new File(
@@ -319,6 +329,11 @@ public class Student {
         }
     }
 
+    /**
+     * creates the file for the data-points from the student.
+     *
+     * @param f     the file to create.
+     */
     void createFile(File f){
         File parentDir = f.getParentFile();
         try{
