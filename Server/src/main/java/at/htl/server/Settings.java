@@ -579,10 +579,8 @@ public class Settings {
             return;
         }
 
-        //long time = calculateTime();
-
         //saves values to the client
-        student.addValueToLast(locs);
+        student.addValueToLast(locs, calculateTime());
     }
 
     /**

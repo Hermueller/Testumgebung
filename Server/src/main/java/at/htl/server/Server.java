@@ -34,6 +34,7 @@ import java.time.format.DateTimeFormatter;
  * 06.06.2016: PHI 003  Creates the path extension dynamically.
  * 12.06.2016: PHI 003  removed duplicate code (HandOutPackage was sent twice -> bug)
  * 12.06.2016: PHI 030  the server differs between the IPAddress and not the lastname now.
+ * 18.06.2016: PHI 035  a csv-file is created for the lines of code.
  */
 
 /**
@@ -64,6 +65,7 @@ public class Server {
 
         Student student;
         String studentNameBefore;
+        boolean newStudent = false;
 
         if (Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString()) != null) {
             student = Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString());
@@ -84,9 +86,16 @@ public class Server {
             student.setFirstName(packet.getFirstname());
             Settings.getInstance().addStudent(student);
             studentNameBefore = student.getName();
+            newStudent = true;
         }
         FileUtils.log(this, Level.INFO, "I got the Package: " + packet.getDirOfWatch());
         Settings.getInstance().loginStudent(student, studentNameBefore);
+        student.setServer(this);
+        student.setFilter(Settings.getInstance().getEndings());
+        student.setInterval(Settings.getInstance().getIntervalObject());
+        if (newStudent) {
+            student.createLocFile();
+        }
 
         reader = new SocketReaderThread(student, in, this);
         writer = new SocketWriterThread(student, out);
@@ -96,10 +105,6 @@ public class Server {
 
         reader.start();
         writer.start();
-
-        student.setServer(this);
-        student.setFilter(Settings.getInstance().getEndings());
-        student.setInterval(Settings.getInstance().getIntervalObject());
 
         FileUtils.log(this, Level.INFO, "finished connecting to " + socket);
         Settings.getInstance().printErrorLine(Level.INFO, student.getName() + " logged in!", true, "CONNECT");

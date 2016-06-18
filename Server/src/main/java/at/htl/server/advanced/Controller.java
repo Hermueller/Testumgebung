@@ -1,6 +1,5 @@
 package at.htl.server.advanced;
 
-import at.htl.common.io.ScreenShot;
 import at.htl.server.Settings;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;

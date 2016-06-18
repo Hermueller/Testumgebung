@@ -10,6 +10,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import org.apache.logging.log4j.Level;
 
+import java.io.*;
 import java.net.InetAddress;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,6 +36,7 @@ import java.util.List;
  * 16.06.2016: PHI 120  implemented the LoC again. Shows only the last 10 points.
  * 17.06.2016: PHI 055  fixed the Chart.
  * 17.06.2016: PHI 005  connected the points in the chart with the user-settings
+ * 18.06.2016: PHI 135  every data-point is written in a csv-file.
  */
 public class Student {
 
@@ -44,6 +46,7 @@ public class Student {
     private String firstName;
     private String enrolmentID;
     private int catalogNumber;
+    private File locFile = null;
 
     private InetAddress studentAddress;
 
@@ -60,6 +63,7 @@ public class Student {
     }
 
     //region Getter and Setter
+
     public String getName() {
         return name;
     }
@@ -146,6 +150,12 @@ public class Student {
         this.studentAddress = studentAddress;
     }
 
+    public List<List<XYChart.Series<Number, Number>>> getSeries() {
+        return filterSeries;
+    }
+
+    //endregion
+
     /**
      * For each filter will be a new series created.
      * <br>
@@ -171,16 +181,12 @@ public class Student {
 
     }
 
-    public List<List<XYChart.Series<Number, Number>>> getSeries() {
-        return filterSeries;
-    }
-
     /**
      * Adds the LinesOfCodes from each filter to its series.
      *
      * @param locs          Specifies the number of lines in the code for each filter.
      */
-    public void addValueToLast(long[] locs) {
+    public void addValueToLast(long[] locs, long time) {
         try {
             Platform.runLater(() -> {
                 if (filterSeries.size() > 0) {
@@ -195,6 +201,12 @@ public class Student {
                             actual.getData().add(data);
                         }
                     }
+                    String[] stringLocs = new String[locs.length];
+
+                    for(int ii = 0; ii < locs.length; ii++){
+                        stringLocs[ii] = String.valueOf(locs[ii]);
+                    }
+                    writeToFile(stringLocs, false);
                 }
             });
         } catch (Exception e) {
@@ -266,7 +278,50 @@ public class Student {
     public void setPathOfWatch(String pathOfWatch) {
         this.pathOfWatch = pathOfWatch;
     }
-    //endregion
+
+    public void writeToFile(String[] values, boolean _break) {
+        try {
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(locFile, true)));
+            StringBuilder sb = new StringBuilder();
+
+            System.out.println("BUILDING: " + values);
+
+            for(int i = 0; i < values.length; i++) {
+                sb.append(values[i]);
+                if (i + 1 < values.length) {
+                    sb.append(";");
+                }
+                System.out.println(sb.toString());
+            }
+
+            pw.println(sb.toString());
+            pw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createLocFile() {
+        locFile = new File(
+                Settings.getInstance().getPathOfHandInFiles() + "/" + catalogNumber + "-" + name + ".csv");
+
+        if (locFile.exists()) {
+            locFile.delete();
+        }
+        createFile(locFile);
+        writeToFile(filter, false);
+    }
+
+    void createFile(File f){
+        File parentDir = f.getParentFile();
+        try{
+            parentDir.mkdirs();
+            f.createNewFile();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * To remember the Lines of Code for exactly this client.
