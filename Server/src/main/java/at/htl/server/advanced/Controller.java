@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
  * 18.06.2016: PHI 045  properties-file can be imported and applied.
  * 18.06.2016: PHI 020  properties-file can be created from the GUI.
  * 18.06.2016: PHI 015  fixed graphic bug in progressbar by using math.
+ * 19.06.2016: PHI 015  implemented the port.
  */
 public class Controller implements Initializable {
 
@@ -43,7 +44,7 @@ public class Controller implements Initializable {
     @FXML
     private ComboBox cbFilterSetMain;
     @FXML
-    private TextField tfPoints;
+    private TextField tfPoints, tfPort;
 
     private List<String[]> filterSets = new LinkedList<>();
     private int points = 10;
@@ -159,6 +160,7 @@ public class Controller implements Initializable {
         AdvancedSettingsPackage.getInstance().setJpgFormat(!tbImageFormat.isSelected());
         AdvancedSettingsPackage.getInstance().setPoints(points);
         AdvancedSettingsPackage.getInstance().setSaveDataPoints(tbDataPoints.isSelected());
+        AdvancedSettingsPackage.getInstance().setPort(Integer.parseInt(tfPort.getText()));
 
         Stage stage = (Stage)TB_SS_rnd.getScene().getWindow();
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));

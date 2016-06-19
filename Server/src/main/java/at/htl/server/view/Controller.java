@@ -126,6 +126,7 @@ import java.util.stream.Collectors;
  * 16.06.2016: PHI 035  opens extra window for the advanced settings
  * 17.06.2016: PHI 035  changed the style of the advanced settings chart
  * 17.06.2016: PHI 045  scale can be changed by the user
+ * 19.06.2016: PHI 015  removed unnecessary code.
  */
 public class Controller implements Initializable {
 
@@ -136,8 +137,6 @@ public class Controller implements Initializable {
     private AnchorPane apOption;
     @FXML
     private Button tbMode;
-    @FXML
-    private TextField tfPort;
     @FXML
     private ImageView ivPort;
     @FXML
@@ -151,17 +150,13 @@ public class Controller implements Initializable {
     @FXML
     private ImageView ivPath;
     @FXML
-    private ToggleButton TB_SS_rnd, tbImageFormat;
-    @FXML
-    private Slider slHarvester, slImageScale;
-    @FXML
-    private VBox vbAdvanced;
+    private Slider slHarvester;
     @FXML
     private ComboBox cbFilterSetMain;
     @FXML
     private ImageView ivFileExtensions;
     @FXML
-    private Label lbAlert, lbTimeScale;
+    private Label lbAlert;
     @FXML
     private Button btnStart;
     @FXML
@@ -171,9 +166,9 @@ public class Controller implements Initializable {
     @FXML
     private Label lbTime;
     @FXML
-    private ProgressBar pbHarvester, pbImageScale;
+    private ProgressBar pbHarvester;
     @FXML
-    private TabPane tpAdvancedSettings;
+    private TabPane tpMainTabs;
     //endregion
 
     //region HandIn Variables
@@ -303,24 +298,22 @@ public class Controller implements Initializable {
         initializeSLOMM();
         initializeSlides(slHarvesterStudent, pbHarvesterStudent, lbTimeInterval, 60, false);
         initializeSlides(slHarvester, pbHarvester, lbTime, 60, false);
-        initializeSlides(slImageScale, pbImageScale, lbTimeScale, 1, true);
         initializeNewFilters();
         initializePatrol();
         initializeLogFilters();
         initializeWebView();
 
-        showIP_Address();
         initializeTimeSpinner();
         readProperties();
 
         Settings.getInstance().setLbCount(lbCount);
+        AdvancedSettingsPackage.getInstance().setLbAddress(lbAddress);
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         Settings.getInstance().setStartTime(LocalTime.now());
         slHarvester.setValue(10);
         slHarvesterStudent.setValue(10);
-        slImageScale.setValue(0.2);
     }
 
     /**
@@ -344,8 +337,8 @@ public class Controller implements Initializable {
         String path = Settings.getInstance().getPathOfImages();
         File handOut = Settings.getInstance().getHandOutFile();
         int time = (int)slHarvester.getValue();
-        String portStr = tfPort.getText();
-        boolean isRnd = TB_SS_rnd.isSelected();
+        int port = AdvancedSettingsPackage.getInstance().getPort();
+        boolean isRnd = AdvancedSettingsPackage.getInstance().isRandom();
         boolean startable = true;
 
         // checks if the user selected a path
@@ -361,28 +354,19 @@ public class Controller implements Initializable {
             startable = false;
         }
         // if no port is set, the default port will be set
-        if (!portStr.matches("[0-9]+") || (portStr.length() != 4 && portStr.length() != 5)) {
-            int port = Integer.parseInt(portStr);
-            if (portStr.length() == 0) {
-                portStr = "50555";
+        if (port < 1024 || port > 65535) {
+            if (port == 0) {
+                port = 50555;
             }
-            else {
-                if (port < 1024) {
-                    setMsg(true, "System Ports are not allowed!");
-                } else if (port > 65535) {
-                    setMsg(true, "Ports greater than 65535 do not exist!");
-                } else {
-                    setMsg(true, "invalid port!");
-                }
-                setImage(ivPort, false);
-                startable = false;
+            if (port < 1024) {
+                setMsg(true, "System Ports are not allowed!");
+            } else if (port > 65535) {
+                setMsg(true, "Ports greater than 65535 do not exist!");
             }
         }
 
         if (startable) {
-            if (portStr.matches("[0-9]+")) {
-                Server.PORT = Integer.valueOf(portStr);
-            }
+            Server.PORT = port;
 
             if (isRnd) {
                 Settings.getInstance().setInterval(new Interval(1, 30));
@@ -534,8 +518,7 @@ public class Controller implements Initializable {
             stage.show();
 
             stage.setOnCloseRequest(event -> {
-                TB_SS_rnd.setSelected(AdvancedSettingsPackage.getInstance().isRandom());
-                changeSomeOptions();
+                slHarvester.setDisable(AdvancedSettingsPackage.getInstance().isRandom());
                 Settings.getInstance().setScreenshotQuality(
                         (float)convertToOneDecimalPoint(AdvancedSettingsPackage.getInstance().getImageQuality()));
                 Settings.getInstance().setScreenshotFormat(
@@ -1252,6 +1235,8 @@ public class Controller implements Initializable {
             lbLastName.setText(st.getName());
             lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
             lbEnrolmentID.setText(st.getEnrolmentID());
+
+            tpMainTabs.getSelectionModel().select(3);
         });
     }
 
@@ -1317,22 +1302,6 @@ public class Controller implements Initializable {
     @FXML
     public void reloadWebsite() {
         initializeWebView();
-    }
-
-    //endregion
-
-    //region {GitHub-Issue: #40} Image Properties
-
-    @FXML
-    public void changeImageFormat() {
-        if (tbImageFormat.isSelected()) {
-            tbImageFormat.setText("PNG");
-            Settings.getInstance().getScreenShot().setDEFAULT_FORMAT(ScreenShot.Format.PNG);
-        }
-        else {
-            tbImageFormat.setText("JPG");
-            Settings.getInstance().getScreenShot().setDEFAULT_FORMAT(ScreenShot.Format.JPG);
-        }
     }
 
     //endregion
@@ -1483,21 +1452,6 @@ public class Controller implements Initializable {
     }
 
     /**
-     * disables the textfield of the quickinfo-interval if the button 'random' is clicked and
-     * enables it if the 'random'-Button is OFF
-     */
-    @FXML
-    public void changeSomeOptions() {
-        if (TB_SS_rnd.isSelected()) {
-            slHarvester.setDisable(true);
-            TB_SS_rnd.setText("ON");
-        } else {
-            slHarvester.setDisable(false);
-            TB_SS_rnd.setText("OFF");
-        }
-    }
-
-    /**
      * show the version number always in the bottom right corner.
      */
     public void setVersionAnchor() {
@@ -1513,20 +1467,6 @@ public class Controller implements Initializable {
         ivAngabe.setFitHeight(25);
         ivPath.setFitHeight(25);
         ivFileExtensions.setFitHeight(25);
-    }
-
-    /**
-     * shows the IP-Address of the Teacher.
-     */
-    public void showIP_Address() {
-        String ip = "";
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
-        }
-        lbAddress.setText(ip + " : 50555");
     }
 
     //endregion

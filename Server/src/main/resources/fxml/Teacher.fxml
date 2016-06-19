@@ -40,7 +40,7 @@
                                 </AnchorPane>
                             </bottom>
                             <center>
-                                <TabPane prefHeight="700.0" prefWidth="556.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" BorderPane.alignment="CENTER">
+                                <TabPane fx:id="tpMainTabs" prefHeight="700.0" prefWidth="556.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" BorderPane.alignment="CENTER">
                                     <tabs>
                                         <Tab closable="false" text="Option">
                                             <content>
@@ -118,7 +118,7 @@
                                                                                                                   <Font size="18.0" />
                                                                                                               </font>
                                                                                                           </Label>
-                                                                                                          <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeSomeOptions" prefHeight="26.0" prefWidth="234.0" text="OFF" />
+                                                                                                          <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="234.0" text="OFF" />
                                                                                                       </children>
                                                                                                   </HBox>
                                                                                                   <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
@@ -209,7 +209,7 @@
                                                                                           <Font size="18.0" />
                                                                                        </font>
                                                                                     </Label>
-                                                                                    <ToggleButton fx:id="tbImageFormat" mnemonicParsing="false" onAction="#changeImageFormat" prefHeight="26.0" prefWidth="123.0" text="JPG" />
+                                                                                    <ToggleButton fx:id="tbImageFormat" mnemonicParsing="false" prefHeight="26.0" prefWidth="123.0" text="JPG" />
                                                                                  </children>
                                                                               </HBox>
                                                                               <HBox prefHeight="44.0" prefWidth="731.0" spacing="20.0">
