@@ -17,6 +17,12 @@ import java.net.UnknownHostException;
  * 18.06.2016: PHI 002  added the saveDataPoint.
  * 19.06.2016: PHI 020  implemented the port.
  */
+
+/**
+ * Singleton for all variables from the advanced settings.
+ *
+ * @author Philipp
+ */
 public class AdvancedSettingsPackage {
 
     private static AdvancedSettingsPackage instance = null;

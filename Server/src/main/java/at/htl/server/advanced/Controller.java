@@ -29,7 +29,13 @@ import java.util.ResourceBundle;
  * 18.06.2016: PHI 045  properties-file can be imported and applied.
  * 18.06.2016: PHI 020  properties-file can be created from the GUI.
  * 18.06.2016: PHI 015  fixed graphic bug in progressbar by using math.
- * 19.06.2016: PHI 015  implemented the port.
+ * 19.06.2016: PHI 025  implemented the port. Port is now in properties-file too.
+ */
+
+/**
+ * controller for all the advanced settings.
+ *
+ * @author Philipp
  */
 public class Controller implements Initializable {
 
@@ -48,6 +54,13 @@ public class Controller implements Initializable {
 
     private List<String[]> filterSets = new LinkedList<>();
     private int points = 10;
+    private ChangeListener<String> onlyNumber = (observable, oldValue, newValue) -> {
+        if (!newValue.matches("\\d*")) {
+            tfPoints.setText(newValue.replaceAll("[^\\d]", ""));
+        }
+    };
+
+    //region Basic GUI methods
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,11 +70,8 @@ public class Controller implements Initializable {
         slImageQuality.setValue(20);
         slImageScale.setValue(100);
 
-        tfPoints.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                tfPoints.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
+        tfPort.textProperty().addListener(onlyNumber);
+        tfPoints.textProperty().addListener(onlyNumber);
     }
 
     /**
@@ -201,6 +211,10 @@ public class Controller implements Initializable {
         }
     }
 
+    //endregion
+
+    //region Properties-file methods
+
     /**
      * imports a properties file as the new settings.
      */
@@ -239,6 +253,7 @@ public class Controller implements Initializable {
             slImageScale.setValue(Double.parseDouble(prop.getProperty("scale"))*100);
             slImageQuality.setValue(Double.parseDouble(prop.getProperty("quality"))*100);
             cbFilterSetMain.setValue(prop.getProperty("filter"));
+            tfPort.setText(prop.getProperty("port"));
 
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
@@ -276,13 +291,14 @@ public class Controller implements Initializable {
                 prop.setProperty("dataPoints", tfPoints.getText());
                 prop.setProperty("createFile", Boolean.toString(tbDataPoints.isSelected()));
                 prop.setProperty("filter", (String) cbFilterSetMain.getValue());
+                prop.setProperty("port", tfPort.getText());
 
-                // save properties to project root folder
+                // save properties to exports directory
                 prop.store(output, null);
 
                 FxUtils.showPopUp("Properties-file created!", true);
             } else {
-                FxUtils.showPopUp("No directory selected!", false);
+                FxUtils.showPopUp("Failed to create! (no export-directory or false file)", false);
             }
 
         } catch (IOException e) {
@@ -301,9 +317,17 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * returns double value with only one decimal point.
+     *
+     * @param value     the double value with many decimal points.
+     * @return          the value with one decimal point.
+     */
     public double convertToOneDecimalPoint(double value) {
         int oneD = (int)(value*10);
 
         return oneD / 10.0;
     }
+
+    //endregion
 }

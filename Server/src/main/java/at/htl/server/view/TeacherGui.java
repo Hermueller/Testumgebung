@@ -1,6 +1,7 @@
 package at.htl.server.view;
 
 import at.htl.server.Settings;
+import com.aquafx_project.AquaFx;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * @timeline TeacherGui
@@ -38,6 +40,8 @@ import javafx.stage.Stage;
  *
  */
 public class TeacherGui extends Application {
+
+    Stage stage1;
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -98,8 +102,6 @@ public class TeacherGui extends Application {
      *
      * @param stage Specialises the root-window of the program.
      */
-    Stage stage1;
-
     public void askCancel(Stage stage) {
         //createDirectory Window
         try{stage1.close();}
@@ -108,6 +110,7 @@ public class TeacherGui extends Application {
         }
         stage1 = new Stage();
         stage1.setResizable(false);
+        AquaFx.styleStage(stage1, StageStyle.UNDECORATED);
         AnchorPane root1 = new AnchorPane();
         Scene scene1 = new Scene(root1, 431, 279);
 

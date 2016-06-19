@@ -10,10 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.stage.*;
 import org.apache.logging.log4j.Level;
 
 import java.io.File;
@@ -26,6 +23,7 @@ import java.io.File;
  * 22.04.2016: PHI 120  changed the style of the PopUp-Window
  * 07.05.2016: PHI 035  styled the PopUp-Window
  * 28.05.2016: PHI 010  popUp-Window can be closed with ENTER-key
+ * 19.06.2016: PHI 001  the popUp-Window is never in fullscreen and not resizeable.
  */
 public class FxUtils {
 
@@ -113,6 +111,7 @@ public class FxUtils {
     public static void showPopUp(String message, boolean isSuccess) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
+        AquaFx.styleStage(dialog, StageStyle.UNDECORATED);
         AnchorPane ap = new AnchorPane();
         ap.setId("messageAnchorPane");
 
