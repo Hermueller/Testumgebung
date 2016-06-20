@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * 18.06.2016: PHI 020  properties-file can be created from the GUI.
  * 18.06.2016: PHI 015  fixed graphic bug in progressbar by using math.
  * 19.06.2016: PHI 025  implemented the port. Port is now in properties-file too.
- * 20.06.2016: PHI 015  added the random time and fix time to the properties file.
+ * 20.06.2016: PHI 045  added the random time, fix time, test-directory and handout to the properties file.
  */
 
 /**
@@ -241,9 +241,12 @@ public class Controller implements Initializable {
             tfPort.setText(prop.getProperty("port"));
             TB_SS_rnd.setSelected(prop.getProperty("random").toUpperCase().equals(Boolean.toString(true).toUpperCase()));
             AdvancedSettingsPackage.getInstance().setTime(Integer.parseInt(prop.getProperty("timeSec")));
+            Settings.getInstance().setPath(prop.getProperty("testDirectory"));
+            Settings.getInstance().setHandOutFile(new File(prop.getProperty("testHandout")));
 
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
+            e.printStackTrace();
             Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
         } finally {
             if (stream != null) {
@@ -280,6 +283,8 @@ public class Controller implements Initializable {
                 prop.setProperty("port", tfPort.getText());
                 prop.setProperty("random", Boolean.toString(TB_SS_rnd.isSelected()));
                 prop.setProperty("timeSec", Integer.toString(AdvancedSettingsPackage.getInstance().getTime()));
+                prop.setProperty("testDirectory", Settings.getInstance().getPath());
+                prop.setProperty("testHandout", Settings.getInstance().getHandOutFile().getAbsolutePath());
 
                 // save properties to exports directory
                 prop.store(output, null);
