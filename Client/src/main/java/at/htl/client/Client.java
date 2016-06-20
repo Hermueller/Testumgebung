@@ -99,6 +99,7 @@ public class Client {
      *
      * @return the success of it
      */
+    @SuppressWarnings({"unused deprecated", "deprecation"})
     public boolean handIn() {
         if (processor.isInterrupted() && reader.isInterrupted()) {
             String zipFileName = "handInFile.zip";

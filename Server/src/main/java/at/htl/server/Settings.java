@@ -1,7 +1,6 @@
 package at.htl.server;
 
 import at.htl.common.io.ScreenShot;
-import at.htl.server.advanced.AdvancedSettingsPackage;
 import at.htl.server.entity.Student;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
@@ -20,7 +19,6 @@ import javafx.scene.paint.Color;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -82,11 +80,9 @@ public class Settings {
     private String pathOfImages;
     private String pathOfHandOutFiles;
     private String pathOfExports;
-    private String password;
     private LocalDateTime starting = null;
     private StackedAreaChart<Number, Number> chart;
     private String[] endings;
-    private MediaPlayer mediaPlayer = null;
     private Label lbLoc;
     private boolean looksAtScreenshots;
     private String actualScreenshot;
@@ -154,6 +150,7 @@ public class Settings {
         return logFields;
     }
 
+    @SuppressWarnings("unused")
     public HashMap<String, Color> getFilterColors() {
         return filterColors;
     }
@@ -170,6 +167,7 @@ public class Settings {
         return looksAtScreenshots;
     }
 
+    @SuppressWarnings("unused")
     public void setLooksAtScreenshots(boolean looksAtScreenshots) {
         this.looksAtScreenshots = looksAtScreenshots;
     }
@@ -216,6 +214,7 @@ public class Settings {
     /**
      * @return the label of the "Lines-of-code"
      */
+    @SuppressWarnings("unused")
     public Label getLbLoc() {
         return lbLoc;
     }
@@ -223,6 +222,7 @@ public class Settings {
     /**
      * @param lbLoc Specifies the label for the lines-of-code-Number
      */
+    @SuppressWarnings("unused")
     public void setLbLoc(Label lbLoc) {
         this.lbLoc = lbLoc;
     }
@@ -242,20 +242,6 @@ public class Settings {
     }
 
     /**
-     * @return the password.
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password Specialises the password.
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
      * @return the package of information for the client.
      */
     public HandOutPackage getHandOutPacket() {
@@ -265,6 +251,7 @@ public class Settings {
     /**
      * @return the time when the test starts.
      */
+    @SuppressWarnings("unused")
     public LocalTime getStartTime() {
         return startTime;
     }
@@ -504,6 +491,7 @@ public class Settings {
      *
      * @param student Specialises the client which will be added.
      */
+    @SuppressWarnings("unchecked")
     public void addStudent(final Student student) {
         studentsList.add(student);
 
@@ -608,6 +596,7 @@ public class Settings {
      * @param t     the thread who caught the error
      * @param e     the error
      */
+    @SuppressWarnings("unused")
     public void printMessage(Thread t, Throwable e) {
         printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
     }
@@ -683,10 +672,11 @@ public class Settings {
      * plays a sound to notify the user about an event
      * plays only the first 3 seconds.
      */
+    @SuppressWarnings("unused")
     public void notification() {
         final File file = new File("src/main/resources/sound/Fall.mp3");
         final Media media = new Media(file.toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
 
         //mediaPlayer.setStartTime(Duration.seconds(0));
         //mediaPlayer.setStopTime(Duration.seconds(3));

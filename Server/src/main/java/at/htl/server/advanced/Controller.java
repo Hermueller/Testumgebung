@@ -15,8 +15,6 @@ import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -52,7 +50,6 @@ public class Controller implements Initializable {
     @FXML
     private TextField tfPoints, tfPort;
 
-    private List<String[]> filterSets = new LinkedList<>();
     private int points = 10;
     private ChangeListener<String> onlyNumber = (observable, oldValue, newValue) -> {
         if (!newValue.matches("\\d*")) {
@@ -131,27 +128,13 @@ public class Controller implements Initializable {
      *
      * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
+    @SuppressWarnings("unchecked")
     public void initializeNewFilters() {
 
         cbFilterSetMain.getItems().addAll("ALL-SETS", "JAVA", "C-SHARP", "SQL", "WEB");
         cbFilterSetMain.setValue("ALL-SETS");
 
-        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml",
-                ".cs", ".cshtml", ".js", ".sql", ".xml", ".xsd", ".xsl", ".html"
-        });
-        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml"});
-        filterSets.add(new String[]{".cs", ".cshtml", ".js", ".css"});
-        filterSets.add(new String[]{".sql", ".xml", ".xsd", ".xsl"});
-        filterSets.add(new String[]{".js", ".html", ".css"});
-
-        ChangeListener cl = ((observable, oldValue, newValue) -> {
-
-            /*for (String filter : filterSets.get(cbFilterSetMain.getItems().indexOf(newValue))) {
-                createFilterItem(filter);
-            }*/
-
-            cbFilterSetMain.setValue(newValue);
-        });
+        ChangeListener cl = ((observable, oldValue, newValue) -> cbFilterSetMain.setValue(newValue));
 
         cbFilterSetMain.valueProperty().addListener(cl);
         cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
@@ -234,6 +217,7 @@ public class Controller implements Initializable {
      *
      * @param file  the file to extract the info from.
      */
+    @SuppressWarnings("unchecked")
     private void extractInformation(File file) {
         Properties prop = new Properties();
         InputStream stream = null;
@@ -263,7 +247,6 @@ public class Controller implements Initializable {
                 try {
                     stream.close();
                 } catch (IOException e) {
-                    FileUtils.log(Level.ERROR, e.getMessage());
                     Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
                 }
             }
@@ -309,7 +292,6 @@ public class Controller implements Initializable {
                 try {
                     output.close();
                 } catch (IOException e) {
-                    FileUtils.log(Level.ERROR, e.getMessage());
                     Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
                 }
             }

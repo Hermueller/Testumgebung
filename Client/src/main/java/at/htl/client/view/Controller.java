@@ -84,8 +84,6 @@ public class Controller implements Initializable {
     @FXML
     private TextField tfPathOfProject;
     @FXML
-    private Button btnTestConnection;
-    @FXML
     private CheckBox cbNoLogin;
     @FXML
     private Button btnTestMode;
@@ -200,6 +198,7 @@ public class Controller implements Initializable {
         }
     }
 
+    @SuppressWarnings("unused")
     private class SignedInThread extends Thread {
         @Override
         public void run() {
@@ -355,11 +354,12 @@ public class Controller implements Initializable {
         return false;
     }
 
-
+    @SuppressWarnings("unused")
     public boolean isLoggedIn() {
         return btnLogin.isDisable();
     }
 
+    @SuppressWarnings("unused")
     @FXML
     public void setMode() {
         LineCounter.getInstance().setFinished(cbFinished.isSelected());

@@ -57,6 +57,7 @@ public class IpConnection {
      *
      * @return internet-connectivity.
      */
+    @SuppressWarnings("unused")
     public static boolean checkInternetConnection() {
         return isIpReachable("www.google.com", false, false);
     }

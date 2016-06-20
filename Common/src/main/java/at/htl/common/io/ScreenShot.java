@@ -28,6 +28,7 @@ public class ScreenShot implements Serializable {
     public float DEFAULT_QUALITY = 0.2f;
     public double DEFAULT_SCALE = 0.2;
 
+    @SuppressWarnings("unused")
     public ScreenShot(Format DEFAULT_FORMAT, float DEFAULT_QUALITY, double DEFAULT_SCALE) {
         this.DEFAULT_FORMAT = DEFAULT_FORMAT;
         this.DEFAULT_QUALITY = DEFAULT_QUALITY;

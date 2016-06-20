@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
  * 02.01.2016: PHI 055  Klasse implementiert. Farbe ermöglicht.
  * 14.01.2016: PHI 010  Statt den Lines of Code wird jetzt die Uhrzeit angezeigt.
  */
+@SuppressWarnings("unused")
 public class TimeShower extends StackPane {
 
     /**
@@ -18,6 +19,7 @@ public class TimeShower extends StackPane {
      * @param value      actual value (to add).
      * @param time       the before the test ends.
      */
+    @SuppressWarnings("unused")
     public TimeShower(Long value, String time) {
         setPrefSize(15, 15);
 
@@ -41,6 +43,7 @@ public class TimeShower extends StackPane {
      * @param value      actual value (to add)
      * @return the colored label (with value)
      */
+    @SuppressWarnings("unused")
     private Label createTimeShowerData(Long value, String time) {
         if (time.split("T").length > 1) {
             time = time.split("T")[1];

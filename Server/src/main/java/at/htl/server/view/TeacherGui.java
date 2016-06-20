@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.logging.log4j.Level;
 
 /**
  * @timeline TeacherGui
@@ -106,7 +107,7 @@ public class TeacherGui extends Application {
         //createDirectory Window
         try{stage1.close();}
         catch (Exception e){
-
+            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
         }
         stage1 = new Stage();
         stage1.setResizable(false);

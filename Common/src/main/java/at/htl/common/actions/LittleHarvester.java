@@ -70,8 +70,8 @@ public class LittleHarvester implements RobotAction {
 
         LittleHarvester that = (LittleHarvester) o;
 
-        if (studentName != null ? !studentName.equals(that.studentName) : that.studentName != null) return false;
-        return studentPath != null ? studentPath.equals(that.studentPath) : that.studentPath == null;
+        return studentName != null ? studentName.equals(that.studentName) : that.studentName == null &&
+                (studentPath != null ? studentPath.equals(that.studentPath) : that.studentPath == null);
 
     }
 

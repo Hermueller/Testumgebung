@@ -16,6 +16,8 @@ package at.htl.common;
  * 12.05.2016: GNA 260  gh-pages Seite erstellt
  * 19.05.2016: GNA 030  Bilder hinzugefügt (Profilbilder, Screenshots, ...)
  * 25.05.2016: PON 025  Maven plugin for jar with dependencies
+ * 20.06.2016: PHI 025  removed all warnings in all files.
  */
+@SuppressWarnings("unused")
 public class Others {
 }

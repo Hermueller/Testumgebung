@@ -43,6 +43,7 @@ public class Countdown extends Thread {
         texts.add(text);
     }
 
+    @SuppressWarnings("unused")
     public void setToTime(LocalTime toTime) {
         this.toTime = toTime;
     }
