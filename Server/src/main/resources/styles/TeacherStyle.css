@@ -52,7 +52,7 @@
 #apStudentSettings {
   -fx-background-color: #575757;
 }
-#apStudentSettings .label {
+#apStudentSettings > .label {
   -fx-text-fill: white;
 }
 .button {

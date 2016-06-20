@@ -66,6 +66,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
+import java.util.Arrays;
 
 /**
  * @timeline serverController
@@ -127,6 +128,7 @@ import java.util.stream.Collectors;
  * 17.06.2016: PHI 035  changed the style of the advanced settings chart
  * 17.06.2016: PHI 045  scale can be changed by the user
  * 19.06.2016: PHI 015  removed unnecessary code.
+ * 20.06.2016: PHI 015  fixed bug. unique filters.
  */
 public class Controller implements Initializable {
 
@@ -930,6 +932,7 @@ public class Controller implements Initializable {
     /**
      * implements the values and listener for the comboBox (LogFilter)
      */
+    @SuppressWarnings("unchecked")
     public void initializeLogFilters() {
         cbLogFilter.getItems().addAll("ALL", "CONNECT", "DISCONNECT", "ERRORS", "WARNINGS", "OTHER");
         cbLogFilter.setValue("ALL");
@@ -1156,12 +1159,15 @@ public class Controller implements Initializable {
     @FXML
     public void addFilterToSet() {
         int index = cbFilterSet.getSelectionModel().getSelectedIndex();
-        String[] set = filterSets.get(index);
-        String[] newSet = new String[set.length + 1];
-        System.arraycopy(set, 0, newSet, 0, set.length);
-        newSet[newSet.length - 1] = tfNewFilter.getText();
-        filterSets.set(index, newSet);
-        lvFileFilters.getItems().add(new CheckBox(tfNewFilter.getText()));
+
+        if (!Arrays.asList(filterSets.get(index)).contains(tfNewFilter.getText())) {
+            String[] set = filterSets.get(index);
+            String[] newSet = new String[set.length + 1];
+            System.arraycopy(set, 0, newSet, 0, set.length);
+            newSet[newSet.length - 1] = tfNewFilter.getText();
+            filterSets.set(index, newSet);
+            lvFileFilters.getItems().add(new CheckBox(tfNewFilter.getText()));
+        }
     }
 
     //endregion
