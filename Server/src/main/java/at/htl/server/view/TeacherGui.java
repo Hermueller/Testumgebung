@@ -37,7 +37,6 @@ import javafx.stage.StageStyle;
  * 15.04.2016: MET 002  solved Style-Error of the Server-GUI
  * 28.05.2016: PHI 015  added new shortcuts (ESC, F1)
  * 02.06.2016: PON 020  No Multiple Alerts
- *
  */
 public class TeacherGui extends Application {
 
