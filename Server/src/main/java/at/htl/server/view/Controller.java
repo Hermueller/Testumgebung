@@ -115,7 +115,7 @@ import java.util.Arrays;
  * 17.06.2016: PHI 035  changed the style of the advanced settings chart
  * 17.06.2016: PHI 045  scale can be changed by the user
  * 19.06.2016: PHI 015  removed unnecessary code.
- * 20.06.2016: PHI 015  fixed bug. unique filters.
+ * 20.06.2016: PHI 025  fixed bug. unique filters. The latest selected file will be shown in the FileChooser.
  */
 public class Controller implements Initializable {
 
@@ -1322,7 +1322,11 @@ public class Controller implements Initializable {
     @FXML
     public void chooseDirectory() {
         DirectoryChooser dc = new DirectoryChooser();
-        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        if (Settings.getInstance().getPath() != null) {
+            dc.setInitialDirectory(new File(Settings.getInstance().getPath()));
+        } else {
+            dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        }
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null) {
@@ -1397,8 +1401,11 @@ public class Controller implements Initializable {
     public void chooseHandOutFile() {
         // Create and show the file filter
         FileChooser fc = new FileChooser();
-        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
+        //fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
         File yourZip = fc.showOpenDialog(new Stage());
+        if (Settings.getInstance().getHandOutFile() != null) {
+            fc.setInitialDirectory(Settings.getInstance().getHandOutFile());
+        }
 
         // Check the user pressed OK, and not Cancel.
         if (yourZip != null) {
