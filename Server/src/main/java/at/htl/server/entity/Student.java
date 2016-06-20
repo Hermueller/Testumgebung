@@ -35,6 +35,7 @@ import java.util.List;
  * 17.06.2016: PHI 005  connected the points in the chart with the user-settings
  * 18.06.2016: PHI 135  every data-point is written in a csv-file.
  * 18.06.2016: PHI 015  data-points-file is now optional for the user.
+ * 20.06.2016: PHI 015  the selected path of the student is shown in the csv-file.
  */
 public class Student {
 
@@ -330,6 +331,7 @@ public class Student {
             if (success) {
                 createFile(locFile);
             }
+            writeToFile(new String[]{getPathOfWatch()}, true);
             writeToFile(filter, false);
         }
     }
