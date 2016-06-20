@@ -283,6 +283,7 @@ public class Controller implements Initializable {
 
         Settings.getInstance().setLbCount(lbCount);
         AdvancedSettingsPackage.getInstance().setLbAddress(lbAddress);
+        AdvancedSettingsPackage.getInstance().setTimeSlider(slHarvester);
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
@@ -1023,6 +1024,9 @@ public class Controller implements Initializable {
                 Settings.getInstance().getScreenShot().setDEFAULT_QUALITY(quality);
             }
             label.setText(time);
+            if (slider == slHarvester) {
+                AdvancedSettingsPackage.getInstance().setTime(new_val.intValue());
+            }
         });
     }
 

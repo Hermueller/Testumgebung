@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
  * 18.06.2016: PHI 020  properties-file can be created from the GUI.
  * 18.06.2016: PHI 015  fixed graphic bug in progressbar by using math.
  * 19.06.2016: PHI 025  implemented the port. Port is now in properties-file too.
+ * 20.06.2016: PHI 015  added the random time and fix time to the properties file.
  */
 
 /**
@@ -238,6 +239,8 @@ public class Controller implements Initializable {
             slImageQuality.setValue(Double.parseDouble(prop.getProperty("quality"))*100);
             cbFilterSetMain.setValue(prop.getProperty("filter"));
             tfPort.setText(prop.getProperty("port"));
+            TB_SS_rnd.setSelected(prop.getProperty("random").toUpperCase().equals(Boolean.toString(true).toUpperCase()));
+            AdvancedSettingsPackage.getInstance().setTime(Integer.parseInt(prop.getProperty("timeSec")));
 
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
@@ -275,6 +278,8 @@ public class Controller implements Initializable {
                 prop.setProperty("createFile", Boolean.toString(tbDataPoints.isSelected()));
                 prop.setProperty("filter", (String) cbFilterSetMain.getValue());
                 prop.setProperty("port", tfPort.getText());
+                prop.setProperty("random", Boolean.toString(TB_SS_rnd.isSelected()));
+                prop.setProperty("timeSec", Integer.toString(AdvancedSettingsPackage.getInstance().getTime()));
 
                 // save properties to exports directory
                 prop.store(output, null);
