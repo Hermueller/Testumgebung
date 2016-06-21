@@ -38,6 +38,7 @@ import org.apache.logging.log4j.Level;
  * 15.04.2016: MET 002  solved Style-Error of the Server-GUI
  * 28.05.2016: PHI 015  added new shortcuts (ESC, F1)
  * 02.06.2016: PON 020  No Multiple Alerts
+ * 21.06.2016: PON 001  fixed error-bug
  */
 public class TeacherGui extends Application {
 
@@ -104,7 +105,11 @@ public class TeacherGui extends Application {
      */
     public void askCancel(Stage stage) {
         //createDirectory Window
-        try{stage1.close();}
+        try{
+            if (stage1 != null) {
+                stage1.close();
+            }
+        }
         catch (Exception e){
             Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
         }

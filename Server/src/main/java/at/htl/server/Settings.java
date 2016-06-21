@@ -62,8 +62,9 @@ import java.util.*;
  * 06.06.2016: PHI 015  implemented the methods for the screenshot properties.
  * 11.06.2016: PHI 045  recovered lost code from the last merge AND implemented student count
  * 12.06.2016: PHI 020  improved student login method.
- * 14.04.2016: PHI 030  sorted list of the students + fixed bugs in the findStudentByAddress-Method
- * 17.04.2016: PHI 030  fixed sort-bug and implemented the ListView
+ * 14.06.2016: PHI 030  sorted list of the students + fixed bugs in the findStudentByAddress-Method
+ * 17.06.2016: PHI 030  fixed sort-bug and implemented the ListView
+ * 21.06.2016: PHI 001  implemented new log-filter "PATH"
  */
 public class Settings {
 
@@ -661,6 +662,7 @@ public class Settings {
         logFields.put("DISCONNECT", new LinkedList<>());
         logFields.put("ERRORS", new LinkedList<>());
         logFields.put("WARNINGS", new LinkedList<>());
+        logFields.put("PATHS", new LinkedList<>());
         logFields.put("OTHER", new LinkedList<>());
     }
 

@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
  * 18.06.2016: PHI 015  fixed graphic bug in progressbar by using math.
  * 19.06.2016: PHI 025  implemented the port. Port is now in properties-file too.
  * 20.06.2016: PHI 045  added the random time, fix time, test-directory and handout to the properties file.
+ * 21.06.2016: PHI 010  included the testmode in the properties-file
  */
 
 /**
@@ -243,6 +244,7 @@ public class Controller implements Initializable {
             AdvancedSettingsPackage.getInstance().setTime(Integer.parseInt(prop.getProperty("timeSec")));
             Settings.getInstance().setPath(prop.getProperty("testDirectory"));
             Settings.getInstance().setHandOutFile(new File(prop.getProperty("testHandout")));
+            AdvancedSettingsPackage.getInstance().setTestMode(Boolean.parseBoolean(prop.getProperty("testmode")));
 
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
@@ -285,6 +287,7 @@ public class Controller implements Initializable {
                 prop.setProperty("timeSec", Integer.toString(AdvancedSettingsPackage.getInstance().getTime()));
                 prop.setProperty("testDirectory", Settings.getInstance().getPath());
                 prop.setProperty("testHandout", Settings.getInstance().getHandOutFile().getAbsolutePath());
+                prop.setProperty("testmode", Boolean.toString(false));
 
                 // save properties to exports directory
                 prop.store(output, null);

@@ -35,6 +35,7 @@ import java.time.format.DateTimeFormatter;
  * 12.06.2016: PHI 003  removed duplicate code (HandOutPackage was sent twice -> bug)
  * 12.06.2016: PHI 030  the server differs between the IPAddress and not the lastname now.
  * 18.06.2016: PHI 035  a csv-file is created for the lines of code.
+ * 21.06.2016: PHI 003  the directory of the student is logged.
  */
 
 /**
@@ -108,6 +109,8 @@ public class Server {
 
         FileUtils.log(this, Level.INFO, "finished connecting to " + socket);
         Settings.getInstance().printErrorLine(Level.INFO, student.getName() + " logged in!", true, "CONNECT");
+        Settings.getInstance().printErrorLine(
+                Level.INFO, student.getName() + ": " + student.getPathOfWatch(), false, "PATHS");
         Platform.runLater(() -> Notifications.create()
                 .title("Student logged in")
                 .text(

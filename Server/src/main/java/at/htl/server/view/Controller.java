@@ -125,7 +125,7 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane apOption;
     @FXML
-    private Button tbMode;
+    private Button tbMode, btnTestMode;
     @FXML
     private ImageView ivPort;
     @FXML
@@ -284,6 +284,7 @@ public class Controller implements Initializable {
         Settings.getInstance().setLbCount(lbCount);
         AdvancedSettingsPackage.getInstance().setLbAddress(lbAddress);
         AdvancedSettingsPackage.getInstance().setTimeSlider(slHarvester);
+        AdvancedSettingsPackage.getInstance().setTestMode(btnTestMode);
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
@@ -903,7 +904,7 @@ public class Controller implements Initializable {
      */
     @SuppressWarnings("unchecked")
     public void initializeLogFilters() {
-        cbLogFilter.getItems().addAll("ALL", "CONNECT", "DISCONNECT", "ERRORS", "WARNINGS", "OTHER");
+        cbLogFilter.getItems().addAll(Settings.getInstance().getLogFields().keySet());
         cbLogFilter.setValue("ALL");
         cbLogFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
             Settings.getInstance().setCurrentLogFilter((String)newValue);
