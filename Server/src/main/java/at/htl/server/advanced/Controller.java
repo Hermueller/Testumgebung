@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
  * 19.06.2016: PHI 025  implemented the port. Port is now in properties-file too.
  * 20.06.2016: PHI 045  added the random time, fix time, test-directory and handout to the properties file.
  * 21.06.2016: PHI 010  included the testmode in the properties-file
+ * 21.06.2016: PHI 010  only *.properties-files can be imported.
  */
 
 /**
@@ -206,8 +207,11 @@ public class Controller implements Initializable {
     @FXML
     public void importSettings() {
         FileChooser dc = new FileChooser();
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("PROP files (*.properties)", "*.properties");
+        dc.getExtensionFilters().add(extFilter);
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
-        dc.setTitle("Choose you properties-file");
+        dc.setTitle("Choose your properties-file");
         File choosedFile = dc.showOpenDialog(new Stage());
         if (choosedFile != null) {
             extractInformation(choosedFile);

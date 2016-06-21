@@ -65,6 +65,7 @@ import java.util.ResourceBundle;
  * 12.06.2016: MET 030  auto size of the QuickInfo-Window (Bug: the size does not change correctly)
  * 16.06.2016: MET 040  login status "Signed in!" when student really logged in  (
  * 16.06.2016: PON 040  login status "Signed in!" when student really logged in
+ * 21.06.2016: PHI 002  if the connection is lost, then the student is logged out.
  */
 public class Controller implements Initializable {
 
@@ -175,7 +176,7 @@ public class Controller implements Initializable {
                                 Exam.getInstance().getServerIP(),
                                 Exam.getInstance().getPupil().getPathOfProject(),
                                 Exam.getInstance().getPort()
-                        ));
+                        ), this);
                         client.start();
                         toTime = client.getEndTime();
                     }

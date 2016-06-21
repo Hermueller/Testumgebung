@@ -38,7 +38,8 @@ import org.apache.logging.log4j.Level;
  * 15.04.2016: MET 002  solved Style-Error of the Server-GUI
  * 28.05.2016: PHI 015  added new shortcuts (ESC, F1)
  * 02.06.2016: PON 020  No Multiple Alerts
- * 21.06.2016: PON 001  fixed error-bug
+ * 21.06.2016: PHI 001  fixed error-bug
+ * 21.06.2016: PHI 020  alert can be closed by pressing ESC again.
  */
 public class TeacherGui extends Application {
 
@@ -156,13 +157,26 @@ public class TeacherGui extends Application {
         ok.setDefaultButton(true);
 
         //on click close
-        cancel.setOnAction(cancelEvent -> stage1.close());
+        cancel.setOnAction(cancelEvent -> {
+            stage1.close();
+            stage1 = null;
+        });
 
         ok.setOnAction(okEvent -> {
             stage1.close();
+            stage1 = null;
             stage.close();
             Platform.exit();
             System.exit(0);
+        });
+
+        scene1.setOnKeyReleased(event -> {
+
+            if (event.getCode() == KeyCode.ESCAPE) {    // ESC -> CLOSE
+                stage1.close();
+                stage1 = null;
+            }
+
         });
 
         pane.getChildren().addAll(text, text2, cancel, ok);

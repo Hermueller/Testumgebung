@@ -1,5 +1,6 @@
 package at.htl.client;
 
+import at.htl.client.view.Controller;
 import at.htl.common.MyUtils;
 import at.htl.common.actions.RobotAction;
 import at.htl.common.actions.RobotActionQueue;
@@ -26,6 +27,7 @@ import java.time.LocalTime;
  * 08.02.2016: GNA 005  Added Errors to LogFilesdfdf
  * 11.06.2016: PHI 020  Implemented the new Object-Stream.
  * 11.06.2016: PHI 030  implemented the endTime.
+ * 21.06.2016: PHI 002  logs the student out if the connection is lost.
  */
 public class Client {
 
@@ -39,8 +41,9 @@ public class Client {
     private final LoginPackage loginPackage;
     private LocalTime endTime = null;
     private boolean signedIn = false;
+    private Controller controller;
 
-    public Client(LoginPackage loginPackage)
+    public Client(LoginPackage loginPackage, Controller controller)
             throws IOException, AWTException {
         this.loginPackage = loginPackage;
         socket = new Socket(loginPackage.getServerIP(), loginPackage.getPort());
@@ -54,6 +57,7 @@ public class Client {
         getOut().flush();
         processor = new ProcessorThread();
         reader = new ReaderThread();
+        this.controller = controller;
     }
 
     public ObjectOutputStream getOut() {
@@ -137,7 +141,10 @@ public class Client {
             } catch (Exception ex) {
                 FileUtils.log(this, Level.ERROR, "Send Boolean " + MyUtils.exToStr(ex));
             } finally {
-                Platform.runLater(() -> FxUtils.showPopUp("LOST CONNECTION", false));
+                Platform.runLater(() -> {
+                    FxUtils.showPopUp("LOST CONNECTION", false);
+                    controller.logout();
+                });
             }
         }
     }

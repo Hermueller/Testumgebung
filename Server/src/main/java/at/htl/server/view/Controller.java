@@ -116,6 +116,7 @@ import java.util.Arrays;
  * 17.06.2016: PHI 045  scale can be changed by the user
  * 19.06.2016: PHI 015  removed unnecessary code.
  * 20.06.2016: PHI 025  fixed bug. unique filters. The latest selected file will be shown in the FileChooser.
+ * 21.06.2016: PHI 025  if the teacher closes the ServerSocket, all StudentServers are shut down.
  */
 public class Controller implements Initializable {
 
@@ -386,6 +387,8 @@ public class Controller implements Initializable {
 
                 for (Button b : lvStudents.getItems()) {
                     b.setStyle("-fx-background-color: crimson");
+                    Student student = Settings.getInstance().findStudentByAddress(b.getId());
+                    student.getServer().shutdown();
                 }
             } else {
                 setMsg(true, "Server is already stopped");
