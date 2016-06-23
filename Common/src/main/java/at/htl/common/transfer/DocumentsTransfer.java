@@ -55,6 +55,7 @@ public class DocumentsTransfer {
      * @return the success of it.
      */
     @Deprecated
+    @SuppressWarnings("unused")
     public static boolean receive(ObjectInputStream in, String path) {
         boolean received = false;
         File file = new File(path);

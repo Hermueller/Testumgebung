@@ -229,6 +229,7 @@ public class FileUtils {
      * @param paths list of paths to delete
      * @return true, if a successful deletion, else false
      */
+    @SuppressWarnings("unused")
     public static boolean deleteAll(LinkedList<String> paths) {
         boolean error = false;
         for (String path : paths)

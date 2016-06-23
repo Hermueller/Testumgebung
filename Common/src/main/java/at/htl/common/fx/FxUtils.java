@@ -36,6 +36,7 @@ public class FxUtils {
      *
      * @return selected directory
      */
+    @SuppressWarnings("unused")
     public static File chooseDirectory() {
         return chooseDirectory(null, null);
     }
@@ -60,6 +61,7 @@ public class FxUtils {
      *
      * @return selected file
      */
+    @SuppressWarnings("unused")
     public static File chooseFile() {
         return chooseFile(null, null, null);
     }

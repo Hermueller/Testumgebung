@@ -1,7 +1,5 @@
 package at.htl.server.view;
 
-import at.htl.common.MyUtils;
-import at.htl.common.io.ScreenShot;
 import at.htl.server.advanced.AdvancedSettingsPackage;
 import at.htl.server.entity.Student;
 import at.htl.common.TimeSpinner;
@@ -14,12 +12,9 @@ import at.htl.server.Threader;
 import at.htl.server.entity.Interval;
 import at.htl.server.Server;
 import com.aquafx_project.AquaFx;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,29 +29,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.*;
-import javafx.util.Callback;
 import org.apache.logging.log4j.Level;
 
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
-import java.net.InetAddress;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -128,7 +115,8 @@ import java.util.Arrays;
  * 17.06.2016: PHI 035  changed the style of the advanced settings chart
  * 17.06.2016: PHI 045  scale can be changed by the user
  * 19.06.2016: PHI 015  removed unnecessary code.
- * 20.06.2016: PHI 015  fixed bug. unique filters.
+ * 20.06.2016: PHI 025  fixed bug. unique filters. The latest selected file will be shown in the FileChooser.
+ * 21.06.2016: PHI 025  if the teacher closes the ServerSocket, all StudentServers are shut down.
  */
 public class Controller implements Initializable {
 
@@ -138,13 +126,11 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane apOption;
     @FXML
-    private Button tbMode;
+    private Button tbMode, btnTestMode;
     @FXML
     private ImageView ivPort;
     @FXML
     private Label lbAngabe;
-    @FXML
-    private Button btnAngabe;
     @FXML
     private ImageView ivAngabe;
     @FXML
@@ -174,10 +160,6 @@ public class Controller implements Initializable {
     //endregion
 
     //region HandIn Variables
-    @FXML
-    private AnchorPane apHandIn;
-    @FXML
-    private AnchorPane apTime;
     @FXML
     private Button btnaddTime;
     @FXML
@@ -214,8 +196,6 @@ public class Controller implements Initializable {
     @FXML
     private ToggleButton tbToggleSettings;
     @FXML
-    private ColorPicker cpNewFilter;
-    @FXML
     private TextField tfNewFilter;
     @FXML
     private ListView<CheckBox> lvFileFilters;
@@ -230,8 +210,6 @@ public class Controller implements Initializable {
     private Button btnNext, btnActual;
     @FXML
     private ImageView ivLiveView;
-    @FXML
-    private AnchorPane apStudentDetail;
     //endregion
 
     //region Web Help Variables
@@ -247,13 +225,9 @@ public class Controller implements Initializable {
 
     //region other Variables
     @FXML
-    private BorderPane bpDataView;
-    @FXML
     private AnchorPane apInfo;
     @FXML
     private Label lbDate;
-    @FXML
-    private SplitPane splitter;
     @FXML
     private ListView<Button> lvStudents;
     @FXML
@@ -310,6 +284,8 @@ public class Controller implements Initializable {
 
         Settings.getInstance().setLbCount(lbCount);
         AdvancedSettingsPackage.getInstance().setLbAddress(lbAddress);
+        AdvancedSettingsPackage.getInstance().setTimeSlider(slHarvester);
+        AdvancedSettingsPackage.getInstance().setTestMode(btnTestMode);
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
@@ -332,10 +308,9 @@ public class Controller implements Initializable {
     /**
      * checks all fields on correctness.
      * starts the server for the students to connect.
-     *
-     * @param actionEvent Information from the click on the button.
      */
-    public void startServer(ActionEvent actionEvent) {
+    @FXML
+    public void startServer() {
         String path = Settings.getInstance().getPathOfImages();
         File handOut = Settings.getInstance().getHandOutFile();
         int time = (int)slHarvester.getValue();
@@ -394,10 +369,9 @@ public class Controller implements Initializable {
 
     /**
      * stops the server.
-     *
-     * @param actionEvent Information from the click on the button.
      */
-    public void stopServer(ActionEvent actionEvent) {
+    @FXML
+    public void stopServer() {
         if (server != null) {
             if (!server.isInterrupted()) {
                 threader.stop();
@@ -413,6 +387,8 @@ public class Controller implements Initializable {
 
                 for (Button b : lvStudents.getItems()) {
                     b.setStyle("-fx-background-color: crimson");
+                    Student student = Settings.getInstance().findStudentByAddress(b.getId());
+                    student.getServer().shutdown();
                 }
             } else {
                 setMsg(true, "Server is already stopped");
@@ -426,7 +402,8 @@ public class Controller implements Initializable {
 
     //region {GitHub-Issue: #04} Screenshot-Showcase Methods
 
-    public void onBeforeButtonClick(ActionEvent actionEvent) {
+    @FXML
+    public void onBeforeButtonClick() {
 
         List<String> screens = Settings.getInstance().getListOfScreenshots();
 
@@ -436,16 +413,20 @@ public class Controller implements Initializable {
                 .setImage(new javafx.scene.image.Image("file:" + fileName));
     }
 
-    public void onNextButtonClick(ActionEvent actionEvent) {
+    @FXML
+    public void onNextButtonClick() {
     }
 
-    public void OnActual(ActionEvent actionEvent) {
+    @FXML
+    public void OnActual() {
     }
 
+    @SuppressWarnings("unused")
     public void setPrevScreenshot() {
 
     }
 
+    @SuppressWarnings("unused")
     public void setNextScreenshot() {
 
     }
@@ -463,18 +444,22 @@ public class Controller implements Initializable {
                 );
         File folder = new File(pathOfFolder);
         File lastScreenshot = null;
+        File[] files = folder.listFiles();
 
-        for (final File fileEntry : folder.listFiles()) {
-            if (lastScreenshot == null) {
-                lastScreenshot = fileEntry;
-            } else if (lastScreenshot.lastModified() < fileEntry.lastModified()) {
-                lastScreenshot = fileEntry;
+        if (files != null) {
+            for (final File fileEntry : files) {
+                if (lastScreenshot == null) {
+                    lastScreenshot = fileEntry;
+                } else if (lastScreenshot.lastModified() < fileEntry.lastModified()) {
+                    lastScreenshot = fileEntry;
+                }
             }
         }
 
         return lastScreenshot != null ? "file:" + lastScreenshot.getPath() : null;
     }
 
+    @SuppressWarnings("unused")
     public int getScreenshotPos(String file) {
         int i = 0;
         for (String screen : Settings.getInstance().getListOfScreenshots()) {
@@ -498,6 +483,7 @@ public class Controller implements Initializable {
      *
      * @since 1.9.22.067
      */
+    @SuppressWarnings("unchecked")
     @FXML
     public void changeMode() {
         Parent root;
@@ -583,9 +569,9 @@ public class Controller implements Initializable {
         TimeSpinner spinner = new TimeSpinner();
         TimeSpinner startspinner = new TimeSpinner();
         final boolean[] alreadyaddedtime = {false};
-        final LocalTime[] time = new LocalTime[1];
+        //final LocalTime[] time = new LocalTime[1];
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
             btnaddTime.setOnAction(event -> {
                 if(alreadyaddedtime[0]){
@@ -612,20 +598,6 @@ public class Controller implements Initializable {
     public void saveTime() {
         Settings.getInstance().setStartTime(((TimeSpinner)apStartTime.getChildren().get(0)).getValue());
         Settings.getInstance().setEndTime(((TimeSpinner)apEndTime.getChildren().get(0)).getValue());
-    }
-
-    public LocalTime doSomething(LocalTime newTime, boolean addtime) {
-        System.out.println(newTime);
-        if (addtime) {
-            newTime.plusMinutes(10);
-            System.out.println("NEW TIME " + newTime);
-        }
-
-        if (LocalTime.now() == newTime) {
-            System.out.println("ABGABE");
-            //directory.zip(Session.getInstance().getPath());
-        }
-        return newTime;
     }
 
     //endregion
@@ -707,11 +679,10 @@ public class Controller implements Initializable {
      *
      * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/23">JAR GitHub Issue</a>
      *
-     * @param actionEvent   event from the click on the button
-     *
      * @since 1.12.35.071
      */
-    public void fromVersion(ActionEvent actionEvent) {
+    @FXML
+    public void fromVersion() {
         final Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
 
@@ -844,7 +815,8 @@ public class Controller implements Initializable {
         BufferedInputStream in = null;
         try
         {
-            if (source.isDirectory())
+            File[] files = source.listFiles();
+            if (source.isDirectory() && files != null)
             {
                 String name = source.getPath().replace("\\", "/").replace("target/classes/", "");
                 if (!name.isEmpty())
@@ -856,7 +828,7 @@ public class Controller implements Initializable {
                     target.putNextEntry(entry);
                     target.closeEntry();
                 }
-                for (File nestedFile: source.listFiles())
+                for (File nestedFile: files)
                     add(nestedFile, target);
                 return;
             }
@@ -887,7 +859,8 @@ public class Controller implements Initializable {
 
     //region {GitHub-Issue: #25} Directory Delete Methods
 
-    public void deleteFiles(ActionEvent actionEvent){
+    @FXML
+    public void deleteFiles(){
         FileChooser fc = new FileChooser();
         fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
         File yourZip = fc.showOpenDialog(new Stage());
@@ -934,14 +907,14 @@ public class Controller implements Initializable {
      */
     @SuppressWarnings("unchecked")
     public void initializeLogFilters() {
-        cbLogFilter.getItems().addAll("ALL", "CONNECT", "DISCONNECT", "ERRORS", "WARNINGS", "OTHER");
+        cbLogFilter.getItems().addAll(Settings.getInstance().getLogFields().keySet());
         cbLogFilter.setValue("ALL");
         cbLogFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
             Settings.getInstance().setCurrentLogFilter((String)newValue);
             VBox vbox = (VBox)anchorPaneScrollLog.getChildren().get(0);
             vbox.getChildren().clear();
             anchorPaneScrollLog.setPrefHeight(570);
-            for (TextField tf : Settings.getInstance().getLogFields().get((String)newValue)) {
+            for (TextField tf : Settings.getInstance().getLogFields().get(newValue.toString())) {
                 vbox.getChildren().add(tf);
             }
             anchorPaneScrollLog.setMinHeight(vbox.getChildren().size() * 30);
@@ -979,8 +952,9 @@ public class Controller implements Initializable {
      *
      * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
+    @SuppressWarnings("unchecked")
     public void initializeNewFilters() {
-        Callback<ListView<String>, ListCell<String>> callback =
+        /*Callback<ListView<String>, ListCell<String>> callback =
                 new Callback<ListView<String>, ListCell<String>>() {
                     @Override public ListCell<String> call(ListView<String> param) {
                         final ListCell<String> cell = new ListCell<String>() {
@@ -1003,7 +977,7 @@ public class Controller implements Initializable {
                         };
                         return cell;
                     }
-                };
+                };*/
 
         cbFilterSet.getItems().addAll("ALL-SETS", "JAVA", "C-SHARP", "SQL", "WEB");
         cbFilterSet.setValue("ALL-SETS");
@@ -1054,6 +1028,9 @@ public class Controller implements Initializable {
                 Settings.getInstance().getScreenShot().setDEFAULT_QUALITY(quality);
             }
             label.setText(time);
+            if (slider == slHarvester) {
+                AdvancedSettingsPackage.getInstance().setTime(new_val.intValue());
+            }
         });
     }
 
@@ -1345,12 +1322,15 @@ public class Controller implements Initializable {
     /**
      * shows a dialog-screen to choose the directory where the directories of the
      * screenshots and the finished tests will be.
-     *
-     * @param event Information from the click on the button.
      */
-    public void chooseDirectory(ActionEvent event) {
+    @FXML
+    public void chooseDirectory() {
         DirectoryChooser dc = new DirectoryChooser();
-        dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        if (Settings.getInstance().getPath() != null) {
+            dc.setInitialDirectory(new File(Settings.getInstance().getPath()));
+        } else {
+            dc.setInitialDirectory(new File(System.getProperty("user.home")));
+        }
         dc.setTitle("Wähle dein Ziel-Verzeichnis");
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null) {
@@ -1393,20 +1373,23 @@ public class Controller implements Initializable {
         }
     }
 
-    public void setTestOptions(ActionEvent event) throws IOException, URISyntaxException {
+    @FXML
+    public void setTestOptions() throws IOException, URISyntaxException {
         File home = FileSystemView.getFileSystemView().getHomeDirectory();
         String path = home.getAbsolutePath() + "/newFolder";
 
         System.out.println(home.getAbsolutePath());
         File file = new File(path);
-        file.mkdir();
-        Settings.getInstance().setPath(path);
-        String myQuery = "^IXIC";
+        boolean created = file.mkdir();
+        if (created) {
+            Settings.getInstance().setPath(path);
+        }
+        //String myQuery = "^IXIC";
 
         String test=String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv"));
 
         File list = new File(String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv")));
-        File abgabe = new File(String.valueOf(this.getClass().getResource("/testFiles/Angabe.zip")));
+        //File abgabe = new File(String.valueOf(this.getClass().getResource("/testFiles/Angabe.zip")));
 
         //String uri = String.format(URLEncoder.encode( myQuery , "UTF8" ), this.getClass().getResource("/testFiles/Angabe.zip"));
         System.out.println("ANGABE:  "+test);
@@ -1417,14 +1400,16 @@ public class Controller implements Initializable {
     /**
      * shows a dialog-screen to choose the test-file.
      * only zip-files are allowed.
-     *
-     * @param event Information from the click on the button.
      */
-    public void chooseHandOutFile(ActionEvent event) {
+    @FXML
+    public void chooseHandOutFile() {
         // Create and show the file filter
         FileChooser fc = new FileChooser();
-        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
+        //fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
         File yourZip = fc.showOpenDialog(new Stage());
+        if (Settings.getInstance().getHandOutFile() != null) {
+            fc.setInitialDirectory(Settings.getInstance().getHandOutFile());
+        }
 
         // Check the user pressed OK, and not Cancel.
         if (yourZip != null) {

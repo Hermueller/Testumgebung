@@ -5,7 +5,6 @@ import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
 import at.htl.server.Settings;
 import at.htl.server.advanced.AdvancedSettingsPackage;
-import com.sun.tools.classfile.Opcode;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -13,10 +12,7 @@ import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.net.InetAddress;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,6 +35,7 @@ import java.util.List;
  * 17.06.2016: PHI 005  connected the points in the chart with the user-settings
  * 18.06.2016: PHI 135  every data-point is written in a csv-file.
  * 18.06.2016: PHI 015  data-points-file is now optional for the user.
+ * 20.06.2016: PHI 015  the selected path of the student is shown in the csv-file.
  */
 public class Student {
 
@@ -78,6 +75,7 @@ public class Student {
         return pathOfWatch;
     }
 
+    @SuppressWarnings("unused")
     public String getPathOfImages() {
         return pathOfImages;
     }
@@ -136,10 +134,12 @@ public class Student {
             this.pathOfImages = path;
     }
 
+    @SuppressWarnings("unused")
     public List<Long> getLocs() {
         return locs;
     }
 
+    @SuppressWarnings("unused")
     public List<Long> getTimes() {
         return times;
     }
@@ -188,6 +188,7 @@ public class Student {
      *
      * @param locs          Specifies the number of lines in the code for each filter.
      */
+    @SuppressWarnings("unused")
     public void addValueToLast(long[] locs, long time) {
         try {
             Platform.runLater(() -> {
@@ -238,6 +239,7 @@ public class Student {
      * (if a series in a stackedAreaChart doesn't end at y=0, it will produce
      *      a graphical bug)
      */
+    @SuppressWarnings("unused")
     public void finishSeries() {
         try {
             Platform.runLater(() -> {
@@ -322,10 +324,14 @@ public class Student {
             locFile = new File(
                     Settings.getInstance().getPathOfHandInFiles() + "/" + catalogNumber + "-" + name + ".csv");
 
+            boolean success = true;
             if (locFile.exists()) {
-                locFile.delete();
+                success = locFile.delete();
             }
-            createFile(locFile);
+            if (success) {
+                createFile(locFile);
+            }
+            writeToFile(new String[]{getPathOfWatch()}, true);
             writeToFile(filter, false);
         }
     }
@@ -335,15 +341,17 @@ public class Student {
      *
      * @param f     the file to create.
      */
-    void createFile(File f){
+    boolean createFile(File f){
         File parentDir = f.getParentFile();
         try{
-            parentDir.mkdirs();
-            f.createNewFile();
+            boolean one = parentDir.mkdirs();
+            boolean two = f.createNewFile();
+            return one && two;
         }catch(Exception e){
             FileUtils.log(Level.ERROR, e.getMessage());
             Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
         }
+        return false;
     }
 
     /**
@@ -353,6 +361,7 @@ public class Student {
      * @param _loc  Specifies the lines of code at an specific quickinfo.
      * @param _time Specifies the quickinfo when the program counted the lines.
      */
+    @SuppressWarnings("unused")
     public void addLoC_Time(long _loc, long _time) {
         locs.add(_loc);
         times.add(_time);

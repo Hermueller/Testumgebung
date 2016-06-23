@@ -15,8 +15,6 @@ import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -30,6 +28,9 @@ import java.util.ResourceBundle;
  * 18.06.2016: PHI 020  properties-file can be created from the GUI.
  * 18.06.2016: PHI 015  fixed graphic bug in progressbar by using math.
  * 19.06.2016: PHI 025  implemented the port. Port is now in properties-file too.
+ * 20.06.2016: PHI 045  added the random time, fix time, test-directory and handout to the properties file.
+ * 21.06.2016: PHI 010  included the testmode in the properties-file
+ * 21.06.2016: PHI 010  only *.properties-files can be imported.
  */
 
 /**
@@ -52,7 +53,6 @@ public class Controller implements Initializable {
     @FXML
     private TextField tfPoints, tfPort;
 
-    private List<String[]> filterSets = new LinkedList<>();
     private int points = 10;
     private ChangeListener<String> onlyNumber = (observable, oldValue, newValue) -> {
         if (!newValue.matches("\\d*")) {
@@ -131,27 +131,13 @@ public class Controller implements Initializable {
      *
      * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
+    @SuppressWarnings("unchecked")
     public void initializeNewFilters() {
 
         cbFilterSetMain.getItems().addAll("ALL-SETS", "JAVA", "C-SHARP", "SQL", "WEB");
         cbFilterSetMain.setValue("ALL-SETS");
 
-        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml",
-                ".cs", ".cshtml", ".js", ".sql", ".xml", ".xsd", ".xsl", ".html"
-        });
-        filterSets.add(new String[]{".java", ".xhtml", ".css", ".fxml"});
-        filterSets.add(new String[]{".cs", ".cshtml", ".js", ".css"});
-        filterSets.add(new String[]{".sql", ".xml", ".xsd", ".xsl"});
-        filterSets.add(new String[]{".js", ".html", ".css"});
-
-        ChangeListener cl = ((observable, oldValue, newValue) -> {
-
-            /*for (String filter : filterSets.get(cbFilterSetMain.getItems().indexOf(newValue))) {
-                createFilterItem(filter);
-            }*/
-
-            cbFilterSetMain.setValue(newValue);
-        });
+        ChangeListener cl = ((observable, oldValue, newValue) -> cbFilterSetMain.setValue(newValue));
 
         cbFilterSetMain.valueProperty().addListener(cl);
         cbFilterSetMain.setValue(cbFilterSetMain.getItems().get(0));
@@ -221,8 +207,11 @@ public class Controller implements Initializable {
     @FXML
     public void importSettings() {
         FileChooser dc = new FileChooser();
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("PROP files (*.properties)", "*.properties");
+        dc.getExtensionFilters().add(extFilter);
         dc.setInitialDirectory(new File(System.getProperty("user.home")));
-        dc.setTitle("Choose you properties-file");
+        dc.setTitle("Choose your properties-file");
         File choosedFile = dc.showOpenDialog(new Stage());
         if (choosedFile != null) {
             extractInformation(choosedFile);
@@ -234,6 +223,7 @@ public class Controller implements Initializable {
      *
      * @param file  the file to extract the info from.
      */
+    @SuppressWarnings("unchecked")
     private void extractInformation(File file) {
         Properties prop = new Properties();
         InputStream stream = null;
@@ -254,16 +244,21 @@ public class Controller implements Initializable {
             slImageQuality.setValue(Double.parseDouble(prop.getProperty("quality"))*100);
             cbFilterSetMain.setValue(prop.getProperty("filter"));
             tfPort.setText(prop.getProperty("port"));
+            TB_SS_rnd.setSelected(prop.getProperty("random").toUpperCase().equals(Boolean.toString(true).toUpperCase()));
+            AdvancedSettingsPackage.getInstance().setTime(Integer.parseInt(prop.getProperty("timeSec")));
+            Settings.getInstance().setPath(prop.getProperty("testDirectory"));
+            Settings.getInstance().setHandOutFile(new File(prop.getProperty("testHandout")));
+            AdvancedSettingsPackage.getInstance().setTestMode(Boolean.parseBoolean(prop.getProperty("testmode")));
 
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
+            e.printStackTrace();
             Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
         } finally {
             if (stream != null) {
                 try {
                     stream.close();
                 } catch (IOException e) {
-                    FileUtils.log(Level.ERROR, e.getMessage());
                     Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
                 }
             }
@@ -292,6 +287,11 @@ public class Controller implements Initializable {
                 prop.setProperty("createFile", Boolean.toString(tbDataPoints.isSelected()));
                 prop.setProperty("filter", (String) cbFilterSetMain.getValue());
                 prop.setProperty("port", tfPort.getText());
+                prop.setProperty("random", Boolean.toString(TB_SS_rnd.isSelected()));
+                prop.setProperty("timeSec", Integer.toString(AdvancedSettingsPackage.getInstance().getTime()));
+                prop.setProperty("testDirectory", Settings.getInstance().getPath());
+                prop.setProperty("testHandout", Settings.getInstance().getHandOutFile().getAbsolutePath());
+                prop.setProperty("testmode", Boolean.toString(false));
 
                 // save properties to exports directory
                 prop.store(output, null);
@@ -309,7 +309,6 @@ public class Controller implements Initializable {
                 try {
                     output.close();
                 } catch (IOException e) {
-                    FileUtils.log(Level.ERROR, e.getMessage());
                     Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
                 }
             }

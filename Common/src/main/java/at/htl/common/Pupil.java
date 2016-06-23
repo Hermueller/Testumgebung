@@ -54,10 +54,12 @@ public class Pupil implements Serializable {
         return pathOfProject;
     }
 
+    @SuppressWarnings("unused")
     public void setPathOfProject(String pathOfProject) {
         this.pathOfProject = pathOfProject;
     }
 
+    @SuppressWarnings("unused")
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -71,13 +73,12 @@ public class Pupil implements Serializable {
 
         Pupil pupil = (Pupil) o;
 
-        if (catalogNumber != pupil.catalogNumber) return false;
-        if (!enrolmentID.equals(pupil.enrolmentID)) return false;
-        if (!firstName.equals(pupil.firstName)) return false;
-        if (!lastName.equals(pupil.lastName)) return false;
-        if (!pathOfProject.equals(pupil.pathOfProject)) return false;
-        return startTime.equals(pupil.startTime);
-
+        return catalogNumber == pupil.catalogNumber &&
+                enrolmentID.equals(pupil.enrolmentID) &&
+                firstName.equals(pupil.firstName) &&
+                lastName.equals(pupil.lastName) &&
+                pathOfProject.equals(pupil.pathOfProject) &&
+                startTime.equals(pupil.startTime);
     }
 
     @Override
