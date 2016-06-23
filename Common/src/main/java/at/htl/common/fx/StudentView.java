@@ -17,7 +17,6 @@ public class StudentView {
     private ListView lv = null;
 
     private StudentView() {
-
     }
 
     public static StudentView getInstance() {

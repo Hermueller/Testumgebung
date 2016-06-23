@@ -1,6 +1,6 @@
 package at.htl.common;
 
-import at.htl.common.fx.TextAnimation;
+import at.htl.common.fx.FxUtils;
 import javafx.animation.SequentialTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -86,10 +86,9 @@ public class Countdown extends Thread {
             text.setText("00:00:00");
             System.out.println("Clock beendet");
             text.setFill(Color.RED);
-            blinkThenFade = new SequentialTransition(
-                    text,
-                    TextAnimation.createBlinker(text),
-                    TextAnimation.createFade(text)
+            blinkThenFade = new SequentialTransition(text,
+                    FxUtils.createBlinker(text),
+                    FxUtils.createFade(text)
             );
             blinkThenFade.play();
         }

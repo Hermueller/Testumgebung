@@ -12,7 +12,7 @@ import org.loadui.testfx.GuiTest;
 import java.io.IOException;
 
 /**
- * @timeline .
+ * @timeline StudentTestGui
  * 12.11.2015: PON 001  created test class
  * 12.11.2015: PON 050  implemented TestFX test methods
  */

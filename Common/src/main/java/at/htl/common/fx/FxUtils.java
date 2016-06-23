@@ -2,8 +2,10 @@ package at.htl.common.fx;
 
 import at.htl.common.io.FileUtils;
 import com.aquafx_project.AquaFx;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -11,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.*;
+import javafx.util.Duration;
 import org.apache.logging.log4j.Level;
 
 import java.io.File;
@@ -20,6 +23,8 @@ import java.io.File;
  * 03.01.2016: MET 001  created class
  * 03.01.2016: MET 020  improved selection of folders and files: chooseDirectory() and chooseFile()
  * 03.01.2016: MET 003  made setMsg() statically available
+ * 31.03.2016: MET 010  TextAnimation: implemented method for blinking text
+ * 31.03.2016: MET 005  TextAnimation: implemented method for disappearing text
  * 22.04.2016: PHI 120  changed the style of the PopUp-Window
  * 07.05.2016: PHI 035  styled the PopUp-Window
  * 28.05.2016: PHI 010  popUp-Window can be closed with ENTER-key
@@ -98,6 +103,24 @@ public class FxUtils {
             alert.setText(text);
             alert.setStyle("-fx-background-color: " + (error ? "red" : "limegreen"));
         });
+    }
+
+    public static Timeline createBlinker(Node node) {
+        Timeline blink = new Timeline(
+                new KeyFrame(Duration.seconds(0.0), new KeyValue(node.opacityProperty(), 1, Interpolator.DISCRETE)),
+                new KeyFrame(Duration.seconds(0.5), new KeyValue(node.opacityProperty(), 0, Interpolator.DISCRETE)),
+                new KeyFrame(Duration.seconds(1.0), new KeyValue(node.opacityProperty(), 1, Interpolator.DISCRETE))
+        );
+        blink.setCycleCount(Timeline.INDEFINITE);
+        //blink.setCycleCount(5);
+        return blink;
+    }
+
+    public static FadeTransition createFade(Node node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        return fade;
     }
 
     /**

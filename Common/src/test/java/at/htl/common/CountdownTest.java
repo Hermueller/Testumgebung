@@ -1,7 +1,7 @@
 package at.htl.common;
 
 /**
- * @timeline .
+ * @timeline CountdownTest
  * 10.03.2016: MET 001  created class
  * 10.03.2016: MET 010  test
  * 17.03.2016: MET 005  test

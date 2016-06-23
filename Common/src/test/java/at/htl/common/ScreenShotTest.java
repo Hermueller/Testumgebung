@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @timeline .
+ * @timeline ScreenShotTest
  * 14.11.2015: MET 001  created test class
  * 14.11.2015: MET 010  test: image format, validate suffix
  * 14.11.2015: MET 005  test: create and delete screenshots

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @timeline .
+ * @timeline ScreenShotTest
  * 14.11.2015: MET 001  created test class
  * 14.11.2015: MET 020  test: creating of folders and files
  * 14.11.2015: MET 002  test: delete directory
