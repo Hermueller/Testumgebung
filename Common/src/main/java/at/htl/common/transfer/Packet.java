@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 
 /**
- * @timeline .
+ * @timeline Packet
  * 19.06.2016: MET 001  created class
  * 21.06.2016: MET 030  implementation of a generalization of packets (LoginPackage, HarvestedPackage)
  * 23.06.2016: MET 110  implementation of a generalization of packets (HandOutPackage)

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -32,6 +33,7 @@ import java.util.zip.ZipOutputStream;
  * 15.03.2016: PHI 005  showing the log on the application
  * 18.03.2016: PHI 080  the log int the application is now in colors
  * 21.06.2016: MET 005  function for getting the file extension
+ * 23.06.2016: MET 003  function for converting a file to a byte-array
  */
 public class FileUtils {
 
@@ -115,6 +117,21 @@ public class FileUtils {
     public static String getFileExtension(File file) {
         String[] strings = file.getName().split("\\.");
         return strings[strings.length - 1];
+    }
+
+    /**
+     * converts a file to byte[]
+     *
+     * @param file file to be converted
+     * @return converted byte-array
+     */
+    public static byte[] fileToByteArray(File file) {
+        try {
+            return Files.readAllBytes(file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

@@ -5,15 +5,11 @@ import at.htl.common.fx.FxUtils;
 import java.net.InetAddress;
 
 /**
+ * executes system commands.
+ *
  * @timeline IpConnection
  * 22.05.2016: PHI 015  created class and improved the isIpReachable-method.
  * 22.05.2016: PHI 002  created method to check internet-connection.
- */
-
-/**
- * executes system commands.
- *
- * @author Philipp Hermüller
  */
 public class IpConnection {
 

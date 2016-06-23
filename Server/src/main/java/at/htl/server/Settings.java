@@ -19,8 +19,6 @@ import javafx.scene.paint.Color;
 import org.apache.logging.log4j.Level;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -203,7 +201,7 @@ public class Settings {
     }
 
     /**
-     * @return      the TextArea of the logging
+     * @return the TextArea of the logging
      */
     public AnchorPane getLogArea() {
         return logArea;
@@ -212,7 +210,7 @@ public class Settings {
     /**
      * sets the TextArea which is used for the logging
      *
-     * @param logArea   the TextArea where the log will be shown
+     * @param logArea the TextArea where the log will be shown
      */
     public void setLogArea(AnchorPane logArea) {
         this.logArea = logArea;
@@ -265,11 +263,7 @@ public class Settings {
      */
     public Packet getPacket() {
         Packet packet = new Packet(Action.HAND_OUT, "HandOutPackage");
-        try {
-            packet.put(Resource.FILE, Files.readAllBytes(getHandOutFile().toPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        packet.put(Resource.FILE, FileUtils.fileToByteArray(getHandOutFile()));
         packet.put(Resource.FILE_EXTENSION, FileUtils.getFileExtension(getHandOutFile()));
         packet.put(Resource.TIME, getEndTime());
         packet.put(Resource.COMMENT, "Good Luck!");
@@ -349,7 +343,7 @@ public class Settings {
     /**
      * PathOfExports includes the Logs, JAR-files and the LineCharts of the Students.
      *
-     * @return  the path of the directory of the exports
+     * @return the path of the directory of the exports
      */
     public String getPathOfExports() {
         return pathOfExports;
@@ -410,7 +404,7 @@ public class Settings {
     /**
      * shows the number of logged in students on the teacher GUI
      *
-     * @param addOne    if the counter increasing by one then TRUE.
+     * @param addOne if the counter increasing by one then TRUE.
      */
     public void changeStudentCount(boolean addOne) {
         String text = "";
@@ -485,8 +479,8 @@ public class Settings {
     /**
      * searches for a student by his/her name
      *
-     * @param name  of the Student
-     * @return      the StudentObject with the correct name
+     * @param name of the Student
+     * @return the StudentObject with the correct name
      */
     @Deprecated
     public Student findStudentByName(String name) {
@@ -501,8 +495,8 @@ public class Settings {
     /**
      * searches for a student by his InetAddress.
      *
-     * @param address   the address of the student.
-     * @return          the student with the correct address.
+     * @param address the address of the student.
+     * @return the student with the correct address.
      */
     public Student findStudentByAddress(String address) {
         for (Student _student : studentsList) {
@@ -591,7 +585,7 @@ public class Settings {
     /**
      * calculates the time (x-axis point) for the chart.
      *
-     * @return  the time for the chart in seconds. (x-axis point)
+     * @return the time for the chart in seconds. (x-axis point)
      */
     public long calculateTime() {
         //set start-time
@@ -619,8 +613,8 @@ public class Settings {
     /**
      * prints the error into the Log in the application.
      *
-     * @param t     the thread who caught the error
-     * @param e     the error
+     * @param t the thread who caught the error
+     * @param e the error
      */
     public void printMessage(Thread t, Throwable e) {
         printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
@@ -629,9 +623,9 @@ public class Settings {
     /**
      * prints an error message into the Log-View
      *
-     * @param level         Specifies the level of the error.
-     * @param stackList     Specifies all the messages of the error.
-     * @param filter        Specifies the file extension name.
+     * @param level     Specifies the level of the error.
+     * @param stackList Specifies all the messages of the error.
+     * @param filter    Specifies the file extension name.
      */
     public void printError(Level level, StackTraceElement[] stackList, String filter, String message) {
         AnchorPane log = getLogArea();

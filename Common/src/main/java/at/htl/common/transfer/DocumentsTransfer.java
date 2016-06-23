@@ -5,7 +5,6 @@ import at.htl.common.io.FileUtils;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
-import java.nio.file.Files;
 
 /**
  * @timeline DocumentsTransfer
@@ -20,6 +19,7 @@ public class DocumentsTransfer {
     private static final int BUFFER_SIZE = 16384;
 
     //region Deprecated
+
     /**
      * Instructions (Testangabe) are downloaded to the clients
      *
@@ -78,10 +78,10 @@ public class DocumentsTransfer {
     //endregion
 
     /**
-     * sends the HandOutPackage to its users.
+     * sends a packet
      *
-     * @param oos    The stream from the socket to the client.
-     * @param object Specialises the HandOutPackage which will be sent to the clients
+     * @param oos    the stream from the socket to the client
+     * @param object specialises the HandOutPackage which will be sent to the clients
      * @return TRUE if it was a success.
      */
     public static boolean sendObject(ObjectOutputStream oos, Object object) {
@@ -101,46 +101,22 @@ public class DocumentsTransfer {
     }
 
 
+    /**
+     * receives a packet
+     *
+     * @param ois ObjectInputStream
+     * @return received object
+     */
     public static Object receiveObject(ObjectInputStream ois) {
         try {
-            return ois.readObject();
+            Object object = ois.readObject();
+            FileUtils.log(DocumentsTransfer.class, Level.INFO, "object received!");
+            return object;
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
+            FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can't receive the object! " + MyUtils.exToStr(e));
         }
         return false;
-    }
-
-    /**
-     * extracts the information from the received HandOutPackage.
-     * Saves the file from the package.
-     *
-     * @param obj  the received HandOutPackage.
-     * @param path the path where the file will be created.
-     * @return the received package.
-     */
-    @Deprecated
-    public static HandOutPackage receiveObject2(Object obj, String path, String fileName) {
-        try {
-
-            HandOutPackage handOutPackage = (HandOutPackage) obj;
-
-            byte[] handout = handOutPackage.getFile();
-
-            if (handout.length != 0) {
-                path += "/" + fileName + "." + handOutPackage.getFileExtension();
-                File placeToSave = new File(path);
-                Files.write(placeToSave.toPath(), handout);
-            }
-
-            System.out.println(handOutPackage.getComment());
-
-            return handOutPackage;
-
-        } catch (IOException e) {
-            FileUtils.log(DocumentsTransfer.class, Level.ERROR,
-                    "failed at receiving the object! " + MyUtils.exToStr(e));
-        }
-        return null;
     }
 
 }

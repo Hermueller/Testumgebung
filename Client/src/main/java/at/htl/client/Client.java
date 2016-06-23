@@ -42,14 +42,12 @@ public class Client {
     private LocalTime endTime = null;
     private boolean signedIn = false;
 
-    public Client(Packet packet)
-            throws IOException, AWTException {
+    public Client(Packet packet) throws IOException, AWTException {
         socket = new Socket(Exam.getInstance().getServerIP(), Exam.getInstance().getPort());
         FileUtils.createDirectory(Exam.getInstance().getPupil().getPathOfProject());
         robot = new Robot();
         jobs = new RobotActionQueue();
-        in = new ObjectInputStream(
-                new BufferedInputStream(socket.getInputStream()));
+        in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
         setOut(new ObjectOutputStream(socket.getOutputStream()));
         DocumentsTransfer.sendObject(out, packet);
         processor = new ProcessorThread();
@@ -74,6 +72,8 @@ public class Client {
 
     /**
      * gets the file from the teacher for the test and saves it
+     * extracts the information from the received HandOutPackage.
+     * Saves the file from the package.
      */
     public void loadFiles() {
         try {

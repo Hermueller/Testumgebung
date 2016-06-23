@@ -58,8 +58,6 @@ public class Student {
     }
 
     //region Getter and Setter
-
-
     public Pupil getPupil() {
         return pupil;
     }

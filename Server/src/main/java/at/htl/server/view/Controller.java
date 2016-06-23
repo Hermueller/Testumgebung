@@ -51,7 +51,7 @@ import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
 /**
- * @timeline serverController
+ * @timeline ServerController
  * 15.10.2015: GNA 001  created class
  * 15.10.2015: PHI 035  Allowed quickinfo-input in the GUI for the screenshot-delay.
  * 19.10.2015: PON 020  list of connected pupils

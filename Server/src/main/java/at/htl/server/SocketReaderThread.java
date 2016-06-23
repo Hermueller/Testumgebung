@@ -16,7 +16,7 @@ import static at.htl.common.transfer.Packet.*;
  * und reicht sie dann an dem TeacherServer weiter, der sie auch
  * sofort anzeigt.
  *
- * @timeline .
+ * @timeline SocketReaderThread
  * 31.10.2015: MET 010  Änderung
  * 21.04.2016: PHI 015  added the coloring from the student
  * 14.06.2016: PHI 002  fixed bug

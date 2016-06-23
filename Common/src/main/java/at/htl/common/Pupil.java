@@ -20,6 +20,13 @@ public class Pupil implements Serializable {
     private String pathOfProject;
     private LocalDateTime startTime;
 
+    /**
+     * @param catalogNumber specialises the catalog number of the client.
+     * @param enrolmentID   specialises the enrolmentID (Matrikelnummer) of the client
+     * @param firstName     specialises the first name of the client
+     * @param lastName      specialises the last name of the client
+     * @param pathOfProject specialises the directory where the client will work
+     */
     public Pupil(int catalogNumber,
                  String enrolmentID,
                  String firstName,

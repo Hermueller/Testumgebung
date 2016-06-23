@@ -9,18 +9,14 @@ import java.io.File;
 import java.io.FileReader;
 
 /**
+ * counts the lines in a file for each file in a directory.
+ *
  * @timeline .
  * 10.12.2015: PHI 001  created class
  * 10.12.2015: PHI 055  Anlegen der Grundfunktionen und implementieren dieser in andere Klassen(z.B. SocketWriterThread)
  * 11.12.2015: PHI 045  Errechnen von ALLEN zeilen im Projekt NUR im Startverzeichnis, das beim Login erstellt wurde.
  * 21.04.2016: PHI 010  changed this class to a Singleton and added the variable "finished"
  * 07.05.2016: PHI 015  added new method (remembers how many lines for each filter)
- */
-
-/**
- * counts the lines in a file for each file in a directory.
- *
- * @author Philipp Hermueller
  */
 public class LineCounter {
 
@@ -41,7 +37,7 @@ public class LineCounter {
 
     /**
      *
-     * @return  boolean (finished the student the test?)
+     * @return boolean (finished the student the test?)
      */
     public boolean isFinished() {
         return finished;
@@ -59,7 +55,7 @@ public class LineCounter {
      * Counts the lines of code in a file.
      *
      * @param _filename Specifies the file in which the lines have to be counted
-     * @return          the number of lines in the file
+     * @return the number of lines in the file
      */
     public long countLines(String _filename) {
         long lines = 0;
@@ -69,7 +65,7 @@ public class LineCounter {
                 lines = br.lines().count();
             }
         } catch (Exception exc) {
-            FileUtils.log(this, Level.ERROR,"File konnte nicht gelesen werden!!"+ MyUtils.exToStr(exc));
+            FileUtils.log(this, Level.ERROR, "File konnte nicht gelesen werden!!" + MyUtils.exToStr(exc));
         }
 
         return lines;
@@ -83,7 +79,7 @@ public class LineCounter {
      * @param folder Specifies the directory in which the files to count
      *               are located.
      * @param filter file extension name.
-     * @return       The number of lines from all files in the directory
+     * @return The number of lines from all files in the directory
      *
      * @since 1.2.9.002
      */
@@ -111,7 +107,7 @@ public class LineCounter {
      *
      * @param folder    the root folder which includes all files to count in.
      * @param filter    Specialises the file-extension-names.
-     * @return          The Array which includes the number of lines for each file-extension.
+     * @return The Array which includes the number of lines for each file-extension.
      */
     public long[] countLinesWithFilter(final File folder, String[] filter) {
         long[] lines = new long[filter.length];

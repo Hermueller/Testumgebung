@@ -19,7 +19,9 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
- * @timeline advancedSettingsController
+ * controller for all the advanced settings.
+ *
+ * @timeline Controller
  * 17.06.2016: PHI 065  created class
  * 17.06.2016: PHI 035  connected the user-settings with the amount of points in the chart
  * 17.06.2016: PHI 075  scale can be changed by the user
@@ -31,12 +33,6 @@ import java.util.ResourceBundle;
  * 20.06.2016: PHI 045  added the random time, fix time, test-directory and handout to the properties file.
  * 21.06.2016: PHI 010  included the testmode in the properties-file
  * 21.06.2016: PHI 010  only *.properties-files can be imported.
- */
-
-/**
- * controller for all the advanced settings.
- *
- * @author Philipp
  */
 public class Controller implements Initializable {
 
@@ -77,7 +73,7 @@ public class Controller implements Initializable {
     /**
      * changes the text of the source between ON and OFF.
      *
-     * @param event     the event of the click.
+     * @param event the event of the click.
      */
     public void changeSomeOptions(ActionEvent event) {
         ToggleButton source = (ToggleButton) event.getSource();
@@ -99,8 +95,7 @@ public class Controller implements Initializable {
     public void changeImageFormat() {
         if (tbImageFormat.isSelected()) {
             tbImageFormat.setText("PNG");
-        }
-        else {
+        } else {
             tbImageFormat.setText("JPG");
         }
     }
@@ -111,7 +106,7 @@ public class Controller implements Initializable {
     public void initializeSlides(Slider slider, ProgressBar progressBar, Label label,
                                  int maxTime) {
         slider.valueProperty().addListener((ov, old_val, new_val) -> {
-            progressBar.setProgress(((new_val.doubleValue()-10) / maxTime)*(10.0/9.0));
+            progressBar.setProgress(((new_val.doubleValue() - 10) / maxTime) * (10.0 / 9.0));
             String value = (new_val.intValue() < 10) ?
                     "0" + new_val.toString().split("\\.")[0] :
                     new_val.toString().split("\\.")[0];
@@ -124,12 +119,12 @@ public class Controller implements Initializable {
      * <br>
      * This includes:
      * <ul>
-     *     <li>Set filter sets</li>
-     *     <li>fill sets with standard values</li>
-     *     <li>initializes callback</li>
+     * <li>Set filter sets</li>
+     * <li>fill sets with standard values</li>
+     * <li>initializes callback</li>
      * </ul>
      *
-     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
+     * @see <a href="http://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
      */
     @SuppressWarnings("unchecked")
     public void initializeNewFilters() {
@@ -152,13 +147,13 @@ public class Controller implements Initializable {
         AdvancedSettingsPackage.getInstance().setImageScale(slImageScale.getValue() / 100);
         AdvancedSettingsPackage.getInstance().setImageQuality(slImageQuality.getValue() / 100);
         AdvancedSettingsPackage.getInstance().setFilterSet(
-                (String)cbFilterSetMain.getSelectionModel().getSelectedItem());
+                (String) cbFilterSetMain.getSelectionModel().getSelectedItem());
         AdvancedSettingsPackage.getInstance().setJpgFormat(!tbImageFormat.isSelected());
         AdvancedSettingsPackage.getInstance().setPoints(points);
         AdvancedSettingsPackage.getInstance().setSaveDataPoints(tbDataPoints.isSelected());
         AdvancedSettingsPackage.getInstance().setPort(Integer.parseInt(tfPort.getText()));
 
-        Stage stage = (Stage)TB_SS_rnd.getScene().getWindow();
+        Stage stage = (Stage) TB_SS_rnd.getScene().getWindow();
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
@@ -221,7 +216,7 @@ public class Controller implements Initializable {
     /**
      * applies the settings from the file to the program.
      *
-     * @param file  the file to extract the info from.
+     * @param file the file to extract the info from.
      */
     @SuppressWarnings("unchecked")
     private void extractInformation(File file) {
@@ -240,8 +235,8 @@ public class Controller implements Initializable {
             }
             tfPoints.setText(prop.getProperty("dataPoints"));
             points = Integer.parseInt(prop.getProperty("dataPoints"));
-            slImageScale.setValue(Double.parseDouble(prop.getProperty("scale"))*100);
-            slImageQuality.setValue(Double.parseDouble(prop.getProperty("quality"))*100);
+            slImageScale.setValue(Double.parseDouble(prop.getProperty("scale")) * 100);
+            slImageQuality.setValue(Double.parseDouble(prop.getProperty("quality")) * 100);
             cbFilterSetMain.setValue(prop.getProperty("filter"));
             tfPort.setText(prop.getProperty("port"));
             TB_SS_rnd.setSelected(prop.getProperty("random").toUpperCase().equals(Boolean.toString(true).toUpperCase()));
@@ -319,11 +314,11 @@ public class Controller implements Initializable {
     /**
      * returns double value with only one decimal point.
      *
-     * @param value     the double value with many decimal points.
-     * @return          the value with one decimal point.
+     * @param value the double value with many decimal points.
+     * @return the value with one decimal point.
      */
     public double convertToOneDecimalPoint(double value) {
-        int oneD = (int)(value*10);
+        int oneD = (int) (value * 10);
 
         return oneD / 10.0;
     }

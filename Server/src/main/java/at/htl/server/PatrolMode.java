@@ -8,13 +8,9 @@ import org.apache.logging.log4j.Level;
 
 
 /**
- * @timeline Text
+ * @timeline PatrolMode
  * 10.03.2016: PON 060  Patrol Mode: Switcht alle Schüler durch
  * 14.04.2016: PHI 050  fixed bug
- */
-
-/**
- * @author Patrick Pohn
  */
 public class PatrolMode extends Thread {
 
@@ -52,6 +48,5 @@ public class PatrolMode extends Thread {
             }
 
         }
-
     }
 }

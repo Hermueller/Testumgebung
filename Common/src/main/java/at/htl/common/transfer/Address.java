@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @timeline Address
- * 3 min
+ * 21.06.2016: MET 005  created class, implementation
  */
 public class Address implements Serializable {
 

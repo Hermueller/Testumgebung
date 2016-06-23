@@ -54,6 +54,4 @@ public class MyUtils {
         return prop.getProperty(propertyName);
     }
 
-
-
 }

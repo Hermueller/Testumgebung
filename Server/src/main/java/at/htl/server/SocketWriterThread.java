@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Im SocketWriterTrhead wird die Wartezeit zwischen Screenshots kontrolliert
  *
- * @timeline .
+ * @timeline SocketWriterThread
  * 27.10.2015: PHI 025  Student wird nach dem Logout aus der Liste entfernt
  * 31.10.2015: MET 060  Angabe zur Verfügung stellen
  * 11.12.2015: PHI 010  LoC werden immer mit dem Screenshot berechnet

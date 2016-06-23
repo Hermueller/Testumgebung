@@ -38,7 +38,7 @@ import static at.htl.common.transfer.Packet.Action;
 import static at.htl.common.transfer.Packet.Resource;
 
 /**
- * @timeline studentController
+ * @timeline StudentController
  * 15.10.2015: PON 001  created class
  * 18.10.2015: PHI 030  created login with text boxes
  * 14.10.2015: MET 030  new GUI design and created function setControls(value)
@@ -372,7 +372,6 @@ public class Controller implements Initializable {
     public void setMode() {
         LineCounter.getInstance().setFinished(cbFinished.isSelected());
     }
-
 
     /**
      * Disconnects from the server.

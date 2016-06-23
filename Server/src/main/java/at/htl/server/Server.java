@@ -20,9 +20,14 @@ import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static at.htl.common.transfer.Packet.*;
+import static at.htl.common.transfer.Packet.Resource;
 
 /**
+ * Die Hauptklasse ist der TeacherServer. Wenn ein Schüler sich mit ihm verbindet,
+ * schickt er ein LoginPacket. Sobald dieses Packet verarbeitet wurde, wird der
+ * SocketReaderThread und der SocketWriterThread erzeugt, mit denen dann die
+ * Netzwerkkommunikation ermöglicht ist.
+ *
  * @timeline Server
  * 21.10.2015: PHI 020  Einfügen der "saveImage()"-Methode zum Speichern der Screenshots
  * 26.10.2015: MET 010  Verbesserung der Methode saveImage()
@@ -39,13 +44,6 @@ import static at.htl.common.transfer.Packet.*;
  * 12.06.2016: PHI 030  the server differs between the IPAddress and not the lastname now.
  * 18.06.2016: PHI 035  a csv-file is created for the lines of code.
  * 21.06.2016: PHI 003  the directory of the student is logged.
- */
-
-/**
- * Die Hauptklasse ist der TeacherServer. Wenn ein Schüler sich mit ihm verbindet,
- * schickt er ein LoginPacket. Sobald dieses Packet verarbeitet wurde, wird der
- * SocketReaderThread und der SocketWriterThread erzeugt, mit denen dann die
- * Netzwerkkommunikation ermöglicht ist.
  */
 public class Server {
 
@@ -108,8 +106,8 @@ public class Server {
         Platform.runLater(() -> Notifications.create()
                 .title("Student logged in")
                 .text("The student '".concat(student.getPupil().getLastName())
-                                .concat(" " + student.getPupil().getFirstName())
-                                .concat("' logged in."))
+                        .concat(" " + student.getPupil().getFirstName())
+                        .concat("' logged in."))
                 .hideAfter(Duration.seconds(5))
                 .showInformation());
     }

@@ -12,20 +12,16 @@ import static at.htl.common.transfer.Packet.Action;
 import static at.htl.common.transfer.Packet.Resource;
 
 /**
+ * This Harvester counts the lines of code in the test-project and
+ * creates a screenshot from the students screen.
+ * <p/>
+ * The lines-of-code -Number and the screenshot will be moved into a package
+ * and will be sent to the teacher.
+ *
  * @timeline .
  * 13.01.2016: PHI 055  Es werden neben Screenshots auch die Lines of Code eingelesen und versendet.
  * 21.04.2016: PHI 010  added the finished-Variable
  * 07.05.2016: PHI 002  remembers the number of lines for each filter
- */
-
-/**
- * This Harvester counts the lines of code in the test-project and
- * creates a screenshot from the students screen.
- * <p>
- * The lines-of-code -Number and the screenshot will be moved into a package
- * and will be sent to the teacher.
- *
- * @author Philipp Hermueller
  */
 public class LittleHarvester implements RobotAction {
 
@@ -48,9 +44,9 @@ public class LittleHarvester implements RobotAction {
     /**
      * creates screenshot and counts the lines of code.
      *
-     * @param robot         The executing robot.
-     * @return              The harvested package.
-     * @throws IOException  can't open file
+     * @param robot The executing robot.
+     * @return The harvested package.
+     * @throws IOException can't open file
      */
     public Object execute(Robot robot) throws IOException {
         byte[] bytes = screenShot.get();

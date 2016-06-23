@@ -12,6 +12,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
+ * Singleton for all variables from the advanced settings.
+ *
  * @timeline AdvancedSettingsPackage
  * 17.06.2016: PHI 035  created class
  * 17.06.2016: PHI 005  implemented the points
@@ -19,12 +21,6 @@ import java.net.UnknownHostException;
  * 18.06.2016: PHI 002  added the saveDataPoint.
  * 19.06.2016: PHI 020  implemented the port.
  * 20.06.2016: PHI 005  added the random time and fix time to the properties file.
- */
-
-/**
- * Singleton for all variables from the advanced settings.
- *
- * @author Philipp
  */
 public class AdvancedSettingsPackage {
 
