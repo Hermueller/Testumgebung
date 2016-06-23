@@ -6,23 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="1.18.38.219 - file">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/Address.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/Packet.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/Package.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/io/DocumentsTransfer.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/DocumentsTransfer.java" />
+    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/LittleHarvester.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/LittleHarvester.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/io/FileUtils.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/io/FileUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/HandOutPackage.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/HandOutPackage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/HarvestedPackage.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/HarvestedPackage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/LoginPackage.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/LoginPackage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Server.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketReaderThread.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketReaderThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketWriterThread.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketWriterThread.java" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/io/FileUtils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="63" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
+              <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -91,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/Countdown.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -150,8 +135,8 @@
       <file leaf-file-name="Packet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/Packet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24408284">
-              <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.6213018">
+              <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -1713,13 +1698,7 @@
       <workItem from="1466482677238" duration="212000" />
       <workItem from="1466509442966" duration="2589000" />
       <workItem from="1466565835344" duration="130000" />
-      <workItem from="1466606242143" duration="4766000" />
-    </task>
-    <task id="LOCAL-00007" summary="1.0.8.002&#10;&#10;Kleiner Teacher Test hinzugefügt der die Parameter prüft&#10;&#10;">
-      <created>1447335408119</created>
-      <option name="number" value="00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1447335408119</updated>
+      <workItem from="1466606242143" duration="5245000" />
     </task>
     <task id="LOCAL-00008" summary="1.0.8.002&#10;&#10;Kleiner Teacher Test hinzugefügt der die Parameter prüft&#10;&#10;">
       <created>1447335525987</created>
@@ -2009,7 +1988,13 @@
       <option name="project" value="LOCAL" />
       <updated>1466417617148</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="1.18.39 - Implementation of a generalization of packets (changed several code parts)&#10;&#10;LoginPackage, HandOutPackage, HarvestedPackage no longer needs to be used&#10;function for getting the extension of a file&#10;sending and receiving objects changed">
+      <created>1466677527916</created>
+      <option name="number" value="00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1466677527918</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2045,7 +2030,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="196953000" />
+    <option name="totallyTimeSpent" value="197432000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2128,7 +2113,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.13.39.001 - login function improved&#10;&#10;Output of messages, login, ..." />
     <MESSAGE value="1.14.00.001 - New project structure with separate Modules" />
     <MESSAGE value="1.14.00.002 - Bug fixed and ShowPopUp by using FxUtils" />
     <MESSAGE value="1.14.00.004 - #32 Jar with dependencies" />
@@ -2153,7 +2137,8 @@
     <MESSAGE value="1.15.26.209 - #50 Auto size of the QuickInfo-Window &#10;&#10;Bug: the size QuickInfo-Window does not change correctly" />
     <MESSAGE value="1.15.27 - Change the test mode to FALSE" />
     <MESSAGE value="1.18.38.219 - Formatting for time tracking corrected" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.18.38.219 - Formatting for time tracking corrected" />
+    <MESSAGE value="1.18.39 - Implementation of a generalization of packets (changed several code parts)&#10;&#10;LoginPackage, HandOutPackage, HarvestedPackage no longer needs to be used&#10;function for getting the extension of a file&#10;sending and receiving objects changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.18.39 - Implementation of a generalization of packets (changed several code parts)&#10;&#10;LoginPackage, HandOutPackage, HarvestedPackage no longer needs to be used&#10;function for getting the extension of a file&#10;sending and receiving objects changed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2654,7 +2639,7 @@
     <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/Countdown.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2678,15 +2663,15 @@
     <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/io/FileUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="63" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
+          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/Packet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24408284">
-          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.6213018">
+          <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
           <folding />
         </state>
       </provider>
