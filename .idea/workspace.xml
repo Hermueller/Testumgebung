@@ -75,8 +75,8 @@
       <file leaf-file-name="SocketWriterThread.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketWriterThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32673267">
-              <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.8019802">
+              <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -1740,13 +1740,7 @@
       <workItem from="1466482677238" duration="212000" />
       <workItem from="1466509442966" duration="2589000" />
       <workItem from="1466565835344" duration="130000" />
-      <workItem from="1466606242143" duration="9658000" />
-    </task>
-    <task id="LOCAL-00010" summary="1.0.8.004&#10;&#10;Ports hinzugefügt&#10;&#10;">
-      <created>1447935610029</created>
-      <option name="number" value="00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1447935610030</updated>
+      <workItem from="1466606242143" duration="9840000" />
     </task>
     <task id="LOCAL-00011" summary="1.0.8.004&#10;&#10;Änderungen von November&#10;Einige Commits sin verloren gegangen&#10;&#10;">
       <created>1447938710016</created>
@@ -2036,7 +2030,13 @@
       <option name="project" value="LOCAL" />
       <updated>1466682535054</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="1.18.44 - #55 Push failed">
+      <created>1466682650168</created>
+      <option name="number" value="00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1466682650169</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2072,7 +2072,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201845000" />
+    <option name="totallyTimeSpent" value="202027000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2155,7 +2155,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.14.00.002 - Bug fixed and ShowPopUp by using FxUtils" />
     <MESSAGE value="1.14.00.004 - #32 Jar with dependencies" />
     <MESSAGE value="1.14.00.005 - Added comments of the previous weeks" />
     <MESSAGE value="1.14.00.006 - Push rejected &#10;&#10;Push has been cancelled, because there were conflicts during update. Check that conflicts were resolved correctly, and invoke push again. View files updated during the push" />
@@ -2180,7 +2179,8 @@
     <MESSAGE value="1.18.38.219 - Formatting for time tracking corrected" />
     <MESSAGE value="1.18.39 - Implementation of a generalization of packets (changed several code parts)&#10;&#10;LoginPackage, HandOutPackage, HarvestedPackage no longer needs to be used&#10;function for getting the extension of a file&#10;sending and receiving objects changed" />
     <MESSAGE value="1.18.44 - #55 Discovered code duplication in class &quot;Student&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.18.44 - #55 Discovered code duplication in class &quot;Student&quot;" />
+    <MESSAGE value="1.18.44 - #55 Push failed" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.18.44 - #55 Push failed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2549,9 +2549,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="e#601#620#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2725,8 +2723,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketWriterThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32673267">
-          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.8019802">
+          <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
           <folding />
         </state>
       </provider>
