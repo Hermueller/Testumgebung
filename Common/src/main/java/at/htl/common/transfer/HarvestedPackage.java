@@ -9,6 +9,7 @@ import java.io.Serializable;
  * 21.04.2016: PHI 001  added the finished-Variable
  * 07.05.2016: PHI 001  added the loc-Array
  */
+@Deprecated
 public class HarvestedPackage implements Serializable {
     protected static final Long serialVersionUID = 1L;
 

@@ -1,15 +1,14 @@
 package at.htl.server;
 
 import at.htl.common.MyUtils;
-import at.htl.common.io.ScreenShot;
-import at.htl.common.transfer.HandOutPackage;
-import at.htl.server.entity.Student;
 import at.htl.common.actions.LittleHarvester;
 import at.htl.common.actions.RobotAction;
 import at.htl.common.actions.RobotActionQueue;
 import at.htl.common.fx.StudentView;
-import at.htl.common.io.DocumentsTransfer;
 import at.htl.common.io.FileUtils;
+import at.htl.common.io.ScreenShot;
+import at.htl.common.transfer.DocumentsTransfer;
+import at.htl.server.entity.Student;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import org.apache.logging.log4j.Level;
@@ -74,8 +73,7 @@ class SocketWriterThread extends Thread {
      * sends the test-file to the students.
      */
     public void handOut() {
-        HandOutPackage _package = Settings.getInstance().getHandOutPacket();
-        DocumentsTransfer.sendObject(out, _package);
+        DocumentsTransfer.sendObject(out, Settings.getInstance().getPacket());
     }
 
     public void run() {

@@ -9,7 +9,8 @@ import at.htl.common.actions.IpConnection;
 import at.htl.common.actions.LineCounter;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileUtils;
-import at.htl.common.transfer.LoginPackage;
+import at.htl.common.transfer.Address;
+import at.htl.common.transfer.Packet;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -32,6 +33,9 @@ import org.apache.logging.log4j.Level;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+
+import static at.htl.common.transfer.Packet.Action;
+import static at.htl.common.transfer.Packet.Resource;
 
 /**
  * @timeline studentController
@@ -117,7 +121,7 @@ public class Controller implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         if (MyUtils.readProperty("settings.properties", "testmode").toLowerCase().equals("false")) {
-            cbNoLogin.setVisible(false);
+            cbNoLogin.setVisible(true);
             btnTestMode.setVisible(true);
         }
         setControls(true);
@@ -169,15 +173,19 @@ public class Controller implements Initializable {
                     if (cbNoLogin.isSelected()) {
                         toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
                     } else {
-                        client = new Client(new LoginPackage(
-                                Exam.getInstance().getPupil().getFirstName(),
-                                Exam.getInstance().getPupil().getLastName(),
+                        Packet packet = new Packet(Action.LOGIN, "LoginPackage");
+                        packet.put(Resource.PUPIL, new Pupil(
                                 Exam.getInstance().getPupil().getCatalogNumber(),
                                 Exam.getInstance().getPupil().getEnrolmentID(),
+                                Exam.getInstance().getPupil().getFirstName(),
+                                Exam.getInstance().getPupil().getLastName(),
+                                Exam.getInstance().getPupil().getPathOfProject()
+                        ));
+                        packet.put(Resource.ADDRESS, new Address(
                                 Exam.getInstance().getServerIP(),
-                                Exam.getInstance().getPupil().getPathOfProject(),
                                 Exam.getInstance().getPort()
                         ));
+                        client = new Client(packet);
                         client.start();
                         toTime = client.getEndTime();
                     }

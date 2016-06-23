@@ -1,9 +1,10 @@
 package at.htl.server;
 
+import at.htl.common.Pupil;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.common.io.ScreenShot;
-import at.htl.common.transfer.LoginPackage;
+import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -18,6 +19,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import static at.htl.common.transfer.Packet.*;
 
 /**
  * @timeline Server
@@ -61,7 +64,8 @@ public class Server {
                         socket.getInputStream()));
         FileUtils.log(this, Level.INFO, "waiting for client name ...");
 
-        LoginPackage packet = (LoginPackage) in.readObject();
+        Packet packet = (Packet) in.readObject();
+        Pupil pupil = (Pupil) packet.get(Resource.PUPIL);
 
         Student student;
         String studentNameBefore;
@@ -69,26 +73,26 @@ public class Server {
 
         if (Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString()) != null) {
             student = Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString());
-            student.setPathOfWatch(packet.getDirOfWatch());
+            student.setPathOfWatch(pupil.getPathOfProject());
             student.setPathOfImages(Settings.getInstance().getPathOfImages());
-            student.setCatalogNumber(packet.getCatalogNr());
-            student.setEnrolmentID(packet.getEnrolmentID());
-            student.setFirstName(packet.getFirstname());
+            student.setCatalogNumber(pupil.getCatalogNumber());
+            student.setEnrolmentID(pupil.getEnrolmentID());
+            student.setFirstName(pupil.getLastName());
             studentNameBefore = student.getName();
-            student.setName(packet.getLastname());
+            student.setName(pupil.getLastName());
         } else {
-            student = new Student(packet.getLastname());
+            student = new Student(pupil.getLastName());
             student.setStudentAddress(socket.getInetAddress());
-            student.setPathOfWatch(packet.getDirOfWatch());
+            student.setPathOfWatch(pupil.getPathOfProject());
             student.setPathOfImages(Settings.getInstance().getPathOfImages());
-            student.setCatalogNumber(packet.getCatalogNr());
-            student.setEnrolmentID(packet.getEnrolmentID());
-            student.setFirstName(packet.getFirstname());
+            student.setCatalogNumber(pupil.getCatalogNumber());
+            student.setEnrolmentID(pupil.getEnrolmentID());
+            student.setFirstName(pupil.getFirstName());
             Settings.getInstance().addStudent(student);
             studentNameBefore = student.getName();
             newStudent = true;
         }
-        FileUtils.log(this, Level.INFO, "I got the Package: " + packet.getDirOfWatch());
+        FileUtils.log(this, Level.INFO, "I got the Package: " + pupil.getPathOfProject());
         Settings.getInstance().loginStudent(student, studentNameBefore);
         student.setServer(this);
         student.setFilter(Settings.getInstance().getEndings());

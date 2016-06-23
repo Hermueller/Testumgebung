@@ -1,13 +1,15 @@
 package at.htl.server;
 
 import at.htl.common.MyUtils;
+import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
 import at.htl.common.io.FileUtils;
-import at.htl.common.transfer.HarvestedPackage;
 import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+
+import static at.htl.common.transfer.Packet.*;
 
 /**
  * Der SocketReaderThread liest Screenshots von unserem Studenten
@@ -43,17 +45,17 @@ class SocketReaderThread extends Thread {
         while (!isInterrupted()) {
             try {
 
-                HarvestedPackage harvestedPackage = (HarvestedPackage) in.readObject();
+                Packet packet = (Packet) in.readObject();
 
                 //Settings.getInstance().printErrorLine(Level.INFO, "received package from " + student.getName(), true, "OTHER");
 
-                byte[] img = harvestedPackage.getImage();
+                byte[] img = (byte[]) packet.get(Resource.SCREENSHOT);
                 server.saveImage(img, student);
 
                 //save and show Lines of Code
-                Settings.getInstance().addValue(harvestedPackage.getLines(), student);
+                Settings.getInstance().addValue((long[]) packet.get(Resource.LINES), student);
 
-                finished = harvestedPackage.isFinished();
+                finished = (boolean) packet.get(Resource.FINISHED);
                 if (finished) {
                     Settings.getInstance().finishStudent(student);
                 }

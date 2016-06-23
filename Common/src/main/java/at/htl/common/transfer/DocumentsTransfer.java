@@ -1,7 +1,7 @@
-package at.htl.common.io;
+package at.htl.common.transfer;
 
 import at.htl.common.MyUtils;
-import at.htl.common.transfer.HandOutPackage;
+import at.htl.common.io.FileUtils;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
@@ -19,6 +19,7 @@ public class DocumentsTransfer {
 
     private static final int BUFFER_SIZE = 16384;
 
+    //region Deprecated
     /**
      * Instructions (Testangabe) are downloaded to the clients
      *
@@ -43,26 +44,6 @@ public class DocumentsTransfer {
             FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can not send screenshot to teacher" + MyUtils.exToStr(e));
         }
         return sent;
-    }
-
-    /**
-     * sends the HandOutPackage to its users.
-     *
-     * @param oos           The stream from the socket to the client.
-     * @param outPackage    Specialises the HandOutPackage which will be sent to the clients
-     * @return              TRUE if it was a success.
-     */
-    public static boolean sendObject(ObjectOutputStream oos, HandOutPackage outPackage) {
-        try {
-            //Thread.sleep(30000);
-            oos.writeObject(outPackage);
-            oos.flush();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can't send the handOutPackage! " + MyUtils.exToStr(e));
-        }
-        return false;
     }
 
     /**
@@ -93,19 +74,54 @@ public class DocumentsTransfer {
         }
         return received;
     }
+    //endregion
+
+    /**
+     * sends the HandOutPackage to its users.
+     *
+     * @param oos    The stream from the socket to the client.
+     * @param object Specialises the HandOutPackage which will be sent to the clients
+     * @return TRUE if it was a success.
+     */
+    public static boolean sendObject(ObjectOutputStream oos, Object object) {
+        if (object != null) {
+            try {
+                oos.writeObject(object);
+                oos.reset();
+                oos.flush();
+                FileUtils.log(DocumentsTransfer.class, Level.INFO, "object sent!");
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can't send the object! " + MyUtils.exToStr(e));
+            }
+        }
+        return false;
+    }
+
+
+    public static Object receiveObject(ObjectInputStream ois) {
+        try {
+            return ois.readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     /**
      * extracts the information from the received HandOutPackage.
      * Saves the file from the package.
      *
-     * @param obj   the received HandOutPackage.
-     * @param path  the path where the file will be created.
-     * @return      the received package.
+     * @param obj  the received HandOutPackage.
+     * @param path the path where the file will be created.
+     * @return the received package.
      */
-    public static HandOutPackage receiveObject(Object obj, String path, String fileName) {
+    @Deprecated
+    public static HandOutPackage receiveObject2(Object obj, String path, String fileName) {
         try {
 
-            HandOutPackage handOutPackage = (HandOutPackage)obj;
+            HandOutPackage handOutPackage = (HandOutPackage) obj;
 
             byte[] handout = handOutPackage.getFile();
 
@@ -120,7 +136,8 @@ public class DocumentsTransfer {
             return handOutPackage;
 
         } catch (IOException e) {
-            FileUtils.log(DocumentsTransfer.class, Level.ERROR, "failed at receiving the object! " + MyUtils.exToStr(e));
+            FileUtils.log(DocumentsTransfer.class, Level.ERROR,
+                    "failed at receiving the object! " + MyUtils.exToStr(e));
         }
         return null;
     }

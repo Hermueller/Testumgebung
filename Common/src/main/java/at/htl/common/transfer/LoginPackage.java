@@ -7,6 +7,7 @@ import java.io.Serializable;
  * 31.10.2015: MET 005  created class2
  * 19.11.2015: PON 002  added port
  */
+@Deprecated
 public class LoginPackage implements Serializable {
 
     private String firstname;

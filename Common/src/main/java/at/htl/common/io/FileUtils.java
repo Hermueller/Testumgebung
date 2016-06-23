@@ -31,6 +31,7 @@ import java.util.zip.ZipOutputStream;
  * 08.02.2016: MET 010  added logs
  * 15.03.2016: PHI 005  showing the log on the application
  * 18.03.2016: PHI 080  the log int the application is now in colors
+ * 21.06.2016: MET 005  function for getting the file extension
  */
 public class FileUtils {
 
@@ -103,6 +104,17 @@ public class FileUtils {
      */
     public static boolean exists(String fileName) {
         return new File(fileName).exists();
+    }
+
+    /**
+     * returns the extension of a file
+     *
+     * @param file file
+     * @return file extension
+     */
+    public static String getFileExtension(File file) {
+        String[] strings = file.getName().split("\\.");
+        return strings[strings.length - 1];
     }
 
     /**
@@ -258,13 +270,13 @@ public class FileUtils {
 
     /**
      * creates the at.htl.client.styles for the error/warning/info.
-     * <p>
+     * <p/>
      * ERROR's in RED.<br>
      * WARNING's in YELLOW.<br>
      * INFO's in WHITE.
      *
-     * @param level     Specifies the level of the error.
-     * @return          the at.htl.client.styles for the textfield.
+     * @param level Specifies the level of the error.
+     * @return the at.htl.client.styles for the textfield.
      */
     public static String getStyle(Level level) {
         String styleString = "-fx-background-color: transparent;";
@@ -281,17 +293,17 @@ public class FileUtils {
     }
 
     /**
-     * @param level     is the level the message (ERROR, INFO, WARN)
-     * @param message   is the text to show
+     * @param level   is the level the message (ERROR, INFO, WARN)
+     * @param message is the text to show
      */
     public static void log(Level level, String message) {
         LogManager.getLogger().log(level, message);
     }
 
     /**
-     * @param obj       object
-     * @param level     is the level the message (ERROR, INFO, WARN)
-     * @param message   is the text to show
+     * @param obj     object
+     * @param level   is the level the message (ERROR, INFO, WARN)
+     * @param message is the text to show
      */
     public static void log(Object obj, Level level, String message) {
         LogManager.getLogger(obj.getClass()).log(level, message);

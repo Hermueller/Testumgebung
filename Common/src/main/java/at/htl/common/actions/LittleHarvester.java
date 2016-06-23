@@ -1,12 +1,15 @@
 package at.htl.common.actions;
 
 import at.htl.common.io.ScreenShot;
-import at.htl.common.transfer.HarvestedPackage;
+import at.htl.common.transfer.Packet;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+
+import static at.htl.common.transfer.Packet.Action;
+import static at.htl.common.transfer.Packet.Resource;
 
 /**
  * @timeline .
@@ -60,7 +63,12 @@ public class LittleHarvester implements RobotAction {
 
         long[] loc = LineCounter.getInstance().countLinesWithFilter(new File(studentPath), filter);
 
-        return new HarvestedPackage(bytes, LineCounter.getInstance().isFinished(), loc);
+        Packet packet = new Packet(Action.HARVEST, "HarvestedPackage");
+        packet.put(Resource.SCREENSHOT, bytes);
+        packet.put(Resource.FINISHED, LineCounter.getInstance().isFinished());
+        packet.put(Resource.LINES, loc);
+
+        return packet;
     }
 
     @Override

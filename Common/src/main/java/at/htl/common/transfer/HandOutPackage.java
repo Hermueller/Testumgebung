@@ -12,12 +12,14 @@ import java.time.LocalTime;
  * 11.06.2016: PHI 020  fixed the File problem in the socket
  * 11.06.2016: PHI 015  fixed the null-value File problem
  * 12.06.2016: PHI 010  added the file extension.
+ * 21.06.2016: MET 005  code for getting file extension, may be included so that dots in the filename
  */
 
 /**
  * Diese Klasse verwaltet alle Informationen, die für den
  * "Client" bzw. für den Schüler relevant sind.
  */
+@Deprecated
 public class HandOutPackage implements Serializable {
 
     private byte[] file = new byte[0];
@@ -67,7 +69,8 @@ public class HandOutPackage implements Serializable {
     }
 
     public void setFileExtension(File file) {
-        fileExtension = file.getName().split("\\.")[1];
+        String[] strings = file.getName().split("\\.");
+        fileExtension = strings[strings.length - 1];
     }
 
     //endregion

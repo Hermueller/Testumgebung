@@ -1,12 +1,11 @@
 package at.htl.server;
 
-import at.htl.common.io.ScreenShot;
-import at.htl.server.advanced.AdvancedSettingsPackage;
-import at.htl.server.entity.Student;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
-import at.htl.common.transfer.HandOutPackage;
+import at.htl.common.io.ScreenShot;
+import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Interval;
+import at.htl.server.entity.Student;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,13 +19,19 @@ import javafx.scene.paint.Color;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
+import static at.htl.common.transfer.Packet.Action;
+import static at.htl.common.transfer.Packet.Resource;
 
 /**
  * @timeline Settings
@@ -258,8 +263,17 @@ public class Settings {
     /**
      * @return the package of information for the client.
      */
-    public HandOutPackage getHandOutPacket() {
-        return new HandOutPackage(getHandOutFile(), getEndTime(), "Good Luck!");
+    public Packet getPacket() {
+        Packet packet = new Packet(Action.HAND_OUT, "HandOutPackage");
+        try {
+            packet.put(Resource.FILE, Files.readAllBytes(getHandOutFile().toPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        packet.put(Resource.FILE_EXTENSION, FileUtils.getFileExtension(getHandOutFile()));
+        packet.put(Resource.TIME, getEndTime());
+        packet.put(Resource.COMMENT, "Good Luck!");
+        return packet;
     }
 
     /**

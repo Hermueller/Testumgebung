@@ -4,17 +4,20 @@ import at.htl.common.MyUtils;
 import at.htl.common.actions.RobotAction;
 import at.htl.common.actions.RobotActionQueue;
 import at.htl.common.fx.FxUtils;
-import at.htl.common.io.DocumentsTransfer;
 import at.htl.common.io.FileUtils;
-import at.htl.common.transfer.HandOutPackage;
-import at.htl.common.transfer.LoginPackage;
+import at.htl.common.transfer.DocumentsTransfer;
+import at.htl.common.transfer.Packet;
 import javafx.application.Platform;
 import org.apache.logging.log4j.Level;
 
 import java.awt.*;
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.time.LocalTime;
+
+import static at.htl.common.transfer.Packet.Action;
+import static at.htl.common.transfer.Packet.Resource;
 
 /**
  * @timeline Client
@@ -36,22 +39,19 @@ public class Client {
     private Socket socket;
     private final ProcessorThread processor;
     private final ReaderThread reader;
-    private final LoginPackage loginPackage;
     private LocalTime endTime = null;
     private boolean signedIn = false;
 
-    public Client(LoginPackage loginPackage)
+    public Client(Packet packet)
             throws IOException, AWTException {
-        this.loginPackage = loginPackage;
-        socket = new Socket(loginPackage.getServerIP(), loginPackage.getPort());
-        FileUtils.createDirectory(loginPackage.getDirOfWatch());
+        socket = new Socket(Exam.getInstance().getServerIP(), Exam.getInstance().getPort());
+        FileUtils.createDirectory(Exam.getInstance().getPupil().getPathOfProject());
         robot = new Robot();
         jobs = new RobotActionQueue();
         in = new ObjectInputStream(
                 new BufferedInputStream(socket.getInputStream()));
         setOut(new ObjectOutputStream(socket.getOutputStream()));
-        getOut().writeObject(loginPackage);
-        getOut().flush();
+        DocumentsTransfer.sendObject(out, packet);
         processor = new ProcessorThread();
         reader = new ReaderThread();
     }
@@ -76,19 +76,21 @@ public class Client {
      * gets the file from the teacher for the test and saves it
      */
     public void loadFiles() {
-        HandOutPackage handOutPackage = null;
         try {
-            Object obj = in.readObject();
-            handOutPackage = DocumentsTransfer.receiveObject(
-                    obj, loginPackage.getDirOfWatch(), "angabe");
+            Packet packet = (Packet) in.readObject();
+            if (packet.getAction() == Action.HAND_OUT) {
+                byte[] handout = (byte[]) packet.get(Resource.FILE);
+                if (handout.length != 0) {
+                    Files.write(new File(Exam.getInstance().getPupil().getPathOfProject()
+                            + "/angabe." + packet.get(Resource.FILE_EXTENSION)).toPath(), handout);
+                }
+                System.out.println(packet.get(Resource.COMMENT));
+                endTime = (LocalTime) packet.get(Resource.TIME);
+                signedIn = true;
+            }
         } catch (IOException | ClassNotFoundException e) {
-            FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exToStr(e));
-        }
-        if (handOutPackage != null) {
-            endTime = handOutPackage.getEndTime();
-            signedIn = true;
-        } else {
             signedIn = false;
+            FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exToStr(e));
         }
         processor.start();
         reader.start();
@@ -100,16 +102,18 @@ public class Client {
      * @return the success of it
      */
     public boolean handIn() {
-        if (processor.isInterrupted() && reader.isInterrupted()) {
+        /*if (processor.isInterrupted() && reader.isInterrupted()) {
             String zipFileName = "handInFile.zip";
-            System.out.println(loginPackage.getDirOfWatch());
-            FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getLastname() + "/angabe.zip");
-            FileUtils.delete(loginPackage.getDirOfWatch() + "/" + loginPackage.getLastname() + "/handInFile.zip");
-            FileUtils.zip(loginPackage.getDirOfWatch(), zipFileName);
+            System.out.println(packet.getDirOfWatch());
+            FileUtils.delete(packet.getDirOfWatch() + "/" + packet.getLastname() + "/angabe.zip");
+            FileUtils.delete(packet.getDirOfWatch() + "/" + packet.getLastname() + "/handInFile.zip");
+            FileUtils.zip(packet.getDirOfWatch(), zipFileName);
             DocumentsTransfer.send(getOut(), new File(String.format("%s/%s",
-                    loginPackage.getDirOfWatch(), zipFileName)));
+                    packet.getDirOfWatch(), zipFileName)));
             return true;
         }
+        return false;
+        */
         return false;
     }
 
@@ -120,7 +124,7 @@ public class Client {
         public void run() {
             try {
                 Object obj = in.readObject();
-                while (obj.getClass().toString().contains(HandOutPackage.class.toString())) {
+                while (obj.getClass().toString().contains(Packet.class.toString())) {
                     obj = in.readObject();
                 }
                 RobotAction action = (RobotAction) obj;
@@ -155,18 +159,12 @@ public class Client {
         public void run() {
             try {
                 while (!isInterrupted() && socket.isConnected()) {
-                    RobotAction action = jobs.take();
-                    Object result = action.execute(robot);
-                    if (result != null) {
-                        getOut().writeObject(result);
-                        getOut().reset();
-                        getOut().flush();
-                    }
+                    DocumentsTransfer.sendObject(getOut(), jobs.take().execute(robot));
                 }
             } catch (InterruptedException e) {
                 interrupt();
             } catch (IOException e) {
-                FileUtils.log(this, Level.ERROR, "Connection closed" + MyUtils.exToStr(e));
+                FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exToStr(e));
             }
         }
     }
