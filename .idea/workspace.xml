@@ -8,14 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Server.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketReaderThread.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketReaderThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketWriterThread.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketWriterThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/Student.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/entity/Student.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java" afterPath="$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/resources/fxml/Teacher.fxml" afterPath="$PROJECT_DIR$/Server/src/main/resources/fxml/Teacher.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/test/java/at/htl/server/SettingsTest.java" afterPath="$PROJECT_DIR$/Server/src/test/java/at/htl/server/SettingsTest.java" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,8 +75,8 @@
       <file leaf-file-name="SocketWriterThread.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketWriterThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.7142856">
-              <caret line="104" column="21" selection-start-line="104" selection-start-column="21" selection-end-line="104" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.32673267">
+              <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -1748,13 +1740,7 @@
       <workItem from="1466482677238" duration="212000" />
       <workItem from="1466509442966" duration="2589000" />
       <workItem from="1466565835344" duration="130000" />
-      <workItem from="1466606242143" duration="9375000" />
-    </task>
-    <task id="LOCAL-00009" summary="1.0.8.002&#10;&#10;Kleiner Teacher Test hinzugefügt der die Parameter prüft&#10;&#10;">
-      <created>1447930970701</created>
-      <option name="number" value="00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1447930970701</updated>
+      <workItem from="1466606242143" duration="9658000" />
     </task>
     <task id="LOCAL-00010" summary="1.0.8.004&#10;&#10;Ports hinzugefügt&#10;&#10;">
       <created>1447935610029</created>
@@ -2044,7 +2030,13 @@
       <option name="project" value="LOCAL" />
       <updated>1466677983899</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="1.18.44 - #55 Discovered code duplication in class &quot;Student&quot;">
+      <created>1466682535053</created>
+      <option name="number" value="00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1466682535054</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2080,7 +2072,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201562000" />
+    <option name="totallyTimeSpent" value="201845000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2101,8 +2093,8 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22301136" sideWeight="0.6058158" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18012924" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24289773" sideWeight="0.48707592" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36363637" sideWeight="0.39418417" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24289773" sideWeight="0.48707592" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36363637" sideWeight="0.39418417" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23909532" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2163,7 +2155,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.14.00.001 - New project structure with separate Modules" />
     <MESSAGE value="1.14.00.002 - Bug fixed and ShowPopUp by using FxUtils" />
     <MESSAGE value="1.14.00.004 - #32 Jar with dependencies" />
     <MESSAGE value="1.14.00.005 - Added comments of the previous weeks" />
@@ -2188,7 +2179,8 @@
     <MESSAGE value="1.15.27 - Change the test mode to FALSE" />
     <MESSAGE value="1.18.38.219 - Formatting for time tracking corrected" />
     <MESSAGE value="1.18.39 - Implementation of a generalization of packets (changed several code parts)&#10;&#10;LoginPackage, HandOutPackage, HarvestedPackage no longer needs to be used&#10;function for getting the extension of a file&#10;sending and receiving objects changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.18.39 - Implementation of a generalization of packets (changed several code parts)&#10;&#10;LoginPackage, HandOutPackage, HarvestedPackage no longer needs to be used&#10;function for getting the extension of a file&#10;sending and receiving objects changed" />
+    <MESSAGE value="1.18.44 - #55 Discovered code duplication in class &quot;Student&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.18.44 - #55 Discovered code duplication in class &quot;Student&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2733,8 +2725,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/SocketWriterThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.7142856">
-          <caret line="104" column="21" selection-start-line="104" selection-start-column="21" selection-end-line="104" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.32673267">
+          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
           <folding />
         </state>
       </provider>
