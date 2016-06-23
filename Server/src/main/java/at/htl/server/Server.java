@@ -60,9 +60,7 @@ public class Server {
 
         this.socket = socket;
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream in = new ObjectInputStream(
-                new BufferedInputStream(
-                        socket.getInputStream()));
+        ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
         FileUtils.log(this, Level.INFO, "waiting for client name ...");
 
         Packet packet = (Packet) in.readObject();
@@ -74,28 +72,18 @@ public class Server {
 
         if (Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString()) != null) {
             student = Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString());
-            student.setPathOfWatch(pupil.getPathOfProject());
-            student.setPathOfImages(Settings.getInstance().getPathOfImages());
-            student.setCatalogNumber(pupil.getCatalogNumber());
-            student.setEnrolmentID(pupil.getEnrolmentID());
-            student.setFirstName(pupil.getLastName());
-            studentNameBefore = student.getName();
-            student.setName(pupil.getLastName());
+            student.setPupil(pupil);
         } else {
-            student = new Student(pupil.getLastName());
+            student = new Student(pupil);
             student.setStudentAddress(socket.getInetAddress());
-            student.setPathOfWatch(pupil.getPathOfProject());
-            student.setPathOfImages(Settings.getInstance().getPathOfImages());
-            student.setCatalogNumber(pupil.getCatalogNumber());
-            student.setEnrolmentID(pupil.getEnrolmentID());
-            student.setFirstName(pupil.getFirstName());
             Settings.getInstance().addStudent(student);
-            studentNameBefore = student.getName();
             newStudent = true;
         }
+        studentNameBefore = student.getPupil().getLastName();
         FileUtils.log(this, Level.INFO, "I got the Package: " + pupil.getPathOfProject());
         Settings.getInstance().loginStudent(student, studentNameBefore);
         student.setServer(this);
+        student.setPathOfImages(Settings.getInstance().getPathOfImages());
         student.setFilter(Settings.getInstance().getEndings());
         student.setInterval(Settings.getInstance().getIntervalObject());
         if (newStudent) {
@@ -112,14 +100,15 @@ public class Server {
         writer.start();
 
         FileUtils.log(this, Level.INFO, "finished connecting to " + socket);
-        Settings.getInstance().printErrorLine(Level.INFO, student.getName() + " logged in!", true, "CONNECT");
         Settings.getInstance().printErrorLine(
-                Level.INFO, student.getName() + ": " + student.getPathOfWatch(), false, "PATHS");
+                Level.INFO, student.getPupil().getLastName() + " logged in!", true, "CONNECT");
+        Settings.getInstance().printErrorLine(
+                Level.INFO, student.getPupil().getLastName()
+                        + ": " + student.getPupil().getPathOfProject(), false, "PATHS");
         Platform.runLater(() -> Notifications.create()
                 .title("Student logged in")
-                .text(
-                        "The student '".concat(student.getName())
-                                .concat(" " + student.getFirstName())
+                .text("The student '".concat(student.getPupil().getLastName())
+                                .concat(" " + student.getPupil().getFirstName())
                                 .concat("' logged in."))
                 .hideAfter(Duration.seconds(5))
                 .showInformation());
@@ -145,8 +134,8 @@ public class Server {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
         String formattedTime = formatter.format(date);
         String path = String.format("%s/%s-%s." + Settings.getInstance().getScreenShot().DEFAULT_FORMAT.toString(),
-                Settings.getInstance().getPathOfImages() + "/" + student.getName(),
-                student.getName(),
+                Settings.getInstance().getPathOfImages() + "/" + student.getPupil().getLastName(),
+                student.getPupil().getLastName(),
                 formattedTime);
 
         ScreenShot screenShot = Settings.getInstance().getScreenShot();
@@ -167,7 +156,7 @@ public class Server {
                     .getSelectionModel().getSelectedItem();
             if (selected != null && !Settings.getInstance().isLooksAtScreenshots()) {
                 //ist der Screenshot vom ausgewählten Studenten?
-                if (student.getName().equals(selected.getText())) {
+                if (student.getPupil().getLastName().equals(selected.getText())) {
                     (StudentView.getInstance().getIv())
                             .setImage(new javafx.scene.image.Image("file:" + fileName));
                     Settings.getInstance().addScreenshot("file:" + fileName);

@@ -30,7 +30,7 @@ class SocketReaderThread extends Thread {
     public SocketReaderThread(Student student,
                               ObjectInputStream in,
                               Server server) {
-        super("Reader from " + student.getName());
+        super("Reader from " + student.getPupil().getLastName());
         this.student = student;
         this.in = in;
         this.server = server;
@@ -62,9 +62,10 @@ class SocketReaderThread extends Thread {
 
             } catch (Exception ex) {
                 FileUtils.log(this, Level.INFO, "canceled " + MyUtils.exToStr(ex));
-                Settings.getInstance().printErrorLine(Level.INFO, student.getName() + " logged out!", true, "DISCONNECT");
+                Settings.getInstance().printErrorLine(
+                        Level.INFO, student.getPupil().getLastName() + " logged out!", true, "DISCONNECT");
                 if (!finished) {
-                    Settings.getInstance().removeStudent(student.getName());
+                    Settings.getInstance().removeStudent(student.getPupil().getLastName());
                 } else {
                     Settings.getInstance().finishStudent(student);
                 }

@@ -1,6 +1,5 @@
 package at.htl.server;
 
-import javafx.application.Platform;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -37,33 +36,17 @@ public class SettingsTest {
             dic = new File(System.getProperty("java.io.tmpdir"));
             ang = FileUtils.getFile("src", "test", "resources","testFiles", "Angabe.zip");
             settings.setPath(dic.getPath());
-            try {
-                settings.addStudentsFromCsv(FileUtils.getFile("src", "test", "resources","testFiles", "ListeSchueler4AHIF.csv"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             settings.setHandOutFile(ang);
-
-    }
-
-    @Test @Ignore
-    public void testFindStudentByName() throws Exception {
-
-        Platform.runLater(() -> {
-            String expected = "Forster";
-            String actual = settings.findStudentByName("Forster").getName();
-            assertThat(actual, is(expected));
-        });
 
     }
 
     @Test @Ignore
     public void testAddStudentsFromCsv() throws Exception {
 
-        assertThat(settings.getStudentsList().get(0).getName(), is("Forster"));
-        assertThat(settings.getStudentsList().get(1).getName(), is("Froschauer"));
-        assertThat(settings.getStudentsList().get(10).getName(), is("Krannich"));
-        assertThat(settings.getStudentsList().get(20).getName(), is("Tanzer"));
+        assertThat(settings.getStudentsList().get(0).getPupil().getLastName(), is("Forster"));
+        assertThat(settings.getStudentsList().get(1).getPupil().getLastName(), is("Froschauer"));
+        assertThat(settings.getStudentsList().get(10).getPupil().getLastName(), is("Krannich"));
+        assertThat(settings.getStudentsList().get(20).getPupil().getLastName(), is("Tanzer"));
 
         File screenShotsFile = new File(dic.getPath() + "/Screenshots");
 

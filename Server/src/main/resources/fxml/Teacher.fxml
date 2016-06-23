@@ -158,7 +158,6 @@
                                                                                                                   <Font size="18.0" />
                                                                                                               </font>
                                                                                                           </Label>
-                                                                                                          <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#importPupilList" prefHeight="26.0" prefWidth="232.0" text="Import" />
                                                                                                       </children>
                                                                                                       <padding>
                                                                                                           <Insets bottom="40.0" />

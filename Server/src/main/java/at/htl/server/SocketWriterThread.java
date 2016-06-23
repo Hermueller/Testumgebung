@@ -38,7 +38,7 @@ class SocketWriterThread extends Thread {
 
     public SocketWriterThread(Student student,
                               ObjectOutputStream out) {
-        super("Writer to " + student.getName());
+        super("Writer to " + student.getPupil().getLastName());
         this.student = student;
         this.out = out;
         this.jobs = new RobotActionQueue();
@@ -62,8 +62,8 @@ class SocketWriterThread extends Thread {
      */
     private void sendLittleHarvester(Student student) {
         ScreenShot screenShot = Settings.getInstance().getScreenShot();
-        jobs.add(new LittleHarvester(student.getName(),
-                student.getPathOfWatch(),
+        jobs.add(new LittleHarvester(student.getPupil().getLastName(),
+                student.getPupil().getPathOfProject(),
                 student.getFilter(),
                 screenShot));
     }
@@ -92,7 +92,7 @@ class SocketWriterThread extends Thread {
         Platform.runLater(() -> {
             Button selected = (Button)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
             if (selected != null) {
-                if (selected.getText().equals(student.getName())) {
+                if (selected.getText().equals(student.getPupil().getLastName())) {
                     if (student.getSeries().size() > 0) {
                         student.addNewestToChart();
                     }
@@ -119,9 +119,10 @@ class SocketWriterThread extends Thread {
             }
             out.close();
         } catch (IOException e) {
-            FileUtils.log(this, Level.ERROR,"Connection to " + student.getName() + " closed" + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR,"Connection to " + student.getPupil().getLastName()
+                    + " closed" + MyUtils.exToStr(e));
         }
-        FileUtils.log(this,Level.INFO,"Closing connection to " + student.getName());
+        FileUtils.log(this,Level.INFO,"Closing connection to " + student.getPupil().getLastName());
     }
 
 }

@@ -18,8 +18,8 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import org.apache.logging.log4j.Level;
 
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -435,8 +435,8 @@ public class Settings {
             for (Button btn : students) {
                 if (btn.getText().equals(studentNameBefore)) {
                     btn.setStyle("-fx-background-color: lawngreen");
-                    if (!student.getName().equals(studentNameBefore)) {
-                        btn.setText(student.getName());
+                    if (!student.getPupil().getLastName().equals(studentNameBefore)) {
+                        btn.setText(student.getPupil().getLastName());
                     }
                     break;
                 }
@@ -457,7 +457,7 @@ public class Settings {
     public void finishStudent(final Student student) {
         Platform.runLater(() -> {
             for (Button btn : students) {
-                if (btn.getText().equals(student.getName())) {
+                if (btn.getText().equals(student.getPupil().getLastName())) {
                     btn.setStyle("-fx-background-color: deepskyblue");
                     break;
                 }
@@ -491,7 +491,7 @@ public class Settings {
     @Deprecated
     public Student findStudentByName(String name) {
         for (Student _student : studentsList) {
-            if (_student.getName().equals(name)) {
+            if (_student.getPupil().getLastName().equals(name)) {
                 return _student;
             }
         }
@@ -523,14 +523,14 @@ public class Settings {
 
         final ContextMenu contextMenu = new ContextMenu();
         MenuItem show = new MenuItem("show:");
-        MenuItem name = new MenuItem(student.getName());
-        MenuItem enrolmentID = new MenuItem(student.getEnrolmentID());
+        MenuItem name = new MenuItem(student.getPupil().getLastName());
+        MenuItem enrolmentID = new MenuItem(student.getPupil().getEnrolmentID());
 
         contextMenu.getItems().addAll(show, name, enrolmentID);
 
         if (StudentView.getInstance().getLv() != null)
             Platform.runLater(() -> {
-                Button btn = new Button(student.getName());
+                Button btn = new Button(student.getPupil().getLastName());
                 btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
                 btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
                 btn.setStyle("-fx-background-color: crimson");
@@ -707,25 +707,6 @@ public class Settings {
         mediaPlayer.setCycleCount(4);
 
         mediaPlayer.play();
-    }
-
-    public void addStudentsFromCsv(File file) throws IOException {
-        BufferedReader bis = new BufferedReader(new InputStreamReader(
-                new FileInputStream(file), Charset.forName("UTF-16")));
-
-        int nameColumn = 0;
-        String line;
-        String[] words = bis.readLine().split(";");
-
-
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].equals("Familienname")) {
-                nameColumn = i;
-            }
-        }
-        while ((line = bis.readLine()) != null) {
-            addStudent(new Student(line.split(";")[nameColumn]));
-        }
     }
 
     //endregion

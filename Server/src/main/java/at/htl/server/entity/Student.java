@@ -1,5 +1,6 @@
 package at.htl.server.entity;
 
+import at.htl.common.Pupil;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
@@ -39,16 +40,11 @@ import java.util.List;
  */
 public class Student {
 
-    private String name;
-    private String pathOfWatch;
+    private Pupil pupil;
     private String pathOfImages;
-    private String firstName;
-    private String enrolmentID;
-    private int catalogNumber;
     private File locFile = null;
 
     private InetAddress studentAddress;
-
     private Server server;
     private String[] filter;
     private Interval interval;
@@ -57,51 +53,19 @@ public class Student {
     private List<Long> times = new LinkedList<>();
     private List<List<XYChart.Series<Number, Number>>> filterSeries = new LinkedList<>();
 
-    public Student(String name) {
-        this.name = name;
+    public Student(Pupil pupil) {
+        this.pupil = pupil;
     }
 
     //region Getter and Setter
 
-    public String getName() {
-        return name;
+
+    public Pupil getPupil() {
+        return pupil;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPathOfWatch() {
-        return pathOfWatch;
-    }
-
-    @SuppressWarnings("unused")
-    public String getPathOfImages() {
-        return pathOfImages;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getEnrolmentID() {
-        return enrolmentID;
-    }
-
-    public void setEnrolmentID(String enrolmentID) {
-        this.enrolmentID = enrolmentID;
-    }
-
-    public int getCatalogNumber() {
-        return catalogNumber;
-    }
-
-    public void setCatalogNumber(int catalogNumber) {
-        this.catalogNumber = catalogNumber;
+    public void setPupil(Pupil pupil) {
+        this.pupil = pupil;
     }
 
     public Server getServer() {
@@ -129,9 +93,14 @@ public class Student {
     }
 
     public void setPathOfImages(String path) {
-        path = String.format("%s/%s", path, name);
+        path = String.format("%s/%s", path, pupil.getLastName());
         if (FileUtils.createDirectory(path))
             this.pathOfImages = path;
+    }
+
+    @SuppressWarnings("unused")
+    public String getPathOfImages() {
+        return pathOfImages;
     }
 
     @SuppressWarnings("unused")
@@ -176,7 +145,7 @@ public class Student {
         List<XYChart.Series<Number, Number>> list = new LinkedList<>();
         for (String aFilter : getFilter()) {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
-            series.setName(getName() + "/" + aFilter + "/" + LocalTime.now().toString());
+            series.setName(pupil.getLastName() + "/" + aFilter + "/" + LocalTime.now().toString());
             list.add(series);
         }
         filterSeries.add(list);
@@ -281,10 +250,6 @@ public class Student {
         }
     }
 
-    public void setPathOfWatch(String pathOfWatch) {
-        this.pathOfWatch = pathOfWatch;
-    }
-
     /**
      * a data-point-series is written into the file.
      *
@@ -321,8 +286,8 @@ public class Student {
      */
     public void createLocFile() {
         if (AdvancedSettingsPackage.getInstance().isSaveDataPoints()) {
-            locFile = new File(
-                    Settings.getInstance().getPathOfHandInFiles() + "/" + catalogNumber + "-" + name + ".csv");
+            locFile = new File(Settings.getInstance().getPathOfHandInFiles()
+                    + "/" + pupil.getCatalogNumber() + "-" + pupil.getLastName() + ".csv");
 
             boolean success = true;
             if (locFile.exists()) {
@@ -331,7 +296,7 @@ public class Student {
             if (success) {
                 createFile(locFile);
             }
-            writeToFile(new String[]{getPathOfWatch()}, true);
+            writeToFile(new String[]{pupil.getPathOfProject()}, true);
             writeToFile(filter, false);
         }
     }
@@ -369,6 +334,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return name;
+        return pupil.getLastName();
     }
 }
