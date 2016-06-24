@@ -120,30 +120,10 @@ public class Settings {
 
     //region Getter and Setter
 
-
-    //region Screenshot Methods
-
-    public void setScreenshotFormat(String formatStr) {
-        for (ScreenShot.Format format : ScreenShot.Format.values()) {
-            if (format.name().equals(formatStr)) {
-                screenShot.setDEFAULT_FORMAT(format);
-            }
-        }
-    }
-
-    public void setScreenshotQuality(float quality) {
-        screenShot.setDEFAULT_QUALITY(quality);
-    }
-
-    public void setScreenshotScale(double scale) {
-        screenShot.setDEFAULT_SCALE(scale);
-    }
-
     public ScreenShot getScreenShot() {
         return screenShot;
     }
 
-    //endregion
 
     public void setLbCount(Label lbCount) {
         this.lbCount = lbCount;

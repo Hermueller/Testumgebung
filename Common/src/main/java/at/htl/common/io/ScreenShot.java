@@ -24,38 +24,49 @@ import java.io.Serializable;
  */
 public class ScreenShot implements Serializable {
 
-    public Format DEFAULT_FORMAT = Format.JPG;
-    public float DEFAULT_QUALITY = 0.2f;
-    public double DEFAULT_SCALE = 0.2;
+    public static final Format DEFAULT_FORMAT = Format.JPG;
+    public static final float DEFAULT_QUALITY = 0.2f;
+    public static final double DEFAULT_SCALE = 0.2;
 
-    @SuppressWarnings("unused")
-    public ScreenShot(Format DEFAULT_FORMAT, float DEFAULT_QUALITY, double DEFAULT_SCALE) {
-        this.DEFAULT_FORMAT = DEFAULT_FORMAT;
-        this.DEFAULT_QUALITY = DEFAULT_QUALITY;
-        this.DEFAULT_SCALE = DEFAULT_SCALE;
-    }
+    private Format format;
+    private float quantity;
+    private double scale;
 
     public ScreenShot() {
     }
 
-    //region Getter-Setter
-
-    public void setDEFAULT_FORMAT(Format DEFAULT_FORMAT) {
-        this.DEFAULT_FORMAT = DEFAULT_FORMAT;
+    //region Getter and Setter
+    public Format getFormat() {
+        return format;
     }
 
-    public void setDEFAULT_QUALITY(float DEFAULT_QUALITY) {
-        this.DEFAULT_QUALITY = DEFAULT_QUALITY;
+    public void setFormat(Format format) {
+        this.format = format;
     }
 
-    public void setDEFAULT_SCALE(double DEFAULT_SCALE) {
-        this.DEFAULT_SCALE = DEFAULT_SCALE;
+    public void setFormat(String formatStr) {
+        format = Format.valueOf(formatStr);
     }
 
+    public float getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getScale() {
+        return scale;
+    }
+
+    public void setScale(double scale) {
+        this.scale = scale;
+    }
     //endregion
 
     /**
-     * picture format for the sreenshots
+     * picture format for the screenshots
      */
     // TODO Auswahl des Formates (PNG oder JPEG) in Property-File
     public enum Format {
@@ -85,10 +96,8 @@ public class ScreenShot implements Serializable {
      * @param scale   factor for reduction or enlargement
      * @return ByteArray (Screenshot)
      */
-    public byte[] get(
-            Robot robot, Format format, float quality, double scale) {
-        Rectangle shotArea = new Rectangle(
-                Toolkit.getDefaultToolkit().getScreenSize());
+    public byte[] get(Robot robot, Format format, float quality, double scale) {
+        Rectangle shotArea = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
         try {
             Robot r = (robot == null ? new Robot() : robot);
             BufferedImage img = r.createScreenCapture(shotArea);
@@ -111,13 +120,9 @@ public class ScreenShot implements Serializable {
         if (scale != 1.0) {
             int width = (int) (img.getWidth() * scale);
             int height = (int) (img.getHeight() * scale);
-
-            Image scaled = img.getScaledInstance(width, height,
-                    BufferedImage.SCALE_AREA_AVERAGING);
-            img = new BufferedImage(
-                    width, height, BufferedImage.TYPE_INT_RGB);
-            img.createGraphics().drawImage(
-                    scaled, 0, 0, width, height, null);
+            Image scaled = img.getScaledInstance(width, height, BufferedImage.SCALE_AREA_AVERAGING);
+            img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            img.createGraphics().drawImage(scaled, 0, 0, width, height, null);
         }
         return img;
     }
@@ -131,11 +136,8 @@ public class ScreenShot implements Serializable {
      * @return ByteArray for later writing as a FileOutputStream
      * @throws IOException
      */
-    private byte[] convert(BufferedImage img,
-                                  Format format,
-                                  float quality) throws IOException {
-        ImageWriter writer = ImageIO.getImageWritersByFormatName(
-                format.toString()).next();
+    private byte[] convert(BufferedImage img, Format format, float quality) throws IOException {
+        ImageWriter writer = ImageIO.getImageWritersByFormatName(format.toString()).next();
         // TODO: PNG-Format isn't working
         ImageWriteParam writeParam = writer.getDefaultWriteParam();
         writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);

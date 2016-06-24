@@ -35,4 +35,5 @@ package at.htl.common;
  * 23.06.2016: MET 055  removed unnecessary code an provided some methods and classes with methods
  */
 public class Others {
+
 }

@@ -9,6 +9,8 @@ import at.htl.server.advanced.AdvancedSettingsPackage;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
@@ -52,6 +54,9 @@ public class Student {
     private List<Long> locs = new LinkedList<>();
     private List<Long> times = new LinkedList<>();
     private List<List<XYChart.Series<Number, Number>>> filterSeries = new LinkedList<>();
+
+    private ImageView iv = null;    //Screenshot-Image
+    private ListView lv = null;
 
     public Student(Pupil pupil) {
         this.pupil = pupil;
@@ -123,6 +128,21 @@ public class Student {
         return filterSeries;
     }
 
+    public ImageView getIv() {
+        return iv;
+    }
+
+    public void setIv(ImageView iv) {
+        this.iv = iv;
+    }
+
+    public ListView getLv() {
+        return lv;
+    }
+
+    public void setLv(ListView lv) {
+        this.lv = lv;
+    }
     //endregion
 
     /**

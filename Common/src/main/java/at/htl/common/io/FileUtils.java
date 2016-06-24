@@ -187,8 +187,9 @@ public class FileUtils {
             } else {
                 FileInputStream fis = new FileInputStream(f.getPath());
                 zos.putNextEntry(new ZipEntry(f.getPath().replace(fileName, "")));
-                while ((length = fis.read(buffer)) > 0)
+                while ((length = fis.read(buffer)) > 0) {
                     zos.write(buffer, 0, length);
+                }
                 zos.closeEntry();
                 fis.close();
                 log(Level.INFO, String.format("  %s added", f.getPath()));
@@ -221,8 +222,9 @@ public class FileUtils {
                     log(Level.INFO, "Unzipping to " + newFile.getAbsolutePath());
                     createDirectory(newFile.getParent());
                     FileOutputStream fos = new FileOutputStream(newFile);
-                    while ((length = zis.read(buffer)) > 0)
+                    while ((length = zis.read(buffer)) > 0) {
                         fos.write(buffer, 0, length);
+                    }
                     fos.close();
                     zis.closeEntry();
                     ze = zis.getNextEntry();
@@ -326,4 +328,5 @@ public class FileUtils {
     public static void log(Object obj, Level level, String message) {
         LogManager.getLogger(obj.getClass()).log(level, message);
     }
+
 }

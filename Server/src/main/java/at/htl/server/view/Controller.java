@@ -499,11 +499,11 @@ public class Controller implements Initializable {
 
             stage.setOnCloseRequest(event -> {
                 slHarvester.setDisable(AdvancedSettingsPackage.getInstance().isRandom());
-                Settings.getInstance().setScreenshotQuality(
+                Settings.getInstance().getScreenShot().setQuantity(
                         (float) convertToOneDecimalPoint(AdvancedSettingsPackage.getInstance().getImageQuality()));
-                Settings.getInstance().setScreenshotFormat(
+                Settings.getInstance().getScreenShot().setFormat(
                         AdvancedSettingsPackage.getInstance().isJpgFormat() ? "JPG" : "PNG");
-                Settings.getInstance().setScreenshotScale(
+                Settings.getInstance().getScreenShot().setScale(
                         convertToOneDecimalPoint(AdvancedSettingsPackage.getInstance().getImageScale()));
                 cbFilterSetMain.getSelectionModel().select(AdvancedSettingsPackage.getInstance().getFilterSet());
 
@@ -1001,8 +1001,7 @@ public class Controller implements Initializable {
             time += " s";
             if (show_decimals) {
                 time = String.valueOf(new_val.doubleValue()).substring(0, 3);
-                float quality = new_val.floatValue();
-                Settings.getInstance().getScreenShot().setDEFAULT_QUALITY(quality);
+                Settings.getInstance().getScreenShot().setQuantity(new_val.floatValue());
             }
             label.setText(time);
             if (slider == slHarvester) {

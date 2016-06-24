@@ -32,9 +32,9 @@ import java.io.File;
  */
 public class FxUtils {
 
-    private static final String DEFAULT_CHOOSE_DIRECTORY_TITLE = "Select directory";
-    private static final String DEFAULT_CHOOSE_FILE_TITLE = "Select file";
-    private static final String DEFAULT_INITIAL_DIRECTORY = "user.home";
+    public static final String DEFAULT_CHOOSE_DIRECTORY_TITLE = "Select directory";
+    public static final String DEFAULT_CHOOSE_FILE_TITLE = "Select file";
+    public static final String DEFAULT_INITIAL_DIRECTORY = "user.home";
 
     /**
      * opens a window in which a folder can be chosen
@@ -105,6 +105,12 @@ public class FxUtils {
         });
     }
 
+    /**
+     * Creates a blinker
+     *
+     * @param node node
+     * @return TimeLine
+     */
     public static Timeline createBlinker(Node node) {
         Timeline blink = new Timeline(
                 new KeyFrame(Duration.seconds(0.0), new KeyValue(node.opacityProperty(), 1, Interpolator.DISCRETE)),
@@ -116,6 +122,12 @@ public class FxUtils {
         return blink;
     }
 
+    /**
+     * Creates a fade
+     *
+     * @param node node
+     * @return fade transition
+     */
     public static FadeTransition createFade(Node node) {
         FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
         fade.setFromValue(1);
