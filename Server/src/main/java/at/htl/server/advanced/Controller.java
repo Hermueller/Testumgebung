@@ -63,7 +63,7 @@ public class Controller implements Initializable {
         initializeSlides(slImageScale, pbImageScale, lbImageScale, 100);
         initializeSlides(slImageQuality, pbImageQuality, lbImageQuality, 100);
         initializeNewFilters();
-        slImageQuality.setValue(20);
+        slImageQuality.setValue(80);
         slImageScale.setValue(100);
 
         tfPort.textProperty().addListener(onlyNumber);

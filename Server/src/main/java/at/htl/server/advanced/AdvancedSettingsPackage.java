@@ -29,7 +29,7 @@ public class AdvancedSettingsPackage {
     private boolean random = false;
     private boolean jpgFormat = true;
     private double imageScale = 1.0;
-    private double imageQuality = 0.2;
+    private double imageQuality = 0.8;
     private String filterSet = "ALL";
     private int points = 5;
     private boolean saveDataPoints = true;

@@ -30,7 +30,7 @@
                                 <AnchorPane fx:id="apInfo" maxHeight="50.0" minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="160.0" BorderPane.alignment="CENTER">
                                     <children>
                                         <Label fx:id="lbVersion" alignment="CENTER_RIGHT" layoutX="839.0" layoutY="16.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
-                                        <Label fx:id="lbDate" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="15.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
+                                        <Label fx:id="lbDate" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="15.0" text="" textAlignment="RIGHT" AnchorPane.leftAnchor="10.0" />
                                         <Label fx:id="lbAddress" alignment="CENTER" layoutX="321.0" layoutY="7.0" prefHeight="35.0" prefWidth="362.0" text="127.0.0.1 : 50555" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="19.0" />
@@ -384,28 +384,28 @@
                                             <content>
                                                 <AnchorPane id="submission" fx:id="apHandIn" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
-                                                        <AnchorPane fx:id="apEndTime" layoutX="262.0" layoutY="112.0" prefHeight="35.0" prefWidth="214.0" />
-                                                        <Label layoutX="41.0" layoutY="111.0" prefHeight="32.0" prefWidth="154.0" text="Submission time:">
+                                                        <Label layoutX="41.0" layoutY="173.0" text="Submission time:">
                                                             <font>
                                                                 <Font name="System Bold" size="18.0" />
                                                             </font>
                                                         </Label>
-                                                        <Button fx:id="btnaddTime" layoutX="502.0" layoutY="112.0" mnemonicParsing="false" text="+10 min" />
-                                                        <Label layoutX="41.0" layoutY="168.0" prefHeight="32.0" prefWidth="154.0" text="Starttime:">
+                                                        <AnchorPane fx:id="apEndTime" layoutX="262.0" layoutY="167.0" prefHeight="35.0" prefWidth="214.0" />
+                                                        <Button fx:id="btnaddTime" layoutX="502.0" layoutY="172.0" mnemonicParsing="false" text="+10 min" />
+                                                        <Label layoutX="41.0" layoutY="112.0" text="Starttime:">
                                                             <font>
                                                                 <Font name="System Bold" size="18.0" />
                                                             </font>
                                                         </Label>
-                                                        <AnchorPane fx:id="apStartTime" layoutX="262.0" layoutY="167.0" prefHeight="35.0" prefWidth="214.0" />
-                                                        <Label layoutX="41.0" layoutY="235.0" prefHeight="32.0" prefWidth="154.0" text="remaining time:">
+                                                        <Label layoutX="41.0" layoutY="235.0" text="remaining time:">
                                                             <font>
                                                                 <Font name="System Bold" size="18.0" />
                                                             </font>
                                                         </Label>
+                                                        <AnchorPane fx:id="apStartTime" layoutX="262.0" layoutY="106.0" prefHeight="35.0" prefWidth="214.0" />
                                                         <TextField fx:id="tftime" layoutX="262.0" layoutY="241.0" />
                                                         <Button fx:id="btnDeleteFiles" layoutX="41.0" layoutY="437.0" mnemonicParsing="false" onAction="#deleteFiles" text="zu löschende Dateien auswählen" />
                                                         <Button layoutX="262.0" layoutY="315.0" mnemonicParsing="false" onAction="#saveTime" prefHeight="26.0" prefWidth="162.0" text="Save Changes" />
-                                                        <Label layoutX="351.0" layoutY="28.0" prefHeight="45.0" prefWidth="302.0" text="Submission information">
+                                                        <Label layoutX="351.0" layoutY="28.0" text="Submission information">
                                                             <font>
                                                                 <Font name="System Bold" size="26.0" />
                                                             </font>

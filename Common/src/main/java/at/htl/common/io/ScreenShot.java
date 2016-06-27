@@ -25,11 +25,11 @@ import java.io.Serializable;
 public class ScreenShot implements Serializable {
 
     public static final Format DEFAULT_FORMAT = Format.JPG;
-    public static final float DEFAULT_QUALITY = 0.2f;
-    public static final double DEFAULT_SCALE = 0.2;
+    public static final float DEFAULT_QUALITY = 0.8f;
+    public static final double DEFAULT_SCALE = 1.0f;
 
     private Format format;
-    private float quantity;
+    private float quality;
     private double scale;
 
     public ScreenShot() {
@@ -48,12 +48,12 @@ public class ScreenShot implements Serializable {
         format = Format.valueOf(formatStr);
     }
 
-    public float getQuantity() {
-        return quantity;
+    public float getQuality() {
+        return quality;
     }
 
-    public void setQuantity(float quantity) {
-        this.quantity = quantity;
+    public void setQuality(float quality) {
+        this.quality = quality;
     }
 
     public double getScale() {

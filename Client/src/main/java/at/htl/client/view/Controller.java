@@ -138,7 +138,7 @@ public class Controller implements Initializable {
         tfCatalogNumber.setText("01");
         tfFirstName.setText("Max");
         tfLastName.setText("Mustermann");
-        tfPathOfProject.setText("/local/testC");
+        tfPathOfProject.setText("/opt/testC");
     }
 
     /**
