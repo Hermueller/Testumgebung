@@ -377,6 +377,9 @@ public class Controller implements Initializable {
                 ivPort.setImage(null);
                 ivPath.setImage(null);
                 tbMode.setDisable(false);
+                if (pm.isRunning()) {
+                    pm.stopIt();
+                }
 
                 for (Button b : lvStudents.getItems()) {
                     b.setStyle("-fx-background-color: crimson");

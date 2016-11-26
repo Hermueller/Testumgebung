@@ -24,13 +24,13 @@ import java.io.Serializable;
  */
 public class ScreenShot implements Serializable {
 
-    public static final Format DEFAULT_FORMAT = Format.JPG;
-    public static final float DEFAULT_QUALITY = 0.8f;
-    public static final double DEFAULT_SCALE = 1.0f;
+    //public static final Format DEFAULT_FORMAT = Format.JPG;
+    //public static final float DEFAULT_QUALITY = 0.8f;
+    //public static final double DEFAULT_SCALE = 1.0;
 
-    private Format format;
-    private float quality;
-    private double scale;
+    private Format format = Format.JPG;
+    private float quality = 0.8f;
+    private double scale = 1.0;
 
     public ScreenShot() {
     }
@@ -84,7 +84,7 @@ public class ScreenShot implements Serializable {
      * @return ByteArray (Screenshot)
      */
     public byte[] get() {
-        return get(null, DEFAULT_FORMAT, DEFAULT_QUALITY, DEFAULT_SCALE);
+        return get(null, format, quality, scale);
     }
 
     /**

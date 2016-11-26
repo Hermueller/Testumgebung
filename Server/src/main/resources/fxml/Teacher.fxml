@@ -25,9 +25,9 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <BorderPane fx:id="bpDataView" minHeight="750.0" minWidth="1003.0" prefHeight="750.0" prefWidth="1003.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <BorderPane fx:id="bpDataView" prefHeight="750.0" prefWidth="1003.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <bottom>
-                                <AnchorPane fx:id="apInfo" maxHeight="50.0" minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                                <AnchorPane fx:id="apInfo" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="160.0" BorderPane.alignment="CENTER">
                                     <children>
                                         <Label fx:id="lbVersion" alignment="CENTER_RIGHT" layoutX="839.0" layoutY="16.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
                                         <Label fx:id="lbDate" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="15.0" text="" textAlignment="RIGHT" AnchorPane.leftAnchor="10.0" />

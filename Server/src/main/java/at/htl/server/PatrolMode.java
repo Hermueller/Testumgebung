@@ -18,6 +18,10 @@ public class PatrolMode extends Thread {
     private ListView<Button> lv;
     private int actualPos = 0;
 
+    public boolean isRunning() {
+        return running;
+    }
+
     public void setLv(ListView<Button> lv) {
         this.lv = lv;
     }

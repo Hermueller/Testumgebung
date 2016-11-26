@@ -79,7 +79,7 @@ public class Settings {
     private AnchorPane logArea;
     private File handOutFile = null;
     private LocalTime startTime;
-    private LocalTime endTime = LocalTime.now().plusMinutes(10);
+    private LocalTime endTime = LocalTime.now().plusHours(3);
     private Interval interval;
     private String path;
     private String pathOfImages;

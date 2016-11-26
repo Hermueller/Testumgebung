@@ -131,7 +131,7 @@ public class Server {
         //SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd'_'HH:mm:ss");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
         String formattedTime = formatter.format(date);
-        String path = String.format("%s/%s-%s." + Settings.getInstance().getScreenShot().DEFAULT_FORMAT.toString(),
+        String path = String.format("%s/%s-%s." + Settings.getInstance().getScreenShot().getFormat().toString(),
                 Settings.getInstance().getPathOfImages() + "/" + student.getPupil().getLastName(),
                 student.getPupil().getLastName(),
                 formattedTime);

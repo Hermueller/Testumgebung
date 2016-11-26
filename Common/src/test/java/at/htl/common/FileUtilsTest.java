@@ -2,6 +2,7 @@ package at.htl.common;
 
 import at.htl.common.io.FileUtils;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -75,6 +76,7 @@ public class FileUtilsTest {
     }
 
     @Test
+    @Ignore
     public void t010Delete() throws Exception {
         FileUtils.delete(TEMP_PATH);
         assertFalse(FileUtils.exists(TEMP_PATH));

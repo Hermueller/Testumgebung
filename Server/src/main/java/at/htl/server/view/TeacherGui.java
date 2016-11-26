@@ -57,7 +57,7 @@ public class TeacherGui extends Application {
                 "images/spying_eye.png"
         ));
 
-        stage.setTitle("Teacher Client");
+        stage.setTitle("Server");
         stage.setScene(scene);
 
         setShortCuts(scene, stage);
