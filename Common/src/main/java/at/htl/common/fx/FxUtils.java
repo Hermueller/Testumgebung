@@ -148,7 +148,7 @@ public class FxUtils {
     public static void showPopUp(String message, boolean isSuccess) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        AquaFx.styleStage(dialog, StageStyle.UNDECORATED);
+        AquaFx.styleStage(dialog, StageStyle.UNIFIED);
         AnchorPane ap = new AnchorPane();
         ap.setId("messageAnchorPane");
 
