@@ -22,7 +22,7 @@
         <dependency>
             <groupId>at.htl</groupId>
             <artifactId>testmonitoring-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${pom.version}</version>
         </dependency>
     </dependencies>
 

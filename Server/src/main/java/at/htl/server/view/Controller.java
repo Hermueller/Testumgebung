@@ -718,13 +718,13 @@ public class Controller implements Initializable {
 
             output = new FileOutputStream("src/main/resources/config.properties");
             prop.setProperty("version", version);
-            prop.setProperty("date", LocalDate.now().toString());
+            prop.setProperty("build.date", LocalDate.now().toString());
             prop.store(output, null);
 
 
             output = new FileOutputStream("target/classes/config.properties");
             prop.setProperty("version", version);
-            prop.setProperty("date", LocalDate.now().toString());
+            prop.setProperty("build.date", LocalDate.now().toString());
             prop.store(output, null);
 
         } catch (IOException io) {
@@ -760,7 +760,7 @@ public class Controller implements Initializable {
         }
 
         lbVersion.setText(prop.getProperty("version"));
-        lbDate.setText("created on: " + prop.getProperty("date"));
+        lbDate.setText("created on: " + prop.getProperty("build.date"));
     }
 
     /**
