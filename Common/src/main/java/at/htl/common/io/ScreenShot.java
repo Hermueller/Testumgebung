@@ -137,8 +137,16 @@ public class ScreenShot implements Serializable {
      * @throws IOException
      */
     private byte[] convert(BufferedImage img, Format format, float quality) throws IOException {
+        if (format.equals(Format.PNG)) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write( img, "png", baos );
+            baos.flush();
+            byte[] imageInByte = baos.toByteArray();
+            baos.close();
+            return imageInByte;
+        }
+
         ImageWriter writer = ImageIO.getImageWritersByFormatName(format.toString()).next();
-        // TODO: PNG-Format isn't working
         ImageWriteParam writeParam = writer.getDefaultWriteParam();
         writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
         writeParam.setCompressionQuality(quality);
