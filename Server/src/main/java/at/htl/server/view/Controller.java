@@ -1,5 +1,6 @@
 package at.htl.server.view;
 
+import at.htl.common.MyUtils;
 import at.htl.common.TimeSpinner;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.fx.StudentView;
@@ -285,6 +286,19 @@ public class Controller implements Initializable {
         Settings.getInstance().setStartTime(LocalTime.now());
         slHarvester.setValue(10);
         slHarvesterStudent.setValue(10);
+
+        try {
+            // Get the location where the JAR-File is currently located at.
+            String currFileLoc = Controller.class.getProtectionDomain().getCodeSource().getLocation()
+                    .toURI().getPath();
+
+            //remove the filename in order to get the directory name.
+            String[] dirs = currFileLoc.split("/");
+            Settings.getInstance().setPath(currFileLoc.replace(dirs[dirs.length - 1], ""));
+        } catch (URISyntaxException e) {
+            FileUtils.log(this, Level.WARN, "Could not set Standardpath" + MyUtils.exToStr(e));
+            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
+        }
     }
 
     /**

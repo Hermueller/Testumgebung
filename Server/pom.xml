@@ -26,7 +26,7 @@
         <dependency>
             <groupId>at.htl</groupId>
             <artifactId>testmonitoring-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
