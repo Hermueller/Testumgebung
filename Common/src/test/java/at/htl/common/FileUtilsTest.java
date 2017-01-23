@@ -61,6 +61,7 @@ public class FileUtilsTest {
         assertTrue(FileUtils.createFile(fileName));
     }
 
+    @Ignore
     @Test
     public void t004ZipDirectory() throws Exception {
         String fileName = TEMP_PATH + "test1/";
