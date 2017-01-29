@@ -10,3 +10,5 @@ This website was not updated for some time. The screenshots are not up-to-date.
 # Download the JAR-Files from our latest release :
 
 [The latest releases](https://github.com/BeatingAngel/Testumgebung/releases)
+
+Jenkins test
