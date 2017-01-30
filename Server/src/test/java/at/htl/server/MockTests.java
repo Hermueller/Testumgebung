@@ -41,7 +41,8 @@ public class MockTests {
         ts = null;
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void t101_AcceptStudents() throws IOException {
 
     }

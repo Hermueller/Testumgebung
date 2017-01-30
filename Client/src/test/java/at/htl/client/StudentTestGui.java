@@ -11,6 +11,9 @@ import org.loadui.testfx.GuiTest;
 
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
 /**
  * @timeline StudentTestGui
  * 12.11.2015: PON 001  created test class
@@ -54,7 +57,7 @@ public class StudentTestGui extends GuiTest {
         type("passme");
         click(btnLogin);
 
-        //assertThat(Settings.getInstance().getPassword(), is("passme"));
+        assertEquals("Falscher Username", "admin", tfUsername.getText());
     }
 
 }
