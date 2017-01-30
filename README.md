@@ -1,5 +1,5 @@
 # Build Status
-[![Build Status](http://gladiolus.htl-leonding.ac.at/job/Testumgebung/badge/icon)](http://gladiolus.htl-leonding.ac.at/job/Testumgebung/)
+[![Build Status](http://gladiolus.htl-leonding.ac.at/job/Testumgebung/badge/icon)](http://gladiolus.htl-leonding.ac.at/job/Testumgebung)
 # Testumgebung
 Student - Teacher - (monitoring Students)-Program
 
