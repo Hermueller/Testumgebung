@@ -229,7 +229,7 @@ public class Controller implements Initializable {
     @FXML
     private Button btnPatrolMode;
     private boolean patrolMode = false;
-    private PatrolMode pm = new PatrolMode()
+    private PatrolMode pm = new PatrolMode();
 
     private Thread server;
     private Threader threader;
