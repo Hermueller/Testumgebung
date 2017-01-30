@@ -61,6 +61,7 @@ public class FileUtilsTest {
         assertTrue(FileUtils.createFile(fileName));
     }
 
+    @Ignore
     @Test
     public void t004ZipDirectory() throws Exception {
         String fileName = TEMP_PATH + "test1/";
@@ -68,6 +69,7 @@ public class FileUtilsTest {
         assertTrue(FileUtils.zip(fileName, zipFileName));
     }
 
+    @Ignore
     @Test
     public void t005UnzipArchive() throws Exception {
         String fileName = TEMP_PATH + "test1_unzip";
