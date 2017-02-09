@@ -1211,7 +1211,9 @@ public class Controller implements Initializable {
             lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
             lbEnrolmentID.setText(st.getPupil().getEnrolmentID());
 
-            tpMainTabs.getSelectionModel().select(3);
+            if (!patrolMode) {
+                tpMainTabs.getSelectionModel().select(3);
+            }
         });
     }
 
