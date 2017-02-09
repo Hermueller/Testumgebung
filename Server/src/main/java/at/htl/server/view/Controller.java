@@ -113,6 +113,8 @@ import java.util.stream.Collectors;
  * 19.06.2016: PHI 015  removed unnecessary code.
  * 20.06.2016: PHI 025  fixed bug. unique filters. The latest selected file will be shown in the FileChooser.
  * 21.06.2016: PHI 025  if the teacher closes the ServerSocket, all StudentServers are shut down.
+ * 09.02.2017: PHI 050  fixed some bugs for issue #69 and #66
+ * 09.02.2017: PHI 040  set the default directory and selects the handout-file automatically.
  */
 public class Controller implements Initializable {
 
@@ -1379,25 +1381,34 @@ public class Controller implements Initializable {
      * selects the Desktop as Home-Path
      */
     public void setHomePath() {
-        /*
-        File home = FileSystemView.getFileSystemView().getHomeDirectory();
-        File[] files = home.listFiles();
-        File desktop = home;
-
         try {
-            for (File file : files) {
-                if (file.getPath().contains("Desktop") ||
-                        file.getPath().contains("Schreibtisch")) {
-                    desktop = file;
-                    break;
-                }
+            File f = new File(Controller.class.getProtectionDomain()
+                    .getCodeSource().getLocation().toURI().getPath());
+            String filePath = f.getAbsolutePath().
+                    substring(0,f.getAbsolutePath().lastIndexOf(File.separator));
+            Settings.getInstance().printErrorLine(Level.INFO,
+                    "current Path: " + filePath, true, "OTHER");
+            Settings.getInstance().setPath(filePath);
+            f = new File(filePath + "/angabe.png");
+            if (f.exists() && !f.isDirectory()) {
+                Settings.getInstance().setHandOutFile(f);
             }
-        } catch (NullPointerException e) {
-            FileUtils.log(Level.WARN, e.getLocalizedMessage());
+            f = new File(filePath + "/angabe.jpg");
+            if (f.exists() && !f.isDirectory()) {
+                Settings.getInstance().setHandOutFile(f);
+            }
+            f = new File(filePath + "/angabe.pdf");
+            if (f.exists() && !f.isDirectory()) {
+                Settings.getInstance().setHandOutFile(f);
+            }
+            f = new File(filePath + "/angabe.zip");
+            if (f.exists() && !f.isDirectory()) {
+                Settings.getInstance().setHandOutFile(f);
+            }
+        } catch (URISyntaxException e) {
+            FileUtils.log(this, Level.WARN, "Coudn't find current path" + MyUtils.exToStr(e));
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
         }
-
-        Settings.getInstance().setPath(desktop.getPath());*/
     }
 
     /**
