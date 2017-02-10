@@ -6,9 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="1.18.44.100 - Removed unnecessary code an provided some methods and classes with methods">
+    <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/Others.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/Others.java" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,16 +74,10 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4365">
-              <caret line="380" column="30" selection-start-line="380" selection-start-column="30" selection-end-line="380" selection-end-column="30" />
+            <state relative-caret-position="5730">
+              <caret line="382" column="30" selection-start-line="382" selection-start-column="30" selection-end-line="382" selection-end-column="30" />
               <folding>
-                <element signature="n#!!doc;n#spOption#0;n#Controller#0" expanded="false" />
-                <element signature="n#!!doc;n#btnaddTime#0;n#Controller#0" expanded="false" />
-                <element signature="n#!!doc;n#scrollLog#0;n#Controller#0" expanded="false" />
-                <element signature="n#!!doc;n#lbFirstName#0;n#Controller#0" expanded="false" />
-                <element signature="n#!!doc;n#lbAddress#0;n#Controller#0" expanded="false" />
-                <element signature="n#!!doc;n#btnNext#0;n#Controller#0" expanded="false" />
-                <element signature="n#!!doc;n#wvHelp#0;n#Controller#0" expanded="false" />
+                <marker date="1486708455000" expanded="true" signature="1659:6254" ph="/**...*/" />
               </folding>
             </state>
           </provider>
@@ -103,8 +96,8 @@
       <file leaf-file-name="Others.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/Others.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="57" column="21" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
+            <state relative-caret-position="135">
+              <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -142,6 +135,7 @@
         <option value="patrickpohn &lt;patz.pohn@gmail.com&gt;1.0.7.007" />
       </list>
     </option>
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -1056,6 +1050,116 @@
       <recent name="$PROJECT_DIR$/src/main/resources/testFiles" />
     </key>
   </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
+  </component>
   <component name="RunManager" selected="Application.TeacherGui">
     <configuration default="false" name="FileUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
@@ -1748,14 +1852,7 @@
       <workItem from="1486632673347" duration="177000" />
       <workItem from="1486634389832" duration="67000" />
       <workItem from="1486708244384" duration="115000" />
-      <workItem from="1486708407536" duration="13000" />
-    </task>
-    <task id="LOCAL-00014" summary="1.3.2.012&#10;&#10;Benötigte Zeit wurde in den Kommentaren vermerkt&#10;&#10;&#10;">
-      <created>1450724489237</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1450724489237</updated>
+      <workItem from="1486708407536" duration="57000" />
     </task>
     <task id="LOCAL-00015" summary="1.3.2.013 - SessionTest&#10;&#10;Klasse wurde erstellt &#10;Import über CSV datei wurde getestet&#10;Um Fehler zu vermeiden wird die ListView auf null überprüft&#10;&#10;&#10;">
       <created>1455117088520</created>
@@ -2093,7 +2190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1466697723944</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Dokumentation der Arbeitszeiten">
+      <created>1486708443751</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1486708443752</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2129,7 +2233,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="218739000" />
+    <option name="totallyTimeSpent" value="218783000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2142,7 +2246,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2151,7 +2255,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22301136" sideWeight="0.6058158" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1987076" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38308457" sideWeight="0.39418417" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19263457" sideWeight="0.48707592" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16619319" sideWeight="0.48707592" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3270869" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2212,7 +2316,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.14.00.005 - Added comments of the previous weeks" />
     <MESSAGE value="1.14.00.006 - Push rejected &#10;&#10;Push has been cancelled, because there were conflicts during update. Check that conflicts were resolved correctly, and invoke push again. View files updated during the push" />
     <MESSAGE value="1.14.00.007 - Solved style-error" />
     <MESSAGE value="1.14.16.131 - Countdown completed for the student and fixed bugs" />
@@ -2237,7 +2340,8 @@
     <MESSAGE value="1.18.44 - #55 Discovered code duplication in class &quot;Student&quot;" />
     <MESSAGE value="1.18.44 - #55 Push failed" />
     <MESSAGE value="1.18.44.100 - Removed unnecessary code an provided some methods and classes with methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.18.44.100 - Removed unnecessary code an provided some methods and classes with methods" />
+    <MESSAGE value="Dokumentation der Arbeitszeiten" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dokumentation der Arbeitszeiten" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2275,13 +2379,7 @@
         <state relative-caret-position="0">
           <caret line="501" column="46" selection-start-line="501" selection-start-column="46" selection-end-line="501" selection-end-column="46" />
           <folding>
-            <element signature="n#!!doc;n#spOption#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#btnaddTime#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#scrollLog#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#lbFirstName#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#lbAddress#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#btnNext#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#wvHelp#0;n#Controller#0" expanded="false" />
+            <marker date="1486708455000" expanded="true" signature="1659:6254" ph="/**...*/" />
           </folding>
         </state>
       </provider>
@@ -2749,16 +2847,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4365">
-          <caret line="380" column="30" selection-start-line="380" selection-start-column="30" selection-end-line="380" selection-end-column="30" />
+        <state relative-caret-position="5730">
+          <caret line="382" column="30" selection-start-line="382" selection-start-column="30" selection-end-line="382" selection-end-column="30" />
           <folding>
-            <element signature="n#!!doc;n#spOption#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#btnaddTime#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#scrollLog#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#lbFirstName#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#lbAddress#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#btnNext#0;n#Controller#0" expanded="false" />
-            <element signature="n#!!doc;n#wvHelp#0;n#Controller#0" expanded="false" />
+            <marker date="1486708455000" expanded="true" signature="1659:6254" ph="/**...*/" />
           </folding>
         </state>
       </provider>
@@ -2773,8 +2865,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/Others.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="57" column="21" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
+        <state relative-caret-position="135">
+          <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
           <folding />
         </state>
       </provider>
