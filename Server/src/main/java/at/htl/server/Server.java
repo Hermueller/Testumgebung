@@ -102,7 +102,7 @@ public class Server {
                 Level.INFO, student.getPupil().getLastName() + " logged in!", true, "CONNECT");
         Settings.getInstance().printErrorLine(
                 Level.INFO, student.getPupil().getLastName()
-                        + ": " + student.getPupil().getPathOfProject(), false, "PATHS");
+                        + ": " + student.getPupil().getPathOfProject(), false, "OTHER");
         Platform.runLater(() -> Notifications.create()
                 .title("Student logged in")
                 .text("The student '".concat(student.getPupil().getLastName())
