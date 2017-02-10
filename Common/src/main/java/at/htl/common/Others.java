@@ -33,6 +33,27 @@ package at.htl.common;
  * 20.06.2016: PHI 025  removed all warnings in all files
  * 21.06.2016: MET 005  DELETED - HandOutPackage: code for getting file extension, may be included so that dots in the filename
  * 23.06.2016: MET 055  removed unnecessary code an provided some methods and classes with methods
+ * 10.10.2016: MET 015  Pflichtenheft: Motivation, Ausgangssituation und Zielsetzung
+ * 10.10.2016: MET 010  Pflichtenheft: Ausgangssituation, Zielsetzung, Glossar
+ * 10.10.2016: MET 025  Pflichtenheft: Beschreibung des Problembereichs mit grafische Darstellung
+ * 05.12.2016: MET 030  Pflichtenheft: Use Case Diagramm
+ * 05.12.2016: GNA 030  Pflichtenheft: Use Case Diagramm
+ * 05.12.2016: GNA 010  Pflichtenheft: Modell des Problembereichs (Klassendiagramm)
+ * 21.01.2017: GNA 240  VCS: Continous Integration
+ * 23.01.2017: MET 015  Pflichtenheft: Use Case Diagramm geändert bzw. erweitert
+ * 23.01.2017: GNA 015  Pflichtenheft: Use Case Diagramm geändert bzw. erweitert
+ * 23.01.2017: MET 030  Pflichtenheft: Beschreibung der Geschäftsprozesse
+ * 23.01.2017: PHI 030  Pflichtenheft: Nicht-funktionale Anforderungen
+ * 23.01.2017: MET 010  Pflichtenheft: Lebenszyklusanalyse und Gesamtsys- temarchitektur, Schnittstellenübersicht
+ * 04.02.2017: MET 010  Pflichtenheft: Lieferumfang, Abnahmekriterien
+ * 04.02.2017: PHI 015  Pflichtenheft: Klassendiagramme aktualisiert
+ * 04.02.2017: PHI 010  Pflichtenheft: Zielbestimmung: Muss- und Sollkriterien
+ * 04.02.2017: MET 003  Pflichtenheft: Zielbestimmung: Muss- und Sollkriterien
+ * 04.02.2017: GNA 015  Pflichtenheft: Risikoakzeptanz
+ * 04.02.2017: GNA 030  Pflichtenheft: Funktionale Anforderungen, Mengengerüst
+ * 04.02.2017: PHI 040  Projekthandbuch: Konfigurationsmanagement
+ * 04.02.2017: PHI 005  Projekthandbuch: Auswahl von Methoden und Werkzeugen
+ * 04.02.2017: MET 010  Projekthandbuch: Qualitätssicherung
  */
 public class Others {
 
