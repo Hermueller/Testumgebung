@@ -336,6 +336,9 @@ public class Settings {
      */
     public void setPath(String path) {
         this.path = path;
+        if (path.endsWith("/")) {
+            path = path.substring(0, path.length() - 1);
+        }
         pathOfImages = path + "/screenshots";
         FileUtils.createDirectory(pathOfImages);
         pathOfHandOutFiles = path + "/submissions";

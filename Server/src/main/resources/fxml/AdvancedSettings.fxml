@@ -60,7 +60,7 @@
                                    </ImageView>
                                </children>
                            </HBox>
-                           <HBox prefHeight="26.0" prefWidth="732.0" spacing="20.0">
+                           <!--HBox prefHeight="26.0" prefWidth="732.0" spacing="20.0">
                                <children>
                                    <Label prefHeight="26.0" prefWidth="414.0" text="Studentlist:">
                                        <font>
@@ -69,7 +69,7 @@
                                    </Label>
                                    <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#importPupilList" prefHeight="26.0" prefWidth="232.0" text="Import" />
                                </children>
-                           </HBox>
+                           </HBox-->
                            <HBox prefHeight="44.0" prefWidth="731.0" spacing="20.0">
                                <children>
                                    <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="414.0" text="Image quality:">

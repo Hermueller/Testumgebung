@@ -159,7 +159,7 @@ public class FxUtils {
 
         Label messageInfo = new Label(message);
         messageInfo.setId("messageInfo");
-        messageInfo.setLayoutY(190);
+        messageInfo.setLayoutY(160);
         messageInfo.setLayoutX(10);
 
         ImageView iv = new ImageView();

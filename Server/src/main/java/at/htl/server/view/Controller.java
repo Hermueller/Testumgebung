@@ -115,6 +115,7 @@ import java.util.stream.Collectors;
  * 21.06.2016: PHI 025  if the teacher closes the ServerSocket, all StudentServers are shut down.
  * 09.02.2017: PHI 050  fixed some bugs for issue #69 and #66
  * 09.02.2017: PHI 040  set the default directory and selects the handout-file automatically.
+ * 11.02.2017: PHI 055  fixed some bugs, removed student-import and shows path on exports.
  */
 public class Controller implements Initializable {
 
@@ -804,7 +805,8 @@ public class Controller implements Initializable {
             FileUtils.log(Level.ERROR, exp.getMessage());
         }
 
-        FxUtils.showPopUp("created JAR-file successfully!!", true);
+        FxUtils.showPopUp("created JAR-file successfully!!\nPath: "
+                + Settings.getInstance().getPathOfExports() + "\n/student.jar", true);
     }
 
     /**
@@ -893,7 +895,8 @@ public class Controller implements Initializable {
             Path file = Paths.get(Settings.getInstance().getPathOfExports().concat("/log.txt"));
             Files.write(file, list, Charset.forName("UTF-8"));
 
-            FxUtils.showPopUp("exported log successfully!!", true);
+            FxUtils.showPopUp("exported log successfully!!\nPath: "
+                    + Settings.getInstance().getPathOfExports() + "\n/log.txt", true);
         } catch (IOException e) {
             FileUtils.log(Level.ERROR, e.getMessage());
         }
@@ -1178,7 +1181,8 @@ public class Controller implements Initializable {
         }
         loc.setLegendVisible(false);
 
-        FxUtils.showPopUp("exported LineChart successfully !!", true);
+        FxUtils.showPopUp("exported LineChart successfully !!\nPath: "
+                + Settings.getInstance().getPathOfExports() + "\n/" + studentInfo, true);
     }
 
     /**
@@ -1336,25 +1340,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void setTestOptions() throws IOException, URISyntaxException {
-        File home = FileSystemView.getFileSystemView().getHomeDirectory();
-        String path = home.getAbsolutePath() + "/newFolder";
 
-        System.out.println(home.getAbsolutePath());
-        File file = new File(path);
-        boolean created = file.mkdir();
-        if (created) {
-            Settings.getInstance().setPath(path);
-        }
-        //String myQuery = "^IXIC";
-
-        String test = String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv"));
-
-        File list = new File(String.valueOf(this.getClass().getResource("/testFiles/ListeSchueler4AHIF.csv")));
-        //File abgabe = new File(String.valueOf(this.getClass().getResource("/testFiles/Angabe.zip")));
-
-        //String uri = String.format(URLEncoder.encode( myQuery , "UTF8" ), this.getClass().getResource("/testFiles/Angabe.zip"));
-        System.out.println("ANGABE:  " + test);
-        //Settings.getInstance().setHandOutFile(abgabe);
     }
 
     /**

@@ -1,8 +1,10 @@
 package at.htl.server.advanced;
 
+import at.htl.common.Pupil;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Settings;
+import at.htl.server.entity.Student;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +17,8 @@ import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -63,8 +67,8 @@ public class Controller implements Initializable {
         initializeSlides(slImageScale, pbImageScale, lbImageScale, 100);
         initializeSlides(slImageQuality, pbImageQuality, lbImageQuality, 100);
         initializeNewFilters();
-        slImageQuality.setValue(80);
-        slImageScale.setValue(100);
+        slImageQuality.setValue(AdvancedSettingsPackage.getInstance().getImageQuality()*100);
+        slImageScale.setValue(AdvancedSettingsPackage.getInstance().getImageScale()*100);
 
         tfPort.textProperty().addListener(onlyNumber);
         tfPoints.textProperty().addListener(onlyNumber);
@@ -86,6 +90,35 @@ public class Controller implements Initializable {
 
     @FXML
     public void importPupilList() {
+        // Create and show the file filter
+        FileChooser fc = new FileChooser();
+        fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("CSV Files (*.csv)", "*.csv"));
+        File listFile = fc.showOpenDialog(new Stage());
+        if (Settings.getInstance().getHandOutFile() != null) {
+            fc.setInitialDirectory(new File(Settings.getInstance().getPath()));
+        } else {
+            fc.setInitialDirectory(new File(System.getProperty("user.home")));
+        }
+
+        // Check the user pressed OK, and not Cancel.
+        if (listFile != null) {
+            Settings.getInstance().setHandOutFile(listFile);
+            importPupilListToData(listFile.getAbsolutePath());
+        }
+    }
+
+    public void importPupilListToData(String filename) {
+        new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(filename),
+                Charset.forName("UTF-8")))
+                .lines()
+                .skip(1)
+                .map(s -> s.split(";"))
+                .map(a -> new Student(new Pupil(0,
+                    "xx120016",
+                     a[3],
+                     a[2],
+                     "")))
+                .forEach((student) -> Settings.getInstance().addStudent(student));
     }
 
     /**
@@ -291,7 +324,8 @@ public class Controller implements Initializable {
                 // save properties to exports directory
                 prop.store(output, null);
 
-                FxUtils.showPopUp("Properties-file created!", true);
+                FxUtils.showPopUp("Properties-file created!\nPath: "
+                        + Settings.getInstance().getPathOfExports() + "\n/settings.properties", true);
             } else {
                 FxUtils.showPopUp("Failed to create! (no export-directory or false file)", false);
             }
