@@ -115,6 +115,7 @@ import java.util.stream.Collectors;
  * 09.02.2017: PHI 050  fixed some bugs for issue #69 and #66
  * 09.02.2017: PHI 040  set the default directory and selects the handout-file automatically.
  * 11.02.2017: PHI 055  fixed some bugs, removed student-import and shows path on exports.
+ * 12.02.2017: PHI 035  fixed some GUI-Elements (userfriendly).
  */
 public class Controller implements Initializable {
 
@@ -292,7 +293,7 @@ public class Controller implements Initializable {
         slHarvester.setValue(10);
         slHarvesterStudent.setValue(10);
 
-        try {
+        /*try {
             // Get the location where the JAR-File is currently located at.
             String currFileLoc = Controller.class.getProtectionDomain().getCodeSource().getLocation()
                     .toURI().getPath();
@@ -303,7 +304,7 @@ public class Controller implements Initializable {
         } catch (URISyntaxException e) {
             FileUtils.log(this, Level.WARN, "Could not set Standardpath" + MyUtils.exToStr(e));
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
-        }
+        }*/
     }
 
     /**
