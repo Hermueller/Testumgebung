@@ -52,12 +52,13 @@
                                                                     <children>
                                                                         <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                                                             <children>
-                                                                                <Label fx:id="lbAngabe" layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Handout:">
+                                                                                <Label fx:id="lbAngabe" layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="97.0" text="Handout:">
                                                                                     <font>
                                                                                         <Font size="18.0" />
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Button fx:id="btnAngabe" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="26.0" prefWidth="234.0" text="Handout" />
+                                                                                <Button fx:id="btnAngabe" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="27.0" prefWidth="142.0" text="Handout" />
+                                                            <TextField fx:id="tfHandoutPath" editable="false" prefHeight="27.0" prefWidth="379.0" />
                                                                                 <ImageView fx:id="ivAngabe" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                                     <HBox.margin>
                                                                                         <Insets left="10.0" />
@@ -67,12 +68,13 @@
                                                                         </HBox>
                                                                         <HBox layoutX="25.0" layoutY="57.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                                                             <children>
-                                                                                <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="414.0" text="Location for screenshots, submissions:">
+                                                                                <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="97.0" text="Directory:">
                                                                                     <font>
                                                                                         <Font size="18.0" />
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Button alignment="CENTER" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="26.0" prefWidth="234.0" text="Choose your Directory" textAlignment="CENTER" />
+                                                                                <Button alignment="CENTER" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="27.0" prefWidth="142.0" text="Directory" textAlignment="CENTER" />
+                                                            <TextField fx:id="tfDirectoryPath" editable="false" prefHeight="27.0" prefWidth="379.0" />
                                                                                 <ImageView fx:id="ivPath" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                                     <HBox.margin>
                                                                                         <Insets left="10.0" />
@@ -82,7 +84,7 @@
                                                                         </HBox>
                                                                         <HBox layoutX="25.0" layoutY="165.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
                                                                             <children>
-                                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="414.0" text="Fix time between screenshots in seconds :">
+                                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="97.0" text="Fix time:">
                                                                                     <font>
                                                                                         <Font size="18.0" />
                                                                                     </font>

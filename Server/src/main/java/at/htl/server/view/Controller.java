@@ -34,7 +34,6 @@ import javafx.stage.*;
 import org.apache.logging.log4j.Level;
 
 import javax.imageio.ImageIO;
-import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -156,6 +155,8 @@ public class Controller implements Initializable {
     private ProgressBar pbHarvester;
     @FXML
     private TabPane tpMainTabs;
+    @FXML
+    private TextField tfHandoutPath, tfDirectoryPath;
     //endregion
 
     //region HandIn Variables
@@ -283,6 +284,7 @@ public class Controller implements Initializable {
         AdvancedSettingsPackage.getInstance().setLbAddress(lbAddress);
         AdvancedSettingsPackage.getInstance().setTimeSlider(slHarvester);
         AdvancedSettingsPackage.getInstance().setTestMode(btnTestMode);
+        AdvancedSettingsPackage.getInstance().setTestMode(false);
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
@@ -1335,6 +1337,7 @@ public class Controller implements Initializable {
         File choosedFile = dc.showDialog(new Stage());
         if (choosedFile != null) {
             Settings.getInstance().setPath(choosedFile.getPath());
+            tfDirectoryPath.setText(Settings.getInstance().getPath());
         }
     }
 
@@ -1360,6 +1363,7 @@ public class Controller implements Initializable {
         // Check the user pressed OK, and not Cancel.
         if (yourZip != null) {
             Settings.getInstance().setHandOutFile(yourZip);
+            tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
         }
     }
 
@@ -1375,6 +1379,7 @@ public class Controller implements Initializable {
             Settings.getInstance().printErrorLine(Level.INFO,
                     "current Path: " + filePath, true, "OTHER");
             Settings.getInstance().setPath(filePath);
+            tfDirectoryPath.setText(Settings.getInstance().getPath());
             f = new File(filePath + "/angabe.png");
             if (f.exists() && !f.isDirectory()) {
                 Settings.getInstance().setHandOutFile(f);
@@ -1391,6 +1396,7 @@ public class Controller implements Initializable {
             if (f.exists() && !f.isDirectory()) {
                 Settings.getInstance().setHandOutFile(f);
             }
+            tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
         } catch (URISyntaxException e) {
             FileUtils.log(this, Level.WARN, "Coudn't find current path" + MyUtils.exToStr(e));
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
