@@ -40,6 +40,7 @@ import org.apache.logging.log4j.Level;
  * 02.06.2016: PON 020  No Multiple Alerts
  * 21.06.2016: PHI 001  fixed error-bug
  * 21.06.2016: PHI 020  alert can be closed by pressing ESC again.
+ * 13.02.2017: MET 020  Bug bei der Auswahl einer Angabe behoben
  */
 public class TeacherGui extends Application {
 

@@ -43,15 +43,26 @@ public class Client {
     private boolean signedIn = false;
 
     public Client(Packet packet) throws IOException, AWTException {
-        socket = new Socket(Exam.getInstance().getServerIP(), Exam.getInstance().getPort());
-        FileUtils.createDirectory(Exam.getInstance().getPupil().getPathOfProject());
-        robot = new Robot();
-        jobs = new RobotActionQueue();
-        in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        setOut(new ObjectOutputStream(socket.getOutputStream()));
-        DocumentsTransfer.sendObject(out, packet);
-        processor = new ProcessorThread();
-        reader = new ReaderThread();
+        try {
+            socket = new Socket(Exam.getInstance().getServerIP(), Exam.getInstance().getPort());
+        } catch (Exception e) {
+            FxUtils.showPopUp("ERROR: Verbindung konnte nicht hergestellt werden!", false);
+        }
+        if (socket != null) {
+            FileUtils.createDirectory(Exam.getInstance().getPupil().getPathOfProject());
+            robot = new Robot();
+            jobs = new RobotActionQueue();
+            in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+            setOut(new ObjectOutputStream(socket.getOutputStream()));
+            DocumentsTransfer.sendObject(out, packet);
+            processor = new ProcessorThread();
+            reader = new ReaderThread();
+        } else {
+            robot = null;
+            in = null;
+            processor = null;
+            reader = null;
+        }
     }
 
     public ObjectOutputStream getOut() {
@@ -183,8 +194,13 @@ public class Client {
     /**
      * start-point for the thread
      */
-    public void start() {
-        loadFiles();
+    public boolean start() {
+        if (processor != null && reader != null) {
+            loadFiles();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

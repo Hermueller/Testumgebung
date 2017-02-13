@@ -116,6 +116,8 @@ import java.util.stream.Collectors;
  * 09.02.2017: PHI 040  set the default directory and selects the handout-file automatically.
  * 11.02.2017: PHI 055  fixed some bugs, removed student-import and shows path on exports.
  * 12.02.2017: PHI 035  fixed some GUI-Elements (userfriendly).
+ * 13.02.2017: MET 015  Anzeige für die Start- und Endzeit korrigiert
+ * 13.02.2017: MET 010  GUI benutzerfreundlicher gestaltet
  */
 public class Controller implements Initializable {
 

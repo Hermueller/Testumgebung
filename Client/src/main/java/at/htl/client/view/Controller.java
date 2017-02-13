@@ -170,8 +170,10 @@ public class Controller implements Initializable {
                 setMsg("Trying to login ...", false);
                 try {
                     LocalTime toTime;
+                    boolean loggedIn;
                     if (cbNoLogin.isSelected()) {
                         toTime = LocalTime.now().plusMinutes(0).plusSeconds(30);
+                        loggedIn = true;
                     } else {
                         Packet packet = new Packet(Action.LOGIN, "LoginPackage");
                         packet.put(Resource.PUPIL, new Pupil(
@@ -186,17 +188,19 @@ public class Controller implements Initializable {
                                 Exam.getInstance().getPort()
                         ));
                         client = new Client(packet);
-                        client.start();
+                        loggedIn = client.start();
                         toTime = client.getEndTime();
                     }
-                    //SignedInThread t = new SignedInThread();
-                    //t.start();
-                    //t.setDaemon(true);
-                    setMsg("Signed in!", false);
+                    if (loggedIn) {
+                        //SignedInThread t = new SignedInThread();
+                        //t.start();
+                        //t.setDaemon(true);
+                        setMsg("Signed in!", false);
 
-                    setTimeLeft(toTime);
-                    showQuickInfo();
-                    setControls(false);
+                        setTimeLeft(toTime);
+                        showQuickInfo();
+                        setControls(false);
+                    }
                 } catch (Exception e) {
                     FileUtils.log(this, Level.ERROR, e.getMessage());
                     e.printStackTrace();
