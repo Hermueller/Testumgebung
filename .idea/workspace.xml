@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/resources/fxml/Teacher.fxml" afterPath="$PROJECT_DIR$/Server/src/main/resources/fxml/Teacher.fxml" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,10 +72,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/advanced/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="505">
+            <state relative-caret-position="520">
               <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
               <folding />
             </state>
@@ -84,8 +85,8 @@
       <file leaf-file-name="Teacher.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/main/resources/fxml/Teacher.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6885">
-              <caret line="459" column="0" selection-start-line="459" selection-start-column="0" selection-end-line="459" selection-end-column="0" />
+            <state relative-caret-position="6870">
+              <caret line="458" column="0" selection-start-line="458" selection-start-column="0" selection-end-line="458" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -94,11 +95,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="602" column="35" selection-start-line="602" selection-start-column="35" selection-end-line="602" selection-end-column="35" />
+            <state relative-caret-position="5550">
+              <caret line="588" column="16" selection-start-line="588" selection-start-column="12" selection-end-line="588" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -1819,14 +1820,7 @@
       <workItem from="1486967880304" duration="701000" />
       <workItem from="1486969309326" duration="88000" />
       <workItem from="1486969437652" duration="1667000" />
-      <workItem from="1486980259273" duration="1201000" />
-    </task>
-    <task id="LOCAL-00018" summary="1.11.29.021 - Improved &quot;ScreenShot&quot; functions">
-      <created>1455259686619</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1455259686619</updated>
+      <workItem from="1486980259273" duration="1605000" />
     </task>
     <task id="LOCAL-00019" summary="1.11.29.022 - ScreenShot-Tests">
       <created>1455260568743</created>
@@ -2164,7 +2158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1486981371315</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Anzeige für die Start- und Endzeit korrigiert">
+      <created>1486981466497</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1486981466497</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2200,7 +2201,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="226365000" />
+    <option name="totallyTimeSpent" value="226769000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2803,8 +2804,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/main/resources/fxml/Teacher.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6885">
-          <caret line="459" column="0" selection-start-line="459" selection-start-column="0" selection-end-line="459" selection-end-column="0" />
+        <state relative-caret-position="6870">
+          <caret line="458" column="0" selection-start-line="458" selection-start-column="0" selection-end-line="458" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2828,18 +2829,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/advanced/Controller.java">
+    <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
+        <state relative-caret-position="5550">
+          <caret line="588" column="16" selection-start-line="588" selection-start-column="12" selection-end-line="588" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java">
+    <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/advanced/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="602" column="35" selection-start-line="602" selection-start-column="35" selection-end-line="602" selection-end-column="35" />
+        <state relative-caret-position="520">
+          <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
           <folding />
         </state>
       </provider>

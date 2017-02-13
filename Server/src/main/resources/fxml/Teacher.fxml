@@ -57,7 +57,7 @@
                                                                                         <Font size="18.0" />
                                                                                     </font>
                                                                                 </Label>
-                                                                                <Button fx:id="btnAngabe" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="27.0" prefWidth="142.0" text="Handout" />
+                                                                                <Button alignment="CENTER" layoutX="253.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="27.0" prefWidth="142.0" text="Handout" textAlignment="CENTER" />
                                                                                 <TextField fx:id="tfHandoutPath" editable="false" prefHeight="27.0" prefWidth="379.0" />
                                                                                 <ImageView fx:id="ivAngabe" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                                                     <HBox.margin>
@@ -250,7 +250,6 @@
                                                         </AnchorPane>
                                                         <Button fx:id="tbMode" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="165.0" text="Advanced Settings" />
                                                         <Button fx:id="btnTestMode" layoutX="892.0" layoutY="28.0" mnemonicParsing="false" onAction="#setTestOptions" prefHeight="26.0" prefWidth="74.0" text="Test" />
-                                                        <ImageView fx:id="IVlabel" fitHeight="99.0" fitWidth="447.0" layoutX="284.0" pickOnBounds="true" preserveRatio="true" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
