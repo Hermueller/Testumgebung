@@ -98,10 +98,26 @@ public class FxUtils {
      * @param error TRUE   if it is an error-message
      *              FALSE  if it is a success-message
      */
-    public static void setMsg(Label alert, String text, boolean error) {
+    public static void setMsg(Label alert, String text, int status) {
+        String color;
+        switch (status) {
+            case 0: // Error
+                color = "red";
+                break;
+            case 1: // Warning
+                color = "yellow";
+                break;
+            case 2: // Successfully
+                color = "limegreen";
+                break;
+            default:
+                color = "white";
+                break;
+        }
+
         Platform.runLater(() -> {
             alert.setText(text);
-            alert.setStyle("-fx-background-color: " + (error ? "red" : "limegreen"));
+            alert.setStyle("-fx-background-color: " + color);
         });
     }
 

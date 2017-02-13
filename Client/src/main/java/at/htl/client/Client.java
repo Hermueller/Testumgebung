@@ -208,24 +208,25 @@ public class Client {
      * stop all streams from this client.
      */
     public void stop() {
+        if (processor != null && reader != null) {
+            /*RobotAction action = new LittleHarvester(
+                    loginPackage.getLastname(), loginPackage.getDirOfWatch(), new String[0]);
 
-        /*RobotAction action = new LittleHarvester(
-                loginPackage.getLastname(), loginPackage.getDirOfWatch(), new String[0]);
+            try {
+                Object result = action.execute(robot);
+                if (result != null) {
+                    getOut().writeObject(result);
+                    getOut().reset();
+                    getOut().flush();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
 
-        try {
-            Object result = action.execute(robot);
-            if (result != null) {
-                getOut().writeObject(result);
-                getOut().reset();
-                getOut().flush();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-        processor.interrupt();
-        reader.interrupt();
-        //handIn();
-        closeOut();
+            processor.interrupt();
+            reader.interrupt();
+            //handIn();
+            closeOut();
+        }
     }
 }

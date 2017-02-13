@@ -69,6 +69,7 @@ import static at.htl.common.transfer.Packet.Resource;
  * 12.06.2016: MET 030  auto size of the QuickInfo-Window (Bug: the size does not change correctly)
  * 16.06.2016: MET 040  login status "Signed in!" when student really logged in  (
  * 16.06.2016: PON 040  login status "Signed in!" when student really logged in
+ * 13.02.2017: MET 030  Fehlermeldung, wenn der Server noch nicht gestartet ist
  */
 public class Controller implements Initializable {
 
@@ -164,10 +165,10 @@ public class Controller implements Initializable {
      */
     @FXML
     public void login() {
-        setMsg("Establish connection with server ...", false);
+        setMsg("Establish connection with server ...", 1);
         if (IpConnection.isIpReachable(tfServerIP.getText(), true, false)) {
             if (setExam() && isLoggedOut()) {
-                setMsg("Trying to login ...", false);
+                setMsg("Trying to login ...", 1);
                 try {
                     LocalTime toTime;
                     boolean loggedIn;
@@ -195,7 +196,7 @@ public class Controller implements Initializable {
                         //SignedInThread t = new SignedInThread();
                         //t.start();
                         //t.setDaemon(true);
-                        setMsg("Signed in!", false);
+                        setMsg("Signed in!", 2);
 
                         setTimeLeft(toTime);
                         showQuickInfo();
@@ -204,11 +205,11 @@ public class Controller implements Initializable {
                 } catch (Exception e) {
                     FileUtils.log(this, Level.ERROR, e.getMessage());
                     e.printStackTrace();
-                    setMsg("Login failed!", true);
+                    setMsg("Login failed!", 0);
                 }
             }
         } else {
-            setMsg("Connecting to server failed!", true);
+            setMsg("Connecting to server failed!", 0);
         }
     }
 
@@ -217,7 +218,7 @@ public class Controller implements Initializable {
         public void run() {
             for (int i = 0; i < 10; i++) {
                 if (client.isSignedIn()) {
-                    setMsg("Signed in!", false);
+                    setMsg("Signed in!", 2);
                     return;
                 }
                 try {
@@ -226,7 +227,7 @@ public class Controller implements Initializable {
                     e.printStackTrace();
                 }
             }
-            setMsg("Time überschritten", true);
+            setMsg("Time überschritten", 0);
         }
     }
 
@@ -298,26 +299,26 @@ public class Controller implements Initializable {
 
         boolean validity = false;
         if (serverIP.isEmpty()) {
-            setMsg("Specify the IP-Address of the server!", true);
+            setMsg("Specify the IP-Address of the server!", 0);
         } else if ((serverIP.split("\\.").length != 4 && !serverIP.equals("localhost"))
                 || serverIP.length() > 15) {
-            setMsg("Invalid IP-Address!", true);
+            setMsg("Invalid IP-Address!", 0);
         } else if (port < 1) {
-            setMsg("Invalid Port!", true);
+            setMsg("Invalid Port!", 0);
         } else if (enrolmentID.isEmpty()) {
-            setMsg("Enter your enrolment id", true);
+            setMsg("Enter your enrolment id", 0);
         } else if (enrolmentID.length() >= 10) {
-            setMsg("The enrolment id is too long!", true);
+            setMsg("The enrolment id is too long!", 0);
         } else if (catalogNumber < 1) {
-            setMsg("Invalid catalog number!", true);
+            setMsg("Invalid catalog number!", 0);
         } else if (firstName.isEmpty() || firstName.length() > 20) {
-            setMsg("Enter your correct first name", true);
+            setMsg("Enter your correct first name", 0);
         } else if (lastName.isEmpty() || lastName.length() > 20) {
-            setMsg("Enter your correct last name", true);
+            setMsg("Enter your correct last name", 0);
         } else if (!lastName.matches("[A-Z][a-z]+") || !firstName.matches("[A-Z][a-z]+")) {
-            setMsg("Unknown letter. Allowed: A-Z", true);
+            setMsg("Unknown letter. Allowed: A-Z", 0);
         } else if (pathOfProject.isEmpty()) {
-            setMsg("Specify the path of project!", true);
+            setMsg("Specify the path of project!", 0);
         } else {
             validity = true;
         }
@@ -386,7 +387,7 @@ public class Controller implements Initializable {
         countdown.reset();
         quickInfo.close();
         setControls(true);
-        setMsg("Test successfully submitted", false);
+        setMsg("Test successfully submitted", 2);
         client.stop();
     }
 
@@ -401,8 +402,8 @@ public class Controller implements Initializable {
      * @param error TRUE   if it is an error-message
      *              FALSE  if it is a success-message
      */
-    private void setMsg(String text, boolean error) {
-        FxUtils.setMsg(lbAlert, text, error);
+    private void setMsg(String text, int status) {
+        FxUtils.setMsg(lbAlert, text, status);
     }
 
 }
