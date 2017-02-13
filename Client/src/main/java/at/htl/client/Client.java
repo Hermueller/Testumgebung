@@ -46,7 +46,7 @@ public class Client {
         try {
             socket = new Socket(Exam.getInstance().getServerIP(), Exam.getInstance().getPort());
         } catch (Exception e) {
-            FxUtils.showPopUp("ERROR: Verbindung konnte nicht hergestellt werden!", false);
+            FxUtils.showPopUp("ERROR: Connection to server failed!", false);
         }
         if (socket != null) {
             FileUtils.createDirectory(Exam.getInstance().getPupil().getPathOfProject());

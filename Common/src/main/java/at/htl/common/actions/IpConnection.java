@@ -23,26 +23,29 @@ public class IpConnection {
      */
     public static boolean isIpReachable(String ip, boolean errorPopUp, boolean successPopUp) {
         boolean connected = false;
+        if (ip.isEmpty()) {
+            FxUtils.showPopUp("Please enter an IP address!", false);
+        } else {
+            try {
+                String msg;
 
-        try {
-            String msg;
+                InetAddress address = InetAddress.getByName(ip);
+                boolean reachable = address.isReachable(2000);
 
-            InetAddress address = InetAddress.getByName(ip);
-            boolean reachable = address.isReachable(2000);
+                if (!reachable) {
+                    msg = "can't ping the following IP: " + ip;
+                } else {
+                    msg = "IP pinged successfully!!";
+                    connected = true;
+                }
 
-            if (!reachable) {
-                msg = "can't ping the following IP: " + ip;
-            } else {
-                msg = "IP pinged successfully!!";
-                connected = true;
+                if ((errorPopUp && !connected) || (successPopUp && connected)) {
+                    FxUtils.showPopUp(msg, connected);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            if ((errorPopUp && !connected) || (successPopUp && connected)) {
-                FxUtils.showPopUp(msg, connected);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
         return connected;

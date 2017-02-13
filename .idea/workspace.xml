@@ -9,8 +9,7 @@
     <list default="true" id="ce2222b2-2b9f-44bf-abdd-6265ef93d337" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" afterPath="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/fx/FxUtils.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/fx/FxUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/IpConnection.java" afterPath="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/IpConnection.java" />
     </list>
     <ignored path="RemoteControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,8 +46,20 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="529">
+              <caret line="211" column="20" selection-start-line="211" selection-start-column="20" selection-end-line="211" selection-end-column="48" />
+              <folding>
+                <marker date="1486983325000" expanded="true" signature="14355:14409" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IpConnection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/IpConnection.java">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="133">
-              <caret line="390" column="18" selection-start-line="390" selection-start-column="18" selection-end-line="390" selection-end-column="18" />
+              <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -97,8 +108,8 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="207" column="27" selection-start-line="207" selection-start-column="27" selection-end-line="207" selection-end-column="27" />
+            <state relative-caret-position="-1620">
+              <caret line="51" column="52" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -132,16 +143,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="159">
               <caret line="36" column="31" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="127" column="32" selection-start-line="127" selection-start-column="32" selection-end-line="127" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -206,7 +207,6 @@
         <option value="$PROJECT_DIR$/Common/src/main/java/at/htl/common/transfer/Address.java" />
         <option value="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/LittleHarvester.java" />
         <option value="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/LineCounter.java" />
-        <option value="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/IpConnection.java" />
         <option value="$PROJECT_DIR$/Common/src/test/java/at/htl/common/ScreenShotTest.java" />
         <option value="$PROJECT_DIR$/Common/src/test/java/at/htl/common/CountdownTest.java" />
         <option value="$PROJECT_DIR$/Client/src/test/java/at/htl/client/StudentTestGui.java" />
@@ -229,8 +229,9 @@
         <option value="$PROJECT_DIR$/Server/src/main/java/at/htl/server/Settings.java" />
         <option value="$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/TeacherGui.java" />
         <option value="$PROJECT_DIR$/Server/src/main/java/at/htl/server/view/Controller.java" />
-        <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
         <option value="$PROJECT_DIR$/Common/src/main/java/at/htl/common/fx/FxUtils.java" />
+        <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java" />
+        <option value="$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/IpConnection.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java" />
       </list>
     </option>
@@ -1927,14 +1928,7 @@
       <workItem from="1486969309326" duration="88000" />
       <workItem from="1486969437652" duration="1667000" />
       <workItem from="1486980259273" duration="2551000" />
-      <workItem from="1486980020375" duration="3517000" />
-    </task>
-    <task id="LOCAL-00022" summary="1.11.30.18 - Fixed a bug in the Client-Controller">
-      <created>1459418800891</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1459418800891</updated>
+      <workItem from="1486980020375" duration="4200000" />
     </task>
     <task id="LOCAL-00023" summary="1.13.38.093 - Added &quot;Time Left&quot; in Student-GUI">
       <created>1459419495642</created>
@@ -2272,7 +2266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1486982496242</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="1.18.47.415 - #74 Client: farbliche Kennzeichnung von neutralen Mitteilungen (gelb)">
+      <created>1486983783505</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1486983783505</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2308,7 +2309,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231232000" />
+    <option name="totallyTimeSpent" value="231915000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2391,7 +2392,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.15.26.002 - Show quick info (time, status, transparent background, positioning, ...)" />
     <MESSAGE value="1.15.25.170 - #50 Moving the QuickInfo-Window" />
     <MESSAGE value="1.15.22.159 - #50 Show and hide the QuickInfo-Window" />
     <MESSAGE value="1.15.22.159 - Display of a monitoring symbol when connected" />
@@ -2416,7 +2416,8 @@
     <MESSAGE value="Error bei der Auswahl einer Angabe behoben" />
     <MESSAGE value="1.18.47.408 - #73 Verbesserungen an der Benutzeroberfläche" />
     <MESSAGE value="1.18.47.413 - #74 Fehlermeldung, wenn Server noch nicht gestartet ist" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.18.47.413 - #74 Fehlermeldung, wenn Server noch nicht gestartet ist" />
+    <MESSAGE value="1.18.47.415 - #74 Client: farbliche Kennzeichnung von neutralen Mitteilungen (gelb)" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.18.47.415 - #74 Client: farbliche Kennzeichnung von neutralen Mitteilungen (gelb)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2683,13 +2684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/IpConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="55" column="4" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/RobotAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2938,18 +2932,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
+    <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/actions/IpConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
-          <caret line="390" column="18" selection-start-line="390" selection-start-column="18" selection-end-line="390" selection-end-column="18" />
+          <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/view/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="211" column="20" selection-start-line="211" selection-start-column="20" selection-end-line="211" selection-end-column="48" />
+          <folding>
+            <marker date="1486983325000" expanded="true" signature="14355:14409" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/main/java/at/htl/client/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="207" column="27" selection-start-line="207" selection-start-column="27" selection-end-line="207" selection-end-column="27" />
+        <state relative-caret-position="-1620">
+          <caret line="51" column="52" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
           <folding />
         </state>
       </provider>
