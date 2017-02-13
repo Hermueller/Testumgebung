@@ -286,7 +286,7 @@
                                                         <ComboBox fx:id="cbFilterSet" layoutX="198.0" layoutY="148.0" prefWidth="150.0" />
                                                         <Accordion fx:id="accordion" layoutX="26.0" layoutY="211.0" prefHeight="280.0" prefWidth="957.0">
                                                             <panes>
-                                                                <TitledPane expanded="false" text="Add new filter to selected set" textFill="WHITE">
+                                                                <TitledPane expanded="false" text="Add new filter to selected set">
                                                                     <content>
                                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                             <children>
@@ -397,7 +397,7 @@
                                                                 <Font name="System Bold" size="18.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label layoutX="41.0" layoutY="235.0" text="remaining time:">
+                                                        <Label layoutX="41.0" layoutY="235.0" text="Remaining time:">
                                                             <font>
                                                                 <Font name="System Bold" size="18.0" />
                                                             </font>

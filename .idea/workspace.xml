@@ -75,8 +75,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/advanced/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
+            <state relative-caret-position="340">
+              <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -1820,14 +1820,7 @@
       <workItem from="1486967880304" duration="701000" />
       <workItem from="1486969309326" duration="88000" />
       <workItem from="1486969437652" duration="1667000" />
-      <workItem from="1486980259273" duration="1605000" />
-    </task>
-    <task id="LOCAL-00019" summary="1.11.29.022 - ScreenShot-Tests">
-      <created>1455260568743</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1455260568743</updated>
+      <workItem from="1486980259273" duration="1827000" />
     </task>
     <task id="LOCAL-00020" summary="1.11.29.45 - Unknown change">
       <created>1457612103344</created>
@@ -2165,7 +2158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1486981466497</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Error bei der Auswahl einer Angabe behoben">
+      <created>1486982091137</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1486982091137</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2201,7 +2201,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="226769000" />
+    <option name="totallyTimeSpent" value="226991000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2284,7 +2284,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1.15.22.154 - #41 Bug fixed: Unzipping failed&#10;&#10;Problem was: backslash must be available after folder names" />
     <MESSAGE value="1.15.22.158 - Commit and Push - Error  (Code noch da?)" />
     <MESSAGE value="1.15.22.160 - New design of the Student-GUI:&#10;&#10;unified language, tooltips, checkbox (Inform the teacher whether the student finished the test)" />
     <MESSAGE value="1.15.26.002 - Show quick info (time, status, transparent background, positioning, ...)" />
@@ -2309,7 +2308,8 @@
     <MESSAGE value="Test Commit" />
     <MESSAGE value="Korrektur von nicht-selbsterklärenden Begriffen" />
     <MESSAGE value="Anzeige für die Start- und Endzeit korrigiert" />
-    <option name="LAST_COMMIT_MESSAGE" value="Anzeige für die Start- und Endzeit korrigiert" />
+    <MESSAGE value="Error bei der Auswahl einer Angabe behoben" />
+    <option name="LAST_COMMIT_MESSAGE" value="Error bei der Auswahl einer Angabe behoben" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2839,8 +2839,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/at/htl/server/advanced/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
+        <state relative-caret-position="340">
+          <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
           <folding />
         </state>
       </provider>
