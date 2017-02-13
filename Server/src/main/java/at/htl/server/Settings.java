@@ -278,6 +278,11 @@ public class Settings {
         this.endTime = endTime;
     }
 
+    public void incrementEndTime(int minutes) {
+        this.endTime.plusMinutes(minutes);
+    }
+
+
     /**
      * @return the time to wait for the next screenshot.
      */

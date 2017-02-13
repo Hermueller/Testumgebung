@@ -162,7 +162,7 @@ public class Controller implements Initializable {
 
     //region HandIn Variables
     @FXML
-    private Button btnaddTime;
+    private Button btnAddTime;
     @FXML
     private AnchorPane apStartTime, apEndTime;
     //endregion
@@ -297,7 +297,6 @@ public class Controller implements Initializable {
             // Get the location where the JAR-File is currently located at.
             String currFileLoc = Controller.class.getProtectionDomain().getCodeSource().getLocation()
                     .toURI().getPath();
-
             //remove the filename in order to get the directory name.
             String[] dirs = currFileLoc.split("/");
             Settings.getInstance().setPath(currFileLoc.replace(dirs[dirs.length - 1], ""));
@@ -581,31 +580,21 @@ public class Controller implements Initializable {
     //region {GitHub-Issue: #12} Submission Methods
 
     public void initializeTimeSpinner() {
-        TimeSpinner spinner = new TimeSpinner();
-        TimeSpinner startspinner = new TimeSpinner();
-        final boolean[] alreadyaddedtime = {false};
+        TimeSpinner startTimeSpinner = new TimeSpinner();
+        TimeSpinner endTimeSpinner = new TimeSpinner();
         //final LocalTime[] time = new LocalTime[1];
 
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
-        spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            btnaddTime.setOnAction(event -> {
-                if (alreadyaddedtime[0]) {
-                    spinner.setMode(TimeSpinner.Mode.MINUTES);
-                    spinner.increment(10);
-                    Settings.getInstance().setEndTime(Settings.getInstance().getEndTime().plusMinutes(10));
-                } else {
-                    spinner.setMode(TimeSpinner.Mode.MINUTES);
-                    spinner.increment(10);
-                    Settings.getInstance().setEndTime(newValue.plusMinutes(10));
-                }
-
-                alreadyaddedtime[0] = true;
+        endTimeSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            btnAddTime.setOnAction(event -> {
+                endTimeSpinner.setMode(TimeSpinner.Mode.MINUTES);
+                endTimeSpinner.increment(10);
+                Settings.getInstance().incrementEndTime(10);
             });
         });
 
-
-        apEndTime.getChildren().add(spinner);
-        apStartTime.getChildren().add(startspinner);
+        apStartTime.getChildren().add(startTimeSpinner);
+        apEndTime.getChildren().add(endTimeSpinner);
     }
 
     @FXML
@@ -1262,9 +1251,7 @@ public class Controller implements Initializable {
      */
     public void initializeWebView() {
         /*WebEngine webEngine = wvHelp.getEngine();
-
         //boolean applicationHasInternetConnection = IpConnection.checkInternetConnection();
-
         String url;
         try {
             //if (applicationHasInternetConnection) {
@@ -1397,7 +1384,9 @@ public class Controller implements Initializable {
             if (f.exists() && !f.isDirectory()) {
                 Settings.getInstance().setHandOutFile(f);
             }
-            tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
+            if (Settings.getInstance().getHandOutFile() != null) {
+                tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
+            }
         } catch (URISyntaxException e) {
             FileUtils.log(this, Level.WARN, "Coudn't find current path" + MyUtils.exToStr(e));
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
