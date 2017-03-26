@@ -6,6 +6,7 @@ import at.htl.common.io.ScreenShot;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Interval;
 import at.htl.server.entity.Student;
+import at.htl.server.view.Controller;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ import javafx.scene.paint.Color;
 import org.apache.logging.log4j.Level;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -502,13 +504,30 @@ public class Settings {
      */
     public void addStudent(final Student student) {
         studentsList.add(student);
-
+        Controller conn = new Controller();
         final ContextMenu contextMenu = new ContextMenu();
         MenuItem show = new MenuItem("show:");
         MenuItem name = new MenuItem(student.getPupil().getLastName());
         MenuItem enrolmentID = new MenuItem(student.getPupil().getEnrolmentID());
+        MenuItem foo = new MenuItem("disconnect");
+        InetAddress abc = student.getStudentAddress();
+        //foo.setOnAction(event -> conn.kickStudent());
+        foo.setOnAction(event -> {
+            //ObservableList xd = StudentView.getInstance().getLv().getSelectionModel().getSelectedIndices();
+            //ObservableList jjk = StudentView.getInstance().getLv().getItems();
 
-        contextMenu.getItems().addAll(show, name, enrolmentID);
+            //StudentView.getInstance().getLv().getSelectionModel().getSelectedItems().remove(0);
+            /*jjk.remove(0);
+            ListView lv = new ListView();
+            lv.setItems(jjk);
+            StudentView.getInstance().setLv(lv);
+            StudentView.getInstance().getLv().refresh();*/
+            conn.kickStudent();
+        });
+
+
+        contextMenu.getItems().addAll(show, name, enrolmentID,foo);
+
 
         if (StudentView.getInstance().getLv() != null)
             Platform.runLater(() -> {
