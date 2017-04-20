@@ -407,6 +407,7 @@ public class Settings {
             text = "0";
         }
         lbCount.setText(text + studentCount);
+        System.out.println(text + studentCount);
     }
 
     /**

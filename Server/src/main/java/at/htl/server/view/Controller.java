@@ -1181,7 +1181,7 @@ public class Controller implements Initializable {
 
     /**
      * if the SelectedStudent changes, the Chart and ImageView
-     * is cleared and the new Chart and Image will be shown.
+     * is cleared and the new Chart and Image will be shown.ein
      */
     public void setOnStudentChange() {
         lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -1212,7 +1212,7 @@ public class Controller implements Initializable {
             lbEnrolmentID.setText(st.getPupil().getEnrolmentID());
 
             if (!patrolMode) {
-                tpMainTabs.getSelectionModel().select(3);
+                tpMainTabs.getSelectionModel().select(1);
             }
         });
     }

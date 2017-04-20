@@ -18,7 +18,15 @@
             <items>
                 <AnchorPane maxWidth="200.0" minWidth="200.0" prefHeight="516.0" prefWidth="200.0">
                     <children>
-                        <ListView fx:id="lvStudents" layoutX="-1.0" layoutY="33.0" prefHeight="717.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0" />
+                          <ScrollPane fitToHeight="true" hbarPolicy="NEVER" prefHeight="717.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.topAnchor="33.0">
+                            <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="717.0" prefWidth="200.0">
+                                   <children>
+                                            <ListView fx:id="lvStudents" prefHeight="717.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                   </children>
+                                </AnchorPane>
+                            </content>
+                          </ScrollPane>
                         <Label layoutX="14.0" layoutY="4.0" prefHeight="26.0" prefWidth="96.0" text="Nr. of logged in:" />
                         <Label fx:id="lbCount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="155.0" layoutY="4.0" prefHeight="26.0" prefWidth="38.0" text="00" textAlignment="RIGHT" />
                     </children>
@@ -254,6 +262,64 @@
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
+                                        <Tab closable="false" text="Monitoring">
+                                            <content>
+                                                <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <ImageView fx:id="ivLiveView" fitHeight="664.0" fitWidth="992.0" layoutX="3.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                                        <Button fx:id="btnBefore" layoutX="2.0" layoutY="320.0" mnemonicParsing="false" onAction="#onBeforeButtonClick" prefHeight="27.0" prefWidth="0.0" text="&lt;" />
+                                                        <Button fx:id="btnNext" layoutX="877.0" layoutY="320.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="27.0" prefWidth="0.0" text="&gt;" />
+                                                        <Button fx:id="btnActual" layoutX="919.0" layoutY="321.0" mnemonicParsing="false" onAction="#OnActual" text="Actual" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab closable="false" text="Student-Info">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <ImageView fitHeight="655.0" fitWidth="409.0" layoutX="589.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../images/personSketch.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                        <Button fx:id="btnExportLOC" layoutX="369.0" layoutY="628.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <StackedAreaChart fx:id="loc" layoutX="6.0" layoutY="57.0" legendSide="LEFT" legendVisible="false" prefHeight="572.0" prefWidth="987.0">
+                                                            <xAxis>
+                                                                <NumberAxis label="Seconds after START" side="BOTTOM" />
+                                                            </xAxis>
+                                                            <yAxis>
+                                                                <NumberAxis label="Lines of code" side="LEFT" />
+                                                            </yAxis>
+                                                        </StackedAreaChart>
+                                                        <Label fx:id="lbCatalogNumber" layoutX="350.0" layoutY="25.0" text="00">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="lbLastName" layoutX="501.0" layoutY="24.0" text="Mustermann">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="lbFirstName" layoutX="614.0" layoutY="24.0" text="Max">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="lbEnrolmentID" layoutX="401.0" layoutY="24.0" text="in000000">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
                                         <Tab closable="false" text="Student-Settings">
                                             <content>
                                                 <AnchorPane fx:id="apStudentSettings" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -318,64 +384,6 @@
                                                                 </TitledPane>
                                                             </panes>
                                                         </Accordion>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab closable="false" text="Student-Info">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                    <children>
-                                                        <ImageView fitHeight="655.0" fitWidth="409.0" layoutX="589.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                                            <image>
-                                                                <Image url="@../images/personSketch.png" />
-                                                            </image>
-                                                        </ImageView>
-                                                        <Button fx:id="btnExportLOC" layoutX="369.0" layoutY="628.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
-                                                            <font>
-                                                                <Font size="14.0" />
-                                                            </font>
-                                                        </Button>
-                                                        <StackedAreaChart fx:id="loc" layoutX="6.0" layoutY="57.0" legendSide="LEFT" legendVisible="false" prefHeight="572.0" prefWidth="987.0">
-                                                            <xAxis>
-                                                                <NumberAxis label="Seconds after START" side="BOTTOM" />
-                                                            </xAxis>
-                                                            <yAxis>
-                                                                <NumberAxis label="Lines of code" side="LEFT" />
-                                                            </yAxis>
-                                                        </StackedAreaChart>
-                                                        <Label fx:id="lbCatalogNumber" layoutX="350.0" layoutY="25.0" text="00">
-                                                            <font>
-                                                                <Font size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <Label fx:id="lbLastName" layoutX="501.0" layoutY="24.0" text="Mustermann">
-                                                            <font>
-                                                                <Font size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <Label fx:id="lbFirstName" layoutX="614.0" layoutY="24.0" text="Max">
-                                                            <font>
-                                                                <Font size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <Label fx:id="lbEnrolmentID" layoutX="401.0" layoutY="24.0" text="in000000">
-                                                            <font>
-                                                                <Font size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab closable="false" text="Monitoring">
-                                            <content>
-                                                <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                    <children>
-                                                        <ImageView fx:id="ivLiveView" fitHeight="664.0" fitWidth="992.0" layoutX="3.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-                                                        <Button fx:id="btnBefore" layoutX="2.0" layoutY="320.0" mnemonicParsing="false" onAction="#onBeforeButtonClick" prefHeight="27.0" prefWidth="0.0" text="&lt;" />
-                                                        <Button fx:id="btnNext" layoutX="877.0" layoutY="320.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="27.0" prefWidth="0.0" text="&gt;" />
-                                                        <Button fx:id="btnActual" layoutX="919.0" layoutY="321.0" mnemonicParsing="false" onAction="#OnActual" text="Actual" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
