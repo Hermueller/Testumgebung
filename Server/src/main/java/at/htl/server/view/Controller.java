@@ -2,6 +2,7 @@ package at.htl.server.view;
 
 import at.htl.common.MyUtils;
 import at.htl.common.TimeSpinner;
+import at.htl.common.actions.IpConnection;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
@@ -29,6 +30,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.*;
 import org.apache.logging.log4j.Level;
@@ -1252,23 +1254,23 @@ public class Controller implements Initializable {
      * If the application has no internet-connection then the outdated, offline website is shown.
      */
     public void initializeWebView() {
-        /*WebEngine webEngine = wvHelp.getEngine();
-        //boolean applicationHasInternetConnection = IpConnection.checkInternetConnection();
+        WebEngine webEngine = wvHelp.getEngine();
+        boolean applicationHasInternetConnection = IpConnection.checkInternetConnection();
         String url;
         try {
-            //if (applicationHasInternetConnection) {
-            //    webEngine.setJavaScriptEnabled(true);
-            //    url = "http://BeatingAngel.github.io/Testumgebung/#program";
-            //    lbStat.setText("Status: online");
-            //} else {
+            if (applicationHasInternetConnection) {
+                webEngine.setJavaScriptEnabled(true);
+                url = "http://BeatingAngel.github.io/Testumgebung/#program";
+                lbStat.setText("Status: online");
+            } else {
                 url = Server.class.getResource("/").toExternalForm().split("Server")[0].concat("index.html");
                 lbStat.setText("Status: offline");
-            //}
+            }
             webEngine.load(url);
         } catch (Exception exc) {
             FileUtils.log(Level.WARN, exc.getMessage());
-            Settings.getInstance().printError(Level.WARN, exc.getStackTrace(), "WARNINGS");
-        }*/
+            Settings.getInstance().printError(Level.WARN, exc.getStackTrace(), "WARNINGS", "");
+        }
     }
 
     /**

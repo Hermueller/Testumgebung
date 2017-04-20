@@ -122,7 +122,7 @@ public class Controller implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         if (MyUtils.readProperty("settings.properties", "testmode").toLowerCase().equals("false")) {
-            cbNoLogin.setVisible(true);
+            cbNoLogin.setVisible(false);
             btnTestMode.setVisible(false);
         }
         setControls(true);

@@ -131,7 +131,7 @@
          <tooltip>
             <Tooltip text="Login without connection to the server." />
          </tooltip></CheckBox>
-      <CheckBox fx:id="cbFinished" layoutX="248.0" layoutY="221.0" mnemonicParsing="false" text="Finished">
+      <CheckBox fx:id="cbFinished" layoutX="248.0" layoutY="221.0" mnemonicParsing="false" onAction="#setMode" text="Finished">
          <tooltip>
             <Tooltip text="Inform the teacher when you're done with the test." />
          </tooltip></CheckBox>

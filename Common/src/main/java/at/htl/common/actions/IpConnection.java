@@ -2,7 +2,11 @@ package at.htl.common.actions;
 
 import at.htl.common.fx.FxUtils;
 
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * executes system commands.
@@ -56,8 +60,17 @@ public class IpConnection {
      *
      * @return internet-connectivity.
      */
-    @SuppressWarnings("unused")
     public static boolean checkInternetConnection() {
-        return isIpReachable("www.google.com", false, false);
+        //return isIpReachable("www.google.com", false, false);
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            return true;
+        } catch (MalformedURLException e) {Ein
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
     }
 }
