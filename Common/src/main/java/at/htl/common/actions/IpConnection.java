@@ -67,7 +67,7 @@ public class IpConnection {
             final URLConnection conn = url.openConnection();
             conn.connect();
             return true;
-        } catch (MalformedURLException e) {Ein
+        } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             return false;
