@@ -162,6 +162,9 @@ public class Controller implements Initializable {
     private TabPane tpMainTabs;
     @FXML
     private TextField tfHandoutPath, tfDirectoryPath;
+    @FXML
+    private Button btndirectory,btnhandout;
+
     //endregion
 
     //region HandIn Variables
@@ -379,6 +382,10 @@ public class Controller implements Initializable {
             setImage(ivPath, true);
             setImage(ivFileExtensions, true);
             tbMode.setDisable(true);
+            slHarvester.setDisable(true);
+
+            btnhandout.setDisable(true);
+            btndirectory.setDisable(true);
         }
     }
 
@@ -408,6 +415,9 @@ public class Controller implements Initializable {
                     Student student = Settings.getInstance().findStudentByAddress(b.getId());
                     student.getServer().shutdown();
                 }
+                btndirectory.setDisable(false);
+                btnhandout.setDisable(false);
+                slHarvester.setDisable(false);
             } else {
                 setMsg(true, "Server is already stopped");
             }
