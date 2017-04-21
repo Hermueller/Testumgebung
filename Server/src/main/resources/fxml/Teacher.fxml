@@ -301,7 +301,7 @@
                                                                 <NumberAxis label="Lines of code" side="LEFT" />
                                                             </yAxis>
                                                         </StackedAreaChart>
-                                                        <Label fx:id="lbNameOfPupilS" layoutX="350.0" layoutY="25.0" text="Name">
+                                                        <Label fx:id="lbNameOfPupilSI" layoutX="350.0" layoutY="25.0" text="Name">
                                                             <font>
                                                                 <Font size="18.0" />
                                                             </font>
