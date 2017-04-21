@@ -70,6 +70,8 @@ import static at.htl.common.transfer.Packet.Resource;
  * 16.06.2016: MET 040  login status "Signed in!" when student really logged in  (
  * 16.06.2016: PON 040  login status "Signed in!" when student really logged in
  * 13.02.2017: MET 030  Fehlermeldung, wenn der Server noch nicht gestartet ist
+ * 13.02.2017: MET 020  farbliche Kennzeichnung von neutralen Mitteilungen (gelb)
+ * 13.02.2017: MET 010  Fehlermeldung, wenn keine IP-Addresse angegeben wird
  */
 public class Controller implements Initializable {
 

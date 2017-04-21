@@ -266,10 +266,30 @@
                                             <content>
                                                 <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
-                                                        <ImageView fx:id="ivLiveView" fitHeight="664.0" fitWidth="992.0" layoutX="3.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                                                        <ImageView fx:id="ivLiveView" fitHeight="622.0" fitWidth="992.0" layoutX="3.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
                                                         <Button fx:id="btnBefore" layoutX="2.0" layoutY="320.0" mnemonicParsing="false" onAction="#onBeforeButtonClick" prefHeight="27.0" prefWidth="0.0" text="&lt;" />
                                                         <Button fx:id="btnNext" layoutX="877.0" layoutY="320.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="27.0" prefWidth="0.0" text="&gt;" />
                                                         <Button fx:id="btnActual" layoutX="919.0" layoutY="321.0" mnemonicParsing="false" onAction="#OnActual" text="Actual" />
+                                          <Label fx:id="lbEnrolmentID1" layoutX="30.0" layoutY="19.0" text="Name">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lbFirstName1" layoutX="296.0" layoutY="20.0" text="Max">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lbLastName1" layoutX="353.0" layoutY="19.0" text="Mustermann">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lbCatalogNumber1" layoutX="161.0" layoutY="19.0" text="00">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
                                                     </children>
                                                 </AnchorPane>
                                             </content>

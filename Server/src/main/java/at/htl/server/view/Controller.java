@@ -244,6 +244,8 @@ public class Controller implements Initializable {
     private Threader threader;
     //endregion
 
+    @FXML
+    private Label lbFirstName1, lbLastName1, lbEnrolmentID1, lbCatalogNumber1;
 
     //region INITIALIZE and Constructor
 
@@ -1212,6 +1214,11 @@ public class Controller implements Initializable {
             lbLastName.setText(st.getPupil().getLastName());
             lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
             lbEnrolmentID.setText(st.getPupil().getEnrolmentID());
+
+            lbFirstName1.setText(st.getPupil().getFirstName());
+            lbLastName1.setText(st.getPupil().getLastName());
+            lbCatalogNumber1.setText(nr.length() < 2 ? "0".concat(nr) : nr);
+            lbEnrolmentID1.setText(st.getPupil().getEnrolmentID());
 
             if (!patrolMode) {
                 tpMainTabs.getSelectionModel().select(1);
