@@ -510,25 +510,8 @@ public class Settings {
         MenuItem show = new MenuItem("show:");
         MenuItem name = new MenuItem(student.getPupil().getLastName());
         MenuItem enrolmentID = new MenuItem(student.getPupil().getEnrolmentID());
-        MenuItem foo = new MenuItem("disconnect");
+        MenuItem foo = new MenuItem("remove");
         InetAddress abc = student.getStudentAddress();
-        //foo.setOnAction(event -> conn.kickStudent());
-        foo.setOnAction(event -> {
-            //ObservableList xd = StudentView.getInstance().getLv().getSelectionModel().getSelectedIndices();
-            //ObservableList jjk = StudentView.getInstance().getLv().getItems();
-
-            //StudentView.getInstance().getLv().getSelectionModel().getSelectedItems().remove(0);
-            /*jjk.remove(0);
-            ListView lv = new ListView();
-            lv.setItems(jjk);
-            StudentView.getInstance().setLv(lv);
-            StudentView.getInstance().getLv().refresh();*/
-            conn.kickStudent();
-        });
-
-
-        contextMenu.getItems().addAll(show, name, enrolmentID,foo);
-
 
         if (StudentView.getInstance().getLv() != null)
             Platform.runLater(() -> {
@@ -536,6 +519,12 @@ public class Settings {
                 btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
                 btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
                 btn.setStyle("-fx-background-color: crimson");
+                foo.setOnAction(event -> {
+                    conn.kickStudent();
+                    getObservableList().remove(btn);
+                    studentsList.remove(student);
+                });
+                contextMenu.getItems().addAll(name, foo);
                 btn.setContextMenu(contextMenu);
                 btn.setId(student.getStudentAddress().toString());
                 students.add(btn);
