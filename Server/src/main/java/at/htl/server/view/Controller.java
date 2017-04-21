@@ -202,7 +202,7 @@ public class Controller implements Initializable {
     @FXML
     private ComboBox cbFilterSet;
     @FXML
-    private ToggleButton tbToggleSettings;
+    private CheckBox tbToggleSettings;
     @FXML
     private TextField tfNewFilter;
     @FXML
@@ -1048,10 +1048,10 @@ public class Controller implements Initializable {
     @FXML
     public void toggleSettings() {
         if (tbToggleSettings.isSelected()) {    // "apply for all"
-            tbToggleSettings.setText("Apply for \"Selected Student\"");
+            //tbToggleSettings.setText("Apply for \"Selected Student\"");
             lbSettingsHeader.setText("All Student Settings:");
         } else {
-            tbToggleSettings.setText("Apply for \"All Students\"");
+            //tbToggleSettings.setText("Apply for \"All Students\"");
             lbSettingsHeader.setText("Selected Student Settings:");
         }
     }
@@ -1113,6 +1113,8 @@ public class Controller implements Initializable {
                 toChange.setFilter(filters);
             }
         }
+
+        FxUtils.showPopUp("Änderungen übernommen", true);
     }
 
     /**
