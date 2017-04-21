@@ -182,7 +182,7 @@ public class Controller implements Initializable {
 
     //region Student-Info Variables
     @FXML
-    private Label lbFirstName, lbLastName, lbEnrolmentID, lbCatalogNumber;
+    private Label lbNameOfPupilSI, lbNameOfPupilM;
     @FXML
     private Button btnExportLOC;
     @FXML
@@ -243,9 +243,6 @@ public class Controller implements Initializable {
     private Thread server;
     private Threader threader;
     //endregion
-
-    @FXML
-    private Label lbFirstName1, lbLastName1, lbEnrolmentID1, lbCatalogNumber1;
 
     //region INITIALIZE and Constructor
 
@@ -1168,7 +1165,8 @@ public class Controller implements Initializable {
         loc.setLegendVisible(true);
 
         WritableImage image = loc.snapshot(new SnapshotParameters(), null);
-        String studentInfo = lbCatalogNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
+        //String studentInfo = lbCatalogNumber.getText() + "-" + lbLastName.getText() + "-LineChart.png";
+        String studentInfo = "xx";
         File file = new File(Settings.getInstance().getPathOfExports().concat("/" + studentInfo));
 
         try {
@@ -1210,15 +1208,15 @@ public class Controller implements Initializable {
 
             //   CHANGE STUDENT-INFO-DATA
             String nr = Integer.toString(st.getPupil().getCatalogNumber());
-            lbFirstName.setText(st.getPupil().getFirstName());
-            lbLastName.setText(st.getPupil().getLastName());
-            lbCatalogNumber.setText(nr.length() < 2 ? "0".concat(nr) : nr);
-            lbEnrolmentID.setText(st.getPupil().getEnrolmentID());
 
-            lbFirstName1.setText(st.getPupil().getFirstName());
-            lbLastName1.setText(st.getPupil().getLastName());
-            lbCatalogNumber1.setText(nr.length() < 2 ? "0".concat(nr) : nr);
-            lbEnrolmentID1.setText(st.getPupil().getEnrolmentID());
+            String name = String.format("%s     %s  %s %s",
+                    st.getPupil().getEnrolmentID(),
+                    nr.length() < 2 ? "0".concat(nr) : nr,
+                    st.getPupil().getFirstName(),
+                    st.getPupil().getLastName());
+
+            lbNameOfPupilM.setText(name);
+            lbNameOfPupilSI.setText(name);
 
             if (!patrolMode) {
                 tpMainTabs.getSelectionModel().select(1);
