@@ -283,6 +283,7 @@ public class Controller implements Initializable {
         initializePatrol();
         initializeLogFilters();
         initializeWebView();
+        setImage(ivPath,true);
 
         initializeTimeSpinner();
         readProperties();
@@ -1373,6 +1374,8 @@ public class Controller implements Initializable {
         if (yourZip != null) {
             Settings.getInstance().setHandOutFile(yourZip);
             tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
+            setImage(ivAngabe,true);
+            setMsg(false,"Handout added");
         }
     }
 
