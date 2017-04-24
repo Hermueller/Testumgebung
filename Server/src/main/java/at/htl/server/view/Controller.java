@@ -213,6 +213,8 @@ public class Controller implements Initializable {
     private ListView<CheckBox> lvFileFilters;
     @FXML
     private Accordion accordion;
+    @FXML
+    private ToggleButton tbstudents;
 
     private List<String[]> filterSets = new LinkedList<>();
     //endregion
@@ -1141,7 +1143,21 @@ public class Controller implements Initializable {
      */
     @FXML
     public void saveStudentChanges() {
-       saveScreenshottime();
+        if (!tbstudents.isSelected()) {
+            Button selected = (Button) StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
+            Student toChange = Settings.getInstance().findStudentByAddress(selected.getId());
+            String[] filters = getSelectedFilters();
+            toChange.setFilter(filters);
+        }else{
+            for (Object obj : StudentView.getInstance().getLv().getItems()) {
+                String address = ((Button) obj).getId();
+                Student toChange = Settings.getInstance()
+                        .findStudentByAddress(address);
+
+                String[] filters = getSelectedFilters();
+                toChange.setFilter(filters);
+            }
+        }
         FxUtils.showPopUp("Änderungen übernommen", true);
     }
 

@@ -508,7 +508,7 @@ public class Settings {
         Controller conn = new Controller();
         final ContextMenu contextMenu = new ContextMenu();
         MenuItem show = new MenuItem("show:");
-        MenuItem name = new MenuItem(student.getPupil().getLastName());
+        MenuItem name = new MenuItem(student.getPupil().getFirstName()+" "+student.getPupil().getLastName());
         MenuItem enrolmentID = new MenuItem(student.getPupil().getEnrolmentID());
         MenuItem foo = new MenuItem("remove");
         InetAddress abc = student.getStudentAddress();
