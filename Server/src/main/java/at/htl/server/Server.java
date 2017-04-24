@@ -77,7 +77,7 @@ public class Server {
             Settings.getInstance().addStudent(student);
             newStudent = true;
         }
-        studentNameBefore = student.getPupil().getLastName();
+        studentNameBefore = student.getPupil().getLastName()  + " " + student.getPupil().getFirstName().substring(0,3);
         FileUtils.log(this, Level.INFO, "I got the Package: " + pupil.getPathOfProject());
         Settings.getInstance().loginStudent(student, studentNameBefore);
         student.setServer(this);
@@ -154,7 +154,8 @@ public class Server {
                     .getSelectionModel().getSelectedItem();
             if (selected != null && !Settings.getInstance().isLooksAtScreenshots()) {
                 //ist der Screenshot vom ausgewählten Studenten?
-                if (student.getPupil().getLastName().equals(selected.getText())) {
+                String shouldName = student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0,3);
+                if (shouldName.equals(selected.getText())) {
                     (StudentView.getInstance().getIv())
                             .setImage(new javafx.scene.image.Image("file:" + fileName));
                     Settings.getInstance().addScreenshot("file:" + fileName);

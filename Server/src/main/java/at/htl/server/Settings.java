@@ -421,7 +421,7 @@ public class Settings {
                 if (btn.getText().equals(studentNameBefore)) {
                     btn.setStyle("-fx-background-color: lawngreen");
                     if (!student.getPupil().getLastName().equals(studentNameBefore)) {
-                        btn.setText(student.getPupil().getLastName());
+                        btn.setText(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0,3));
                     }
                     break;
                 }
@@ -442,7 +442,7 @@ public class Settings {
     public void finishStudent(final Student student) {
         Platform.runLater(() -> {
             for (Button btn : students) {
-                if (btn.getText().equals(student.getPupil().getLastName())) {
+                if (btn.getText().equals(student.getPupil().getLastName()  + " " + student.getPupil().getFirstName().substring(0,3))) {
                     btn.setStyle("-fx-background-color: deepskyblue");
                     break;
                 }
@@ -515,7 +515,7 @@ public class Settings {
 
         if (StudentView.getInstance().getLv() != null)
             Platform.runLater(() -> {
-                Button btn = new Button(student.getPupil().getLastName());
+                Button btn = new Button(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0,3));
                 btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
                 btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
                 btn.setStyle("-fx-background-color: crimson");

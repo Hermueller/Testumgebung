@@ -65,7 +65,7 @@ class SocketReaderThread extends Thread {
                 Settings.getInstance().printErrorLine(
                         Level.INFO, student.getPupil().getLastName() + " logged out!", true, "DISCONNECT");
                 if (!finished) {
-                    Settings.getInstance().removeStudent(student.getPupil().getLastName());
+                    Settings.getInstance().removeStudent(student.getPupil().getLastName()  + " " + student.getPupil().getFirstName().substring(0,3));
                 } else {
                     Settings.getInstance().finishStudent(student);
                 }

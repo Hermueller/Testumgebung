@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.StackedAreaChart?>
@@ -27,8 +35,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.CheckBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1213.0" stylesheets="@../styles/TeacherStyle.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.server.view.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1213.0" stylesheets="@../styles/TeacherStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.server.view.Controller">
     <children>
         <SplitPane fx:id="splitter" dividerPositions="0.5" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -281,31 +290,39 @@
                                             <content>
                                                 <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="545.0" prefWidth="1003.0">
                                                     <children>
-                                                        <ImageView fx:id="ivLiveView" fitHeight="622.0" fitWidth="992.0" layoutX="3.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
-                                                        <Button fx:id="btnBefore" layoutX="2.0" layoutY="320.0" mnemonicParsing="false" onAction="#onBeforeButtonClick" prefHeight="27.0" prefWidth="0.0" text="&lt;" />
-                                                        <Button fx:id="btnNext" layoutX="877.0" layoutY="320.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="27.0" prefWidth="0.0" text="&gt;" />
-                                                        <Button fx:id="btnActual" layoutX="919.0" layoutY="321.0" mnemonicParsing="false" onAction="#OnActual" text="Actual" />
-                                          <Label fx:id="lbNameOfPupilM" layoutX="30.0" layoutY="19.0" text="Name">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
+                                          <BorderPane layoutX="2.0" prefHeight="664.0" prefWidth="1002.0">
+                                             <bottom>
+                                                <AnchorPane prefHeight="64.0" prefWidth="1002.0" BorderPane.alignment="CENTER">
+                                                   <children>
+                                                                <CheckBox fx:id="tbToggleSettings" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="27.0" prefWidth="183.0" selected="true" text="Apply for &quot;ALL Students&quot;" textFill="#2f2d2d" />
+                                                                <Label layoutX="212.0" prefHeight="26.0" prefWidth="212.0" text="Harvester Timeinterval:">
+                                                                    <font>
+                                                                        <Font size="18.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <ProgressBar fx:id="pbHarvesterStudent" layoutX="423.0" layoutY="5.0" prefHeight="16.0" prefWidth="252.0" progress="0.0" />
+                                                                   <Button fx:id="btnPatrolMode" layoutX="834.0" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="133.0" text="Start Patrol" />
+                                                                <Slider fx:id="slHarvesterStudent" layoutX="419.0" layoutY="-7.0" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="263.0" value="1.0" />
+                                                                <Label fx:id="lbTimeInterval" layoutX="689.0" layoutY="1.0" prefHeight="26.0" prefWidth="212.0" text="00 Seconds">
+                                                                    <font>
+                                                                        <Font size="18.0" />
+                                                                    </font>
+                                                                </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                             </bottom>
+                                             <top>
+                                                            <Label fx:id="lbNameOfPupilM" text="Name" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                             </top>
+                                             <center>
+                                                              <ImageView fx:id="ivLiveView" fitHeight="564.0" fitWidth="992.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                                             </center>
+                                          </BorderPane>
                                                     </children>
-                                                    <CheckBox fx:id="tbToggleSettings" layoutX="14.0" layoutY="620.0" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="27.0" prefWidth="183.0" selected="true" text="Apply for &quot;ALL Students&quot;" textFill="#2f2d2d" />
-                                                    <Label layoutX="241.0" layoutY="620.0" prefHeight="26.0" prefWidth="212.0" text="Harvester Timeinterval:">
-                                                        <font>
-                                                            <Font size="18.0" />
-                                                        </font>
-                                                    </Label>
-                                                    <ProgressBar fx:id="pbHarvesterStudent" layoutX="434.0" layoutY="624.0" prefHeight="16.0" prefWidth="252.0" progress="0.0" />
-                                                    <Slider fx:id="slHarvesterStudent" layoutX="434.0" layoutY="613.0" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="263.0" value="1.0" />
-                                                    <Label fx:id="lbTimeInterval" layoutX="711.0" layoutY="620.0" prefHeight="26.0" prefWidth="212.0" text="00 Seconds">
-                                                        <font>
-                                                            <Font size="18.0" />
-                                                        </font>
-                                                    </Label>
-                                                       <Button fx:id="btnPatrolMode" layoutX="857.0" layoutY="618.0" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="133.0" text="Start Patrol" />
-
                                                 </AnchorPane>
                                             </content>
                                         </Tab>

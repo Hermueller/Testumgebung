@@ -1257,7 +1257,7 @@ public class Controller implements Initializable {
             }
 
             //   CHANGE SCREENSHOT
-            String pathOfLastScreenshot = getLastScreenshot(newValue.getText());
+            String pathOfLastScreenshot = getLastScreenshot(newValue.getText().split(" ")[0]);
             if (pathOfLastScreenshot == null) {
                 pathOfLastScreenshot = "images/loading.gif";
             }
