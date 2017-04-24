@@ -14,7 +14,9 @@ import at.htl.server.advanced.AdvancedSettingsPackage;
 import at.htl.server.entity.Interval;
 import at.htl.server.entity.Student;
 import com.aquafx_project.AquaFx;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -33,7 +35,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.*;
+import javafx.util.Duration;
 import org.apache.logging.log4j.Level;
+import org.controlsfx.control.Notifications;
 
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -300,6 +304,25 @@ public class Controller implements Initializable {
         slHarvester.setValue(10);
         slHarvesterStudent.setValue(10);
 
+        slHarvesterStudent.valueChangingProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(
+                    ObservableValue<? extends Boolean> observableValue,
+                    Boolean wasChanging,
+                    Boolean changing) {
+
+                if (!changing) {
+                    saveScreenshottime();
+                    Platform.runLater(() -> Notifications.create()
+                            .title("Student Settings updated")
+                            .hideAfter(Duration.seconds(1))
+                            .showInformation());
+                }
+            }
+        });
+    }
+
+
         /*try {
             // Get the location where the JAR-File is currently located at.
             String currFileLoc = Controller.class.getProtectionDomain().getCodeSource().getLocation()
@@ -310,14 +333,40 @@ public class Controller implements Initializable {
         } catch (URISyntaxException e) {
             FileUtils.log(this, Level.WARN, "Could not set Standardpath" + MyUtils.exToStr(e));
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
-        }*/
-    }
+       }*/
+
 
     /**
      * styles the application.
      */
     public void styleStage() {
         //AquaFx.style();
+    }
+
+
+    public void saveScreenshottime(){
+        long new_time = (long) slHarvesterStudent.getValue();
+
+        if (!tbToggleSettings.isSelected()) {
+            Button selected = (Button) StudentView.getInstance()
+                    .getLv().getSelectionModel().getSelectedItem();
+            Student toChange = Settings.getInstance()
+                    .findStudentByAddress(selected.getId());
+
+            toChange.setInterval(new Interval(new_time));
+            String[] filters = getSelectedFilters();
+            toChange.setFilter(filters);
+        } else {
+            for (Object obj : StudentView.getInstance().getLv().getItems()) {
+                String address = ((Button) obj).getId();
+                Student toChange = Settings.getInstance()
+                        .findStudentByAddress(address);
+
+                toChange.setInterval(new Interval(new_time));
+                String[] filters = getSelectedFilters();
+                toChange.setFilter(filters);
+            }
+        }
     }
 
     //endregion
@@ -1092,31 +1141,10 @@ public class Controller implements Initializable {
      */
     @FXML
     public void saveStudentChanges() {
-        long new_time = (long) slHarvesterStudent.getValue();
-
-        if (!tbToggleSettings.isSelected()) {
-            Button selected = (Button) StudentView.getInstance()
-                    .getLv().getSelectionModel().getSelectedItem();
-            Student toChange = Settings.getInstance()
-                    .findStudentByAddress(selected.getId());
-
-            toChange.setInterval(new Interval(new_time));
-            String[] filters = getSelectedFilters();
-            toChange.setFilter(filters);
-        } else {
-            for (Object obj : StudentView.getInstance().getLv().getItems()) {
-                String address = ((Button) obj).getId();
-                Student toChange = Settings.getInstance()
-                        .findStudentByAddress(address);
-
-                toChange.setInterval(new Interval(new_time));
-                String[] filters = getSelectedFilters();
-                toChange.setFilter(filters);
-            }
-        }
-
+       saveScreenshottime();
         FxUtils.showPopUp("Änderungen übernommen", true);
     }
+
 
     /**
      * converts the selected checkboxes to an String[].
