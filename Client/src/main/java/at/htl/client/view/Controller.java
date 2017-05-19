@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.StrokeType;
@@ -30,6 +31,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.logging.log4j.Level;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -76,6 +78,8 @@ import static at.htl.common.transfer.Packet.Resource;
 public class Controller implements Initializable {
 
     //region Controls
+    @FXML
+    private AnchorPane anchorPane;
     @FXML
     private TextField tfServerIP;
     @FXML
@@ -128,6 +132,25 @@ public class Controller implements Initializable {
             btnTestMode.setVisible(false);
         }
         setControls(true);
+
+
+    }
+
+    /**
+     * Called from main to set the Stage.
+     * Sets event when the Window is closed to logout correctly
+     * @param stage
+     */
+    public void setStage(Stage stage) {
+        stage.setOnCloseRequest(event -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Do you really want to exit?",
+                    ButtonType.YES, ButtonType.NO);
+            alert.setTitle("Exit?");
+            if (alert.showAndWait().get() == ButtonType.YES)
+                logout();
+            else
+                event.consume();
+        });
     }
 
     /**
@@ -158,8 +181,10 @@ public class Controller implements Initializable {
      */
     @FXML
     public void chooseProjectDirectory() {
-        tfPathOfProject.setText(
-                FxUtils.chooseDirectory("Select Project Directory", null).getPath());
+        File file = FxUtils.chooseDirectory("Select Project Directory", null);
+        //avoid NullPointerException when no file is selected
+        if (file != null)
+            tfPathOfProject.setText(file.getPath());
     }
 
     /**
@@ -387,12 +412,16 @@ public class Controller implements Initializable {
      */
     @FXML
     public void logout() {
-        countdown.interrupt();
-        countdown.reset();
-        quickInfo.close();
+        if (countdown != null) {
+            countdown.interrupt();
+            countdown.reset();
+        }
+        if (quickInfo != null)
+            quickInfo.close();
         setControls(true);
         setMsg("Test successfully submitted", 2);
-        client.stop();
+        if (client != null)
+            client.stop();
     }
 
     public boolean isLoggedOut() {
@@ -409,5 +438,7 @@ public class Controller implements Initializable {
     private void setMsg(String text, int status) {
         FxUtils.setMsg(lbAlert, text, status);
     }
+
+
 
 }

@@ -6,6 +6,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.io.File;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -20,7 +22,8 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FileUtilsTest {
 
-    private static final String TEMP_PATH = System.getProperty("java.io.tmpdir");
+    private static final String TEMP_PATH = System.getProperty("java.io.tmpdir")
+            + File.separator;
 
     @Test
     public void t001Status() throws Exception {
