@@ -317,8 +317,10 @@ public class Controller implements Initializable {
             setMsg("Enter your correct first name", 0);
         } else if (lastName.isEmpty() || lastName.length() > 20) {
             setMsg("Enter your correct last name", 0);
-        } else if (!lastName.matches("[A-Z][a-z]+") || !firstName.matches("[A-Z][a-z]+")) {
-            setMsg("Unknown letter. Allowed: A-Z", 0);
+        } else if (!lastName.matches("[A-Z][a-z]+")) {
+            setMsg("Unknown letter in your lastname. Allowed: A-Z", 0);
+        } else if (!firstName.matches("[A-Z][a-z]+")) {
+            setMsg("Unknown letter in your firstname. Allowed: A-Z", 0);
         } else if (pathOfProject.isEmpty()) {
             setMsg("Specify the path of project!", 0);
         } else {
