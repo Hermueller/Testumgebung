@@ -95,8 +95,7 @@ public class FxUtils {
      *
      * @param alert Label in which the text should be displayed
      * @param text  specifies the message to show
-     * @param error TRUE   if it is an error-message
-     *              FALSE  if it is a success-message
+     * @param status
      */
     public static void setMsg(Label alert, String text, int status) {
         String color;

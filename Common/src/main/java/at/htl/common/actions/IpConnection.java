@@ -3,10 +3,7 @@ package at.htl.common.actions;
 import at.htl.common.fx.FxUtils;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 
 /**
  * executes system commands.
@@ -25,33 +22,29 @@ public class IpConnection {
      * @param successPopUp only creates a popUp-Window if the ping was successful.
      * @return boolean if the IP was successfully pinged or not.
      */
-    public static boolean isIpReachable(String ip, boolean errorPopUp, boolean successPopUp) {
-        boolean connected = false;
+    public static boolean isIpReachable(String ip, int port, boolean errorPopUp, boolean successPopUp) {
+        boolean connected = true;
         if (ip.isEmpty()) {
             FxUtils.showPopUp("Please enter an IP address!", false);
         } else {
-            try {
-                String msg;
-
-                InetAddress address = InetAddress.getByName(ip);
-                boolean reachable = address.isReachable(2000);
-
-                if (!reachable) {
-                    msg = "can't ping the following IP: " + ip;
-                } else {
-                    msg = "IP pinged successfully!!";
-                    connected = true;
-                }
-
-                if ((errorPopUp && !connected) || (successPopUp && connected)) {
-                    FxUtils.showPopUp(msg, connected);
-                }
-
+            String msg = "IP and port are valid!";
+            try (Socket s = new Socket()){
+                SocketAddress sa = new InetSocketAddress(ip, port);
+                s.connect(sa, 2000);
             } catch (Exception e) {
-                e.printStackTrace();
+                if (e.getMessage().contains("Connection refused"))
+                    msg = "Invalid port!";
+                else if (e instanceof PortUnreachableException)
+                    msg = "Can't reach IP address!";
+                else
+                    msg = e.getMessage();
+                connected = false;
+            }
+
+            if ((errorPopUp && !connected) || (successPopUp && connected)) {
+                FxUtils.showPopUp(msg, connected);
             }
         }
-
         return connected;
     }
 

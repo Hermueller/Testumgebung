@@ -11,6 +11,8 @@ import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileUtils;
 import at.htl.common.transfer.Address;
 import at.htl.common.transfer.Packet;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -133,7 +135,15 @@ public class Controller implements Initializable {
         }
         setControls(true);
 
-
+        //only allow number to be entered
+        tfPort.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tfPort.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     /**
@@ -172,7 +182,12 @@ public class Controller implements Initializable {
      */
     @FXML
     public void testConnection() {
-        IpConnection.isIpReachable(tfServerIP.getText(), true, true);
+        int port = 0;
+        try {
+            port = Integer.valueOf(tfPort.getText());
+        }
+        catch (NumberFormatException e) { }
+        IpConnection.isIpReachable(tfServerIP.getText(), port, true, true);
     }
 
     /**
@@ -193,7 +208,13 @@ public class Controller implements Initializable {
     @FXML
     public void login() {
         setMsg("Establish connection with server ...", 1);
-        if (IpConnection.isIpReachable(tfServerIP.getText(), true, false)) {
+        int port = 0;
+        try {
+            port = Integer.valueOf(tfPort.getText());
+        }
+        catch (NumberFormatException e) { }
+
+        if (IpConnection.isIpReachable(tfServerIP.getText(), port, true, false)) {
             if (setExam() && isLoggedOut()) {
                 setMsg("Trying to login ...", 1);
                 try {
@@ -432,8 +453,7 @@ public class Controller implements Initializable {
      * Sets an message on the screen of the student.
      *
      * @param text  specifies the message to show
-     * @param error TRUE   if it is an error-message
-     *              FALSE  if it is a success-message
+     * @param status
      */
     private void setMsg(String text, int status) {
         FxUtils.setMsg(lbAlert, text, status);
