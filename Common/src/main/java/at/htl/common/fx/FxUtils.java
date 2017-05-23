@@ -1,7 +1,6 @@
 package at.htl.common.fx;
 
 import at.htl.common.io.FileUtils;
-import com.aquafx_project.AquaFx;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -12,7 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.*;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.logging.log4j.Level;
 
@@ -163,7 +165,6 @@ public class FxUtils {
     public static void showPopUp(String message, boolean isSuccess) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        AquaFx.styleStage(dialog, StageStyle.UNIFIED);
         AnchorPane ap = new AnchorPane();
         ap.setId("messageAnchorPane");
 
@@ -176,6 +177,7 @@ public class FxUtils {
         messageInfo.setId("messageInfo");
         messageInfo.setLayoutY(160);
         messageInfo.setLayoutX(10);
+
 
         ImageView iv = new ImageView();
         iv.setPickOnBounds(true);
