@@ -367,7 +367,9 @@ public class Controller implements Initializable {
             setMsg("Unknown letter in your lastname. Allowed: A-Z", 0);
         } else if (!firstName.matches("[A-Z][a-z]+")) {
             setMsg("Unknown letter in your firstname. Allowed: A-Z", 0);
-        } else if (pathOfProject.isEmpty()) {
+        } else if (firstName.length() < 3)
+            setMsg("Your firstname must be at least 3 characters long!", 0);
+        else if (pathOfProject.isEmpty()) {
             setMsg("Specify the path of project!", 0);
         } else {
             validity = true;
