@@ -303,7 +303,7 @@ public class Controller implements Initializable {
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         Settings.getInstance().setStartTime(LocalTime.now());
-        slHarvester.setValue(10);
+        slHarvester.setValue(3);
         slHarvesterStudent.setValue(10);
 
         slHarvesterStudent.valueChangingProperty().addListener(new ChangeListener<Boolean>() {
