@@ -187,13 +187,13 @@ public class AdvancedSettingsPackage {
                     out.printf("Display name: %s\n", netint.getDisplayName());
                     out.printf("Name: %s\n", netint.getName());
                     out.printf("InetAddress: %s\n", inetAddress);
-                    String pattern = "(.*)(\\d+)(.*)";
+                    String pattern = "[a-zA-Z]";
                     String ip=inetAddress.toString().substring(1,inetAddress.toString().length());
                     // Create a Pattern object
                     Pattern reg = Pattern.compile(pattern);
                     // Now create matcher object.
                     Matcher m = reg.matcher(ip);
-                    if (getIP().equals(INIT_IP)&&m.find())
+                    if (getIP().equals(INIT_IP)&&!m.find())
                     setIP(ip);
                 }
             }
