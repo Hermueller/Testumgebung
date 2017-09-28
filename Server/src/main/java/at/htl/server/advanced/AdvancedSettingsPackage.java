@@ -28,7 +28,7 @@ import static java.lang.System.out;
  * 20.06.2016: PHI 005  added the random time and fix time to the properties file.
  */
 public class AdvancedSettingsPackage {
-    public static final String INIT_IP="Not Found";
+    public static final String INIT_IP = "Not Found";
     private static AdvancedSettingsPackage instance = null;
 
     private boolean random = false;
@@ -40,7 +40,7 @@ public class AdvancedSettingsPackage {
     private boolean saveDataPoints = true;
     private int port = 50555;
     private int time = 10;
-    private String IP=INIT_IP;
+    private String IP = INIT_IP;
     private Label lbAddress = null;
     private Slider timeSlider = null;
     private Button testMode = null;
@@ -160,41 +160,41 @@ public class AdvancedSettingsPackage {
      */
     public void showIP_Address() {
         String ip = "";
-        byte[] hwAddr = null ;
+        byte[] hwAddr = null;
         try {
-           findNetworkinterfaces();
-        }
-        catch (Exception e){
-            FileUtils.log(Level.FATAL,e.getMessage());
+            findNetworkinterfaces();
+        } catch (Exception e) {
+            FileUtils.log(Level.FATAL, e.getMessage());
         }
         lbAddress.setText(getIP() + " : " + getPort());
     }
-     void findNetworkinterfaces() throws SocketException {
+
+    void findNetworkinterfaces() throws SocketException {
         Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
         for (NetworkInterface netint : Collections.list(nets))
-            if(!netint.getDisplayName().toLowerCase().contains("virtual")&&!netint.isLoopback())
+            if (!netint.getDisplayName().toLowerCase().contains("virtual") && !netint.isLoopback())
                 gatherInterfaceInfo(netint);
     }
 
-     void gatherInterfaceInfo(NetworkInterface netint) throws SocketException {
-        int c=0;
+    void gatherInterfaceInfo(NetworkInterface netint) throws SocketException {
+        int c = 0;
         if (netint.isUp()) {
             Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
             for (InetAddress inetAddress : Collections.list(inetAddresses)) {
-                if (inetAddress!=null)
+                if (inetAddress != null)
                     c++;
-                if(c>0) {
+                if (c > 0) {
                     out.printf("Display name: %s\n", netint.getDisplayName());
                     out.printf("Name: %s\n", netint.getName());
                     out.printf("InetAddress: %s\n", inetAddress);
                     String pattern = "[a-zA-Z]";
-                    String ip=inetAddress.toString().substring(1,inetAddress.toString().length());
+                    String ip = inetAddress.toString().substring(1, inetAddress.toString().length());
                     // Create a Pattern object
                     Pattern reg = Pattern.compile(pattern);
                     // Now create matcher object.
                     Matcher m = reg.matcher(ip);
-                    if (getIP().equals(INIT_IP)&&!m.find())
-                    setIP(ip);
+                    if (getIP().equals(INIT_IP) && !m.find())
+                        setIP(ip);
                 }
             }
         }
