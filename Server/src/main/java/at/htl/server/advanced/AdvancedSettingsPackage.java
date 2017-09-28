@@ -1,15 +1,18 @@
 package at.htl.server.advanced;
 
-import at.htl.common.MyUtils;
 import at.htl.common.io.FileUtils;
-import at.htl.server.Settings;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import org.apache.logging.log4j.Level;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Collections;
+import java.util.Enumeration;
+
+import static java.lang.System.out;
 
 /**
  * Singleton for all variables from the advanced settings.
@@ -23,7 +26,7 @@ import java.net.UnknownHostException;
  * 20.06.2016: PHI 005  added the random time and fix time to the properties file.
  */
 public class AdvancedSettingsPackage {
-
+    public static final String INIT_IP="Not Found";
     private static AdvancedSettingsPackage instance = null;
 
     private boolean random = false;
@@ -35,13 +38,21 @@ public class AdvancedSettingsPackage {
     private boolean saveDataPoints = true;
     private int port = 50555;
     private int time = 10;
-
+    private String IP=INIT_IP;
     private Label lbAddress = null;
     private Slider timeSlider = null;
     private Button testMode = null;
 
     private AdvancedSettingsPackage() {
 
+    }
+
+    public String getIP() {
+        return IP;
+    }
+
+    public void setIP(String IP) {
+        this.IP = IP;
     }
 
     public static AdvancedSettingsPackage getInstance() {
@@ -147,12 +158,37 @@ public class AdvancedSettingsPackage {
      */
     public void showIP_Address() {
         String ip = "";
+        byte[] hwAddr = null ;
         try {
-            ip = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            FileUtils.log(this, Level.ERROR, "No IP-Address found " + MyUtils.exToStr(e));
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
+           findNetworkinterfaces();
         }
-        lbAddress.setText(ip + " : " + getPort());
+        catch (Exception e){
+            FileUtils.log(Level.FATAL,e.getMessage());
+        }
+        lbAddress.setText(getIP() + " : " + getPort());
+    }
+     void findNetworkinterfaces() throws SocketException {
+        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
+        for (NetworkInterface netint : Collections.list(nets))
+            if(!netint.getDisplayName().toLowerCase().contains("virtual")&&!netint.isLoopback())
+                gatherInterfaceInfo(netint);
+    }
+
+     void gatherInterfaceInfo(NetworkInterface netint) throws SocketException {
+        int c=0;
+        if (netint.isUp()) {
+            Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
+            for (InetAddress inetAddress : Collections.list(inetAddresses)) {
+                if (inetAddress!=null)
+                    c++;
+                if(c>0) {
+                    out.printf("Display name: %s\n", netint.getDisplayName());
+                    out.printf("Name: %s\n", netint.getName());
+                    out.printf("InetAddress: %s\n", inetAddress);
+                    if (getIP().equals(INIT_IP))
+                    setIP(inetAddress.toString().substring(1,inetAddress.toString().length()));
+                }
+            }
+        }
     }
 }
