@@ -11,6 +11,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import static java.lang.System.out;
 
@@ -185,8 +187,14 @@ public class AdvancedSettingsPackage {
                     out.printf("Display name: %s\n", netint.getDisplayName());
                     out.printf("Name: %s\n", netint.getName());
                     out.printf("InetAddress: %s\n", inetAddress);
-                    if (getIP().equals(INIT_IP))
-                    setIP(inetAddress.toString().substring(1,inetAddress.toString().length()));
+                    String pattern = "(.*)(\\d+)(.*)";
+                    String ip=inetAddress.toString().substring(1,inetAddress.toString().length());
+                    // Create a Pattern object
+                    Pattern reg = Pattern.compile(pattern);
+                    // Now create matcher object.
+                    Matcher m = reg.matcher(ip);
+                    if (getIP().equals(INIT_IP)&&m.find())
+                    setIP(ip);
                 }
             }
         }
