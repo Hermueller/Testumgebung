@@ -45,7 +45,7 @@
                <children>
                   <HBox>
                      <children>
-                              <Label prefHeight="26.0" prefWidth="96.0" text="Nr. of logged in:" />
+                              <Label prefHeight="26.0" prefWidth="150.0" text="Nr. of logged in:" />
                               <Label fx:id="lbCount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="38.0" text="00" textAlignment="RIGHT" />
                      </children>
                      <padding>

@@ -21,8 +21,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
@@ -79,9 +79,10 @@ import static at.htl.common.transfer.Packet.Resource;
  */
 public class Controller implements Initializable {
 
+
     //region Controls
     @FXML
-    private AnchorPane anchorPane;
+    private BorderPane borderPane;
     @FXML
     private TextField tfServerIP;
     @FXML
