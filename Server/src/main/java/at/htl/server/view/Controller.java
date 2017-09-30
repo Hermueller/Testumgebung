@@ -322,6 +322,10 @@ public class Controller implements Initializable {
                 }
             }
         });
+        String seperator=getSeperatorForOS();
+        String DefPath=System.getProperty("user.dir")+seperator+"Server"+seperator+"src"+seperator+"main"+seperator+"resources"+seperator+"images";
+        Settings.getInstance().setHandOutFile(new File(DefPath+seperator+"checked.png"));
+        tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
     }
 
 
@@ -381,6 +385,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void startServer() {
+
         String path = Settings.getInstance().getPathOfImages();
         File handOut = Settings.getInstance().getHandOutFile();
         int time = (int) slHarvester.getValue();
@@ -1421,8 +1426,15 @@ public class Controller implements Initializable {
             setImage(ivAngabe,true);
             setMsg(false,"Handout added");
         }
-    }
 
+    }
+    static String getSeperatorForOS(){
+        String seperator="/";
+        if(System.getProperty("os.name").contains("Windows")){
+            seperator="\\";
+        }
+        return seperator;
+    }
     /**
      * selects the Desktop as Home-Path
      */
