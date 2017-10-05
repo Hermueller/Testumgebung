@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.chart.StackedAreaChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -1251,8 +1252,10 @@ public class Controller implements Initializable {
      * is cleared and the new Chart and Image will be shown.ein
      */
     public void setOnStudentChange() {
-        /*lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            Student st = Settings.getInstance().findStudentByAddress(newValue.getId());
+        StudentList.getStudentList().selectedStudentProperty().addListener((observable, oldValue, newValue) -> {
+            Student st = newValue;
+
+            System.out.println("Current Student: "+st.getPupil().getEnrolmentID());
 
             //   CHANGE CHART
             loc.getData().clear();
@@ -1265,7 +1268,7 @@ public class Controller implements Initializable {
             }
 
             //   CHANGE SCREENSHOT
-            String pathOfLastScreenshot = getLastScreenshot(newValue.getText().split(" ")[0]);
+            String pathOfLastScreenshot = getLastScreenshot(newValue.getPupil().getLastName());
             if (pathOfLastScreenshot == null) {
                 pathOfLastScreenshot = "images/loading.gif";
             }
@@ -1286,7 +1289,7 @@ public class Controller implements Initializable {
             if (!patrolMode) {
                 tpMainTabs.getSelectionModel().select(1);
             }
-        });*/
+        });
     }
 
     /**

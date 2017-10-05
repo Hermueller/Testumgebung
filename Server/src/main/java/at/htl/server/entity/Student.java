@@ -10,7 +10,6 @@ import at.htl.server.enums.StudentState;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import org.apache.logging.log4j.Level;
 
@@ -46,7 +45,7 @@ public class Student {
     private Pupil pupil;
     private String pathOfImages;
     private File locFile = null;
-    private StudentState studentState = StudentState.Normal;
+    private StudentState studentState = StudentState.NORMAL;
 
     private InetAddress studentAddress;
     private Server server;
@@ -58,7 +57,6 @@ public class Student {
     private List<List<XYChart.Series<Number, Number>>> filterSeries = new LinkedList<>();
 
     private ImageView iv = null;    //Screenshot-Image
-    private ListView lv = null;
 
     public Student(Pupil pupil) {
         this.pupil = pupil;
@@ -136,14 +134,6 @@ public class Student {
 
     public void setIv(ImageView iv) {
         this.iv = iv;
-    }
-
-    public ListView getLv() {
-        return lv;
-    }
-
-    public void setLv(ListView lv) {
-        this.lv = lv;
     }
 
     public StudentState getStudentState() {

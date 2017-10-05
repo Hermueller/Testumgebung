@@ -445,7 +445,7 @@ public class Settings {
         Platform.runLater(() -> {
             for (Student stud : studentsList) {
                 if (stud.getPupil().getEnrolmentID().equals(student.getPupil().getEnrolmentID())) {
-                    stud.setStudentState(StudentState.Finished);
+                    stud.setStudentState(StudentState.FINISHED);
                 }
             }
             StudentList.getStudentList().refreshList(studentsList);
@@ -540,7 +540,7 @@ public class Settings {
      * sorts the list of the students by their name. A -> Z
      */
     private void sortList() {
-        students.sort((o1, o2) -> o1.getText().compareTo(o2.getText()));
+        studentsList.sort((o1, o2) -> o1.getStudentState().compareToStudentState(o2.getStudentState()));
     }
 
     //endregion
