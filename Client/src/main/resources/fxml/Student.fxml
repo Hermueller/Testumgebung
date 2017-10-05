@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.client.view.Controller">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.client.view.Controller">
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -186,7 +186,7 @@
       </BorderPane>
    </bottom>
    <top>
-      <HBox alignment="TOP_RIGHT" spacing="15.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" spacing="15.0" BorderPane.alignment="CENTER">
          <children>
                <CheckBox fx:id="cbNoLogin" mnemonicParsing="false">
                    <tooltip>
@@ -199,6 +199,9 @@
                    </tooltip>
             </Button>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
       </HBox>
    </top>
 </BorderPane>

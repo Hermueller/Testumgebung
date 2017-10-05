@@ -52,14 +52,13 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
-                          <ScrollPane fitToHeight="true" hbarPolicy="NEVER" prefHeight="9.9999999E7" vbarPolicy="ALWAYS">
+                          <ScrollPane fx:id="spStudentList" fitToHeight="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="9.9999999999999E13" vbarPolicy="ALWAYS">
                      <content>
-                        <AnchorPane>
-                           <children>
-                              <ListView fx:id="lvStudents" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
+                        <VBox fx:id="vbStudents" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" />
                      </content>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                           </ScrollPane>
                </children>
                <padding>
@@ -346,11 +345,6 @@
                                       <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                               <children>
-                                                  <ImageView fitHeight="655.0" fitWidth="409.0" layoutX="589.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                                      <image>
-                                                          <Image url="@../images/personSketch.png" />
-                                                      </image>
-                                                  </ImageView>
                                                   <Button fx:id="btnExportLOC" layoutX="369.0" layoutY="628.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
                                                       <font>
                                                           <Font size="14.0" />

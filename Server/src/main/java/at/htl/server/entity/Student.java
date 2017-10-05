@@ -6,6 +6,7 @@ import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
 import at.htl.server.Settings;
 import at.htl.server.advanced.AdvancedSettingsPackage;
+import at.htl.server.enums.StudentState;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -45,6 +46,7 @@ public class Student {
     private Pupil pupil;
     private String pathOfImages;
     private File locFile = null;
+    private StudentState studentState = StudentState.Normal;
 
     private InetAddress studentAddress;
     private Server server;
@@ -143,6 +145,15 @@ public class Student {
     public void setLv(ListView lv) {
         this.lv = lv;
     }
+
+    public StudentState getStudentState() {
+        return studentState;
+    }
+
+    public void setStudentState(StudentState studentState) {
+        this.studentState = studentState;
+    }
+
     //endregion
 
     /**

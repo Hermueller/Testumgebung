@@ -6,10 +6,7 @@ import at.htl.common.actions.IpConnection;
 import at.htl.common.fx.FxUtils;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
-import at.htl.server.PatrolMode;
-import at.htl.server.Server;
-import at.htl.server.Settings;
-import at.htl.server.Threader;
+import at.htl.server.*;
 import at.htl.server.advanced.AdvancedSettingsPackage;
 import at.htl.server.entity.Interval;
 import at.htl.server.entity.Student;
@@ -24,7 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.chart.StackedAreaChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -133,6 +129,8 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane apOption;
     @FXML
+    private ScrollPane spStudentList;
+    @FXML
     private Button tbMode, btnTestMode;
     @FXML
     private ImageView ivPort;
@@ -167,7 +165,7 @@ public class Controller implements Initializable {
     @FXML
     private TextField tfHandoutPath, tfDirectoryPath;
     @FXML
-    private Button btndirectory,btnhandout;
+    private Button btndirectory, btnhandout;
 
     //endregion
 
@@ -240,8 +238,10 @@ public class Controller implements Initializable {
     private AnchorPane apInfo;
     @FXML
     private Label lbDate;
+    //    @FXML
+//    private ListView<Button> lvStudents;
     @FXML
-    private ListView<Button> lvStudents;
+    private VBox vbStudents;
     @FXML
     private Button btnPatrolMode;
     private boolean patrolMode = false;
@@ -266,9 +266,13 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         styleStage();
 
-        lvStudents.setItems(Settings.getInstance().getObservableList());
+
+        StudentList.createStudentList(this.vbStudents);
+
+        StudentList.getStudentList().refreshList(Settings.getInstance().getStudentsList());
+//        lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
-        StudentView.getInstance().setLv(lvStudents);
+//        StudentView.getInstance().setLv(lvStudents);
         Settings.getInstance().setLogArea(anchorPaneScrollLog);
         scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -287,7 +291,7 @@ public class Controller implements Initializable {
         initializePatrol();
         initializeLogFilters();
         initializeWebView();
-        setImage(ivPath,true);
+        setImage(ivPath, true);
 
         initializeTimeSpinner();
         readProperties();
@@ -323,6 +327,7 @@ public class Controller implements Initializable {
         String seperator=getSeperatorForOS();
         String DefPath=System.getProperty("user.dir")+seperator+"Server"+seperator+"src"+seperator+"main"+seperator+"resources"+seperator+"images";
         Settings.getInstance().setHandOutFile(new File(DefPath+seperator+"NoExamInstructions.jpg"));
+
         tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
     }
 
@@ -348,7 +353,7 @@ public class Controller implements Initializable {
     }
 
 
-    public void saveScreenshottime(){
+    public void saveScreenshottime() {
         long new_time = (long) slHarvesterStudent.getValue();
 
         if (!tbToggleSettings.isSelected()) {
@@ -465,11 +470,11 @@ public class Controller implements Initializable {
                     pm.stopIt();
                 }
 
-                for (Button b : lvStudents.getItems()) {
-                    b.setStyle("-fx-background-color: crimson");
-                    Student student = Settings.getInstance().findStudentByAddress(b.getId());
-                    student.getServer().shutdown();
-                }
+//                for (Button b : lvStudents.getItems()) {
+//                    b.setStyle("-fx-background-color: crimson");
+//                    Student student = Settings.getInstance().findStudentByAddress(b.getId());
+//                    student.getServer().shutdown();
+//                }
                 btndirectory.setDisable(false);
                 btnhandout.setDisable(false);
                 slHarvester.setDisable(false);
@@ -708,7 +713,7 @@ public class Controller implements Initializable {
             patrolMode = true;
             btnPatrolMode.setText("Stop Patrol");
             pm = new PatrolMode();
-            pm.setLv(lvStudents);
+//            pm.setLv(lvStudents);
             pm.start();
         } else {
             patrolMode = false;
@@ -1151,7 +1156,7 @@ public class Controller implements Initializable {
             Student toChange = Settings.getInstance().findStudentByAddress(selected.getId());
             String[] filters = getSelectedFilters();
             toChange.setFilter(filters);
-        }else{
+        } else {
             for (Object obj : StudentView.getInstance().getLv().getItems()) {
                 String address = ((Button) obj).getId();
                 Student toChange = Settings.getInstance()
@@ -1246,7 +1251,7 @@ public class Controller implements Initializable {
      * is cleared and the new Chart and Image will be shown.ein
      */
     public void setOnStudentChange() {
-        lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        /*lvStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Student st = Settings.getInstance().findStudentByAddress(newValue.getId());
 
             //   CHANGE CHART
@@ -1281,7 +1286,7 @@ public class Controller implements Initializable {
             if (!patrolMode) {
                 tpMainTabs.getSelectionModel().select(1);
             }
-        });
+        });*/
     }
 
     /**
@@ -1305,6 +1310,9 @@ public class Controller implements Initializable {
         ivLiveView.setPreserveRatio(true);
         ivLiveView.setSmooth(true);
         ivLiveView.setCache(true);
+        spStudentList.widthProperty().addListener((observable, oldValue, newValue) -> {
+            this.vbStudents.setPrefWidth(((double)newValue)-25);
+        });
     }
 
     //endregion
@@ -1419,18 +1427,20 @@ public class Controller implements Initializable {
         if (yourZip != null) {
             Settings.getInstance().setHandOutFile(yourZip);
             tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
-            setImage(ivAngabe,true);
-            setMsg(false,"Handout added");
+            setImage(ivAngabe, true);
+            setMsg(false, "Handout added");
         }
 
     }
-    static String getSeperatorForOS(){
-        String seperator="/";
-        if(System.getProperty("os.name").contains("Windows")){
-            seperator="\\";
+
+    static String getSeperatorForOS() {
+        String seperator = "/";
+        if (System.getProperty("os.name").contains("Windows")) {
+            seperator = "\\";
         }
         return seperator;
     }
+
     /**
      * selects the Desktop as Home-Path
      */
@@ -1439,7 +1449,7 @@ public class Controller implements Initializable {
             File f = new File(Controller.class.getProtectionDomain()
                     .getCodeSource().getLocation().toURI().getPath());
             String filePath = f.getAbsolutePath().
-                    substring(0,f.getAbsolutePath().lastIndexOf(File.separator));
+                    substring(0, f.getAbsolutePath().lastIndexOf(File.separator));
             Settings.getInstance().printErrorLine(Level.INFO,
                     "current Path: " + filePath, true, "OTHER");
             Settings.getInstance().setPath(filePath);

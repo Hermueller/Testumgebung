@@ -6,6 +6,7 @@ import at.htl.common.io.ScreenShot;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Interval;
 import at.htl.server.entity.Student;
+import at.htl.server.enums.StudentState;
 import at.htl.server.view.Controller;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -421,7 +422,7 @@ public class Settings {
                 if (btn.getText().equals(studentNameBefore)) {
                     btn.setStyle("-fx-background-color: lawngreen");
                     if (!student.getPupil().getLastName().equals(studentNameBefore)) {
-                        btn.setText(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0,3));
+                        btn.setText(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0, 3));
                     }
                     break;
                 }
@@ -430,6 +431,7 @@ public class Settings {
                 sortList();
             }
             changeStudentCount(true);
+            StudentList.getStudentList().refreshList(studentsList);
         });
     }
 
@@ -441,12 +443,12 @@ public class Settings {
      */
     public void finishStudent(final Student student) {
         Platform.runLater(() -> {
-            for (Button btn : students) {
-                if (btn.getText().equals(student.getPupil().getLastName()  + " " + student.getPupil().getFirstName().substring(0,3))) {
-                    btn.setStyle("-fx-background-color: deepskyblue");
-                    break;
+            for (Student stud : studentsList) {
+                if (stud.getPupil().getEnrolmentID().equals(student.getPupil().getEnrolmentID())) {
+                    stud.setStudentState(StudentState.Finished);
                 }
             }
+            StudentList.getStudentList().refreshList(studentsList);
         });
     }
 
@@ -508,14 +510,16 @@ public class Settings {
         Controller conn = new Controller();
         final ContextMenu contextMenu = new ContextMenu();
         MenuItem show = new MenuItem("show:");
-        MenuItem name = new MenuItem(student.getPupil().getFirstName()+" "+student.getPupil().getLastName());
+        MenuItem name = new MenuItem(student.getPupil().getFirstName() + " " + student.getPupil().getLastName());
         MenuItem enrolmentID = new MenuItem(student.getPupil().getEnrolmentID());
         MenuItem foo = new MenuItem("remove");
         InetAddress abc = student.getStudentAddress();
 
+        StudentList.getStudentList().refreshList(studentsList);
+
         if (StudentView.getInstance().getLv() != null)
             Platform.runLater(() -> {
-                Button btn = new Button(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0,3));
+                Button btn = new Button(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0, 3));
                 btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
                 btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
                 btn.setStyle("-fx-background-color: crimson");
