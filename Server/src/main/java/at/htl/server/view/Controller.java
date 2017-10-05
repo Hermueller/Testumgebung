@@ -322,7 +322,7 @@ public class Controller implements Initializable {
         });
         String seperator=getSeperatorForOS();
         String DefPath=System.getProperty("user.dir")+seperator+"Server"+seperator+"src"+seperator+"main"+seperator+"resources"+seperator+"images";
-        Settings.getInstance().setHandOutFile(new File(DefPath+seperator+"checked.png"));
+        Settings.getInstance().setHandOutFile(new File(DefPath+seperator+"NoExamInstructions.jpg"));
         tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
     }
 
