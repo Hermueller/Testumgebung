@@ -47,7 +47,7 @@ public class TeacherGui extends Application {
     Stage stage1;
 
     @Override
-    public void start(final Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception {
 
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Teacher.fxml"));
@@ -63,11 +63,10 @@ public class TeacherGui extends Application {
 
         setShortCuts(scene, stage);
 
-        Thread.setDefaultUncaughtExceptionHandler((t, e) ->
-                Settings.getInstance().printMessage(t, e));
-
         stage.show();
 
+        Thread.setDefaultUncaughtExceptionHandler((t, e) ->
+                Settings.getInstance().printMessage(t, e));
         Platform.setImplicitExit(false);
 
         stage.setOnCloseRequest(event -> {

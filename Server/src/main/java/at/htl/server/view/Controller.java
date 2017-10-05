@@ -221,8 +221,6 @@ public class Controller implements Initializable {
 
     //region Student-Spy Variables
     @FXML
-    private Button btnNext, btnActual;
-    @FXML
     private ImageView ivLiveView;
     //endregion
 
@@ -1294,8 +1292,6 @@ public class Controller implements Initializable {
             AnchorPane.setLeftAnchor(apOption, (double) newValue / 2 - apOption.getPrefWidth() / 2);
             ivLiveView.setFitWidth((double) newValue);
             loc.setPrefWidth((double) newValue);
-            btnNext.setLayoutX((double) newValue - btnActual.getWidth() - btnNext.getWidth());
-            btnActual.setLayoutX((double) newValue - btnActual.getWidth());
             btnReload.setLayoutX((double) newValue - btnReload.getWidth() - 20);
             wvHelp.setPrefWidth((double) newValue);
         });
