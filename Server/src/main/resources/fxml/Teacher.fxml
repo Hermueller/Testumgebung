@@ -37,22 +37,22 @@
 <?import javafx.scene.web.WebView?>
 <?import javafx.scene.control.CheckBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../styles/TeacherStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.server.view.Controller">
+<AnchorPane id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../styles/TeacherStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.server.view.Controller">
     <children>
         <SplitPane fx:id="splitter" dividerPositions="0.2" layoutX="72.0" layoutY="172.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
             <VBox id="vbStudentlist" alignment="TOP_CENTER">
                <children>
-                  <HBox styleClass="hbox">
+                  <HBox styleClass="primary-text">
                      <children>
-                              <Label prefHeight="26.0" prefWidth="150.0" text="Nr. of logged in:" />
-                              <Label fx:id="lbCount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="38.0" text="00" textAlignment="RIGHT" />
+                              <Label prefHeight="26.0" prefWidth="150.0" styleClass="primary-text" text="Nr. of logged in:" />
+                              <Label fx:id="lbCount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="38.0" styleClass="primary-text" text="00" textAlignment="RIGHT" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
-                          <ScrollPane fx:id="spStudentList" fitToHeight="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="9.9999999999999E13" styleClass="customScrollbar" vbarPolicy="ALWAYS">
+                          <ScrollPane fx:id="spStudentList" fitToHeight="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="9.9999999999999E13" vbarPolicy="ALWAYS">
                      <content>
                         <VBox fx:id="vbStudents" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" />
                      </content>
@@ -69,13 +69,13 @@
                       <bottom>
                           <AnchorPane fx:id="apInfo" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="160.0" BorderPane.alignment="CENTER">
                               <children>
-                                  <Label fx:id="lbVersion" alignment="CENTER_RIGHT" layoutX="839.0" layoutY="16.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
-                                  <Label fx:id="lbDate" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="15.0" text="" textAlignment="RIGHT" AnchorPane.leftAnchor="10.0" />
-                                  <Label fx:id="lbAddress" alignment="CENTER" layoutX="321.0" layoutY="7.0" prefHeight="35.0" prefWidth="362.0" text="127.0.0.1 : 50555" textAlignment="CENTER">
+                                  <Label fx:id="lbDate" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="15.0" styleClass="secondary-text" text="" textAlignment="RIGHT" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+                                  <Label fx:id="lbAddress" alignment="CENTER" layoutX="321.0" layoutY="7.0" prefWidth="350.0" styleClass="primary-text" text="127.0.0.1 : 50555" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
                                       <font>
                                           <Font name="System Bold" size="19.0" />
                                       </font>
                                   </Label>
+                                  <Label fx:id="lbVersion" alignment="CENTER_RIGHT" styleClass="secondary-text" text="" textAlignment="RIGHT" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
                               </children>
                           </AnchorPane>
                       </bottom>
@@ -277,12 +277,29 @@
                                                                           <Font size="18.0" />
                                                                       </font>
                                                                   </Label>
-                                                                  <HBox spacing="280.0">
-                                                                      <children>
-                                                                          <Button fx:id="btnStart" mnemonicParsing="false" onAction="#startServer" prefHeight="250.0" prefWidth="250.0" text="Start Server" />
-                                                                          <Button fx:id="btnStop" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#stopServer" prefHeight="250.0" prefWidth="250.0" text="Stop Server" />
-                                                                      </children>
-                                                                  </HBox>
+                                                <VBox>
+                                                   <children>
+                                                      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="SERVER CONTROL" VBox.vgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                                        <HBox spacing="280.0">
+                                                                            <children>
+                                                                                <Button fx:id="btnStart" mnemonicParsing="false" onAction="#startServer" prefHeight="250.0" prefWidth="250.0" style="-fx-font-size: 24px;" text="START">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Button>
+                                                                                <Button fx:id="btnStop" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#stopServer" prefHeight="250.0" prefWidth="250.0" style="-fx-font-size: 24px;" text="STOP">
+                                                               <font>
+                                                                  <Font name="System Bold" size="36.0" />
+                                                               </font>
+                                                            </Button>
+                                                                            </children>
+                                                                        </HBox>
+                                                   </children>
+                                                </VBox>
                                                               </children>
                                                           </VBox>
                                                       </children>

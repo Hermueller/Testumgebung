@@ -1,0 +1,91 @@
+$rootColor: black;
+
+$col1: #03A9F4; //Light blue
+$col1TextFill: white;
+
+$col2: #9E9E9E; //GREY
+$col2TextFill: darken($col1TextFill, 20%);
+
+$col3: #E1F5FE;
+$col3TextFill: black;
+
+#rootPane {
+  -fx-border-color: black;
+  -fx-background-color: black;
+}
+
+.button {
+  -fx-font-weight: bold;
+  -fx-background-color: $col1;
+  -fx-text-fill: $col1TextFill;
+  -fx-border-radius: 2px;
+}
+
+.split-pane {
+  -fx-background-color: $rootColor;
+  .split-pane-divider {
+    -fx-background-color: $rootColor;
+  }
+}
+
+.scroll-bar {
+  -fx-background-color: transparent;
+  .track {
+    -fx-background-color: transparent;
+  }
+  .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+  }
+  .decrement-button,
+  .increment-button {
+    .decrement-arrow,
+    .increment-arrow {
+      -fx-background-color: $col1TextFill;
+      -fx-border-color: $col1TextFill;
+    }
+  }
+}
+
+.scroll-pane {
+  -fx-background-color: $col2;
+  > .viewport {
+    -fx-background-color: derive($col2, 5%);
+  }
+  > .corner {
+    -fx-background-color: $col2;
+  }
+}
+
+.tab-pane {
+  -fx-background-color: $col3;
+  .tab-header-area {
+    .headers-region,
+    .tab-header-background {
+      -fx-background-color: darken($col3,5%);
+    }
+    .tab{
+      -fx-background-color: $col2;
+      .tab-label{
+        -fx-text-fill: $col1TextFill;
+      }
+      &:selected{
+        -fx-background-color: $col1;
+      }
+    }
+  }
+}
+
+.check-box,
+.label {
+  -fx-text-fill: $col3TextFill;
+}
+
+// Custom CSS Classes
+.primary-text {
+  -fx-text-fill: $col1TextFill;
+}
+
+.secondary-text {
+  -fx-text-fill: $col2TextFill;
+}

@@ -1,165 +1,57 @@
-.java-series .chart-area-symbol {
-  -fx-background-color: #e9967a, #ffa07a;
-}
-.java-series .chart-series-area-line {
-  -fx-stroke: #e9967a;
-}
-.java-series .chart-series-area-fill {
-  -fx-fill: #ffa07a55;
-}
-.css-series .chart-area-symbol {
-  --fx-background-color: #f0e68c, #fffacd;
-}
-.css-series .chart-series-area-line {
-  -fx-stroke: #f0e68c;
-}
-.css-series .chart-series-area-fill {
-  -fx-fill: #fffacd55;
-}
-.default-color2 .chart-area-symbol {
-  -fx-background-color: #dda0dd, #d8bfd855 55;
-}
-.default-color2 .chart-series-area-line {
-  -fx-stroke: #dda0dd;
-}
-.default-color2 .chart-series-area-fill {
-  -fx-fill: #d8bfd855;
-}
-.chart-plot-background {
-  -fx-background-color: transparent;
-}
-#anchorPaneScrollLog {
-  -fx-background-color: black;
-}
-#logTab {
-  -fx-background-color: antiquewhite;
-}
-.slider .track {
-  -fx-background-color: null;
-  /* Hide the track */
-  -fx-background-insets: 1 0 -1 0, 0, 1;
-  -fx-background-radius: 2.5, 2.5, 1.5;
-  -fx-padding: 0.208333em;
-  /* 2.5 */
-}
-.slider .thumb {
-  -fx-background-color: darkgrey;
-  -fx-background-radius: 6.0em;
-  /* makes sure this remains circular */
-  -fx-padding: 0.783333em;
-  /* 7 */
-}
-#apStudentSettings {
-  -fx-background-color: #575757;
-}
-#apStudentSettings > .label {
-  -fx-text-fill: white;
-}
+#rootPane {
+  -fx-border-color: black;
+  -fx-background-color: black; }
+
 .button {
   -fx-font-weight: bold;
-  -fx-background-color: #00bfb2;
+  -fx-background-color: #03A9F4;
   -fx-text-fill: white;
-  -fx-border-radius: 2px;
-}
-#option,
-#submission {
-  -fx-background-image: url("../images/foggy.jpg");
-  -fx-background-size: 100% 100%;
-}
-#option .label,
-#submission .label {
-  -fx-text-fill: white;
-}
-.titled-pane > *.content {
-  -fx-border-color: white;
-}
-#helpTab {
-  -fx-background-color: honeydew;
-}
+  -fx-border-radius: 2px; }
 
+.split-pane {
+  -fx-background-color: black; }
+  .split-pane .split-pane-divider {
+    -fx-background-color: black; }
 
-#vbStudentlist {
-  -fx-background-color: #001b2a;
-}
-#vbStudentlist .hbox{
-  -fx-background-color: #001b2a;
+.scroll-bar {
+  -fx-background-color: transparent; }
+  .scroll-bar .track {
+    -fx-background-color: transparent; }
+  .scroll-bar .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em; }
+  .scroll-bar .decrement-button .decrement-arrow,
+  .scroll-bar .decrement-button .increment-arrow,
+  .scroll-bar .increment-button .decrement-arrow,
+  .scroll-bar .increment-button .increment-arrow {
+    -fx-background-color: white;
+    -fx-border-color: white; }
 
-}
-#vbStudentlist .hbox .label{
-  -fx-text-fill: lightgrey;
-}
+.scroll-pane {
+  -fx-background-color: #9E9E9E; }
+  .scroll-pane > .viewport {
+    -fx-background-color: derive(#9E9E9E, 5%); }
+  .scroll-pane > .corner {
+    -fx-background-color: #9E9E9E; }
 
-#vbStudentlist .scroll-pane{
-  -fx-background-color: #001b2a;
-}
+.tab-pane {
+  -fx-background-color: #E1F5FE; }
+  .tab-pane .tab-header-area .headers-region,
+  .tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #c8edfd; }
+  .tab-pane .tab-header-area .tab {
+    -fx-background-color: #9E9E9E; }
+    .tab-pane .tab-header-area .tab .tab-label {
+      -fx-text-fill: white; }
+    .tab-pane .tab-header-area .tab:selected {
+      -fx-background-color: #03A9F4; }
 
-#vbStudentlist .scroll-pane .vbox .scroll-bar{
-  -fx-background-color: #001b2a;
-}
+.check-box,
+.label {
+  -fx-text-fill: black; }
 
-/* The increment and decrement button CSS class of scrollbar */
-.customScrollbar .increment-button ,
-.customScrollbar .decrement-button {
-  -fx-background-color:whitesmoke;
-  -fx-padding:4px;
-}
-/*.customScrollbar .increment-button:hover ,
-.customScrollbar .decrement-button:hover {
-    -fx-background-color:#cbcdd1;
-    -fx-background-radius: 10%;
-}*/
+.primary-text {
+  -fx-text-fill: white; }
 
-/* The main scrollbar **track** CSS class  */
-.customScrollbar .scroll-bar:horizontal .track,
-.customScrollbar .scroll-bar:vertical .track{
-  -fx-background-color: transparent;
-  -fx-border-color:transparent;/*derive(gray,80%);*/
-
-  -fx-background-radius: 2em;
-  -fx-border-radius:2em;
-}
-
-/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
-.customScrollbar .scroll-bar:horizontal .thumb,
-.customScrollbar .scroll-bar:vertical .thumb {
-  -fx-background-color:derive(white,60%);
-  -fx-background-insets: 2, 0, 0;
-  -fx-background-radius: 2em;
-
-}
-.customScrollbar .scroll-bar:horizontal .thumb:pressed,
-.customScrollbar .scroll-bar:vertical .thumb:pressed {
-  -fx-background-color:derive(white,75%);
-}
-
-.customScrollbar .scroll-bar{
-  -fx-background-color: transparent;
-}
-.customScrollbar .scroll-bar:horizontal .increment-arrow {
-  -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-  -fx-background-color: derive(black,60%);
-  -fx-padding: 0.1em;
-  -fx-rotate: -90;
-}
-.customScrollbar .scroll-bar:vertical .increment-arrow {
-  -fx-background-color: derive(black,60%);
-  -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-  -fx-padding: 0.2em;
-  -fx-rotate: 0;
-}
-.customScrollbar .scroll-bar:horizontal .decrement-arrow {
-  -fx-background-color: derive(black,60%);
-  -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-  -fx-padding: 0.2em;
-  -fx-rotate: 90;
-}
-.customScrollbar .scroll-bar:vertical .decrement-arrow {
-  -fx-background-color: derive(black,60%);
-  -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-  -fx-padding: 0.2em;
-  -fx-rotate: -180;
-}
-.customScrollbar .scroll-bar .decrement-button:hover *,
-.customScrollbar .scroll-bar .increment-button:hover *{
-  -fx-background-color: #3c84ff;
-}
+.secondary-text {
+  -fx-text-fill: #cccccc; }
