@@ -57,6 +57,9 @@
 }
 .button {
   -fx-font-weight: bold;
+  -fx-background-color: #00bfb2;
+  -fx-text-fill: white;
+  -fx-border-radius: 2px;
 }
 #option,
 #submission {
@@ -72,4 +75,91 @@
 }
 #helpTab {
   -fx-background-color: honeydew;
+}
+
+
+#vbStudentlist {
+  -fx-background-color: #001b2a;
+}
+#vbStudentlist .hbox{
+  -fx-background-color: #001b2a;
+
+}
+#vbStudentlist .hbox .label{
+  -fx-text-fill: lightgrey;
+}
+
+#vbStudentlist .scroll-pane{
+  -fx-background-color: #001b2a;
+}
+
+#vbStudentlist .scroll-pane .vbox .scroll-bar{
+  -fx-background-color: #001b2a;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.customScrollbar .increment-button ,
+.customScrollbar .decrement-button {
+  -fx-background-color:whitesmoke;
+  -fx-padding:4px;
+}
+/*.customScrollbar .increment-button:hover ,
+.customScrollbar .decrement-button:hover {
+    -fx-background-color:#cbcdd1;
+    -fx-background-radius: 10%;
+}*/
+
+/* The main scrollbar **track** CSS class  */
+.customScrollbar .scroll-bar:horizontal .track,
+.customScrollbar .scroll-bar:vertical .track{
+  -fx-background-color: transparent;
+  -fx-border-color:transparent;/*derive(gray,80%);*/
+
+  -fx-background-radius: 2em;
+  -fx-border-radius:2em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.customScrollbar .scroll-bar:horizontal .thumb,
+.customScrollbar .scroll-bar:vertical .thumb {
+  -fx-background-color:derive(white,60%);
+  -fx-background-insets: 2, 0, 0;
+  -fx-background-radius: 2em;
+
+}
+.customScrollbar .scroll-bar:horizontal .thumb:pressed,
+.customScrollbar .scroll-bar:vertical .thumb:pressed {
+  -fx-background-color:derive(white,75%);
+}
+
+.customScrollbar .scroll-bar{
+  -fx-background-color: transparent;
+}
+.customScrollbar .scroll-bar:horizontal .increment-arrow {
+  -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+  -fx-background-color: derive(black,60%);
+  -fx-padding: 0.1em;
+  -fx-rotate: -90;
+}
+.customScrollbar .scroll-bar:vertical .increment-arrow {
+  -fx-background-color: derive(black,60%);
+  -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+  -fx-padding: 0.2em;
+  -fx-rotate: 0;
+}
+.customScrollbar .scroll-bar:horizontal .decrement-arrow {
+  -fx-background-color: derive(black,60%);
+  -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+  -fx-padding: 0.2em;
+  -fx-rotate: 90;
+}
+.customScrollbar .scroll-bar:vertical .decrement-arrow {
+  -fx-background-color: derive(black,60%);
+  -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+  -fx-padding: 0.2em;
+  -fx-rotate: -180;
+}
+.customScrollbar .scroll-bar .decrement-button:hover *,
+.customScrollbar .scroll-bar .increment-button:hover *{
+  -fx-background-color: #3c84ff;
 }
