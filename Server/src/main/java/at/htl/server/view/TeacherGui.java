@@ -55,7 +55,7 @@ public class TeacherGui extends Application {
         final Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/TeacherStyle.css");
         stage.getIcons().add(new Image(
-                "images/spying_eye.png"
+                "images/logo.png"
         ));
 
         stage.setTitle("Server");

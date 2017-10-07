@@ -60,7 +60,7 @@ import static at.htl.common.transfer.Packet.Resource;
  * 21.04.2016: PHI 060  added the finished-Mode
  * 12.05.2016: MET 010  fixed FileUtils-Error
  * 20.05.2016: PHI 035  improved the connection-testing (+ testing connection on serverStart)
- * 09.06.2016: MET 100  Show quick info (time, status, transparent background, positioning, ...)
+ * 09.06.2016: MET 100  Show quick info (time, status, transparent backgroundColor, positioning, ...)
  * 11.06.2016: MET 040  moving the QuickInfo-Window
  * 11.06.2016: MET 020  show and hide the QuickInfo-Window
  * 11.06.2016: MET 055  display of a monitoring symbol when connected
