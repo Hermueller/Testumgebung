@@ -28,7 +28,6 @@ public class StudentGui extends Application {
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/StudentStyle.scss");
 
         stage.setTitle("Student");
         stage.setScene(scene);
