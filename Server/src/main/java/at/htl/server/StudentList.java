@@ -1,6 +1,7 @@
 package at.htl.server;
 
 import at.htl.server.entity.Student;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -41,38 +42,40 @@ public class StudentList {
     private void updateButtons() {
         List<Student> studentList = new ArrayList<>(curStudentList);
 
-        vbStudentList.getChildren().clear();
-        for (Student student : studentList) {
-            String label = student.getPupil().getLastName() + " " + student.getPupil().getFirstName();
+        Platform.runLater(() -> {
+            vbStudentList.getChildren().clear();
+            for (Student student : studentList) {
+                String label = student.getPupil().getLastName() + " " + student.getPupil().getFirstName();
 
-            Button btnStudent = new Button(label);
-            btnStudent.setId(""+student.getStudentAddress());
+                Button btnStudent = new Button(label);
+                btnStudent.setId(""+student.getStudentAddress());
 
-            switch (student.getStudentState()) {
-                case NORMAL:
-                    btnStudent.setStyle("-fx-background-color: #00d474");
-                    break;
-                case FINISHED:
-                    btnStudent.setStyle("-fx-background-color: #00c2d4");
-                    break;
-                case CONNECTION_LOST:
-                    btnStudent.setStyle("-fx-background-color: #d45500");
-                    break;
-                default:
-                    btnStudent.setStyle("-fx-background-color: #d4006f");
-                    break;
+                switch (student.getStudentState()) {
+                    case NORMAL:
+                        btnStudent.setStyle("-fx-background-color: #00d474");
+                        break;
+                    case FINISHED:
+                        btnStudent.setStyle("-fx-background-color: #00c2d4");
+                        break;
+                    case CONNECTION_LOST:
+                        btnStudent.setStyle("-fx-background-color: #d45500");
+                        break;
+                    default:
+                        btnStudent.setStyle("-fx-background-color: #d4006f");
+                        break;
+                }
+
+                btnStudent.setTextFill(Paint.valueOf("white"));
+
+                btnStudent.setPrefWidth(vbStudentList.getPrefWidth());
+
+                vbStudentList.getChildren().add(btnStudent);
+
+                btnStudent.setOnAction(event -> {
+                    Settings.getInstance().findStudentByAddress(btnStudent.getId());
+                });
             }
-
-            btnStudent.setTextFill(Paint.valueOf("white"));
-
-            btnStudent.setPrefWidth(vbStudentList.getPrefWidth());
-
-            vbStudentList.getChildren().add(btnStudent);
-
-            btnStudent.setOnAction(event -> {
-                Settings.getInstance().findStudentByAddress(btnStudent.getId());
-            });
-        }
+        });
     }
 
     public Student getSelectedStudent() {
