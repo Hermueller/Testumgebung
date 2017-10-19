@@ -72,7 +72,7 @@ public class StudentList {
                 vbStudentList.getChildren().add(btnStudent);
 
                 btnStudent.setOnAction(event -> {
-                    Settings.getInstance().findStudentByAddress(btnStudent.getId());
+                    selectedStudent.set(Settings.getInstance().findStudentByAddress(btnStudent.getId()));
                 });
             }
         });

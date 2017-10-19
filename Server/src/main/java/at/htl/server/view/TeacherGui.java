@@ -1,21 +1,16 @@
 package at.htl.server.view;
 
 import at.htl.server.Settings;
-import com.aquafx_project.AquaFx;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import org.apache.logging.log4j.Level;
 
 /**
  * @timeline TeacherGui
@@ -43,8 +38,6 @@ import org.apache.logging.log4j.Level;
  * 13.02.2017: MET 020  Bug bei der Auswahl einer Angabe behoben
  */
 public class TeacherGui extends Application {
-
-    Stage stage1;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -91,8 +84,7 @@ public class TeacherGui extends Application {
 
             if (event.getCode() == KeyCode.ESCAPE) {    // ESC -> CLOSE
                 askCancel(stage);
-            }
-            else if (event.getCode() == KeyCode.F1) {   // F1  -> HELP
+            } else if (event.getCode() == KeyCode.F1) {   // F1  -> HELP
                 getHostServices().showDocument("http://BeatingAngel.github.io/Testumgebung/#program");
             }
 
@@ -105,90 +97,14 @@ public class TeacherGui extends Application {
      * @param stage Specialises the root-window of the program.
      */
     public void askCancel(Stage stage) {
-        //createDirectory Window
-        try{
-            if (stage1 != null) {
-                stage1.close();
-            }
-        }
-        catch (Exception e){
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getLocalizedMessage());
-        }
-        stage1 = new Stage();
-        stage1.setResizable(false);
-        AquaFx.styleStage(stage1, StageStyle.UNDECORATED);
-        AnchorPane root1 = new AnchorPane();
-        Scene scene1 = new Scene(root1, 431, 279);
+        Alert alert = new Alert(Alert.AlertType.WARNING,"Your Server is running!\nWould you like to close this Application?",ButtonType.OK,ButtonType.CANCEL);
 
-        AnchorPane pane = new AnchorPane();
-        pane.setPrefWidth(431);
-        pane.setPrefHeight(279);
-
-        scene1.setCursor(Cursor.CLOSED_HAND);
-
-        //ask questions
-        Label text = new Label("Should the application be closed?");
-        text.setLayoutX(21);
-        text.setLayoutY(23);
-        text.setPrefHeight(35);
-        text.setPrefWidth(385);
-
-        Label text2 = new Label("Have you stopped the server?");
-        text2.setLayoutX(21);
-        text2.setLayoutY(67);
-        text2.setPrefHeight(35);
-        text2.setPrefWidth(385);
-
-        //do not quit the window
-        Button cancel = new Button("CANCEL");
-        cancel.setLayoutX(21);
-        cancel.setLayoutY(206);
-        cancel.setPrefHeight(35);
-        cancel.setPrefWidth(138);
-        cancel.setUnderline(true);
-
-        //quit the window
-        Button ok = new Button("CLOSE");
-        ok.setLayoutX(268);
-        ok.setLayoutY(206);
-        ok.setPrefHeight(35);
-        ok.setPrefWidth(138);
-        ok.setUnderline(true);
-        ok.setDefaultButton(true);
-
-        //on click close
-        cancel.setOnAction(cancelEvent -> {
-            stage1.close();
-            stage1 = null;
-        });
-
-        ok.setOnAction(okEvent -> {
-            stage1.close();
-            stage1 = null;
-            stage.close();
-            Platform.exit();
-            System.exit(0);
-        });
-
-        scene1.setOnKeyReleased(event -> {
-
-            if (event.getCode() == KeyCode.ESCAPE) {    // ESC -> CLOSE
-                stage1.close();
-                stage1 = null;
-            }
-
-        });
-
-        pane.getChildren().addAll(text, text2, cancel, ok);
-        pane.setStyle("-fx-background-color: #808080");
-
-        root1.getChildren().add(pane);
-
-
-
-        stage1.setScene(scene1);
-        stage1.show();
-        //****************
+        alert.showAndWait()
+                .filter(response -> response == ButtonType.OK)
+                .ifPresent((r) -> {
+                    Platform.exit();
+                    System.exit(0);
+                });
     }
 
 }
