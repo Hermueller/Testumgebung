@@ -41,6 +41,7 @@ public class Client {
     private final ReaderThread reader;
     private LocalTime endTime = null;
     private boolean signedIn = false;
+    private boolean isRunning = false;
 
     public Client(Packet packet) throws IOException, AWTException {
         try {
@@ -151,7 +152,8 @@ public class Client {
             } catch (Exception ex) {
                 FileUtils.log(this, Level.ERROR, "Send Boolean " + MyUtils.exToStr(ex));
             } finally {
-                Platform.runLater(() -> FxUtils.showPopUp("LOST CONNECTION", false));
+                if (isRunning)
+                    Platform.runLater(() -> FxUtils.showPopUp("LOST CONNECTION", false));
             }
         }
     }
@@ -169,7 +171,7 @@ public class Client {
 
         public void run() {
             try {
-                while (!isInterrupted() && socket.isConnected()) {
+                while (!isRunning && !isInterrupted() && socket.isConnected()) {
                     DocumentsTransfer.sendObject(getOut(), jobs.take().execute(robot));
                 }
             } catch (InterruptedException e) {
@@ -197,6 +199,7 @@ public class Client {
     public boolean start() {
         if (processor != null && reader != null) {
             loadFiles();
+            isRunning = true;
             return true;
         } else {
             return false;
@@ -223,6 +226,7 @@ public class Client {
                 e.printStackTrace();
             }*/
 
+            isRunning = false;
             processor.interrupt();
             reader.interrupt();
             //handIn();
