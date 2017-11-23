@@ -7,7 +7,6 @@ import at.htl.common.io.ScreenShot;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
 import javafx.util.Duration;
 import org.apache.logging.log4j.Level;
 import org.controlsfx.control.Notifications;
@@ -150,17 +149,16 @@ public class Server {
      */
     public void showImage(final String fileName, final Student student) {
         Platform.runLater(() -> {
-            Button selected = (Button) StudentView.getInstance().getLv()
-                    .getSelectionModel().getSelectedItem();
+            /*Button selected = (Button) StudentView.getInstance().getLv()
+                    .getSelectionModel().getSelectedItem();*/
+            Student selected=StudentList.getStudentList().getSelectedStudent();
             if (selected != null && !Settings.getInstance().isLooksAtScreenshots()) {
                 //ist der Screenshot vom ausgewählten Studenten?
-                String shouldName = student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0,3);
-                if (shouldName.equals(selected.getText())) {
-                    (StudentView.getInstance().getIv())
-                            .setImage(new javafx.scene.image.Image("file:" + fileName));
-                    Settings.getInstance().addScreenshot("file:" + fileName);
-                    Settings.getInstance().setActualScreenshot(fileName);
-                }
+                (StudentView.getInstance().getIv())
+                        .setImage(new javafx.scene.image.Image("file:" + fileName));
+                Settings.getInstance().addScreenshot("file:" + fileName);
+                Settings.getInstance().setActualScreenshot(fileName);
+
             }
         });
     }
