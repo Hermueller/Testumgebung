@@ -83,7 +83,7 @@ class SocketWriterThread extends Thread {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
 
         student.addSeries();
@@ -115,6 +115,8 @@ class SocketWriterThread extends Thread {
                 } catch (InterruptedException e) {
                     interrupt();
                     break;
+                }
+                catch (Exception ex) {
                 }
             }
             out.close();

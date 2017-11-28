@@ -418,6 +418,7 @@ public class Settings {
      */
     public void loginStudent(final Student student, final String studentNameBefore) {
         Platform.runLater(() -> {
+            student.setStudentState(StudentState.NORMAL);
             for (Button btn : students) {
                 if (btn.getText().equals(studentNameBefore)) {
                     btn.setStyle("-fx-background-color: lawngreen");
@@ -466,6 +467,7 @@ public class Settings {
                 }
             }
             changeStudentCount(false);
+            StudentList.getStudentList().refreshList(studentsList);
         });
     }
 
@@ -506,6 +508,7 @@ public class Settings {
      * @param student Specialises the client which will be added.
      */
     public void addStudent(final Student student) {
+        student.setStudentState(StudentState.NORMAL);
         studentsList.add(student);
         Controller conn = new Controller();
         final ContextMenu contextMenu = new ContextMenu();
@@ -532,6 +535,7 @@ public class Settings {
                 btn.setContextMenu(contextMenu);
                 btn.setId(student.getStudentAddress().toString());
                 students.add(btn);
+
                 sortList();
             });
     }

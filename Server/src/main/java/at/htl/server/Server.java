@@ -6,6 +6,7 @@ import at.htl.common.io.FileUtils;
 import at.htl.common.io.ScreenShot;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
+import at.htl.server.enums.StudentState;
 import javafx.application.Platform;
 import javafx.util.Duration;
 import org.apache.logging.log4j.Level;
@@ -109,6 +110,7 @@ public class Server {
                         .concat("' logged in."))
                 .hideAfter(Duration.seconds(5))
                 .showInformation());
+        student.setStudentState(StudentState.NORMAL);
     }
 
     public static int getPORT() {
@@ -149,8 +151,6 @@ public class Server {
      */
     public void showImage(final String fileName, final Student student) {
         Platform.runLater(() -> {
-            /*Button selected = (Button) StudentView.getInstance().getLv()
-                    .getSelectionModel().getSelectedItem();*/
             Student selected=StudentList.getStudentList().getSelectedStudent();
             if (selected != null && !Settings.getInstance().isLooksAtScreenshots()) {
                 //ist der Screenshot vom ausgewählten Studenten?

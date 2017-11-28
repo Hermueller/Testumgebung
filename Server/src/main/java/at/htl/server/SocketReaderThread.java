@@ -4,6 +4,7 @@ import at.htl.common.MyUtils;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
 import at.htl.common.io.FileUtils;
+import at.htl.server.enums.StudentState;
 import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
@@ -65,8 +66,10 @@ class SocketReaderThread extends Thread {
                 Settings.getInstance().printErrorLine(
                         Level.INFO, student.getPupil().getLastName() + " logged out!", true, "DISCONNECT");
                 if (!finished) {
+                    student.setStudentState(StudentState.CONNECTION_LOST);
                     Settings.getInstance().removeStudent(student.getPupil().getLastName()  + " " + student.getPupil().getFirstName().substring(0,3));
                 } else {
+                    student.setStudentState(StudentState.FINISHED);
                     Settings.getInstance().finishStudent(student);
                 }
                 //student.finishSeries();
