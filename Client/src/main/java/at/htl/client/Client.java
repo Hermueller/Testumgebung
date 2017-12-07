@@ -106,28 +106,7 @@ public class Client {
         processor.start();
         reader.start();
     }
-
-    /**
-     * compromises the working-directory and sends it to the teacher
-     *
-     * @return the success of it
-     */
-    public boolean handIn() {
-        /*if (processor.isInterrupted() && reader.isInterrupted()) {
-            String zipFileName = "handInFile.zip";
-            System.out.println(packet.getDirOfWatch());
-            FileUtils.delete(packet.getDirOfWatch() + "/" + packet.getLastname() + "/angabe.zip");
-            FileUtils.delete(packet.getDirOfWatch() + "/" + packet.getLastname() + "/handInFile.zip");
-            FileUtils.zip(packet.getDirOfWatch(), zipFileName);
-            DocumentsTransfer.send(getOut(), new File(String.format("%s/%s",
-                    packet.getDirOfWatch(), zipFileName)));
-            return true;
-        }
-        return false;
-        */
-        return false;
-    }
-
+    
     /**
      * reads jobs from the stream and adds them as a new job
      */
