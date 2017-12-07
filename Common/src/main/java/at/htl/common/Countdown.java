@@ -1,9 +1,11 @@
 package at.htl.common;
 
 import at.htl.common.fx.FxUtils;
+import at.htl.common.io.FileUtils;
 import javafx.animation.SequentialTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import org.apache.logging.log4j.Level;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -73,7 +75,7 @@ public class Countdown extends Thread {
                     text.setText(getTime());
                 }
             } catch (InterruptedException e) {
-                System.out.println("Interrupted Thread.sleep");
+                FileUtils.log(this, org.apache.logging.log4j.Level.WARN, "Interrupted Thread.sleep");
                 interrupt();
                 return;
             }
@@ -84,7 +86,7 @@ public class Countdown extends Thread {
     private void setAfter() {
         for (Text text : texts) {
             text.setText("00:00:00");
-            System.out.println("Clock beendet");
+            FileUtils.log(this, Level.DEBUG, "Clock beendet");
             text.setFill(Color.RED);
             blinkThenFade = new SequentialTransition(text,
                     FxUtils.createBlinker(text),
