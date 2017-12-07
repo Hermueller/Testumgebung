@@ -96,7 +96,6 @@ public class Client {
                     Files.write(new File(Exam.getInstance().getPupil().getPathOfProject()
                             + "/angabe." + packet.get(Resource.FILE_EXTENSION)).toPath(), handout);
                 }
-                System.out.println(packet.get(Resource.COMMENT));
                 endTime = (LocalTime) packet.get(Resource.TIME);
                 signedIn = true;
             }
