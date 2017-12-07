@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Countdown extends Thread {
 
-    private final static int PAUSE = 1; // seconds
+    private static final int PAUSE = 1; // seconds
 
     private LocalTime toTime;
     private List<Text> texts;
