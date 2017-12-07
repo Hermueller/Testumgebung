@@ -127,7 +127,7 @@ public class Client {
                     }
                 } while ((action = (RobotAction) in.readObject()) != null);
             } catch (EOFException eof) {
-                //FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exToStr(eof));
+                FileUtils.log(this, Level.ERROR, "Connection closed!");
             } catch (Exception ex) {
                 FileUtils.log(this, Level.ERROR, "Send Boolean " + MyUtils.exToStr(ex));
             } finally {
