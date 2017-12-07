@@ -23,6 +23,10 @@ public class Cryptography {
     private static final String IV = "AAAAAAAAAAAAAAAA";
     private static final String ENCRYPTION_KEY_DEFAULT = "0123456789HelloWorld";
 
+    private Cryptography() {
+
+    }
+
     /**
      * @param plainText     text which should be encrypted
      * @param encryptionKey coding key
@@ -31,7 +35,6 @@ public class Cryptography {
     public static String encrypt(String plainText, String encryptionKey) {
         if (encryptionKey == null) {
             encryptionKey = ENCRYPTION_KEY_DEFAULT;
-            System.out.println("");
         }
         try {
             Cipher cipher = Cipher.getInstance(CIPHERING_PATH, PROVIDER);

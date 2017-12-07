@@ -64,8 +64,8 @@
       <file leaf-file-name="Cryptography.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/Cryptography.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+            <state relative-caret-position="462">
+              <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -983,7 +983,7 @@
       <workItem from="1511425860756" duration="3140000" />
       <workItem from="1511439193243" duration="793000" />
       <workItem from="1511621506469" duration="1255000" />
-      <workItem from="1512643950678" duration="495000" />
+      <workItem from="1512643950678" duration="624000" />
     </task>
     <task id="LOCAL-00001" summary="Client crashed when entering a firstname with less than 3 characters.&#10;Temporarily fix: Don't allow client to enter a firstname with less than 3 characters">
       <created>1496173650560</created>
@@ -996,7 +996,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38165000" />
+    <option name="totallyTimeSpent" value="38294000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -1501,8 +1501,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Common/src/main/java/at/htl/common/Cryptography.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state relative-caret-position="462">
+          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
           <folding />
         </state>
       </provider>
