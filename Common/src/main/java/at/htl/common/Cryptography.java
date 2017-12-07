@@ -52,7 +52,6 @@ public class Cryptography {
     public static String decrypt(String cipherText, String encryptionKey) {
         if (encryptionKey == null) {
             encryptionKey = ENCRYPTION_KEY_DEFAULT;
-            System.out.println("");
         }
         try {
             Cipher cipher = Cipher.getInstance(CIPHERING_PATH, PROVIDER);
