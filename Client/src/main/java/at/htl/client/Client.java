@@ -150,7 +150,7 @@ public class Client {
         @Override
         public void run() {
             try {
-                while (!isRunning && !isInterrupted() && socket.isConnected()) {
+                while (isRunning && !isInterrupted() && socket.isConnected()) {
                     DocumentsTransfer.sendObject(getOut(), jobs.take().execute(robot));
                 }
             } catch (InterruptedException e) {
