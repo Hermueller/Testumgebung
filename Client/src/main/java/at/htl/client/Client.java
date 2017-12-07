@@ -191,24 +191,9 @@ public class Client {
      */
     public void stop() {
         if (processor != null && reader != null) {
-            /*RobotAction action = new LittleHarvester(
-                    loginPackage.getLastname(), loginPackage.getDirOfWatch(), new String[0]);
-
-            try {
-                Object result = action.execute(robot);
-                if (result != null) {
-                    getOut().writeObject(result);
-                    getOut().reset();
-                    getOut().flush();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-
             isRunning = false;
             processor.interrupt();
             reader.interrupt();
-            //handIn();
             closeOut();
         }
     }
