@@ -106,11 +106,12 @@ public class Client {
         processor.start();
         reader.start();
     }
-    
+
     /**
      * reads jobs from the stream and adds them as a new job
      */
     private class ReaderThread extends Thread {
+        @Override
         public void run() {
             try {
                 Object obj = in.readObject();
