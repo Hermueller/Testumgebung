@@ -327,7 +327,7 @@ public class Controller implements Initializable {
         });
         String seperator=getSeperatorForOS();
         String DefPath=System.getProperty("user.dir")+seperator+"Server"+seperator+"src"+seperator+"main"+seperator+"resources"+seperator+"images";
-        Settings.getInstance().setHandOutFile(new File(DefPath+seperator+"NoExamInstructions.jpg"));
+        Settings.getInstance().setHandOutFile(new File(DefPath+seperator+"NoExamInstruction1s.jpg"));
 
         tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
     }
@@ -398,14 +398,14 @@ public class Controller implements Initializable {
         boolean startable = true;
 
         // checks if the user selected a path
-        if (path == null) {
-            setMsg(true, "Please select a directory!");
+        if (path == null || !handOut.exists()) {
+            setMsg(true, "Please select a valid directory!");
             setImage(ivPath, false);
             startable = false;
         }
         // checks if the user selected a path
-        if (handOut == null) {
-            setMsg(true, "Please select a handout (pdf, jpg)!");
+        if (handOut == null || !handOut.exists()) {
+            setMsg(true, "Please select valid handout (pdf, jpg)!");
             setImage(ivAngabe, false);
             startable = false;
         }
