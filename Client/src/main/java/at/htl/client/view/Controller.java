@@ -349,30 +349,48 @@ public class Controller implements Initializable {
         boolean validity = false;
         if (serverIP.isEmpty()) {
             setMsg("Specify the IP-Address of the server!", 0);
-        } else if ((serverIP.split("\\.").length != 4 && !serverIP.equals("localhost"))
+        }
+        else if ((serverIP.split("\\.").length != 4 && !serverIP.equals("localhost"))
                 || serverIP.length() > 15) {
             setMsg("Invalid IP-Address!", 0);
-        } else if (port < 1) {
+        }
+        else if (port < 1) {
             setMsg("Invalid Port!", 0);
-        } else if (enrolmentID.isEmpty()) {
+        }
+        else if (enrolmentID.isEmpty()) {
             setMsg("Enter your enrolment id", 0);
-        } else if (enrolmentID.length() >= 10) {
+        }
+        else if (enrolmentID.length() >= 10) {
             setMsg("The enrolment id is too long!", 0);
-        } else if (catalogNumber < 1) {
+        }
+        else if (catalogNumber < 1) {
             setMsg("Invalid catalog number!", 0);
-        } else if (firstName.isEmpty() || firstName.length() > 20) {
-            setMsg("Enter your correct first name", 0);
-        } else if (lastName.isEmpty() || lastName.length() > 20) {
-            setMsg("Enter your correct last name", 0);
-        } else if (!lastName.matches("[A-Z][a-z]+")) {
+        }
+        else if (firstName.isEmpty()) {
+            setMsg("Your first name should not be empty", 0);
+        }
+        else if (firstName.length() > 20) {
+            setMsg("Your first name should not be longer than 20 characters", 0);
+        }
+        else if (lastName.isEmpty()) {
+            setMsg("Your last name should not be empty", 0);
+        }
+        else if (lastName.length() > 20) {
+            setMsg("Your last name should not be longer than 20 characters", 0);
+        }
+        else if (!lastName.chars().allMatch(Character::isLetter)) {
             setMsg("Unknown letter in your lastname. Allowed: A-Z", 0);
-        } else if (!firstName.matches("[A-Z][a-z]+")) {
+        }
+        else if (!firstName.chars().allMatch(Character::isLetter)) {
             setMsg("Unknown letter in your firstname. Allowed: A-Z", 0);
-        } else if (firstName.length() < 3)
+        }
+        else if (firstName.length() < 3) {
             setMsg("Your firstname must be at least 3 characters long!", 0);
+        }
         else if (pathOfProject.isEmpty()) {
             setMsg("Specify the path of project!", 0);
-        } else {
+        }
+        else {
             validity = true;
         }
         return validity;
