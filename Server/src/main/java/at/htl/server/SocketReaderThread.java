@@ -1,10 +1,10 @@
 package at.htl.server;
 
 import at.htl.common.MyUtils;
+import at.htl.common.enums.StudentState;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
 import at.htl.common.io.FileUtils;
-import at.htl.server.enums.StudentState;
 import org.apache.logging.log4j.Level;
 
 import java.io.IOException;

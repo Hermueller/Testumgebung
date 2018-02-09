@@ -1,12 +1,12 @@
 package at.htl.server;
 
+import at.htl.common.enums.StudentState;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.common.io.ScreenShot;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Interval;
 import at.htl.server.entity.Student;
-import at.htl.server.enums.StudentState;
 import at.htl.server.view.Controller;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

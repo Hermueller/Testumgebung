@@ -10,6 +10,7 @@ import at.htl.server.*;
 import at.htl.server.advanced.AdvancedSettingsPackage;
 import at.htl.server.entity.Interval;
 import at.htl.server.entity.Student;
+import at.htl.server.logic.SoundController;
 import com.aquafx_project.AquaFx;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;

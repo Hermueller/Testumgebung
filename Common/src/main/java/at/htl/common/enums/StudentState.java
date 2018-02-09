@@ -1,4 +1,4 @@
-package at.htl.server.enums;
+package at.htl.common.enums;
 
 public enum StudentState{
     FINISHED,

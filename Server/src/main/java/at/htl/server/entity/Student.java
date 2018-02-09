@@ -1,12 +1,12 @@
 package at.htl.server.entity;
 
 import at.htl.common.Pupil;
+import at.htl.common.enums.StudentState;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
 import at.htl.server.Settings;
 import at.htl.server.advanced.AdvancedSettingsPackage;
-import at.htl.server.enums.StudentState;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
