@@ -100,6 +100,8 @@ public class Client {
                 if (handout.length != 0) {
                     File handoutFile = new File(Exam.getInstance().getPupil().getPathOfProject()
                             + "/angabe." + packet.get(Resource.FILE_EXTENSION));
+
+                    handoutFile.createNewFile();
                     //TODO test if this is working
                     Files.write(handoutFile.toPath(), handout);
 //                    try (OutputStream out = new BufferedOutputStream(
@@ -159,6 +161,7 @@ public class Client {
             super("ProcessorThread");
             setDaemon(true);
         }
+
         @Override
         public void run() {
             try {

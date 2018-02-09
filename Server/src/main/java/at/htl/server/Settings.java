@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import org.apache.logging.log4j.Level;
 
 import java.io.File;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -78,7 +79,6 @@ public class Settings {
     private static Settings instance = null;
 
     private ObservableList<Button> students;
-    private List<Student> studentsList = new LinkedList<>();
     private AnchorPane logArea;
     private File handOutFile = null;
     private LocalTime startTime;
@@ -382,10 +382,6 @@ public class Settings {
         this.endings = endings;
     }
 
-    public List<Student> getStudentsList() {
-        return studentsList;
-    }
-
     //endregion
 
     //region Methods
@@ -408,7 +404,6 @@ public class Settings {
             text = "0";
         }
         lbCount.setText(text + studentCount);
-        System.out.println(text + studentCount);
     }
 
     /**
@@ -421,49 +416,6 @@ public class Settings {
         student.setStudentState(StudentState.NORMAL);
         StudentList.getStudentList().addStudent(student);
         changeStudentCount(true);
-    }
-
-    /**
-     * Notifies the Teacher that the client has finished the test.
-     * Colors him green in the list.
-     *
-     * @param student the client who finished the test.
-     */
-    public void finishStudent(final Student student) {
-    }
-
-    /**
-     * Removes a client from the list of all students and/or colours him red.
-     *
-     * @param studentName Specialises the client to remove from the list.
-     */
-    public void removeStudent(final String studentName) {
-
-        Platform.runLater(() -> {
-            for (Button btn : students) {
-                if (btn.getText().equals(studentName)) {
-                    btn.setStyle("-fx-background-color: crimson");
-                    break;
-                }
-            }
-            changeStudentCount(false);
-            StudentList.getStudentList().refreshList(studentsList);
-        });
-    }
-
-    /**
-     * searches for a student by his InetAddress.
-     *
-     * @param address the address of the student.
-     * @return the student with the correct address.
-     */
-    public Student findStudentByAddress(String address) {
-        for (Student _student : studentsList) {
-            if (_student.getStudentIpAddress().toString().equals(address)) {
-                return _student;
-            }
-        }
-        return null;
     }
 
     /**

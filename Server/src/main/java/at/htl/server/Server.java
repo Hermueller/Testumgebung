@@ -69,8 +69,8 @@ public class Server {
         String studentNameBefore;
         boolean newStudent = false;
 
-        if (Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString()) != null) {
-            student = Settings.getInstance().findStudentByAddress(socket.getInetAddress().toString());
+        if (StudentList.getStudentList().findStudentByIpAddress(socket.getInetAddress()) != null) {
+            student = StudentList.getStudentList().findStudentByIpAddress(socket.getInetAddress());
             student.setPupil(pupil);
         } else {
             student = new Student(pupil);

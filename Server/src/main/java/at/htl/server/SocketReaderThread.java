@@ -6,6 +6,7 @@ import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
 import at.htl.common.io.FileUtils;
 import at.htl.server.feature.ScreenShotController;
+import at.htl.server.logic.SoundController;
 import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
@@ -68,8 +69,9 @@ class SocketReaderThread extends Thread {
                 Settings.getInstance().printErrorLine(
                         Level.INFO, student.getPupil().getLastName() + " logged out!", true, "DISCONNECT");
                 if (!finished) {
+                    SoundController.startWarnSound();
                     student.setStudentState(StudentState.CONNECTION_LOST);
-                    StudentList.getStudentList().removeStudent(student);
+                    StudentList.getStudentList().updateStudent(student);
                 } else {
                     student.setStudentState(StudentState.FINISHED);
                     StudentList.getStudentList().updateStudent(student);

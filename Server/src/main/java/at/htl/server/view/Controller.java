@@ -270,8 +270,8 @@ public class Controller implements Initializable {
 
 
         StudentList.createStudentList(this.vbStudents);
+        StudentList.getStudentList().refreshList();
 
-        StudentList.getStudentList().refreshList(Settings.getInstance().getStudentsList());
 //        lvStudents.setItems(Settings.getInstance().getObservableList());
         StudentView.getInstance().setIv(ivLiveView);
 //        StudentView.getInstance().setLv(lvStudents);
@@ -361,8 +361,8 @@ public class Controller implements Initializable {
         if (!tbToggleSettings.isSelected()) {
             Button selected = (Button) StudentView.getInstance()
                     .getLv().getSelectionModel().getSelectedItem();
-            Student toChange = Settings.getInstance()
-                    .findStudentByAddress(selected.getId());
+            Student toChange = StudentList.getStudentList()
+                    .findStudentByIpAddress(selected.getId());
 
             toChange.setInterval(new Interval(new_time));
             String[] filters = getSelectedFilters();
@@ -370,8 +370,8 @@ public class Controller implements Initializable {
         } else {
             for (Object obj : StudentView.getInstance().getLv().getItems()) {
                 String address = ((Button) obj).getId();
-                Student toChange = Settings.getInstance()
-                        .findStudentByAddress(address);
+                Student toChange = StudentList.getStudentList()
+                        .findStudentByIpAddress(address);
 
                 toChange.setInterval(new Interval(new_time));
                 String[] filters = getSelectedFilters();
@@ -1119,34 +1119,6 @@ public class Controller implements Initializable {
     }
 
     /**
-     * kicks the selected student.
-     */
-    @FXML
-    public void kickStudent() {
-        Button selected = (Button) StudentView.getInstance()
-                .getLv().getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            kick(selected.getId());
-        }
-    }
-
-    /**
-     * kicks a student.
-     *
-     * @param address Specifies the InetAddress of the student.
-     */
-    public void kick(String address) {
-        Student toKick = Settings.getInstance()
-                .findStudentByAddress(address);
-        try {
-            toKick.getServer().socket.close();
-        } catch (IOException e) {
-            FileUtils.log(Level.WARN, e.getLocalizedMessage());
-            Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
-        }
-    }
-
-    /**
      * changes the quickinfo interval of the selected student.
      *
      * @see <a href="https://github.com/BeatingAngel/Testumgebung/issues/34">Student-Settings GitHub Issue</a>
@@ -1155,14 +1127,15 @@ public class Controller implements Initializable {
     public void saveStudentChanges() {
         if (!tbstudents.isSelected()) {
             Button selected = (Button) StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
-            Student toChange = Settings.getInstance().findStudentByAddress(selected.getId());
+            Student toChange = StudentList.getStudentList()
+                    .findStudentByIpAddress(selected.getId());
             String[] filters = getSelectedFilters();
             toChange.setFilter(filters);
         } else {
             for (Object obj : StudentView.getInstance().getLv().getItems()) {
                 String address = ((Button) obj).getId();
-                Student toChange = Settings.getInstance()
-                        .findStudentByAddress(address);
+                Student toChange = StudentList.getStudentList()
+                        .findStudentByIpAddress(address);
 
                 String[] filters = getSelectedFilters();
                 toChange.setFilter(filters);
