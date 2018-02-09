@@ -1,6 +1,7 @@
 package at.htl.server;
 
 import at.htl.server.entity.Student;
+import at.htl.server.logic.SoundController;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
@@ -31,13 +32,7 @@ public class StudentList {
                 ((Button) node).setPrefWidth((double) newValue);
             }
         });
-    }
-
-
-    public void refreshList(List<Student> newStudentList) {
-        curStudentList = newStudentList;
-
-        updateButtons();
+        this.curStudentList = new ArrayList<>();
     }
 
     public void addStudent(Student student) {
@@ -67,11 +62,24 @@ public class StudentList {
         return null;
     }
 
+    @Deprecated
+    public Student findStudentByIpAddress(String ipAddress){
+        for(Student student : curStudentList){
+            if(student.getStudentIpAddress().toString().equals(ipAddress))
+                return student;
+        }
+        return null;
+    }
+
     public void sortList() {
         curStudentList.sort((o1, o2) ->
                 o1.getStudentState().compareToStudentState(o2.getStudentState())
                 + o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName())
         );
+    }
+
+    public void refreshList(){
+        updateButtons();
     }
 
     private void updateButtons() {
@@ -108,7 +116,7 @@ public class StudentList {
                 vbStudentList.getChildren().add(btnStudent);
 
                 btnStudent.setOnAction(event -> {
-                    selectedStudent.set(Settings.getInstance().findStudentByAddress(btnStudent.getId()));
+                    selectedStudent.set(student);
                 });
             }
         });
