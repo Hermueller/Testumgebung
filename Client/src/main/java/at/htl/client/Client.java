@@ -14,10 +14,15 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalTime;
 
 import static at.htl.common.transfer.Packet.Action;
 import static at.htl.common.transfer.Packet.Resource;
+import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.CREATE_NEW;
+import static java.nio.file.StandardOpenOption.WRITE;
 
 /**
  * @timeline Client
@@ -93,8 +98,15 @@ public class Client {
             if (packet.getAction() == Action.HAND_OUT) {
                 byte[] handout = (byte[]) packet.get(Resource.FILE);
                 if (handout.length != 0) {
-                    Files.write(new File(Exam.getInstance().getPupil().getPathOfProject()
-                            + "/angabe." + packet.get(Resource.FILE_EXTENSION)).toPath(), handout);
+                    File handoutFile = new File(Exam.getInstance().getPupil().getPathOfProject()
+                            + "/angabe." + packet.get(Resource.FILE_EXTENSION));
+                    //TODO test if this is working
+                    Files.write(handoutFile.toPath(), handout);
+//                    try (OutputStream out = new BufferedOutputStream(
+//                            Files.newOutputStream(handoutFile.toPath(),CREATE_NEW,WRITE))) {
+//                        out.write(handout, 0, handout.length);
+//                    }
+
                 }
                 endTime = (LocalTime) packet.get(Resource.TIME);
                 signedIn = true;

@@ -417,23 +417,10 @@ public class Settings {
      * @param student the client who logged in.
      */
     public void loginStudent(final Student student, final String studentNameBefore) {
-        Platform.runLater(() -> {
-            student.setStudentState(StudentState.NORMAL);
-            for (Button btn : students) {
-                if (btn.getText().equals(studentNameBefore)) {
-                    btn.setStyle("-fx-background-color: lawngreen");
-                    if (!student.getPupil().getLastName().equals(studentNameBefore)) {
-                        btn.setText(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0, 3));
-                    }
-                    break;
-                }
-            }
-            if (students.size() > 1) {
-                sortList();
-            }
-            changeStudentCount(true);
-            StudentList.getStudentList().refreshList(studentsList);
-        });
+
+        student.setStudentState(StudentState.NORMAL);
+        StudentList.getStudentList().addStudent(student);
+        changeStudentCount(true);
     }
 
     /**
@@ -443,14 +430,6 @@ public class Settings {
      * @param student the client who finished the test.
      */
     public void finishStudent(final Student student) {
-        Platform.runLater(() -> {
-            for (Student stud : studentsList) {
-                if (stud.getPupil().getEnrolmentID().equals(student.getPupil().getEnrolmentID())) {
-                    stud.setStudentState(StudentState.FINISHED);
-                }
-            }
-            StudentList.getStudentList().refreshList(studentsList);
-        });
     }
 
     /**
@@ -459,6 +438,7 @@ public class Settings {
      * @param studentName Specialises the client to remove from the list.
      */
     public void removeStudent(final String studentName) {
+
         Platform.runLater(() -> {
             for (Button btn : students) {
                 if (btn.getText().equals(studentName)) {
@@ -472,22 +452,6 @@ public class Settings {
     }
 
     /**
-     * searches for a student by his/her name
-     *
-     * @param name of the Student
-     * @return the StudentObject with the correct name
-     */
-    @Deprecated
-    public Student findStudentByName(String name) {
-        for (Student _student : studentsList) {
-            if (_student.getPupil().getLastName().equals(name)) {
-                return _student;
-            }
-        }
-        return null;
-    }
-
-    /**
      * searches for a student by his InetAddress.
      *
      * @param address the address of the student.
@@ -495,7 +459,7 @@ public class Settings {
      */
     public Student findStudentByAddress(String address) {
         for (Student _student : studentsList) {
-            if (_student.getStudentAddress().toString().equals(address)) {
+            if (_student.getStudentIpAddress().toString().equals(address)) {
                 return _student;
             }
         }
@@ -509,42 +473,7 @@ public class Settings {
      */
     public void addStudent(final Student student) {
         student.setStudentState(StudentState.NORMAL);
-        studentsList.add(student);
-        Controller conn = new Controller();
-        final ContextMenu contextMenu = new ContextMenu();
-        MenuItem show = new MenuItem("show:");
-        MenuItem name = new MenuItem(student.getPupil().getFirstName() + " " + student.getPupil().getLastName());
-        MenuItem enrolmentID = new MenuItem(student.getPupil().getEnrolmentID());
-        MenuItem foo = new MenuItem("remove");
-        InetAddress abc = student.getStudentAddress();
-
-        StudentList.getStudentList().refreshList(studentsList);
-
-        if (StudentView.getInstance().getLv() != null)
-            Platform.runLater(() -> {
-                Button btn = new Button(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0, 3));
-                btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
-                btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
-                btn.setStyle("-fx-background-color: crimson");
-                foo.setOnAction(event -> {
-                    conn.kickStudent();
-                    getObservableList().remove(btn);
-                    studentsList.remove(student);
-                });
-                contextMenu.getItems().addAll(name, foo);
-                btn.setContextMenu(contextMenu);
-                btn.setId(student.getStudentAddress().toString());
-                students.add(btn);
-
-                sortList();
-            });
-    }
-
-    /**
-     * sorts the list of the students by their name. A -> Z
-     */
-    private void sortList() {
-        studentsList.sort((o1, o2) -> o1.getStudentState().compareToStudentState(o2.getStudentState()));
+        StudentList.getStudentList().addStudent(student);
     }
 
     //endregion

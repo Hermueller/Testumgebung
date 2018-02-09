@@ -5,6 +5,7 @@ import at.htl.common.enums.StudentState;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
 import at.htl.common.io.FileUtils;
+import at.htl.server.feature.ScreenShotController;
 import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
@@ -51,14 +52,15 @@ class SocketReaderThread extends Thread {
                 //Settings.getInstance().printErrorLine(Level.INFO, "received package from " + student.getName(), true, "OTHER");
 
                 byte[] img = (byte[]) packet.get(Resource.SCREENSHOT);
-                server.saveImage(img, student);
+                ScreenShotController.saveImage(img,student);
 
                 //save and show Lines of Code
                 Settings.getInstance().addValue((long[]) packet.get(Resource.LINES), student);
 
                 finished = (boolean) packet.get(Resource.FINISHED);
                 if (finished) {
-                    Settings.getInstance().finishStudent(student);
+                    student.setStudentState(StudentState.FINISHED);
+                    StudentList.getStudentList().updateStudent(student);
                 }
 
             } catch (Exception ex) {
@@ -67,10 +69,10 @@ class SocketReaderThread extends Thread {
                         Level.INFO, student.getPupil().getLastName() + " logged out!", true, "DISCONNECT");
                 if (!finished) {
                     student.setStudentState(StudentState.CONNECTION_LOST);
-                    Settings.getInstance().removeStudent(student.getPupil().getLastName()  + " " + student.getPupil().getFirstName().substring(0,3));
+                    StudentList.getStudentList().removeStudent(student);
                 } else {
                     student.setStudentState(StudentState.FINISHED);
-                    Settings.getInstance().finishStudent(student);
+                    StudentList.getStudentList().updateStudent(student);
                 }
                 //student.finishSeries();
                 server.shutdown();

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,42 @@ public class StudentList {
         updateButtons();
     }
 
+    public void addStudent(Student student) {
+        for (Student stud : curStudentList) {
+            if (stud.getStudentIpAddress().equals(student.getStudentIpAddress())
+                    || stud.getPupil().getEnrolmentID().equals(student.getPupil().getEnrolmentID())) {
+                updateStudent(student);
+                return;
+            }
+        }
+
+        //Complete new User
+        curStudentList.add(student);
+        updateButtons();
+    }
+
+    public void removeStudent(Student student) {
+        curStudentList.remove(student);
+        updateButtons();
+    }
+
+    public Student findStudentByIpAddress(InetAddress ipAddress){
+        for(Student student : curStudentList){
+            if(student.getStudentIpAddress().equals(ipAddress))
+                return student;
+        }
+        return null;
+    }
+
+    public void sortList() {
+        curStudentList.sort((o1, o2) ->
+                o1.getStudentState().compareToStudentState(o2.getStudentState())
+                + o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName())
+        );
+    }
+
     private void updateButtons() {
+        sortList();
         List<Student> studentList = new ArrayList<>(curStudentList);
 
         Platform.runLater(() -> {
@@ -48,7 +84,7 @@ public class StudentList {
                 String label = student.getPupil().getLastName() + " " + student.getPupil().getFirstName();
 
                 Button btnStudent = new Button(label);
-                btnStudent.setId(""+student.getStudentAddress());
+                btnStudent.setId("" + student.getStudentIpAddress());
 
                 switch (student.getStudentState()) {
                     case NORMAL:
@@ -76,6 +112,18 @@ public class StudentList {
                 });
             }
         });
+    }
+
+    public void updateStudent(Student student) {
+        for (Student stud : curStudentList) {
+            if (stud.getStudentIpAddress().equals(student.getStudentIpAddress())
+                    || stud.getPupil().getEnrolmentID().equals(student.getPupil().getEnrolmentID())) {
+                stud = student;
+                updateButtons();
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Student "+student.getPupil().getEnrolmentID()+" existiert nicht");
     }
 
     public Student getSelectedStudent() {

@@ -47,7 +47,7 @@ public class Student {
     private File locFile = null;
     private StudentState studentState = StudentState.NORMAL;
 
-    private InetAddress studentAddress;
+    private InetAddress studentIpAddress;
     private Server server;
     private String[] filter;
     private Interval interval;
@@ -116,12 +116,12 @@ public class Student {
         return times;
     }
 
-    public InetAddress getStudentAddress() {
-        return studentAddress;
+    public InetAddress getStudentIpAddress() {
+        return studentIpAddress;
     }
 
-    public void setStudentAddress(InetAddress studentAddress) {
-        this.studentAddress = studentAddress;
+    public void setStudentIpAddress(InetAddress studentIpAddress) {
+        this.studentIpAddress = studentIpAddress;
     }
 
     public List<List<XYChart.Series<Number, Number>>> getSeries() {
@@ -155,7 +155,7 @@ public class Student {
 
         Platform.runLater(() -> {
             if (((Button)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem()).getId()
-                    .equals(studentAddress.toString())) {
+                    .equals(studentIpAddress.toString())) {
                 Settings.getInstance().getChart().getData().clear();
             }
         });

@@ -7,6 +7,7 @@ import at.htl.common.io.FileUtils;
 import at.htl.common.io.ScreenShot;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
+import at.htl.server.feature.ScreenShotController;
 import javafx.application.Platform;
 import javafx.util.Duration;
 import org.apache.logging.log4j.Level;
@@ -73,7 +74,7 @@ public class Server {
             student.setPupil(pupil);
         } else {
             student = new Student(pupil);
-            student.setStudentAddress(socket.getInetAddress());
+            student.setStudentIpAddress(socket.getInetAddress());
             Settings.getInstance().addStudent(student);
             newStudent = true;
         }
@@ -119,48 +120,6 @@ public class Server {
 
     public static void setPORT(int PORT) {
         Server.PORT = PORT;
-    }
-
-    /**
-     * It redirects to save and show the screenshot.
-     *
-     * @param image   Specifies the image which should be saved.
-     * @param student Specifies the client from which the screenshot is.
-     */
-    public void saveImage(byte[] image, Student student) {
-        LocalDateTime date = LocalDateTime.now();
-        //SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd'_'HH:mm:ss");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
-        String formattedTime = formatter.format(date);
-        String path = String.format("%s/%s-%s." + Settings.getInstance().getScreenShot().getFormat().toString(),
-                Settings.getInstance().getPathOfImages() + "/" + student.getPupil().getLastName(),
-                student.getPupil().getLastName(),
-                formattedTime);
-
-        ScreenShot screenShot = Settings.getInstance().getScreenShot();
-        screenShot.save(image, path);
-
-        showImage(path, student);
-    }
-
-    /**
-     * It shows the Image on the Teacher-GUI.
-     *
-     * @param fileName Specifies the path of the file (screenshot).
-     * @param student  Specifies the client from which the screenshot is.
-     */
-    public void showImage(final String fileName, final Student student) {
-        Platform.runLater(() -> {
-            Student selected=StudentList.getStudentList().getSelectedStudent();
-            if (selected != null && !Settings.getInstance().isLooksAtScreenshots()) {
-                //ist der Screenshot vom ausgewählten Studenten?
-                (StudentView.getInstance().getIv())
-                        .setImage(new javafx.scene.image.Image("file:" + fileName));
-                Settings.getInstance().addScreenshot("file:" + fileName);
-                Settings.getInstance().setActualScreenshot(fileName);
-
-            }
-        });
     }
 
     /**

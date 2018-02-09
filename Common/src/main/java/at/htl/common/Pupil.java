@@ -109,4 +109,7 @@ public class Pupil implements Serializable {
         return String.format("%2d: %s", catalogNumber, lastName);
     }
 
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
 }
