@@ -339,9 +339,9 @@ public class Controller implements Initializable {
      */
     public boolean validForm() {
         String serverIP = tfServerIP.getText();
-        int port = MyUtils.strToInt(tfPort.getText());
+        int port = MyUtils.stringToInt(tfPort.getText());
         String enrolmentID = tfEnrolmentID.getText();
-        int catalogNumber = MyUtils.strToInt(tfCatalogNumber.getText());
+        int catalogNumber = MyUtils.stringToInt(tfCatalogNumber.getText());
         String firstName = tfFirstName.getText();
         String lastName = tfLastName.getText();
         String pathOfProject = tfPathOfProject.getText();

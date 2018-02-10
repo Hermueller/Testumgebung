@@ -29,7 +29,7 @@ public class ScreenShot implements Serializable {
     //public static final double DEFAULT_SCALE = 1.0;
 
     private Format format = Format.JPG;
-    private float quality = 0.8f;
+    private float quality = 0.6f;
     private double scale = 1.0;
 
     public ScreenShot() {
@@ -83,6 +83,16 @@ public class ScreenShot implements Serializable {
      *
      * @return ByteArray (Screenshot)
      */
+    public byte[] get(Robot robot) {
+        return get(robot, format, quality, scale);
+    }
+
+    /**
+     * take a screenshot and returns it as a specific format
+     *
+     * @return ByteArray (Screenshot)
+     */
+    @Deprecated //TODO Update Tests
     public byte[] get() {
         return get(null, format, quality, scale);
     }

@@ -1,6 +1,8 @@
 package at.htl.common.actions;
 
 import at.htl.common.fx.FxUtils;
+import at.htl.common.io.FileUtils;
+import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
 import java.net.*;
@@ -25,25 +27,20 @@ public class IpConnection {
     public static boolean isIpReachable(String ip, int port, boolean errorPopUp, boolean successPopUp) {
         boolean connected = true;
         if (ip.isEmpty()) {
-            FxUtils.showPopUp("Please enter an IP address!", false);
+            throw new IllegalArgumentException("Please enter an IP address");
+//            FxUtils.showPopUp("Please enter an IP address!", false);
         } else {
-            String msg = "IP and port are valid!";
             try (Socket s = new Socket()){
                 SocketAddress sa = new InetSocketAddress(ip, port);
                 s.connect(sa, 2000);
             } catch (Exception e) {
-                if (e.getMessage().contains("Connection refused"))
-                    msg = "Invalid port!";
-                else if (e instanceof PortUnreachableException)
-                    msg = "Can't reach IP address!";
-                else
-                    msg = e.getMessage();
+                FileUtils.log("isReachable", Level.ERROR,e.getMessage());
                 connected = false;
             }
 
-            if ((errorPopUp && !connected) || (successPopUp && connected)) {
-                FxUtils.showPopUp(msg, connected);
-            }
+//            if ((errorPopUp && !connected) || (successPopUp && connected)) {
+//                FxUtils.showPopUp(msg, connected);
+//            }
         }
         return connected;
     }

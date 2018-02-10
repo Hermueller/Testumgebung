@@ -415,7 +415,7 @@ public class Settings {
 
         student.setStudentState(StudentState.NORMAL);
         StudentList.getStudentList().addStudent(student);
-        changeStudentCount(true);
+        Platform.runLater(() -> changeStudentCount(true));
     }
 
     /**

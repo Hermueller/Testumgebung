@@ -41,7 +41,7 @@ public class DocumentsTransfer {
             FileUtils.log(DocumentsTransfer.class, Level.INFO, "sending completed: " + file.getName());
             sent = true;
         } catch (IOException e) {
-            FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can not send screenshot to teacher" + MyUtils.exToStr(e));
+            FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can not send screenshot to teacher" + MyUtils.exceptionToString(e));
         }
         return sent;
     }
@@ -94,7 +94,7 @@ public class DocumentsTransfer {
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();
-                FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can't send the object! " + MyUtils.exToStr(e));
+                FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can't send the object! " + MyUtils.exceptionToString(e));
             }
         }
         return false;
@@ -114,7 +114,7 @@ public class DocumentsTransfer {
             return object;
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
-            FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can't receive the object! " + MyUtils.exToStr(e));
+            FileUtils.log(DocumentsTransfer.class, Level.ERROR, "can't receive the object! " + MyUtils.exceptionToString(e));
         }
         return false;
     }

@@ -10,7 +10,6 @@ import at.htl.server.*;
 import at.htl.server.advanced.AdvancedSettingsPackage;
 import at.htl.server.entity.Interval;
 import at.htl.server.entity.Student;
-import at.htl.server.logic.SoundController;
 import com.aquafx_project.AquaFx;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -342,7 +341,7 @@ public class Controller implements Initializable {
             String[] dirs = currFileLoc.split("/");
             Settings.getInstance().setPath(currFileLoc.replace(dirs[dirs.length - 1], ""));
         } catch (URISyntaxException e) {
-            FileUtils.log(this, Level.WARN, "Could not set Standardpath" + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.WARN, "Could not set Standardpath" + MyUtils.exceptionToString(e));
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
        }*/
 
@@ -1451,7 +1450,7 @@ public class Controller implements Initializable {
                 tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
             }
         } catch (URISyntaxException e) {
-            FileUtils.log(this, Level.WARN, "Coudn't find current path" + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.WARN, "Coudn't find current path" + MyUtils.exceptionToString(e));
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
         }
     }

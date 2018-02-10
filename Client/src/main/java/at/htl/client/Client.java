@@ -14,15 +14,10 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalTime;
 
 import static at.htl.common.transfer.Packet.Action;
 import static at.htl.common.transfer.Packet.Resource;
-import static java.nio.file.StandardOpenOption.CREATE;
-import static java.nio.file.StandardOpenOption.CREATE_NEW;
-import static java.nio.file.StandardOpenOption.WRITE;
 
 /**
  * @timeline Client
@@ -115,7 +110,7 @@ public class Client {
             }
         } catch (IOException | ClassNotFoundException e) {
             signedIn = false;
-            FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exceptionToString(e));
         }
         processor.start();
         reader.start();
@@ -129,21 +124,25 @@ public class Client {
         public void run() {
             try {
                 Object obj = in.readObject();
+
+                //TODO this while loop seems "unused"
                 while (obj.getClass().toString().contains(Packet.class.toString())) {
                     obj = in.readObject();
                 }
+
                 RobotAction action = (RobotAction) obj;
                 do {
-                    if (!action.equals(jobs.peekLast())) {
-                        jobs.add(action);
-                    } else {
-                        FileUtils.log(this, Level.ERROR, "Discarding duplicate request");
-                    }
+                    jobs.add(action);
+                    //TODO check if duplicate requests should be discarded
+//                    if (!action.equals(jobs.peekLast())) {
+//                    } else {
+//                        FileUtils.log(this, Level.INFO, "Discarding duplicate request");
+//                    }
                 } while ((action = (RobotAction) in.readObject()) != null);
             } catch (EOFException eof) {
                 FileUtils.log(this, Level.ERROR, "Connection closed!");
             } catch (Exception ex) {
-                FileUtils.log(this, Level.ERROR, "Send Boolean " + MyUtils.exToStr(ex));
+                FileUtils.log(this, Level.ERROR, "Send Boolean " + MyUtils.exceptionToString(ex));
             } finally {
                 if (isRunning)
                     Platform.runLater(() -> FxUtils.showPopUp("LOST CONNECTION", false));
@@ -165,13 +164,16 @@ public class Client {
         @Override
         public void run() {
             try {
-                while (isRunning && !isInterrupted() && socket.isConnected()) {
-                    DocumentsTransfer.sendObject(getOut(), jobs.take().execute(robot));
+                while (!isInterrupted() && socket.isConnected()) {
+                    RobotAction action = jobs.take();
+                    Object document = action.execute(robot);
+
+                    DocumentsTransfer.sendObject(getOut(), document);
                 }
             } catch (InterruptedException e) {
                 interrupt();
             } catch (IOException e) {
-                FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exToStr(e));
+                FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exceptionToString(e));
             }
         }
     }
@@ -183,7 +185,7 @@ public class Client {
         try {
             getOut().close();
         } catch (IOException e) {
-            FileUtils.log(this, Level.ERROR, "Error by closing of ObjectOutStream!" + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR, "Error by closing of ObjectOutStream!" + MyUtils.exceptionToString(e));
         }
     }
 

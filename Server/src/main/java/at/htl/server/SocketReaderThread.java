@@ -65,7 +65,7 @@ class SocketReaderThread extends Thread {
                 }
 
             } catch (Exception ex) {
-                FileUtils.log(this, Level.INFO, "canceled " + MyUtils.exToStr(ex));
+                FileUtils.log(this, Level.INFO, "canceled " + MyUtils.exceptionToString(ex));
                 Settings.getInstance().printErrorLine(
                         Level.INFO, student.getPupil().getLastName() + " logged out!", true, "DISCONNECT");
                 if (!finished) {
@@ -90,7 +90,7 @@ class SocketReaderThread extends Thread {
         try {
             in.close();
         } catch (IOException e) {
-            FileUtils.log(this, Level.WARN, "Error by closing of ObjectInputStream!" + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.WARN, "Error by closing of ObjectInputStream!" + MyUtils.exceptionToString(e));
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
         }
     }
