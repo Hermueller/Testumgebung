@@ -6,7 +6,7 @@
 
     <groupId>at.htl</groupId>
     <artifactId>remotecontrol</artifactId>
-    <version>1.18.49</version>
+    <version>1.18.50</version>
     <modules>
         <module>Client</module>
         <module>Common</module>
