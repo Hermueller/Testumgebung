@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -95,30 +97,36 @@ public class FxUtils {
     /**
      * Displays text on a Label
      *
-     * @param alert Label in which the text should be displayed
-     * @param text  specifies the message to show
+     * @param alert  Label in which the text should be displayed
+     * @param text   specifies the message to show
      * @param status
      */
     public static void setMsg(Label alert, String text, int status) {
-        String color;
+        String bgColor;
+        String fColor;
         switch (status) {
             case 0: // Error
-                color = "red";
+                bgColor = "#d32f2f";
+                fColor = "white";
                 break;
             case 1: // Warning
-                color = "yellow";
+                bgColor = "#fdd835";
+                fColor = "black";
                 break;
             case 2: // Successfully
-                color = "limegreen";
+                bgColor = "#4caf50";
+                fColor = "black";
                 break;
             default:
-                color = "white";
+                bgColor = "transparent";
+                fColor = "transparent";
                 break;
         }
 
         Platform.runLater(() -> {
             alert.setText(text);
-            alert.setStyle("-fx-background-color: " + color);
+            alert.setStyle("-fx-background-color: " + bgColor);
+            alert.setTextFill(Color.web(fColor));
         });
     }
 
@@ -155,11 +163,9 @@ public class FxUtils {
     /**
      * shows a message in a pop-up window.
      *
-     * @see   <a href="http://github.com/BeatingAngel/Testumgebung/issues/27">PopUp GitHub Issue</a>
-     *
      * @param message   the message to show in the pop-up.
      * @param isSuccess true if success-message and false if error-message
-     *
+     * @see <a href="http://github.com/BeatingAngel/Testumgebung/issues/27">PopUp GitHub Issue</a>
      * @since 1.11.34.060
      */
     public static void showPopUp(String message, boolean isSuccess) {
