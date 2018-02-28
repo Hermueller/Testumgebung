@@ -23,6 +23,7 @@ public class StudentList {
     private SimpleObjectProperty<Student> selectedStudent;
 
     private Button selectedStudentBtn;
+    private Runnable listSizeChanged;
 
     private StudentList(VBox vbStudentList) {
         this.vbStudentList = vbStudentList;
@@ -47,11 +48,13 @@ public class StudentList {
 
         //Complete new User
         curStudentList.add(student);
+        onListSizeChanged();
         updateButtons();
     }
 
     public void removeStudent(Student student) {
         curStudentList.remove(student);
+        onListSizeChanged();
         updateButtons();
     }
 
@@ -81,6 +84,7 @@ public class StudentList {
 
     public void refreshList() {
         updateButtons();
+        onListSizeChanged();
     }
 
     private void updateButtons() {
@@ -173,5 +177,18 @@ public class StudentList {
         selectedStudentBtn = btnStudent;
         btnStudent.setStyle("-fx-background-color: #2900d4");
         selectedStudent.set(student);
+    }
+
+    public void setOnListSizeChanged(Runnable runnable){
+        this.listSizeChanged = runnable;
+    }
+
+    private void onListSizeChanged(){
+        if(this.listSizeChanged != null)
+            this.listSizeChanged.run();
+    }
+
+    public int size() {
+        return this.curStudentList.size();
     }
 }
