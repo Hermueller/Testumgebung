@@ -78,9 +78,14 @@ public class StudentList {
 
     public void sortList() {
         curStudentList.sort((o1, o2) -> {
-            int val = o1.getStudentState().compareToStudentState(o2.getStudentState());
-            //+ o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName())
-            return val;
+            int comp = o1.getStudentState().compareToStudentState(o2.getStudentState());
+
+            if(comp != 0){
+                return comp;
+            }
+            else{
+                return o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName());
+            }
         });
     }
 
