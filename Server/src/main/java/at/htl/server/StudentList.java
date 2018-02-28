@@ -1,7 +1,6 @@
 package at.htl.server;
 
 import at.htl.server.entity.Student;
-import at.htl.server.logic.SoundController;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
@@ -22,6 +21,8 @@ public class StudentList {
     private List<Student> curStudentList;
 
     private SimpleObjectProperty<Student> selectedStudent;
+
+    private Button selectedStudentBtn;
 
     private StudentList(VBox vbStudentList) {
         this.vbStudentList = vbStudentList;
@@ -54,18 +55,18 @@ public class StudentList {
         updateButtons();
     }
 
-    public Student findStudentByIpAddress(InetAddress ipAddress){
-        for(Student student : curStudentList){
-            if(student.getStudentIpAddress().equals(ipAddress))
+    public Student findStudentByIpAddress(InetAddress ipAddress) {
+        for (Student student : curStudentList) {
+            if (student.getStudentIpAddress().equals(ipAddress))
                 return student;
         }
         return null;
     }
 
     @Deprecated
-    public Student findStudentByIpAddress(String ipAddress){
-        for(Student student : curStudentList){
-            if(student.getStudentIpAddress().toString().equals(ipAddress))
+    public Student findStudentByIpAddress(String ipAddress) {
+        for (Student student : curStudentList) {
+            if (student.getStudentIpAddress().toString().equals(ipAddress))
                 return student;
         }
         return null;
@@ -74,11 +75,11 @@ public class StudentList {
     public void sortList() {
         curStudentList.sort((o1, o2) ->
                 o1.getStudentState().compareToStudentState(o2.getStudentState())
-                + o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName())
+                        + o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName())
         );
     }
 
-    public void refreshList(){
+    public void refreshList() {
         updateButtons();
     }
 
@@ -93,6 +94,7 @@ public class StudentList {
 
                 Button btnStudent = new Button(label);
                 btnStudent.setId("" + student.getStudentIpAddress());
+
 
                 switch (student.getStudentState()) {
                     case NORMAL:
@@ -116,7 +118,7 @@ public class StudentList {
                 vbStudentList.getChildren().add(btnStudent);
 
                 btnStudent.setOnAction(event -> {
-                    selectedStudent.set(student);
+                    selectStudent(student, btnStudent);
                 });
             }
         });
@@ -131,7 +133,7 @@ public class StudentList {
                 return;
             }
         }
-        throw new IllegalArgumentException("Student "+student.getPupil().getEnrolmentID()+" existiert nicht");
+        throw new IllegalArgumentException("Student " + student.getPupil().getEnrolmentID() + " existiert nicht");
     }
 
     public Student getSelectedStudent() {
@@ -148,5 +150,28 @@ public class StudentList {
 
     public static StudentList getStudentList() {
         return StudentList.instance;
+    }
+
+    private void selectStudent(Student student, Button btnStudent) {
+
+        if (selectedStudentBtn != null) {
+            switch (student.getStudentState()) {
+                case NORMAL:
+                    btnStudent.setStyle("-fx-background-color: #00d474");
+                    break;
+                case FINISHED:
+                    btnStudent.setStyle("-fx-background-color: #00c2d4");
+                    break;
+                case CONNECTION_LOST:
+                    btnStudent.setStyle("-fx-background-color: #d45500");
+                    break;
+                default:
+                    btnStudent.setStyle("-fx-background-color: #d4006f");
+                    break;
+            }
+        }
+        selectedStudentBtn = btnStudent;
+        btnStudent.setStyle("-fx-background-color: #2900d4");
+        selectedStudent.set(student);
     }
 }
