@@ -96,22 +96,7 @@ public class StudentList {
                 Button btnStudent = new Button(label);
                 btnStudent.setId("" + student.getStudentIpAddress());
 
-
-                switch (student.getStudentState()) {
-                    case NORMAL:
-                        btnStudent.setStyle("-fx-background-color: #00d474");
-                        break;
-                    case FINISHED:
-                        btnStudent.setStyle("-fx-background-color: #00c2d4");
-                        break;
-                    case CONNECTION_LOST:
-                        btnStudent.setStyle("-fx-background-color: #d45500");
-                        break;
-                    default:
-                        btnStudent.setStyle("-fx-background-color: #d4006f");
-                        break;
-                }
-
+                btnStudent.setStyle("-fx-background-color: " + getStudentBackground(student));
 
                 btnStudent.setTextFill(Paint.valueOf("white"));
 
@@ -159,25 +144,27 @@ public class StudentList {
     }
 
     private void selectStudent(Student student, Button btnStudent) {
-        if (selectedStudentBtn != null && selectedStudent.get() != null) {
-            switch (selectedStudent.get().getStudentState()) {
-                case NORMAL:
-                    selectedStudentBtn.setStyle("-fx-background-color: #00d474");
-                    break;
-                case FINISHED:
-                    selectedStudentBtn.setStyle("-fx-background-color: #00c2d4");
-                    break;
-                case CONNECTION_LOST:
-                    selectedStudentBtn.setStyle("-fx-background-color: #d45500");
-                    break;
-                default:
-                    selectedStudentBtn.setStyle("-fx-background-color: #d4006f");
-                    break;
-            }
-        }
+        if (selectedStudentBtn != null && selectedStudent.get() != null)
+            selectedStudentBtn.setStyle("-fx-background-color: " + getStudentBackground(selectedStudent.get()));
+
         selectedStudentBtn = btnStudent;
         btnStudent.setStyle(btnStudent.getStyle() +"; -fx-border-color: black;\n"
                 + "-fx-border-width: 1;\n");
         selectedStudent.set(student);
+    }
+
+    private String getStudentBackground(Student student) {
+        if (student == null)
+            return null;
+        switch (student.getStudentState()) {
+            case NORMAL:
+                return "#00d474";
+            case FINISHED:
+                return  "#00c2d4";
+            case CONNECTION_LOST:
+                return "#d45500";
+            default:
+                return "#d4006f";
+        }
     }
 }
