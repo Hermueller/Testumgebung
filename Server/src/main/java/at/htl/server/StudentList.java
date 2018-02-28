@@ -24,6 +24,7 @@ public class StudentList {
     private SimpleObjectProperty<Student> selectedStudent;
 
     private Button selectedStudentBtn;
+    private Runnable listSizeChanged;
 
     private StudentList(VBox vbStudentList) {
         this.vbStudentList = vbStudentList;
@@ -48,11 +49,13 @@ public class StudentList {
 
         //Complete new User
         curStudentList.add(student);
+        onListSizeChanged();
         updateButtons();
     }
 
     public void removeStudent(Student student) {
         curStudentList.remove(student);
+        onListSizeChanged();
         updateButtons();
     }
 
@@ -74,14 +77,21 @@ public class StudentList {
     }
 
     public void sortList() {
-        curStudentList.sort((o1, o2) ->
-                o1.getStudentState().compareToStudentState(o2.getStudentState())
-                        + o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName())
-        );
+        curStudentList.sort((o1, o2) -> {
+            int comp = o1.getStudentState().compareToStudentState(o2.getStudentState());
+
+            if(comp != 0){
+                return comp;
+            }
+            else{
+                return o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName());
+            }
+        });
     }
 
     public void refreshList() {
         updateButtons();
+        onListSizeChanged();
     }
 
     private void updateButtons() {
@@ -171,5 +181,18 @@ public class StudentList {
             default:
                 return "#d4006f";
         }
+    }
+
+    public void setOnListSizeChanged(Runnable runnable){
+        this.listSizeChanged = runnable;
+    }
+
+    private void onListSizeChanged(){
+        if(this.listSizeChanged != null)
+            this.listSizeChanged.run();
+    }
+
+    public int size() {
+        return this.curStudentList.size();
     }
 }
