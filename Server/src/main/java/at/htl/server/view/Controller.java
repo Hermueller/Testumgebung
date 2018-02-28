@@ -728,19 +728,12 @@ public class Controller implements Initializable {
      * changes the quickinfo for showing the student.
      */
     public void initializePatrol() {
-        ContextMenu contextMenu = new ContextMenu();
-        MenuItem five = new MenuItem("5 seconds");
-        MenuItem fifteen = new MenuItem("15 seconds");
-        MenuItem thirty = new MenuItem("30 seconds");
-        MenuItem sixty = new MenuItem("60 seconds");
-
-        five.setOnAction((event -> Settings.getInstance().setSleepTime(5000)));
-        fifteen.setOnAction((event -> Settings.getInstance().setSleepTime(15000)));
-        thirty.setOnAction((event -> Settings.getInstance().setSleepTime(30000)));
-        sixty.setOnAction((event -> Settings.getInstance().setSleepTime(60000)));
-
-        contextMenu.getItems().addAll(five, fifteen, thirty, sixty);
-        btnPatrolMode.setContextMenu(contextMenu);
+        slHarvesterStudent.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Settings.getInstance().setSleepTime(newValue.longValue() * 1000);
+            }
+        });
     }
 
     //endregion

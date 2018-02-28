@@ -155,7 +155,7 @@ public class StudentList {
         return StudentList.instance;
     }
 
-    private void selectStudent(Student student) {
+    public void selectStudent(Student student) {
         if (student.getCurrButton() == null)
             return;
 
@@ -194,5 +194,9 @@ public class StudentList {
 
     public int size() {
         return this.curStudentList.size();
+    }
+
+    public List<Student> getCurStudentList() {
+        return curStudentList;
     }
 }
