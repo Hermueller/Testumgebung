@@ -104,12 +104,14 @@ public class StudentList {
 
                 vbStudentList.getChildren().add(btnStudent);
 
+                student.setCurrButton(btnStudent);
+
                 Student selected = selectedStudent.get();
                 if (selected != null && selected.getPupil() == student.getPupil())
-                    selectStudent(student, btnStudent);
+                    selectStudent(student);
 
                 btnStudent.setOnAction(event -> {
-                    selectStudent(student, btnStudent);
+                    selectStudent(student);
                 });
             }
         });
@@ -143,12 +145,15 @@ public class StudentList {
         return StudentList.instance;
     }
 
-    private void selectStudent(Student student, Button btnStudent) {
+    private void selectStudent(Student student) {
+        if (student.getCurrButton() == null)
+            return;
+
         if (selectedStudentBtn != null && selectedStudent.get() != null)
             selectedStudentBtn.setStyle("-fx-background-color: " + getStudentBackground(selectedStudent.get()));
 
-        selectedStudentBtn = btnStudent;
-        btnStudent.setStyle(btnStudent.getStyle() +"; -fx-border-color: black;\n"
+        selectedStudentBtn = student.getCurrButton();
+        selectedStudentBtn.setStyle(selectedStudentBtn.getStyle() +"; -fx-border-color: black;\n"
                 + "-fx-border-width: 1;\n");
         selectedStudent.set(student);
     }

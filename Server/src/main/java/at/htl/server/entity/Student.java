@@ -46,6 +46,7 @@ public class Student {
     private String pathOfImages;
     private File locFile = null;
     private StudentState studentState = StudentState.NORMAL;
+    private Button currButton;
 
     private InetAddress studentIpAddress;
     private Server server;
@@ -63,6 +64,16 @@ public class Student {
     }
 
     //region Getter and Setter
+
+
+    public Button getCurrButton() {
+        return currButton;
+    }
+
+    public void setCurrButton(Button currButton) {
+        this.currButton = currButton;
+    }
+
     public Pupil getPupil() {
         return pupil;
     }
