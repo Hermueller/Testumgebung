@@ -153,20 +153,19 @@ public class StudentList {
     }
 
     private void selectStudent(Student student, Button btnStudent) {
-
         if (selectedStudentBtn != null) {
             switch (student.getStudentState()) {
                 case NORMAL:
-                    btnStudent.setStyle("-fx-background-color: #00d474");
+                    selectedStudentBtn.setStyle("-fx-background-color: #00d474");
                     break;
                 case FINISHED:
-                    btnStudent.setStyle("-fx-background-color: #00c2d4");
+                    selectedStudentBtn.setStyle("-fx-background-color: #00c2d4");
                     break;
                 case CONNECTION_LOST:
-                    btnStudent.setStyle("-fx-background-color: #d45500");
+                    selectedStudentBtn.setStyle("-fx-background-color: #d45500");
                     break;
                 default:
-                    btnStudent.setStyle("-fx-background-color: #d4006f");
+                    selectedStudentBtn.setStyle("-fx-background-color: #d4006f");
                     break;
             }
         }
