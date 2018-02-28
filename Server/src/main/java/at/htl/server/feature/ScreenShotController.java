@@ -45,7 +45,7 @@ public class ScreenShotController {
     public static void showImage(final String fileName, final Student student) {
         Platform.runLater(() -> {
             Student selected= StudentList.getStudentList().getSelectedStudent();
-            if (selected != null && !Settings.getInstance().isLooksAtScreenshots()) {
+            if (selected != null && selected == student && !Settings.getInstance().isLooksAtScreenshots()) {
                 //ist der Screenshot vom ausgewählten Studenten?
                 (StudentView.getInstance().getIv())
                         .setImage(new javafx.scene.image.Image("file:" + fileName));
