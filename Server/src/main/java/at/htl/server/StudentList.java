@@ -1,5 +1,6 @@
 package at.htl.server;
 
+import at.htl.common.fx.StudentView;
 import at.htl.server.entity.Student;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
