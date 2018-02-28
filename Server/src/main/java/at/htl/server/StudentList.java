@@ -77,10 +77,11 @@ public class StudentList {
     }
 
     public void sortList() {
-        curStudentList.sort((o1, o2) ->
-                o1.getStudentState().compareToStudentState(o2.getStudentState())
-                        + o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName())
-        );
+        curStudentList.sort((o1, o2) -> {
+            int val = o1.getStudentState().compareToStudentState(o2.getStudentState());
+            //+ o1.getPupil().getLastName().compareTo(o2.getPupil().getLastName())
+            return val;
+        });
     }
 
     public void refreshList() {
@@ -170,9 +171,6 @@ public class StudentList {
             default:
                 return "#d4006f";
         }
-        selectedStudentBtn = btnStudent;
-        btnStudent.setStyle("-fx-background-color: #2900d4");
-        selectedStudent.set(student);
     }
 
     public void setOnListSizeChanged(Runnable runnable){
