@@ -112,11 +112,16 @@ public class StudentList {
                         break;
                 }
 
+
                 btnStudent.setTextFill(Paint.valueOf("white"));
 
                 btnStudent.setPrefWidth(vbStudentList.getPrefWidth());
 
                 vbStudentList.getChildren().add(btnStudent);
+
+                Student selected = selectedStudent.get();
+                if (selected != null && selected.getPupil() == student.getPupil())
+                    selectStudent(student, btnStudent);
 
                 btnStudent.setOnAction(event -> {
                     selectStudent(student, btnStudent);
