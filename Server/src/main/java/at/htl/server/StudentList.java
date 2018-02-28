@@ -154,8 +154,8 @@ public class StudentList {
     }
 
     private void selectStudent(Student student, Button btnStudent) {
-        if (selectedStudentBtn != null) {
-            switch (student.getStudentState()) {
+        if (selectedStudentBtn != null && selectedStudent.get() != null) {
+            switch (selectedStudent.get().getStudentState()) {
                 case NORMAL:
                     selectedStudentBtn.setStyle("-fx-background-color: #00d474");
                     break;
@@ -171,7 +171,8 @@ public class StudentList {
             }
         }
         selectedStudentBtn = btnStudent;
-        btnStudent.setStyle("-fx-background-color: #2900d4");
+        btnStudent.setStyle(btnStudent.getStyle() +"; -fx-border-color: black;\n"
+                + "-fx-border-width: 1;\n");
         selectedStudent.set(student);
     }
 }
