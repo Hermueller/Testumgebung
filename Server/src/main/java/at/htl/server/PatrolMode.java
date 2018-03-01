@@ -1,13 +1,13 @@
 package at.htl.server;
 
+import at.htl.common.enums.StudentState;
 import at.htl.common.io.FileUtils;
 import at.htl.server.entity.Student;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import org.apache.logging.log4j.Level;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -34,20 +34,21 @@ public class PatrolMode extends Thread {
         while (running) {
 
             try {
-
                 StudentList sl = StudentList.getStudentList();
-                List<Student> students = sl.getCurStudentList();
-                Platform.runLater(() -> sl.selectStudent(students.get(actualPos)));
+                List<Student> students = sl.getCurStudentList()
+                        .stream().filter(st -> st.getStudentState() == StudentState.NORMAL)
+                        .collect(Collectors.toList());
 
-                long sleepTime = Settings.getInstance().getSleepTime();
-                Thread.sleep(sleepTime);
-                System.out.println(sleepTime);
+                Platform.runLater(() -> sl.selectStudent(students.get(actualPos)));
 
                 if(actualPos >= students.size() - 1)
                     actualPos = 0;
                 else
                     actualPos++;
 
+                long sleepTime = Settings.getInstance().getSleepTime();
+                Thread.sleep(sleepTime);
+                System.out.println(sleepTime);
             } catch (Exception e) {
                 FileUtils.log(Level.WARN, e.getMessage());
                 Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
