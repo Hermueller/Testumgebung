@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level;
 import java.awt.*;
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.nio.file.Files;
 import java.time.LocalTime;
 
@@ -139,9 +140,10 @@ public class Client {
 //                        FileUtils.log(this, Level.INFO, "Discarding duplicate request");
 //                    }
                 } while ((action = (RobotAction) in.readObject()) != null);
-            } catch (EOFException eof) {
+            } catch (EOFException|SocketException exception) {
                 FileUtils.log(this, Level.ERROR, "Connection closed!");
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 FileUtils.log(this, Level.ERROR, "Send Boolean " + MyUtils.exceptionToString(ex));
             } finally {
                 if (isRunning)
@@ -174,6 +176,7 @@ public class Client {
                 interrupt();
             } catch (IOException e) {
                 FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exceptionToString(e));
+                closeOut();
             }
         }
     }

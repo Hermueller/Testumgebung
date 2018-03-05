@@ -5,6 +5,7 @@ import at.htl.common.io.FileUtils;
 import org.apache.logging.log4j.Level;
 
 import java.io.*;
+import java.net.SocketException;
 
 /**
  * @timeline DocumentsTransfer
