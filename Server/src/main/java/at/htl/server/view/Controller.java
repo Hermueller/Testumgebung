@@ -275,6 +275,7 @@ public class Controller implements Initializable {
         StudentView.getInstance().setIv(ivLiveView);
 //        StudentView.getInstance().setLv(lvStudents);
         Settings.getInstance().setLogArea(anchorPaneScrollLog);
+        //TODO
         scrollLog.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         setDynamicScreenSize();
@@ -318,10 +319,15 @@ public class Controller implements Initializable {
 
                 if (!changing) {
                     saveScreenshottime();
-                    Platform.runLater(() -> Notifications.create()
-                            .title("Student Settings updated")
-                            .hideAfter(Duration.seconds(1))
-                            .showInformation());
+                    try {
+                        Platform.runLater(() -> Notifications.create()
+                                .title("Student Settings updated")
+                                .hideAfter(Duration.seconds(1))
+                                .showInformation());
+                    }
+                    catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         });
@@ -362,7 +368,7 @@ public class Controller implements Initializable {
                     .getLv().getSelectionModel().getSelectedItem();
             Student toChange = StudentList.getStudentList()
                     .findStudentByIpAddress(selected.getId());
-
+            System.out.println(selected.getId());
             toChange.setInterval(new Interval(new_time));
             String[] filters = getSelectedFilters();
             toChange.setFilter(filters);

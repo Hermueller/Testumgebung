@@ -72,7 +72,9 @@ public class Server {
         if (StudentList.getStudentList().findStudentByIpAddress(socket.getInetAddress()) != null) {
             student = StudentList.getStudentList().findStudentByIpAddress(socket.getInetAddress());
             student.setPupil(pupil);
-        } else {
+            StudentList.getStudentList().refreshList();
+        }
+        else {
             student = new Student(pupil);
             student.setStudentIpAddress(socket.getInetAddress());
             Settings.getInstance().addStudent(student);

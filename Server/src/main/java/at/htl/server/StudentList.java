@@ -53,11 +53,6 @@ public class StudentList {
         updateButtons();
     }
 
-    public void removeStudent(Student student) {
-        curStudentList.remove(student);
-        onListSizeChanged();
-        updateButtons();
-    }
 
     public Student findStudentByIpAddress(InetAddress ipAddress) {
         for (Student student : curStudentList) {
