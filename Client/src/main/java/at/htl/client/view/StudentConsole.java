@@ -52,7 +52,7 @@ public class StudentConsole {
         }
 
         int input = 0;
-        System.out.println("[x] Exit | [p] Properties | [f] Toggle Test finished to " + controller.isTestFinished());
+        System.out.println("[x] Exit | [p] Properties | [f] Toggle Test finished to " + !controller.isTestFinished());
         while ((input = System.in.read()) != (int) 'x') {
             if (input != 10) { //ENTER key
                 if (input == (int) 'p') {
