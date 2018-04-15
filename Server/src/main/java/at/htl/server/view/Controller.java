@@ -1392,11 +1392,13 @@ public class Controller implements Initializable {
     public void chooseHandOutFile() {
         // Create and show the file filter
         FileChooser fc = new FileChooser();
-        //fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
-        File yourZip = fc.showOpenDialog(new Stage());
         if (Settings.getInstance().getHandOutFile() != null) {
             fc.setInitialDirectory(Settings.getInstance().getHandOutFile());
+        } else {
+            fc.setInitialDirectory(new File(System.getProperty("user.dir")));
         }
+        //fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
+        File yourZip = fc.showOpenDialog(new Stage());
 
         // Check the user pressed OK, and not Cancel.
         if (yourZip != null) {
