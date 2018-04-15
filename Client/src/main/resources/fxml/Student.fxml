@@ -111,7 +111,7 @@
                               <Insets left="10.0" />
                           </GridPane.margin>
                       </Button>
-                      <Button fx:id="btnTestConnection" mnemonicParsing="false" onAction="#testConnection" text="Test Connection" GridPane.columnIndex="2">
+                      <Button fx:id="btnTestConnection" mnemonicParsing="false" onAction="#testConnection" text="Test Connection" visible="false" GridPane.columnIndex="2">
                           <GridPane.margin>
                               <Insets left="10.0" />
                           </GridPane.margin>
