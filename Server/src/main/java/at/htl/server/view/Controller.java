@@ -361,6 +361,7 @@ public class Controller implements Initializable {
 
     public void saveScreenshottime() {
         long new_time = (long) slHarvesterStudent.getValue();
+        Interval i = new Interval(new_time);
 
         if (!tbToggleSettings.isSelected()) {
             /*Button selected = (Button) StudentView.getInstance()
@@ -371,11 +372,12 @@ public class Controller implements Initializable {
             toChange.setInterval(new Interval(new_time));
             String[] filters = getSelectedFilters();
             toChange.setFilter(filters);*/
-            StudentList.getStudentList().getSelectedStudent().setInterval(new Interval(new_time));
+            StudentList.getStudentList().getSelectedStudent().setInterval(i);
         } else {
             for (Student std : StudentList.getStudentList().getCurStudentList()) {
-                std.setInterval(new Interval(new_time));
+                std.setInterval(i);
             }
+            Settings.getInstance().setInterval(i);
 
             /*for (Object obj : StudentView.getInstance().getLv().getItems()) {
                 String address = ((Button) obj).getId();
