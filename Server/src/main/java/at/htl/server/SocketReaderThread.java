@@ -1,9 +1,12 @@
 package at.htl.server;
 
 import at.htl.common.MyUtils;
+import at.htl.common.enums.StudentState;
 import at.htl.common.transfer.Packet;
 import at.htl.server.entity.Student;
 import at.htl.common.io.FileUtils;
+import at.htl.server.feature.ScreenShotController;
+import at.htl.server.logic.SoundController;
 import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
@@ -50,24 +53,28 @@ class SocketReaderThread extends Thread {
                 //Settings.getInstance().printErrorLine(Level.INFO, "received package from " + student.getName(), true, "OTHER");
 
                 byte[] img = (byte[]) packet.get(Resource.SCREENSHOT);
-                server.saveImage(img, student);
+                ScreenShotController.saveImage(img,student);
 
                 //save and show Lines of Code
                 Settings.getInstance().addValue((long[]) packet.get(Resource.LINES), student);
 
                 finished = (boolean) packet.get(Resource.FINISHED);
                 if (finished) {
-                    Settings.getInstance().finishStudent(student);
+                    student.setStudentState(StudentState.FINISHED);
+                    StudentList.getStudentList().updateStudent(student);
                 }
 
             } catch (Exception ex) {
-                FileUtils.log(this, Level.INFO, "canceled " + MyUtils.exToStr(ex));
+                FileUtils.log(this, Level.INFO, "canceled " + MyUtils.exceptionToString(ex));
                 Settings.getInstance().printErrorLine(
                         Level.INFO, student.getPupil().getLastName() + " logged out!", true, "DISCONNECT");
                 if (!finished) {
-                    Settings.getInstance().removeStudent(student.getPupil().getLastName()  + " " + student.getPupil().getFirstName().substring(0,3));
+                    SoundController.startWarnSound();
+                    student.setStudentState(StudentState.CONNECTION_LOST);
+                    StudentList.getStudentList().updateStudent(student);
                 } else {
-                    Settings.getInstance().finishStudent(student);
+                    student.setStudentState(StudentState.FINISHED);
+                    StudentList.getStudentList().updateStudent(student);
                 }
                 //student.finishSeries();
                 server.shutdown();
@@ -83,7 +90,7 @@ class SocketReaderThread extends Thread {
         try {
             in.close();
         } catch (IOException e) {
-            FileUtils.log(this, Level.WARN, "Error by closing of ObjectInputStream!" + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.WARN, "Error by closing of ObjectInputStream!" + MyUtils.exceptionToString(e));
             Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());
         }
     }

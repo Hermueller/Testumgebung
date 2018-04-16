@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level;
 import java.awt.*;
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.nio.file.Files;
 import java.time.LocalTime;
 
@@ -41,6 +42,7 @@ public class Client {
     private final ReaderThread reader;
     private LocalTime endTime = null;
     private boolean signedIn = false;
+    private boolean isRunning = false;
 
     public Client(Packet packet) throws IOException, AWTException {
         try {
@@ -92,66 +94,60 @@ public class Client {
             if (packet.getAction() == Action.HAND_OUT) {
                 byte[] handout = (byte[]) packet.get(Resource.FILE);
                 if (handout.length != 0) {
-                    Files.write(new File(Exam.getInstance().getPupil().getPathOfProject()
-                            + "/angabe." + packet.get(Resource.FILE_EXTENSION)).toPath(), handout);
+                    File handoutFile = new File(Exam.getInstance().getPupil().getPathOfProject()
+                            + "/angabe." + packet.get(Resource.FILE_EXTENSION));
+
+                    handoutFile.createNewFile();
+                    //TODO test if this is working
+                    Files.write(handoutFile.toPath(), handout);
+//                    try (OutputStream out = new BufferedOutputStream(
+//                            Files.newOutputStream(handoutFile.toPath(),CREATE_NEW,WRITE))) {
+//                        out.write(handout, 0, handout.length);
+//                    }
+
                 }
-                System.out.println(packet.get(Resource.COMMENT));
                 endTime = (LocalTime) packet.get(Resource.TIME);
                 signedIn = true;
             }
         } catch (IOException | ClassNotFoundException e) {
             signedIn = false;
-            FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR, "Failed to receive: " + MyUtils.exceptionToString(e));
         }
         processor.start();
         reader.start();
     }
 
     /**
-     * compromises the working-directory and sends it to the teacher
-     *
-     * @return the success of it
-     */
-    public boolean handIn() {
-        /*if (processor.isInterrupted() && reader.isInterrupted()) {
-            String zipFileName = "handInFile.zip";
-            System.out.println(packet.getDirOfWatch());
-            FileUtils.delete(packet.getDirOfWatch() + "/" + packet.getLastname() + "/angabe.zip");
-            FileUtils.delete(packet.getDirOfWatch() + "/" + packet.getLastname() + "/handInFile.zip");
-            FileUtils.zip(packet.getDirOfWatch(), zipFileName);
-            DocumentsTransfer.send(getOut(), new File(String.format("%s/%s",
-                    packet.getDirOfWatch(), zipFileName)));
-            return true;
-        }
-        return false;
-        */
-        return false;
-    }
-
-    /**
      * reads jobs from the stream and adds them as a new job
      */
     private class ReaderThread extends Thread {
+        @Override
         public void run() {
             try {
                 Object obj = in.readObject();
+
+                //TODO this while loop seems "unused"
                 while (obj.getClass().toString().contains(Packet.class.toString())) {
                     obj = in.readObject();
                 }
+
                 RobotAction action = (RobotAction) obj;
                 do {
-                    if (!action.equals(jobs.peekLast())) {
-                        jobs.add(action);
-                    } else {
-                        FileUtils.log(this, Level.ERROR, "Discarding duplicate request");
-                    }
+                    jobs.add(action);
+                    //TODO check if duplicate requests should be discarded
+//                    if (!action.equals(jobs.peekLast())) {
+//                    } else {
+//                        FileUtils.log(this, Level.INFO, "Discarding duplicate request");
+//                    }
                 } while ((action = (RobotAction) in.readObject()) != null);
-            } catch (EOFException eof) {
-                //FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exToStr(eof));
-            } catch (Exception ex) {
-                FileUtils.log(this, Level.ERROR, "Send Boolean " + MyUtils.exToStr(ex));
+            } catch (EOFException|SocketException exception) {
+                FileUtils.log(this, Level.ERROR, "Connection closed!");
+            }
+            catch (Exception ex) {
+                FileUtils.log(this, Level.ERROR, "Send Boolean " + MyUtils.exceptionToString(ex));
             } finally {
-                Platform.runLater(() -> FxUtils.showPopUp("LOST CONNECTION", false));
+                if (isRunning)
+                    Platform.runLater(() -> FxUtils.showPopUp("LOST CONNECTION", false));
             }
         }
     }
@@ -167,15 +163,20 @@ public class Client {
             setDaemon(true);
         }
 
+        @Override
         public void run() {
             try {
                 while (!isInterrupted() && socket.isConnected()) {
-                    DocumentsTransfer.sendObject(getOut(), jobs.take().execute(robot));
+                    RobotAction action = jobs.take();
+                    Object document = action.execute(robot);
+
+                    DocumentsTransfer.sendObject(getOut(), document);
                 }
             } catch (InterruptedException e) {
                 interrupt();
             } catch (IOException e) {
-                FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exToStr(e));
+                FileUtils.log(this, Level.ERROR, "Connection closed " + MyUtils.exceptionToString(e));
+                closeOut();
             }
         }
     }
@@ -187,7 +188,7 @@ public class Client {
         try {
             getOut().close();
         } catch (IOException e) {
-            FileUtils.log(this, Level.ERROR, "Error by closing of ObjectOutStream!" + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR, "Error by closing of ObjectOutStream!" + MyUtils.exceptionToString(e));
         }
     }
 
@@ -197,6 +198,7 @@ public class Client {
     public boolean start() {
         if (processor != null && reader != null) {
             loadFiles();
+            isRunning = true;
             return true;
         } else {
             return false;
@@ -209,23 +211,9 @@ public class Client {
      */
     public void stop() {
         if (processor != null && reader != null) {
-            /*RobotAction action = new LittleHarvester(
-                    loginPackage.getLastname(), loginPackage.getDirOfWatch(), new String[0]);
-
-            try {
-                Object result = action.execute(robot);
-                if (result != null) {
-                    getOut().writeObject(result);
-                    getOut().reset();
-                    getOut().flush();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-
+            isRunning = false;
             processor.interrupt();
             reader.interrupt();
-            //handIn();
             closeOut();
         }
     }

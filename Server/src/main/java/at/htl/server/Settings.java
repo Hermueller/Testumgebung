@@ -1,5 +1,6 @@
 package at.htl.server;
 
+import at.htl.common.enums.StudentState;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.common.io.ScreenShot;
@@ -20,6 +21,7 @@ import javafx.scene.paint.Color;
 import org.apache.logging.log4j.Level;
 
 import java.io.File;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -77,7 +79,6 @@ public class Settings {
     private static Settings instance = null;
 
     private ObservableList<Button> students;
-    private List<Student> studentsList = new LinkedList<>();
     private AnchorPane logArea;
     private File handOutFile = null;
     private LocalTime startTime;
@@ -102,7 +103,6 @@ public class Settings {
     private long sleepTime = 5000;
     private ScreenShot screenShot = new ScreenShot();
     private Label lbCount;
-    private int studentCount = 0;
 
     private Settings() {
         students = FXCollections.observableList(new LinkedList<>());
@@ -111,6 +111,18 @@ public class Settings {
         looksAtScreenshots = false;
         initializeColors();
         initializeFilters();
+
+        StudentList.getStudentList().setOnListSizeChanged(
+                () -> Platform.runLater(() -> {
+                    String text = "";
+
+                    int studentCount = StudentList.getStudentList().size();
+                    if (studentCount < 10) {
+                        text = "0";
+                    }
+                    lbCount.setText(text + studentCount);
+            })
+        );
     }
 
     public static Settings getInstance() {
@@ -381,10 +393,6 @@ public class Settings {
         this.endings = endings;
     }
 
-    public List<Student> getStudentsList() {
-        return studentsList;
-    }
-
     //endregion
 
     //region Methods
@@ -392,110 +400,14 @@ public class Settings {
     //region Student-Actions
 
     /**
-     * shows the number of logged in students on the teacher GUI
-     *
-     * @param addOne if the counter increasing by one then TRUE.
-     */
-    public void changeStudentCount(boolean addOne) {
-        String text = "";
-        if (addOne) {
-            studentCount++;
-        } else {
-            studentCount--;
-        }
-        if (studentCount < 10) {
-            text = "0";
-        }
-        lbCount.setText(text + studentCount);
-        System.out.println(text + studentCount);
-    }
-
-    /**
      * Notifies the teacher that the client has logged in.
      *
      * @param student the client who logged in.
      */
     public void loginStudent(final Student student, final String studentNameBefore) {
-        Platform.runLater(() -> {
-            for (Button btn : students) {
-                if (btn.getText().equals(studentNameBefore)) {
-                    btn.setStyle("-fx-background-color: lawngreen");
-                    if (!student.getPupil().getLastName().equals(studentNameBefore)) {
-                        btn.setText(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0,3));
-                    }
-                    break;
-                }
-            }
-            if (students.size() > 1) {
-                sortList();
-            }
-            changeStudentCount(true);
-        });
-    }
 
-    /**
-     * Notifies the Teacher that the client has finished the test.
-     * Colors him green in the list.
-     *
-     * @param student the client who finished the test.
-     */
-    public void finishStudent(final Student student) {
-        Platform.runLater(() -> {
-            for (Button btn : students) {
-                if (btn.getText().equals(student.getPupil().getLastName()  + " " + student.getPupil().getFirstName().substring(0,3))) {
-                    btn.setStyle("-fx-background-color: deepskyblue");
-                    break;
-                }
-            }
-        });
-    }
-
-    /**
-     * Removes a client from the list of all students and/or colours him red.
-     *
-     * @param studentName Specialises the client to remove from the list.
-     */
-    public void removeStudent(final String studentName) {
-        Platform.runLater(() -> {
-            for (Button btn : students) {
-                if (btn.getText().equals(studentName)) {
-                    btn.setStyle("-fx-background-color: crimson");
-                    break;
-                }
-            }
-            changeStudentCount(false);
-        });
-    }
-
-    /**
-     * searches for a student by his/her name
-     *
-     * @param name of the Student
-     * @return the StudentObject with the correct name
-     */
-    @Deprecated
-    public Student findStudentByName(String name) {
-        for (Student _student : studentsList) {
-            if (_student.getPupil().getLastName().equals(name)) {
-                return _student;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * searches for a student by his InetAddress.
-     *
-     * @param address the address of the student.
-     * @return the student with the correct address.
-     */
-    public Student findStudentByAddress(String address) {
-        for (Student _student : studentsList) {
-            if (_student.getStudentAddress().toString().equals(address)) {
-                return _student;
-            }
-        }
-        return null;
+        student.setStudentState(StudentState.NORMAL);
+        StudentList.getStudentList().addStudent(student);
     }
 
     /**
@@ -504,39 +416,8 @@ public class Settings {
      * @param student Specialises the client which will be added.
      */
     public void addStudent(final Student student) {
-        studentsList.add(student);
-        Controller conn = new Controller();
-        final ContextMenu contextMenu = new ContextMenu();
-        MenuItem show = new MenuItem("show:");
-        MenuItem name = new MenuItem(student.getPupil().getFirstName()+" "+student.getPupil().getLastName());
-        MenuItem enrolmentID = new MenuItem(student.getPupil().getEnrolmentID());
-        MenuItem foo = new MenuItem("remove");
-        InetAddress abc = student.getStudentAddress();
-
-        if (StudentView.getInstance().getLv() != null)
-            Platform.runLater(() -> {
-                Button btn = new Button(student.getPupil().getLastName() + " " + student.getPupil().getFirstName().substring(0,3));
-                btn.setOnAction(event -> StudentView.getInstance().getLv().getSelectionModel().select(btn));
-                btn.setPrefWidth(StudentView.getInstance().getLv().getPrefWidth() - 50);
-                btn.setStyle("-fx-background-color: crimson");
-                foo.setOnAction(event -> {
-                    conn.kickStudent();
-                    getObservableList().remove(btn);
-                    studentsList.remove(student);
-                });
-                contextMenu.getItems().addAll(name, foo);
-                btn.setContextMenu(contextMenu);
-                btn.setId(student.getStudentAddress().toString());
-                students.add(btn);
-                sortList();
-            });
-    }
-
-    /**
-     * sorts the list of the students by their name. A -> Z
-     */
-    private void sortList() {
-        students.sort((o1, o2) -> o1.getText().compareTo(o2.getText()));
+        student.setStudentState(StudentState.NORMAL);
+        StudentList.getStudentList().addStudent(student);
     }
 
     //endregion

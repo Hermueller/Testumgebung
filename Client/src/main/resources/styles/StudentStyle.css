@@ -1,0 +1,18 @@
+.label,
+.check-box {
+  -fx-background-color: white;
+  -fx-text-fill: black; }
+
+.button {
+  -fx-background-color: #3F51B5;
+  -fx-text-fill: white;
+  -fx-border-radius: 1px; }
+
+.text-field {
+  -fx-border-radius: 0px;
+  -fx-border-color: black;
+  -fx-text-fill: black;
+  -fx-background-color: white; }
+
+#rootPane {
+  -fx-background-color: white; }

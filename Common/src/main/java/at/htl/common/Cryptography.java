@@ -23,6 +23,10 @@ public class Cryptography {
     private static final String IV = "AAAAAAAAAAAAAAAA";
     private static final String ENCRYPTION_KEY_DEFAULT = "0123456789HelloWorld";
 
+    private Cryptography() {
+
+    }
+
     /**
      * @param plainText     text which should be encrypted
      * @param encryptionKey coding key
@@ -31,7 +35,6 @@ public class Cryptography {
     public static String encrypt(String plainText, String encryptionKey) {
         if (encryptionKey == null) {
             encryptionKey = ENCRYPTION_KEY_DEFAULT;
-            System.out.println("");
         }
         try {
             Cipher cipher = Cipher.getInstance(CIPHERING_PATH, PROVIDER);
@@ -39,7 +42,7 @@ public class Cryptography {
             cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(IV.getBytes(CHARSET_NAME)));
             return new String(cipher.doFinal(plainText.getBytes(CHARSET_NAME)));
         } catch (Exception e) {
-            FileUtils.log(Cryptography.class, Level.ERROR, plainText + " could not encrypt " + MyUtils.exToStr(e));
+            FileUtils.log(Cryptography.class, Level.ERROR, plainText + " could not encrypt " + MyUtils.exceptionToString(e));
         }
         return plainText;
     }
@@ -52,7 +55,6 @@ public class Cryptography {
     public static String decrypt(String cipherText, String encryptionKey) {
         if (encryptionKey == null) {
             encryptionKey = ENCRYPTION_KEY_DEFAULT;
-            System.out.println("");
         }
         try {
             Cipher cipher = Cipher.getInstance(CIPHERING_PATH, PROVIDER);
@@ -60,7 +62,7 @@ public class Cryptography {
             cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(IV.getBytes(CHARSET_NAME)));
             return new String(cipher.doFinal(cipherText.getBytes(CHARSET_NAME)));
         } catch (Exception e) {
-            FileUtils.log(Cryptography.class, Level.ERROR, MyUtils.exToStr(e));
+            FileUtils.log(Cryptography.class, Level.ERROR, MyUtils.exceptionToString(e));
         }
         return cipherText;
     }

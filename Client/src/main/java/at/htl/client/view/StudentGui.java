@@ -24,15 +24,17 @@ public class StudentGui extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Student.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Student.fxml"));
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/StudentStyle.css");
 
         stage.setTitle("Student");
         stage.setScene(scene);
 
         stage.show();
+
+        ((Controller) loader.getController()).setStage(stage);
     }
 
     public static void main(String[] args) {

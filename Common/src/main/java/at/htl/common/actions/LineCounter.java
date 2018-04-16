@@ -65,7 +65,7 @@ public class LineCounter {
                 lines = br.lines().count();
             }
         } catch (Exception exc) {
-            FileUtils.log(this, Level.ERROR, "File konnte nicht gelesen werden!!" + MyUtils.exToStr(exc));
+            FileUtils.log(this, Level.ERROR, "File konnte nicht gelesen werden!!" + MyUtils.exceptionToString(exc));
         }
 
         return lines;

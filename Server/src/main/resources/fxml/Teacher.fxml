@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.web.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.StackedAreaChart?>
@@ -27,477 +19,481 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
-<?import javafx.scene.control.CheckBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="752.0" prefWidth="1213.0" stylesheets="@../styles/TeacherStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.server.view.Controller">
+<AnchorPane id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../styles/TeacherStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.server.view.Controller">
     <children>
-        <SplitPane fx:id="splitter" dividerPositions="0.5" layoutX="72.0" layoutY="172.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane fx:id="splitter" dividerPositions="0.2" layoutX="72.0" layoutY="172.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <AnchorPane maxWidth="200.0" minWidth="200.0" prefHeight="516.0" prefWidth="200.0">
-                    <children>
-                          <ScrollPane fitToHeight="true" hbarPolicy="NEVER" prefHeight="717.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.topAnchor="33.0">
-                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="717.0" prefWidth="200.0">
-                                   <children>
-                                            <ListView fx:id="lvStudents" prefHeight="717.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                   </children>
-                                </AnchorPane>
-                            </content>
+            <VBox id="vbStudentlist" alignment="TOP_CENTER">
+               <children>
+                  <HBox styleClass="primary-text">
+                     <children>
+                              <Label prefHeight="26.0" prefWidth="150.0" styleClass="primary-text" text="Nr. of logged in:" />
+                              <Label fx:id="lbCount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="38.0" styleClass="primary-text" text="00" textAlignment="RIGHT" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                          <ScrollPane fx:id="spStudentList" fitToHeight="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="9.9999999999999E13" vbarPolicy="ALWAYS">
+                     <content>
+                        <VBox fx:id="vbStudents" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" />
+                     </content>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                           </ScrollPane>
-                        <Label layoutX="14.0" layoutY="4.0" prefHeight="26.0" prefWidth="96.0" text="Nr. of logged in:" />
-                        <Label fx:id="lbCount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="155.0" layoutY="4.0" prefHeight="26.0" prefWidth="38.0" text="00" textAlignment="RIGHT" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                    <children>
-                        <BorderPane fx:id="bpDataView" prefHeight="750.0" prefWidth="1003.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <bottom>
-                                <AnchorPane fx:id="apInfo" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <Label fx:id="lbVersion" alignment="CENTER_RIGHT" layoutX="839.0" layoutY="16.0" prefHeight="19.0" prefWidth="150.0" text="" textAlignment="RIGHT" />
-                                        <Label fx:id="lbDate" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="15.0" text="" textAlignment="RIGHT" AnchorPane.leftAnchor="10.0" />
-                                        <Label fx:id="lbAddress" alignment="CENTER" layoutX="321.0" layoutY="7.0" prefHeight="35.0" prefWidth="362.0" text="127.0.0.1 : 50555" textAlignment="CENTER">
-                                            <font>
-                                                <Font name="System Bold" size="19.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </AnchorPane>
-                            </bottom>
-                            <center>
-                                <TabPane fx:id="tpMainTabs" prefHeight="700.0" prefWidth="556.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" BorderPane.alignment="CENTER">
-                                    <tabs>
-                                        <Tab closable="false" text="Option">
-                                            <content>
-                                                <AnchorPane id="option" fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
-                                                    <children>
-                                                        <AnchorPane fx:id="apOption" layoutX="84.0" layoutY="93.0" prefHeight="537.0" prefWidth="808.0" AnchorPane.leftAnchor="84.0">
-                                                            <children>
-                                                                <VBox layoutX="32.0" layoutY="18.0" prefHeight="455.0" prefWidth="732.0" spacing="20.0">
-                                                                    <children>
-                                                                        <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label fx:id="lbAngabe" layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="97.0" text="Handout:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <Button fx:id="btnhandout" alignment="CENTER" layoutX="253.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="27.0" prefWidth="142.0" text="Handout" textAlignment="CENTER" />
-                                                                                <TextField fx:id="tfHandoutPath" editable="false" prefHeight="27.0" prefWidth="379.0" />
-                                                                                <ImageView fx:id="ivAngabe" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                                    <HBox.margin>
-                                                                                        <Insets left="10.0" />
-                                                                                    </HBox.margin>
-                                                                                </ImageView>
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <HBox layoutX="25.0" layoutY="57.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="97.0" text="Directory:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <Button fx:id="btndirectory" alignment="CENTER" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="27.0" prefWidth="142.0" text="Directory" textAlignment="CENTER" />
-                                                                                <TextField fx:id="tfDirectoryPath" editable="false" prefHeight="27.0" prefWidth="379.0" />
-                                                                                <ImageView fx:id="ivPath" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                                    <HBox.margin>
-                                                                                        <Insets left="10.0" />
-                                                                                    </HBox.margin>
-                                                                                </ImageView>
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <HBox layoutX="25.0" layoutY="165.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
-                                                                            <children>
-                                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="97.0" text="Fix time:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <AnchorPane>
-                                                                                    <children>
-                                                                                        <ProgressBar fx:id="pbHarvester" layoutX="8.0" layoutY="12.0" prefHeight="20.0" prefWidth="236.0" progress="0.0" />
-                                                                                        <Slider fx:id="slHarvester" layoutX="3.0" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="242.0" value="1.0" />
-                                                                                    </children>
-                                                                                </AnchorPane>
-                                                                                <Label fx:id="lbTime" prefHeight="26.0" prefWidth="51.0" text="00 s">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                    <padding>
-                                                                                        <Insets top="10.0" />
-                                                                                    </padding>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <TabPane fx:id="tpAdvancedSettings" prefHeight="222.0" prefWidth="732.0" tabClosingPolicy="UNAVAILABLE" visible="false">
-                                                                            <tabs>
-                                                                                <Tab text="Server-Settings">
-                                                                                    <content>
-                                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                                            <children>
-                                                                                                <VBox fx:id="vbAdvanced" prefHeight="204.0" prefWidth="732.0" spacing="20.0">
-                                                                                                    <children>
-                                                                                                        <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
-                                                                                                            <children>
-                                                                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Random time between screenshots (1s - 30s):">
-                                                                                                                    <font>
-                                                                                                                        <Font size="18.0" />
-                                                                                                                    </font>
-                                                                                                                </Label>
-                                                                                                                <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="234.0" text="OFF" />
-                                                                                                            </children>
-                                                                                                        </HBox>
-                                                                                                        <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
-                                                                                                            <children>
-                                                                                                                <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
-                                                                                                                    <font>
-                                                                                                                        <Font size="18.0" />
-                                                                                                                    </font>
-                                                                                                                </Label>
-                                                                                                                <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="50555" text="50555" />
-                                                                                                                <ImageView fx:id="ivPort" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                                                                    <HBox.margin>
-                                                                                                                        <Insets left="10.0" />
-                                                                                                                    </HBox.margin>
-                                                                                                                </ImageView>
-                                                                                                            </children>
-                                                                                                        </HBox>
-                                                                                                        <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
-                                                                                                            <children>
-                                                                                                                <Label prefHeight="26.0" prefWidth="414.0" text="Filename extensions:">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System" size="18.0" />
-                                                                                                                    </font>
-                                                                                                                </Label>
-                                                                                                                <ComboBox fx:id="cbFilterSetMain" prefHeight="26.0" prefWidth="234.0" />
-                                                                                                                <ImageView fx:id="ivFileExtensions" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                                                                    <HBox.margin>
-                                                                                                                        <Insets left="10.0" />
-                                                                                                                    </HBox.margin>
-                                                                                                                </ImageView>
-                                                                                                            </children>
-                                                                                                        </HBox>
-                                                                                                        <HBox prefHeight="37.0" prefWidth="732.0" spacing="20.0">
-                                                                                                            <children>
-                                                                                                                <Label prefHeight="26.0" prefWidth="414.0" text="Studentlist:">
-                                                                                                                    <font>
-                                                                                                                        <Font size="18.0" />
-                                                                                                                    </font>
-                                                                                                                </Label>
-                                                                                                            </children>
-                                                                                                            <padding>
-                                                                                                                <Insets bottom="40.0" />
-                                                                                                            </padding>
-                                                                                                        </HBox>
-                                                                                                    </children>
-                                                                                                    <padding>
-                                                                                                        <Insets top="10.0" />
-                                                                                                    </padding>
-                                                                                                </VBox>
-                                                                                            </children>
-                                                                                        </AnchorPane>
-                                                                                    </content>
-                                                                                </Tab>
-                                                                                <Tab text="Image Settings">
-                                                                                    <content>
-                                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                                            <children>
-                                                                                                <VBox spacing="20.0">
-                                                                                                    <children>
-                                                                                                        <HBox prefHeight="44.0" prefWidth="731.0" spacing="20.0">
-                                                                                                            <children>
-                                                                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="414.0" text="Image quality:">
-                                                                                                                    <font>
-                                                                                                                        <Font name="System" size="18.0" />
-                                                                                                                    </font>
-                                                                                                                </Label>
-                                                                                                                <AnchorPane>
-                                                                                                                    <children>
-                                                                                                                        <ProgressBar fx:id="pbImageScale" layoutX="8.0" layoutY="12.0" prefHeight="20.0" prefWidth="236.0" progress="0.0" />
-                                                                                                                        <Slider fx:id="slImageScale" blockIncrement="0.2" majorTickUnit="1.0" max="1.0" minorTickCount="1" prefHeight="44.0" prefWidth="242.0" />
-                                                                                                                    </children>
-                                                                                                                </AnchorPane>
-                                                                                                                <Label fx:id="lbTimeScale" prefHeight="26.0" prefWidth="51.0" text="00">
-                                                                                                                    <font>
-                                                                                                                        <Font size="18.0" />
-                                                                                                                    </font>
-                                                                                                                    <padding>
-                                                                                                                        <Insets top="10.0" />
-                                                                                                                    </padding>
-                                                                                                                </Label>
-                                                                                                            </children>
-                                                                                                        </HBox>
-                                                                                                        <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
-                                                                                                            <children>
-                                                                                                                <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="476.0" text="Image format:">
-                                                                                                                    <font>
-                                                                                                                        <Font size="18.0" />
-                                                                                                                    </font>
-                                                                                                                </Label>
-                                                                                                                <ToggleButton fx:id="tbImageFormat" mnemonicParsing="false" prefHeight="26.0" prefWidth="123.0" text="JPG" />
-                                                                                                            </children>
-                                                                                                        </HBox>
-                                                                                                        <HBox prefHeight="44.0" prefWidth="731.0" spacing="20.0">
-                                                                                                            <children>
-                                                                                                                <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="455.0" text="Import Image Settings">
-                                                                                                                    <font>
-                                                                                                                        <Font size="18.0" />
-                                                                                                                    </font>
-                                                                                                                </Label>
-                                                                                                                <AnchorPane />
-                                                                                                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="124.0" text="Import" />
-                                                                                                            </children>
-                                                                                                        </HBox>
-                                                                                                    </children>
-                                                                                                </VBox>
-                                                                                            </children>
-                                                                                        </AnchorPane>
-                                                                                    </content>
-                                                                                </Tab>
-                                                                            </tabs>
-                                                                        </TabPane>
-                                                                        <Label fx:id="lbAlert" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="718.0">
-                                                                            <font>
-                                                                                <Font size="18.0" />
-                                                                            </font>
-                                                                        </Label>
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </VBox>
+                  <BorderPane fx:id="bpDataView">
+                      <bottom>
+                          <AnchorPane fx:id="apInfo" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                              <children>
+                                  <Label fx:id="lbDate" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="15.0" styleClass="secondary-text" text="" textAlignment="RIGHT" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+                                  <Label fx:id="lbAddress" alignment="CENTER" layoutX="321.0" layoutY="7.0" prefWidth="350.0" styleClass="primary-text" text="127.0.0.1 : 50555" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font name="System Bold" size="19.0" />
+                                      </font>
+                                  </Label>
+                                  <Label fx:id="lbVersion" alignment="CENTER_RIGHT" styleClass="secondary-text" text="" textAlignment="RIGHT" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+                              </children>
+                          </AnchorPane>
+                      </bottom>
+                      <center>
+                          <TabPane fx:id="tpMainTabs" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" BorderPane.alignment="CENTER">
+                              <tabs>
+                                  <Tab closable="false" text="Option">
+                                      <content>
+                                          <AnchorPane id="option" fx:id="spOption" minHeight="0.0" minWidth="0.0" prefHeight="481.0" prefWidth="614.0">
+                                              <children>
+                                                  <AnchorPane fx:id="apOption" layoutX="84.0" layoutY="93.0" prefHeight="537.0" prefWidth="808.0" AnchorPane.leftAnchor="84.0">
+                                                      <children>
+                                                          <VBox layoutX="32.0" layoutY="18.0" prefHeight="455.0" prefWidth="732.0" spacing="20.0">
+                                                              <children>
+                                                                  <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                      <children>
+                                                                          <Label fx:id="lbAngabe" layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="97.0" text="Handout:">
+                                                                              <font>
+                                                                                  <Font size="18.0" />
+                                                                              </font>
+                                                                          </Label>
+                                                                          <Button fx:id="btnhandout" alignment="CENTER" layoutX="253.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseHandOutFile" prefHeight="27.0" prefWidth="142.0" text="Handout" textAlignment="CENTER" />
+                                                                          <TextField fx:id="tfHandoutPath" editable="false" prefHeight="27.0" prefWidth="379.0" />
+                                                                          <ImageView fx:id="ivAngabe" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                              <HBox.margin>
+                                                                                  <Insets left="10.0" />
+                                                                              </HBox.margin>
+                                                                          </ImageView>
+                                                                      </children>
+                                                                  </HBox>
+                                                                  <HBox layoutX="25.0" layoutY="57.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                      <children>
+                                                                          <Label fx:id="lbPath" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="97.0" text="Directory:">
+                                                                              <font>
+                                                                                  <Font size="18.0" />
+                                                                              </font>
+                                                                          </Label>
+                                                                          <Button fx:id="btndirectory" alignment="CENTER" layoutX="253.0" layoutY="57.0" mnemonicParsing="false" onAction="#chooseDirectory" prefHeight="27.0" prefWidth="142.0" text="Directory" textAlignment="CENTER" />
+                                                                          <TextField fx:id="tfDirectoryPath" editable="false" prefHeight="27.0" prefWidth="379.0" />
+                                                                          <ImageView fx:id="ivPath" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                              <HBox.margin>
+                                                                                  <Insets left="10.0" />
+                                                                              </HBox.margin>
+                                                                          </ImageView>
+                                                                      </children>
+                                                                  </HBox>
+                                                                  <HBox layoutX="25.0" layoutY="165.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0" />
+                                                                  <TabPane fx:id="tpAdvancedSettings" prefHeight="222.0" prefWidth="732.0" tabClosingPolicy="UNAVAILABLE" visible="false">
+                                                                      <tabs>
+                                                                          <Tab text="Server-Settings">
+                                                                              <content>
+                                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                      <children>
+                                                                                          <VBox fx:id="vbAdvanced" prefHeight="204.0" prefWidth="732.0" spacing="20.0">
+                                                                                              <children>
+                                                                                                  <HBox layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                                                      <children>
+                                                                                                          <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="414.0" text="Random time between screenshots (1s - 30s):">
+                                                                                                              <font>
+                                                                                                                  <Font size="18.0" />
+                                                                                                              </font>
+                                                                                                          </Label>
+                                                                                                          <ToggleButton fx:id="TB_SS_rnd" layoutX="247.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="234.0" text="OFF" />
+                                                                                                      </children>
+                                                                                                  </HBox>
+                                                                                                  <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                                                      <children>
+                                                                                                          <Label prefHeight="26.0" prefWidth="414.0" text="Port:">
+                                                                                                              <font>
+                                                                                                                  <Font size="18.0" />
+                                                                                                              </font>
+                                                                                                          </Label>
+                                                                                                          <TextField fx:id="tfPort" prefHeight="31.0" prefWidth="234.0" promptText="50555" text="50555" />
+                                                                                                          <ImageView fx:id="ivPort" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                                                              <HBox.margin>
+                                                                                                                  <Insets left="10.0" />
+                                                                                                              </HBox.margin>
+                                                                                                          </ImageView>
+                                                                                                      </children>
+                                                                                                  </HBox>
+                                                                                                  <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                                                      <children>
+                                                                                                          <Label prefHeight="26.0" prefWidth="414.0" text="Filename extensions:">
+                                                                                                              <font>
+                                                                                                                  <Font name="System" size="18.0" />
+                                                                                                              </font>
+                                                                                                          </Label>
+                                                                                                          <ComboBox fx:id="cbFilterSetMain" prefHeight="26.0" prefWidth="234.0" />
+                                                                                                          <ImageView fx:id="ivFileExtensions" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                                                              <HBox.margin>
+                                                                                                                  <Insets left="10.0" />
+                                                                                                              </HBox.margin>
+                                                                                                          </ImageView>
+                                                                                                      </children>
+                                                                                                  </HBox>
+                                                                                                  <HBox prefHeight="37.0" prefWidth="732.0" spacing="20.0">
+                                                                                                      <children>
+                                                                                                          <Label prefHeight="26.0" prefWidth="414.0" text="Studentlist:">
+                                                                                                              <font>
+                                                                                                                  <Font size="18.0" />
+                                                                                                              </font>
+                                                                                                          </Label>
+                                                                                                      </children>
+                                                                                                      <padding>
+                                                                                                          <Insets bottom="40.0" />
+                                                                                                      </padding>
+                                                                                                  </HBox>
+                                                                                              </children>
+                                                                                              <padding>
+                                                                                                  <Insets top="10.0" />
+                                                                                              </padding>
+                                                                                          </VBox>
+                                                                                      </children>
+                                                                                  </AnchorPane>
+                                                                              </content>
+                                                                          </Tab>
+                                                                          <Tab text="Image Settings">
+                                                                              <content>
+                                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                                      <children>
+                                                                                          <VBox spacing="20.0">
+                                                                                              <children>
+                                                                                                  <HBox prefHeight="44.0" prefWidth="731.0" spacing="20.0">
+                                                                                                      <children>
+                                                                                                          <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="414.0" text="Image quality:">
+                                                                                                              <font>
+                                                                                                                  <Font name="System" size="18.0" />
+                                                                                                              </font>
+                                                                                                          </Label>
+                                                                                                          <AnchorPane>
+                                                                                                              <children>
+                                                                                                                  <ProgressBar fx:id="pbImageScale" layoutX="8.0" layoutY="12.0" prefHeight="20.0" prefWidth="236.0" progress="0.0" />
+                                                                                                                  <Slider fx:id="slImageScale" blockIncrement="0.2" majorTickUnit="1.0" max="1.0" minorTickCount="1" prefHeight="44.0" prefWidth="242.0" />
+                                                                                                              </children>
+                                                                                                          </AnchorPane>
+                                                                                                          <Label fx:id="lbTimeScale" prefHeight="26.0" prefWidth="51.0" text="00">
+                                                                                                              <font>
+                                                                                                                  <Font size="18.0" />
+                                                                                                              </font>
+                                                                                                              <padding>
+                                                                                                                  <Insets top="10.0" />
+                                                                                                              </padding>
+                                                                                                          </Label>
+                                                                                                      </children>
+                                                                                                  </HBox>
+                                                                                                  <HBox prefHeight="26.0" prefWidth="574.0" spacing="20.0">
+                                                                                                      <children>
+                                                                                                          <Label layoutX="25.0" layoutY="119.0" prefHeight="26.0" prefWidth="476.0" text="Image format:">
+                                                                                                              <font>
+                                                                                                                  <Font size="18.0" />
+                                                                                                              </font>
+                                                                                                          </Label>
+                                                                                                          <ToggleButton fx:id="tbImageFormat" mnemonicParsing="false" prefHeight="26.0" prefWidth="123.0" text="JPG" />
+                                                                                                      </children>
+                                                                                                  </HBox>
+                                                                                                  <HBox prefHeight="44.0" prefWidth="731.0" spacing="20.0">
+                                                                                                      <children>
+                                                                                                          <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="455.0" text="Import Image Settings">
+                                                                                                              <font>
+                                                                                                                  <Font size="18.0" />
+                                                                                                              </font>
+                                                                                                          </Label>
+                                                                                                          <AnchorPane />
+                                                                                                          <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="124.0" text="Import" />
+                                                                                                      </children>
+                                                                                                  </HBox>
+                                                                                              </children>
+                                                                                          </VBox>
+                                                                                      </children>
+                                                                                  </AnchorPane>
+                                                                              </content>
+                                                                          </Tab>
+                                                                      </tabs>
+                                                                  </TabPane>
+                                                                  <Label fx:id="lbAlert" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="718.0">
+                                                                      <font>
+                                                                          <Font size="18.0" />
+                                                                      </font>
+                                                                  </Label>
+                                                <VBox>
+                                                   <children>
+                                                      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="SERVER CONTROL" VBox.vgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Label>
                                                                         <HBox spacing="280.0">
                                                                             <children>
-                                                                                <Button fx:id="btnStart" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="219.0" text="Start Server" />
-                                                                                <Button fx:id="btnStop" alignment="CENTER" mnemonicParsing="false" onAction="#stopServer" prefHeight="26.0" prefWidth="219.0" text="Stop Server" />
+                                                                                <Button fx:id="btnStart" mnemonicParsing="false" onAction="#startServer" prefHeight="250.0" prefWidth="250.0" style="-fx-font-size: 24px;" text="START">
+                                                               <font>
+                                                                  <Font name="System Bold" size="24.0" />
+                                                               </font>
+                                                            </Button>
+                                                                                <Button fx:id="btnStop" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#stopServer" prefHeight="250.0" prefWidth="250.0" style="-fx-font-size: 24px;" text="STOP">
+                                                               <font>
+                                                                  <Font name="System Bold" size="36.0" />
+                                                               </font>
+                                                            </Button>
                                                                             </children>
                                                                         </HBox>
-                                                                    </children>
-                                                                </VBox>
-                                                            </children>
-                                                        </AnchorPane>
-                                                        <Button fx:id="tbMode" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="165.0" text="Advanced Settings" />
-                                                        <Button fx:id="btnTestMode" layoutX="892.0" layoutY="28.0" mnemonicParsing="false" onAction="#setTestOptions" prefHeight="26.0" prefWidth="74.0" text="Test" />
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab closable="false" text="Monitoring">
-                                            <content>
-                                                <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0" prefHeight="545.0" prefWidth="1003.0">
-                                                    <children>
-                                          <BorderPane layoutX="2.0" prefHeight="664.0" prefWidth="1002.0">
-                                             <bottom>
-                                                <AnchorPane prefHeight="64.0" prefWidth="1002.0" BorderPane.alignment="CENTER">
+                                                   </children>
+                                                </VBox>
+                                                              </children>
+                                                          </VBox>
+                                                      </children>
+                                                  </AnchorPane>
+                                                  <Button fx:id="tbMode" alignment="CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="28.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="165.0" text="Advanced Settings" />
+                                                  <Button fx:id="btnTestMode" layoutX="892.0" layoutY="28.0" mnemonicParsing="false" onAction="#setTestOptions" prefHeight="26.0" prefWidth="74.0" text="Test" />
+                                              </children>
+                                          </AnchorPane>
+                                      </content>
+                                  </Tab>
+                                  <Tab closable="false" text="Monitoring">
+                                      <content>
+                                          <AnchorPane fx:id="apStudentDetail" minHeight="0.0" minWidth="0.0">
+                                              <children>
+                                    <BorderPane layoutX="2.0">
+                                       <top>
+                                          <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <HBox alignment="CENTER" spacing="5.0">
                                                    <children>
-                                                                <CheckBox fx:id="tbToggleSettings" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="27.0" prefWidth="183.0" selected="true" text="Apply for &quot;ALL Students&quot;" textFill="#2f2d2d" />
-                                                                <Label layoutX="212.0" prefHeight="26.0" prefWidth="212.0" text="Harvester Timeinterval:">
+                                                                <CheckBox fx:id="tbToggleSettings" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="27.0" prefWidth="200.0" selected="true" text="Apply for &quot;ALL Students&quot;" textFill="#2f2d2d">
+                                                         <padding>
+                                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                         </padding>
+                                                      </CheckBox>
+                                                                <Label prefHeight="26.0" prefWidth="212.0" text="Harvester Timeinterval:">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <ProgressBar fx:id="pbHarvesterStudent" layoutX="423.0" layoutY="5.0" prefHeight="16.0" prefWidth="252.0" progress="0.0" />
-                                                                   <Button fx:id="btnPatrolMode" layoutX="834.0" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="133.0" text="Start Patrol" />
-                                                                <Slider fx:id="slHarvesterStudent" layoutX="419.0" layoutY="-7.0" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="263.0" value="1.0" />
-                                                                <Label fx:id="lbTimeInterval" layoutX="689.0" layoutY="1.0" prefHeight="26.0" prefWidth="212.0" text="00 Seconds">
+                                                      <StackPane>
+                                                         <children>
+                                                                      <ProgressBar fx:id="pbHarvesterStudent" prefHeight="16.0" prefWidth="252.0" progress="0.0" />
+                                                                      <Slider fx:id="slHarvesterStudent" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="263.0" value="1.0" />
+                                                         </children>
+                                                      </StackPane>
+                                                                   <Button fx:id="btnPatrolMode" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="150.0" text="Start Patrol" />
+                                                                <Label fx:id="lbTimeInterval" prefHeight="26.0" prefWidth="212.0" text="00 Seconds">
                                                                     <font>
                                                                         <Font size="18.0" />
                                                                     </font>
                                                                 </Label>
                                                    </children>
-                                                </AnchorPane>
-                                             </bottom>
-                                             <top>
-                                                            <Label fx:id="lbNameOfPupilM" text="Name" BorderPane.alignment="CENTER">
+                                                </HBox>
+                                                            <Label fx:id="lbNameOfPupilM" text="Name">
                                                                <font>
                                                                   <Font size="18.0" />
                                                                </font>
                                                             </Label>
-                                             </top>
-                                             <center>
-                                                              <ImageView fx:id="ivLiveView" fitHeight="564.0" fitWidth="992.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-                                             </center>
-                                          </BorderPane>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab closable="false" text="Student-Info">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                    <children>
-                                                        <ImageView fitHeight="655.0" fitWidth="409.0" layoutX="589.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                                                            <image>
-                                                                <Image url="@../images/personSketch.png" />
-                                                            </image>
-                                                        </ImageView>
-                                                        <Button fx:id="btnExportLOC" layoutX="369.0" layoutY="628.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
-                                                            <font>
-                                                                <Font size="14.0" />
-                                                            </font>
-                                                        </Button>
-                                                        <StackedAreaChart fx:id="loc" layoutX="6.0" layoutY="57.0" legendSide="LEFT" legendVisible="false" prefHeight="572.0" prefWidth="987.0">
-                                                            <xAxis>
-                                                                <NumberAxis label="Seconds after START" side="BOTTOM" />
-                                                            </xAxis>
-                                                            <yAxis>
-                                                                <NumberAxis label="Lines of code" side="LEFT" />
-                                                            </yAxis>
-                                                        </StackedAreaChart>
-                                                        <Label fx:id="lbNameOfPupilSI" layoutX="350.0" layoutY="25.0" text="Name">
-                                                            <font>
-                                                                <Font size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab closable="false" text="Student-Settings">
-                                            <content>
-                                                <AnchorPane fx:id="apStudentSettings" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                    <children>
-                                                        <Label fx:id="lbSettingsHeader" alignment="CENTER" layoutX="314.0" layoutY="16.0" prefHeight="43.0" prefWidth="370.0" text="All Student Settings:">
-                                                            <font>
-                                                                <Font name="System Bold" size="19.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <!--<Label layoutX="29.0" layoutY="85.0" prefHeight="26.0" prefWidth="212.0" text="Harvester Timeinterval:">
-                                                            <font>
+                                             </children>
+                                          </VBox>
+                                       </top>
+                                       <center>
+                                                        <ImageView fx:id="ivLiveView" fitHeight="500.0" fitWidth="992.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                              </children>
+                                          </AnchorPane>
+                                      </content>
+                                  </Tab>
+                                  <Tab closable="false" text="Student-Info">
+                                      <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                              <children>
+                                                  <Button fx:id="btnExportLOC" layoutX="369.0" layoutY="628.0" mnemonicParsing="false" onAction="#exportLOC" prefHeight="35.0" prefWidth="266.0" text="Export Lines-Of-Code-LineChart">
+                                                      <font>
+                                                          <Font size="14.0" />
+                                                      </font>
+                                                  </Button>
+                                                  <StackedAreaChart fx:id="loc" layoutX="6.0" layoutY="57.0" legendSide="LEFT" legendVisible="false" prefHeight="572.0" prefWidth="987.0">
+                                                      <xAxis>
+                                                          <NumberAxis label="Seconds after START" side="BOTTOM" />
+                                                      </xAxis>
+                                                      <yAxis>
+                                                          <NumberAxis label="Lines of code" side="LEFT" />
+                                                      </yAxis>
+                                                  </StackedAreaChart>
+                                                  <Label fx:id="lbNameOfPupilSI" layoutX="350.0" layoutY="25.0" text="Name">
+                                                      <font>
+                                                          <Font size="18.0" />
+                                                      </font>
+                                                  </Label>
+                                              </children>
+                                          </AnchorPane>
+                                      </content>
+                                  </Tab>
+                                  <Tab closable="false" text="Student-Settings">
+                                      <content>
+                                          <AnchorPane fx:id="apStudentSettings" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                              <children>
+                                                  <Label fx:id="lbSettingsHeader" alignment="CENTER" layoutX="314.0" layoutY="16.0" prefHeight="43.0" prefWidth="370.0" text="All Student Settings:">
+                                                      <font>
+                                                          <Font name="System Bold" size="19.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <!--<Label layoutX="29.0" layoutY="85.0" prefHeight="26.0" prefWidth="212.0" text="Harvester Timeinterval:">
+                                                      <font>
                                                                 <Font size="18.0" />
                                                             </font>
                                                         </Label>-->
-                                                        <!--<ProgressBar fx:id="pbHarvesterStudent" layoutX="262.0" layoutY="88.0" prefHeight="16.0" prefWidth="252.0" progress="0.0" />
-                                                        <Slider fx:id="slHarvesterStudent" layoutX="257.0" layoutY="76.0" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="263.0" value="1.0" />
+                                                  <!--<ProgressBar fx:id="pbHarvesterStudent" layoutX="262.0" layoutY="88.0" prefHeight="16.0" prefWidth="252.0" progress="0.0" />
+                                                  <Slider fx:id="slHarvesterStudent" layoutX="257.0" layoutY="76.0" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="263.0" value="1.0" />
                                                         <Label fx:id="lbTimeInterval" layoutX="562.0" layoutY="85.0" prefHeight="26.0" prefWidth="212.0" text="00 Seconds">
                                                             <font>
                                                                 <Font size="18.0" />
                                                             </font>
                                                         </Label>-->
-                                                        <!--<Button fx:id="btnKickStudent" layoutX="701.0" layoutY="144.0" mnemonicParsing="false" onAction="#kickStudent" prefHeight="30.0" prefWidth="147.0" text="Kick Student" />-->
-                                                        <Button fx:id="btnSaveChangesStudent" layoutX="409.0" layoutY="588.0" mnemonicParsing="false" onAction="#saveStudentChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
-                                                        <!--<CheckBox fx:id="tbToggleSettings" layoutX="29.0" layoutY="25.0" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="27.0" prefWidth="183.0" selected="true" text="Apply for &quot;ALL Students&quot;" textFill="WHITE" />-->
-                                                        <Label layoutX="547.0" layoutY="211.0" prefHeight="26.0" prefWidth="153.0" text="Filter-Set:">
-                                                            <font>
-                                                                <Font size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <ComboBox fx:id="cbFilterSet" layoutX="746.0" layoutY="209.0" prefWidth="150.0" />
-                                                        <Accordion fx:id="accordion" layoutX="26.0" layoutY="211.0" prefHeight="280.0" prefWidth="495.0">
-                                                            <panes>
-                                                                <TitledPane expanded="false" text="Add new filter to selected set">
-                                                                    <content>
-                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                            <children>
-                                                                                <Label layoutX="21.0" layoutY="69.0" prefHeight="26.0" prefWidth="143.0" text="File extension:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <TextField fx:id="tfNewFilter" layoutX="175.0" layoutY="69.0" prefWidth="163.0" promptText=".java" />
-                                                                                <Label layoutX="20.0" layoutY="127.0" prefHeight="26.0" prefWidth="144.0" text="Filter color:">
-                                                                                    <font>
-                                                                                        <Font size="18.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <ColorPicker fx:id="cpNewFilter" layoutX="175.0" layoutY="127.0" prefHeight="26.0" prefWidth="163.0" />
-                                                                                <Button layoutX="402.0" layoutY="100.0" mnemonicParsing="false" onAction="#addFilterToSet" prefHeight="26.0" prefWidth="67.0" text="Add" />
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                    </content>
-                                                                </TitledPane>
-                                                                <TitledPane text="Change filters which will be used (add/remove)">
-                                                                    <content>
-                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                                            <children>
-                                                                                <ListView fx:id="lvFileFilters" layoutX="23.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" />
-                                                                            </children>
-                                                                        </AnchorPane>
-                                                                    </content>
-                                                                </TitledPane>
-                                                            </panes>
-                                                        </Accordion>
-                                          <CheckBox layoutX="38.0" layoutY="106.0" mnemonicParsing="false" selected="true" text="Apply for All Students" textFill="WHITE" />
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
+                                                  <!--<Button fx:id="btnKickStudent" layoutX="701.0" layoutY="144.0" mnemonicParsing="false" onAction="#kickStudent" prefHeight="30.0" prefWidth="147.0" text="Kick Student" />-->
+                                                  <Button fx:id="btnSaveChangesStudent" layoutX="409.0" layoutY="588.0" mnemonicParsing="false" onAction="#saveStudentChanges" prefHeight="30.0" prefWidth="147.0" text="Save Changes" />
+                                                  <!--<CheckBox fx:id="tbToggleSettings" layoutX="29.0" layoutY="25.0" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="27.0" prefWidth="183.0" selected="true" text="Apply for &quot;ALL Students&quot;" textFill="WHITE" />-->
+                                                  <Label layoutX="547.0" layoutY="211.0" prefHeight="26.0" prefWidth="153.0" text="Filter-Set:">
+                                                      <font>
+                                                          <Font size="18.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <ComboBox fx:id="cbFilterSet" layoutX="746.0" layoutY="209.0" prefWidth="150.0" />
+                                                  <Accordion fx:id="accordion" layoutX="26.0" layoutY="211.0" prefHeight="280.0" prefWidth="495.0">
+                                                      <panes>
+                                                          <TitledPane expanded="false" text="Add new filter to selected set">
+                                                              <content>
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                      <children>
+                                                                          <Label layoutX="21.0" layoutY="69.0" prefHeight="26.0" prefWidth="143.0" text="File extension:">
+                                                                              <font>
+                                                                                  <Font size="18.0" />
+                                                                              </font>
+                                                                          </Label>
+                                                                          <TextField fx:id="tfNewFilter" layoutX="175.0" layoutY="69.0" prefWidth="163.0" promptText=".java" />
+                                                                          <Label layoutX="20.0" layoutY="127.0" prefHeight="26.0" prefWidth="144.0" text="Filter color:">
+                                                                              <font>
+                                                                                  <Font size="18.0" />
+                                                                              </font>
+                                                                          </Label>
+                                                                          <ColorPicker fx:id="cpNewFilter" layoutX="175.0" layoutY="127.0" prefHeight="26.0" prefWidth="163.0" />
+                                                                          <Button layoutX="402.0" layoutY="100.0" mnemonicParsing="false" onAction="#addFilterToSet" prefHeight="26.0" prefWidth="67.0" text="Add" />
+                                                                      </children>
+                                                                  </AnchorPane>
+                                                              </content>
+                                                          </TitledPane>
+                                                          <TitledPane text="Change filters which will be used (add/remove)">
+                                                              <content>
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                      <children>
+                                                                          <ListView fx:id="lvFileFilters" layoutX="23.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" />
+                                                                      </children>
+                                                                  </AnchorPane>
+                                                              </content>
+                                                          </TitledPane>
+                                                      </panes>
+                                                  </Accordion>
+                                    <CheckBox layoutX="38.0" layoutY="106.0" mnemonicParsing="false" selected="true" text="Apply for All Students" textFill="WHITE" />
+                                              </children>
+                                          </AnchorPane>
+                                      </content>
+                                  </Tab>
 
-                                        <Tab closable="false" text="Submission">
-                                            <content>
-                                                <AnchorPane id="submission" fx:id="apHandIn" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                    <children>
-                                                        <Label layoutX="41.0" layoutY="173.0" text="Submission time:">
-                                                            <font>
-                                                                <Font name="System Bold" size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <AnchorPane fx:id="apEndTime" layoutX="262.0" layoutY="167.0" prefHeight="35.0" prefWidth="214.0" />
-                                                        <Button fx:id="btnAddTime" layoutX="502.0" layoutY="172.0" mnemonicParsing="false" text="+10 min" />
-                                                        <Label layoutX="41.0" layoutY="112.0" text="Starttime:">
-                                                            <font>
-                                                                <Font name="System Bold" size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <Label layoutX="41.0" layoutY="235.0" text="Remaining time:">
-                                                            <font>
-                                                                <Font name="System Bold" size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <AnchorPane fx:id="apStartTime" layoutX="262.0" layoutY="106.0" prefHeight="35.0" prefWidth="214.0" />
-                                                        <TextField fx:id="tftime" layoutX="262.0" layoutY="241.0" />
-                                                        <Button fx:id="btnDeleteFiles" layoutX="41.0" layoutY="437.0" mnemonicParsing="false" onAction="#deleteFiles" text="zu löschende Dateien auswählen" />
-                                                        <Button layoutX="262.0" layoutY="315.0" mnemonicParsing="false" onAction="#saveTime" prefHeight="26.0" prefWidth="162.0" text="Save Changes" />
-                                                        <Label layoutX="351.0" layoutY="28.0" text="Submission information">
-                                                            <font>
-                                                                <Font name="System Bold" size="26.0" />
-                                                            </font>
-                                                        </Label>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab id="logTab" fx:id="logTab" closable="false" text="Programm Log">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                    <children>
-                                                        <Button layoutX="27.0" layoutY="621.0" mnemonicParsing="false" onAction="#fromVersion" prefHeight="39.0" prefWidth="174.0" text="Create Client-JAR" />
-                                                        <Button layoutX="805.0" layoutY="623.0" mnemonicParsing="false" onAction="#exportLog" prefHeight="39.0" prefWidth="174.0" text="Export ErrorLog" />
-                                                        <ScrollPane fx:id="scrollLog" layoutX="19.0" layoutY="24.0" prefHeight="579.0" prefWidth="963.0">
-                                                            <content>
-                                                                <AnchorPane fx:id="anchorPaneScrollLog" minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="959.0">
-                                                                    <children>
-                                                                        <VBox prefHeight="570.0" prefWidth="959.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                                    </children>
-                                                                </AnchorPane>
-                                                            </content>
-                                                        </ScrollPane>
-                                                        <ComboBox fx:id="cbLogFilter" layoutX="430.0" layoutY="628.0" prefWidth="150.0" />
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab id="helpTab" fx:id="tbHelp" text="Help">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                    <children>
-                                                        <WebView fx:id="wvHelp" layoutY="29.0" prefHeight="637.0" prefWidth="1003.0" />
-                                                        <Label fx:id="lbStat" layoutX="14.0" layoutY="7.0" prefHeight="16.0" prefWidth="86.0" text="Status: offline" />
-                                                        <Button fx:id="btnReload" layoutX="911.0" layoutY="2.0" mnemonicParsing="false" onAction="#reloadWebsite" prefHeight="26.0" prefWidth="81.0" text="reload" />
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </Tab>
-                                    </tabs>
-                                </TabPane>
-                            </center>
-                        </BorderPane>
-                    </children>
-                </AnchorPane>
+                                  <Tab closable="false" text="Submission">
+                                      <content>
+                                          <AnchorPane id="submission" fx:id="apHandIn" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                              <children>
+                                                  <Label layoutX="41.0" layoutY="173.0" text="Submission time:">
+                                                      <font>
+                                                          <Font name="System Bold" size="18.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <AnchorPane fx:id="apEndTime" layoutX="262.0" layoutY="167.0" prefHeight="35.0" prefWidth="214.0" />
+                                                  <Button fx:id="btnAddTime" layoutX="502.0" layoutY="172.0" mnemonicParsing="false" text="+10 min" />
+                                                  <Label layoutX="41.0" layoutY="112.0" text="Starttime:">
+                                                      <font>
+                                                          <Font name="System Bold" size="18.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <Label layoutX="41.0" layoutY="235.0" text="Remaining time:">
+                                                      <font>
+                                                          <Font name="System Bold" size="18.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <AnchorPane fx:id="apStartTime" layoutX="262.0" layoutY="106.0" prefHeight="35.0" prefWidth="214.0" />
+                                                  <TextField fx:id="tftime" layoutX="262.0" layoutY="241.0" />
+                                                  <Button fx:id="btnDeleteFiles" layoutX="41.0" layoutY="437.0" mnemonicParsing="false" onAction="#deleteFiles" text="zu löschende Dateien auswählen" />
+                                                  <Button layoutX="262.0" layoutY="315.0" mnemonicParsing="false" onAction="#saveTime" prefHeight="26.0" prefWidth="162.0" text="Save Changes" />
+                                                  <Label layoutX="351.0" layoutY="28.0" text="Submission information">
+                                                      <font>
+                                                          <Font name="System Bold" size="26.0" />
+                                                      </font>
+                                                  </Label>
+                                              </children>
+                                          </AnchorPane>
+                                      </content>
+                                  </Tab>
+                                  <Tab id="logTab" fx:id="logTab" closable="false" text="Programm Log">
+                                      <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                              <children>
+                                                  <Button layoutX="27.0" layoutY="621.0" mnemonicParsing="false" onAction="#fromVersion" prefHeight="39.0" prefWidth="174.0" text="Create Client-JAR" />
+                                                  <Button layoutX="805.0" layoutY="623.0" mnemonicParsing="false" onAction="#exportLog" prefHeight="39.0" prefWidth="174.0" text="Export ErrorLog" />
+                                                  <ScrollPane fx:id="scrollLog" layoutX="19.0" layoutY="24.0" prefHeight="579.0" prefWidth="963.0">
+                                                      <content>
+                                                          <AnchorPane fx:id="anchorPaneScrollLog" minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="959.0">
+                                                              <children>
+                                                                  <VBox prefHeight="570.0" prefWidth="959.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                              </children>
+                                                          </AnchorPane>
+                                                      </content>
+                                                  </ScrollPane>
+                                                  <ComboBox fx:id="cbLogFilter" layoutX="430.0" layoutY="628.0" prefWidth="150.0" />
+                                              </children>
+                                          </AnchorPane>
+                                      </content>
+                                  </Tab>
+                                  <Tab id="helpTab" fx:id="tbHelp" text="Help">
+                                      <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                              <children>
+                                                  <WebView fx:id="wvHelp" layoutY="29.0" prefHeight="637.0" prefWidth="1003.0" />
+                                                  <Label fx:id="lbStat" layoutX="14.0" layoutY="7.0" prefHeight="16.0" prefWidth="86.0" text="Status: offline" />
+                                                  <Button fx:id="btnReload" layoutX="911.0" layoutY="2.0" mnemonicParsing="false" onAction="#reloadWebsite" prefHeight="26.0" prefWidth="81.0" text="reload" />
+                                              </children>
+                                          </AnchorPane>
+                                      </content>
+                                  </Tab>
+                              </tabs>
+                          </TabPane>
+                      </center>
+                  </BorderPane>
             </items>
         </SplitPane>
     </children>

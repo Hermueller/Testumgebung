@@ -49,7 +49,7 @@ public class LittleHarvester implements RobotAction {
      * @throws IOException can't open file
      */
     public Object execute(Robot robot) throws IOException {
-        byte[] bytes = screenShot.get();
+        byte[] bytes = screenShot.get(robot);
         // only send it if the picture has actually changed
         byte[] prev = previous.get();
         if (prev != null && Arrays.equals(bytes, prev)) {
