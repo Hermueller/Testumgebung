@@ -1,0 +1,31 @@
+$primaryColor: #3F51B5;
+$primaryTextFill: white;
+
+$secondaryColor: #FFAB00;
+$secondaryTextfill: white;
+
+$backgroundColor: white;
+$defaultTextFill: black;
+
+.label,
+.check-box {
+  -fx-background-color: $backgroundColor;
+  -fx-text-fill: $defaultTextFill;
+}
+
+.button {
+  -fx-background-color: $primaryColor;
+  -fx-text-fill: $primaryTextFill;
+  -fx-border-radius: 1px;
+}
+
+.text-field{
+  -fx-border-radius: 0px;
+  -fx-border-color: $defaultTextFill;
+  -fx-text-fill: $defaultTextFill;
+  -fx-background-color: $backgroundColor;
+}
+
+#rootPane{
+  -fx-background-color: $backgroundColor;
+}

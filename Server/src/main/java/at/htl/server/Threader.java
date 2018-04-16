@@ -33,9 +33,9 @@ public class Threader implements Runnable {
                 System.out.println("Connection from " + socket);
                 createTeacherServer(socket);
             }
-        } catch (IOException e) {
-            FileUtils.log(this, Level.ERROR, e.getMessage());
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
+        } catch (Exception e) {
+            FileUtils.log(this, Level.INFO, e.getMessage());
+            Settings.getInstance().printError(Level.INFO, e.getStackTrace(), "ERRORS", e.getMessage());
         }
     }
 
@@ -64,8 +64,8 @@ public class Threader implements Runnable {
         try {
             new Server(socket);
         } catch (IOException | ClassNotFoundException e) {
-            FileUtils.log(this, Level.ERROR, e.getMessage());
-            Settings.getInstance().printError(Level.ERROR, e.getStackTrace(), "ERRORS", e.getMessage());
+            FileUtils.log(this, Level.INFO, e.getMessage());
+            Settings.getInstance().printError(Level.INFO, e.getStackTrace(), "ERRORS", e.getMessage());
         }
         return true;
     }

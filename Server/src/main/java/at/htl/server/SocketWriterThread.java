@@ -62,10 +62,12 @@ class SocketWriterThread extends Thread {
      */
     private void sendLittleHarvester(Student student) {
         ScreenShot screenShot = Settings.getInstance().getScreenShot();
-        jobs.add(new LittleHarvester(student.getPupil().getLastName(),
-                student.getPupil().getPathOfProject(),
-                student.getFilter(),
-                screenShot));
+        jobs.add(
+                new LittleHarvester(
+                        student.getPupil().getLastName(),
+                        student.getPupil().getPathOfProject(),
+                        student.getFilter(),
+                        screenShot));
     }
 
 
@@ -83,14 +85,14 @@ class SocketWriterThread extends Thread {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
 
         student.addSeries();
         sendLittleHarvester(student);
 
         Platform.runLater(() -> {
-            Button selected = (Button)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
+            Button selected = (Button) StudentView.getInstance().getLv().getSelectionModel().getSelectedItem();
             if (selected != null) {
                 if (selected.getText().equals(student.getPupil().getLastName())) {
                     if (student.getSeries().size() > 0) {
@@ -103,8 +105,8 @@ class SocketWriterThread extends Thread {
         try {
             while (!isInterrupted()) {
                 try {
-                    RobotAction action = jobs.poll(
-                            getWaitTime(), TimeUnit.SECONDS);
+                    RobotAction action = jobs.poll(getWaitTime(), TimeUnit.SECONDS);
+//                    RobotAction action = jobs.poll(100, TimeUnit.MILLISECONDS);
                     if (action == null) {
                         sendLittleHarvester(student);
                     } else {
@@ -115,14 +117,16 @@ class SocketWriterThread extends Thread {
                 } catch (InterruptedException e) {
                     interrupt();
                     break;
+                } catch (Exception ex) {
+                    FileUtils.log(this, Level.ERROR, ex.getMessage());
                 }
             }
             out.close();
         } catch (IOException e) {
-            FileUtils.log(this, Level.ERROR,"Connection to " + student.getPupil().getLastName()
-                    + " closed" + MyUtils.exToStr(e));
+            FileUtils.log(this, Level.ERROR, "Connection to " + student.getPupil().getLastName()
+                    + " closed" + MyUtils.exceptionToString(e));
         }
-        FileUtils.log(this,Level.INFO,"Closing connection to " + student.getPupil().getLastName());
+        FileUtils.log(this, Level.INFO, "Closing connection to " + student.getPupil().getLastName());
     }
 
 }

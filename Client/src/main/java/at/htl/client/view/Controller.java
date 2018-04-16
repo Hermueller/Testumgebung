@@ -11,6 +11,8 @@ import at.htl.common.fx.FxUtils;
 import at.htl.common.io.FileUtils;
 import at.htl.common.transfer.Address;
 import at.htl.common.transfer.Packet;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -20,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
@@ -30,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.logging.log4j.Level;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -56,7 +60,7 @@ import static at.htl.common.transfer.Packet.Resource;
  * 21.04.2016: PHI 060  added the finished-Mode
  * 12.05.2016: MET 010  fixed FileUtils-Error
  * 20.05.2016: PHI 035  improved the connection-testing (+ testing connection on serverStart)
- * 09.06.2016: MET 100  Show quick info (time, status, transparent background, positioning, ...)
+ * 09.06.2016: MET 100  Show quick info (time, status, transparent backgroundColor, positioning, ...)
  * 11.06.2016: MET 040  moving the QuickInfo-Window
  * 11.06.2016: MET 020  show and hide the QuickInfo-Window
  * 11.06.2016: MET 055  display of a monitoring symbol when connected
@@ -75,7 +79,10 @@ import static at.htl.common.transfer.Packet.Resource;
  */
 public class Controller implements Initializable {
 
+
     //region Controls
+    @FXML
+    private BorderPane borderPane;
     @FXML
     private TextField tfServerIP;
     @FXML
@@ -128,6 +135,33 @@ public class Controller implements Initializable {
             btnTestMode.setVisible(false);
         }
         setControls(true);
+
+        //only allow number to be entered
+        tfPort.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tfPort.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+
+    /**
+     * Called from main to set the Stage.
+     * Sets event when the Window is closed to logout correctly
+     * @param stage
+     */
+    public void setStage(Stage stage) {
+        stage.setOnCloseRequest(event -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Do you really want to exit?",
+                    ButtonType.YES, ButtonType.NO);
+            alert.setTitle("Exit?");
+            if (alert.showAndWait().get() == ButtonType.YES)
+                logout();
+            else
+                event.consume();
+        });
     }
 
     /**
@@ -141,7 +175,7 @@ public class Controller implements Initializable {
         tfCatalogNumber.setText("01");
         tfFirstName.setText("Max");
         tfLastName.setText("Mustermann");
-        tfPathOfProject.setText("/opt/testC");
+        tfPathOfProject.setText(System.getProperty("user.home"));
     }
 
     /**
@@ -149,7 +183,12 @@ public class Controller implements Initializable {
      */
     @FXML
     public void testConnection() {
-        IpConnection.isIpReachable(tfServerIP.getText(), true, true);
+        int port = 0;
+        try {
+            port = Integer.valueOf(tfPort.getText());
+        }
+        catch (NumberFormatException e) { }
+        IpConnection.isIpReachable(tfServerIP.getText(), port, true, true);
     }
 
     /**
@@ -158,8 +197,10 @@ public class Controller implements Initializable {
      */
     @FXML
     public void chooseProjectDirectory() {
-        tfPathOfProject.setText(
-                FxUtils.chooseDirectory("Select Project Directory", null).getPath());
+        File file = FxUtils.chooseDirectory("Select Project Directory", null);
+        //avoid NullPointerException when no file is selected
+        if (file != null)
+            tfPathOfProject.setText(file.getPath());
     }
 
     /**
@@ -168,7 +209,13 @@ public class Controller implements Initializable {
     @FXML
     public void login() {
         setMsg("Establish connection with server ...", 1);
-        if (IpConnection.isIpReachable(tfServerIP.getText(), true, false)) {
+        int port = 0;
+        try {
+            port = Integer.valueOf(tfPort.getText());
+        }
+        catch (NumberFormatException e) { }
+
+        if (IpConnection.isIpReachable(tfServerIP.getText(), port, true, false)) {
             if (setExam() && isLoggedOut()) {
                 setMsg("Trying to login ...", 1);
                 try {
@@ -292,9 +339,9 @@ public class Controller implements Initializable {
      */
     public boolean validForm() {
         String serverIP = tfServerIP.getText();
-        int port = MyUtils.strToInt(tfPort.getText());
+        int port = MyUtils.stringToInt(tfPort.getText());
         String enrolmentID = tfEnrolmentID.getText();
-        int catalogNumber = MyUtils.strToInt(tfCatalogNumber.getText());
+        int catalogNumber = MyUtils.stringToInt(tfCatalogNumber.getText());
         String firstName = tfFirstName.getText();
         String lastName = tfLastName.getText();
         String pathOfProject = tfPathOfProject.getText();
@@ -302,26 +349,48 @@ public class Controller implements Initializable {
         boolean validity = false;
         if (serverIP.isEmpty()) {
             setMsg("Specify the IP-Address of the server!", 0);
-        } else if ((serverIP.split("\\.").length != 4 && !serverIP.equals("localhost"))
+        }
+        else if ((serverIP.split("\\.").length != 4 && !serverIP.equals("localhost"))
                 || serverIP.length() > 15) {
             setMsg("Invalid IP-Address!", 0);
-        } else if (port < 1) {
+        }
+        else if (port < 1) {
             setMsg("Invalid Port!", 0);
-        } else if (enrolmentID.isEmpty()) {
+        }
+        else if (enrolmentID.isEmpty()) {
             setMsg("Enter your enrolment id", 0);
-        } else if (enrolmentID.length() >= 10) {
+        }
+        else if (enrolmentID.length() >= 10) {
             setMsg("The enrolment id is too long!", 0);
-        } else if (catalogNumber < 1) {
+        }
+        else if (catalogNumber < 1) {
             setMsg("Invalid catalog number!", 0);
-        } else if (firstName.isEmpty() || firstName.length() > 20) {
-            setMsg("Enter your correct first name", 0);
-        } else if (lastName.isEmpty() || lastName.length() > 20) {
-            setMsg("Enter your correct last name", 0);
-        } else if (!lastName.matches("[A-Z][a-z]+") || !firstName.matches("[A-Z][a-z]+")) {
-            setMsg("Unknown letter. Allowed: A-Z", 0);
-        } else if (pathOfProject.isEmpty()) {
+        }
+        else if (firstName.isEmpty()) {
+            setMsg("Your first name should not be empty", 0);
+        }
+        else if (firstName.length() > 20) {
+            setMsg("Your first name should not be longer than 20 characters", 0);
+        }
+        else if (lastName.isEmpty()) {
+            setMsg("Your last name should not be empty", 0);
+        }
+        else if (lastName.length() > 20) {
+            setMsg("Your last name should not be longer than 20 characters", 0);
+        }
+        else if (!lastName.chars().allMatch(Character::isLetter)) {
+            setMsg("Unknown letter in your lastname. Allowed: A-Z", 0);
+        }
+        else if (!firstName.chars().allMatch(Character::isLetter)) {
+            setMsg("Unknown letter in your firstname. Allowed: A-Z", 0);
+        }
+        else if (firstName.length() < 3) {
+            setMsg("Your firstname must be at least 3 characters long!", 0);
+        }
+        else if (pathOfProject.isEmpty()) {
             setMsg("Specify the path of project!", 0);
-        } else {
+        }
+        else {
             validity = true;
         }
         return validity;
@@ -385,12 +454,16 @@ public class Controller implements Initializable {
      */
     @FXML
     public void logout() {
-        countdown.interrupt();
-        countdown.reset();
-        quickInfo.close();
+        if (countdown != null) {
+            countdown.interrupt();
+            countdown.reset();
+        }
+        if (quickInfo != null)
+            quickInfo.close();
         setControls(true);
         setMsg("Test successfully submitted", 2);
-        client.stop();
+        if (client != null)
+            client.stop();
     }
 
     public boolean isLoggedOut() {
@@ -401,11 +474,12 @@ public class Controller implements Initializable {
      * Sets an message on the screen of the student.
      *
      * @param text  specifies the message to show
-     * @param error TRUE   if it is an error-message
-     *              FALSE  if it is a success-message
+     * @param status
      */
     private void setMsg(String text, int status) {
         FxUtils.setMsg(lbAlert, text, status);
     }
+
+
 
 }

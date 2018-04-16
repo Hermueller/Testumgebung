@@ -40,23 +40,23 @@ public class SettingsTest {
 
     }
 
-    @Test @Ignore
-    public void testAddStudentsFromCsv() throws Exception {
-
-        assertThat(settings.getStudentsList().get(0).getPupil().getLastName(), is("Forster"));
-        assertThat(settings.getStudentsList().get(1).getPupil().getLastName(), is("Froschauer"));
-        assertThat(settings.getStudentsList().get(10).getPupil().getLastName(), is("Krannich"));
-        assertThat(settings.getStudentsList().get(20).getPupil().getLastName(), is("Tanzer"));
-
-        File screenShotsFile = new File(dic.getPath() + "/Screenshots");
-
-        String[] directories = screenShotsFile.list((current, name) -> new File(current, name).isDirectory());
-
-        assertThat(directories[0], is("Forster"));
-        assertThat(directories[1], is("Froschauer"));
-        assertThat(directories[10], is("Krannich"));
-        assertThat(directories[20], is("Tanzer"));
-    }
+//    @Test @Ignore
+//    public void testAddStudentsFromCsv() throws Exception {
+//
+//        assertThat(settings.getStudentsList().get(0).getPupil().getLastName(), is("Forster"));
+//        assertThat(settings.getStudentsList().get(1).getPupil().getLastName(), is("Froschauer"));
+//        assertThat(settings.getStudentsList().get(10).getPupil().getLastName(), is("Krannich"));
+//        assertThat(settings.getStudentsList().get(20).getPupil().getLastName(), is("Tanzer"));
+//
+//        File screenShotsFile = new File(dic.getPath() + "/Screenshots");
+//
+//        String[] directories = screenShotsFile.list((current, name) -> new File(current, name).isDirectory());
+//
+//        assertThat(directories[0], is("Forster"));
+//        assertThat(directories[1], is("Froschauer"));
+//        assertThat(directories[10], is("Krannich"));
+//        assertThat(directories[20], is("Tanzer"));
+//    }
 
     @AfterClass
     public static void deleteDirecotrys() throws IOException {

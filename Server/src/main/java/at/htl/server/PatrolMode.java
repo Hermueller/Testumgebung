@@ -1,10 +1,13 @@
 package at.htl.server;
 
+import at.htl.common.enums.StudentState;
 import at.htl.common.io.FileUtils;
+import at.htl.server.entity.Student;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import org.apache.logging.log4j.Level;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -15,15 +18,10 @@ import org.apache.logging.log4j.Level;
 public class PatrolMode extends Thread {
 
     volatile boolean running = false;
-    private ListView<Button> lv;
     private int actualPos = 0;
 
     public boolean isRunning() {
         return running;
-    }
-
-    public void setLv(ListView<Button> lv) {
-        this.lv = lv;
     }
 
     public void stopIt() {
@@ -32,20 +30,25 @@ public class PatrolMode extends Thread {
 
     public void run() {
         running = true;
-        long sleepTime = Settings.getInstance().getSleepTime();
 
         while (running) {
 
             try {
-                Platform.runLater(() -> lv.getSelectionModel().select(actualPos));
+                StudentList sl = StudentList.getStudentList();
+                List<Student> students = sl.getCurStudentList()
+                        .stream().filter(st -> st.getStudentState() == StudentState.NORMAL)
+                        .collect(Collectors.toList());
 
-                Thread.sleep(sleepTime);
+                Platform.runLater(() -> sl.selectStudent(students.get(actualPos)));
 
-                if(actualPos >= lv.getItems().size() - 1) {
+                if(actualPos >= students.size() - 1)
                     actualPos = 0;
-                } else {
+                else
                     actualPos++;
-                }
+
+                long sleepTime = Settings.getInstance().getSleepTime();
+                Thread.sleep(sleepTime);
+                System.out.println(sleepTime);
             } catch (Exception e) {
                 FileUtils.log(Level.WARN, e.getMessage());
                 Settings.getInstance().printError(Level.WARN, e.getStackTrace(), "WARNINGS", e.getMessage());

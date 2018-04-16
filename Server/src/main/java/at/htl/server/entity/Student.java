@@ -1,6 +1,7 @@
 package at.htl.server.entity;
 
 import at.htl.common.Pupil;
+import at.htl.common.enums.StudentState;
 import at.htl.common.fx.StudentView;
 import at.htl.common.io.FileUtils;
 import at.htl.server.Server;
@@ -9,7 +10,6 @@ import at.htl.server.advanced.AdvancedSettingsPackage;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import org.apache.logging.log4j.Level;
 
@@ -45,8 +45,10 @@ public class Student {
     private Pupil pupil;
     private String pathOfImages;
     private File locFile = null;
+    private StudentState studentState = StudentState.NORMAL;
+    private Button currButton;
 
-    private InetAddress studentAddress;
+    private InetAddress studentIpAddress;
     private Server server;
     private String[] filter;
     private Interval interval;
@@ -56,13 +58,22 @@ public class Student {
     private List<List<XYChart.Series<Number, Number>>> filterSeries = new LinkedList<>();
 
     private ImageView iv = null;    //Screenshot-Image
-    private ListView lv = null;
 
     public Student(Pupil pupil) {
         this.pupil = pupil;
     }
 
     //region Getter and Setter
+
+
+    public Button getCurrButton() {
+        return currButton;
+    }
+
+    public void setCurrButton(Button currButton) {
+        this.currButton = currButton;
+    }
+
     public Pupil getPupil() {
         return pupil;
     }
@@ -116,12 +127,12 @@ public class Student {
         return times;
     }
 
-    public InetAddress getStudentAddress() {
-        return studentAddress;
+    public InetAddress getStudentIpAddress() {
+        return studentIpAddress;
     }
 
-    public void setStudentAddress(InetAddress studentAddress) {
-        this.studentAddress = studentAddress;
+    public void setStudentIpAddress(InetAddress studentIpAddress) {
+        this.studentIpAddress = studentIpAddress;
     }
 
     public List<List<XYChart.Series<Number, Number>>> getSeries() {
@@ -136,13 +147,14 @@ public class Student {
         this.iv = iv;
     }
 
-    public ListView getLv() {
-        return lv;
+    public StudentState getStudentState() {
+        return studentState;
     }
 
-    public void setLv(ListView lv) {
-        this.lv = lv;
+    public void setStudentState(StudentState studentState) {
+        this.studentState = studentState;
     }
+
     //endregion
 
     /**
@@ -154,7 +166,7 @@ public class Student {
 
         Platform.runLater(() -> {
             if (((Button)StudentView.getInstance().getLv().getSelectionModel().getSelectedItem()).getId()
-                    .equals(studentAddress.toString())) {
+                    .equals(studentIpAddress.toString())) {
                 Settings.getInstance().getChart().getData().clear();
             }
         });
