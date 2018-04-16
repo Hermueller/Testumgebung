@@ -113,29 +113,7 @@
                                                                           </ImageView>
                                                                       </children>
                                                                   </HBox>
-                                                                  <HBox layoutX="25.0" layoutY="165.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0">
-                                                                      <children>
-                                                                          <Label layoutX="25.0" layoutY="169.0" prefHeight="26.0" prefWidth="97.0" text="Fix time:">
-                                                                              <font>
-                                                                                  <Font size="18.0" />
-                                                                              </font>
-                                                                          </Label>
-                                                                          <AnchorPane>
-                                                                              <children>
-                                                                                  <ProgressBar fx:id="pbHarvester" layoutX="8.0" layoutY="12.0" prefHeight="20.0" prefWidth="236.0" progress="0.0" />
-                                                                                  <Slider fx:id="slHarvester" layoutX="3.0" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="242.0" value="1.0" />
-                                                                              </children>
-                                                                          </AnchorPane>
-                                                                          <Label fx:id="lbTime" prefHeight="26.0" prefWidth="51.0" text="00 s">
-                                                                              <font>
-                                                                                  <Font size="18.0" />
-                                                                              </font>
-                                                                              <padding>
-                                                                                  <Insets top="10.0" />
-                                                                              </padding>
-                                                                          </Label>
-                                                                      </children>
-                                                                  </HBox>
+                                                                  <HBox layoutX="25.0" layoutY="165.0" prefHeight="26.0" prefWidth="574.0" spacing="20.0" />
                                                                   <TabPane fx:id="tpAdvancedSettings" prefHeight="222.0" prefWidth="732.0" tabClosingPolicy="UNAVAILABLE" visible="false">
                                                                       <tabs>
                                                                           <Tab text="Server-Settings">

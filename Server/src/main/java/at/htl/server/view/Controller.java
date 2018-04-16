@@ -288,7 +288,7 @@ public class Controller implements Initializable {
         initializeLOC();
         initializeSLOMM();
         initializeSlides(slHarvesterStudent, pbHarvesterStudent, lbTimeInterval, 60, false);
-        initializeSlides(slHarvester, pbHarvester, lbTime, 60, false);
+        //initializeSlides(slHarvester, pbHarvester, lbTime, 60, false);
         initializeNewFilters();
         initializePatrol();
         initializeLogFilters();
@@ -300,14 +300,14 @@ public class Controller implements Initializable {
 
         Settings.getInstance().setLbCount(lbCount);
         AdvancedSettingsPackage.getInstance().setLbAddress(lbAddress);
-        AdvancedSettingsPackage.getInstance().setTimeSlider(slHarvester);
+        AdvancedSettingsPackage.getInstance().setTimeSlider(slHarvesterStudent);
         AdvancedSettingsPackage.getInstance().setTestMode(btnTestMode);
         AdvancedSettingsPackage.getInstance().setTestMode(false);
 
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         Settings.getInstance().setStartTime(LocalTime.now());
-        slHarvester.setValue(3);
+        //slHarvester.setValue(3);
         slHarvesterStudent.setValue(10);
 
         slHarvesterStudent.valueChangingProperty().addListener(new ChangeListener<Boolean>() {
@@ -317,7 +317,7 @@ public class Controller implements Initializable {
                     Boolean wasChanging,
                     Boolean changing) {
 
-                if (!changing) {
+               // if (!changing) {
                     saveScreenshottime();
                     try {
                         Platform.runLater(() -> Notifications.create()
@@ -327,7 +327,7 @@ public class Controller implements Initializable {
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-                }
+                //}
             }
         });
         String seperator = getSeperatorForOS();
@@ -363,16 +363,21 @@ public class Controller implements Initializable {
         long new_time = (long) slHarvesterStudent.getValue();
 
         if (!tbToggleSettings.isSelected()) {
-            Button selected = (Button) StudentView.getInstance()
+            /*Button selected = (Button) StudentView.getInstance()
                     .getLv().getSelectionModel().getSelectedItem();
             Student toChange = StudentList.getStudentList()
                     .findStudentByIpAddress(selected.getId());
             System.out.println(selected.getId());
             toChange.setInterval(new Interval(new_time));
             String[] filters = getSelectedFilters();
-            toChange.setFilter(filters);
+            toChange.setFilter(filters);*/
+            StudentList.getStudentList().getSelectedStudent().setInterval(new Interval(new_time));
         } else {
-            for (Object obj : StudentView.getInstance().getLv().getItems()) {
+            for (Student std : StudentList.getStudentList().getCurStudentList()) {
+                std.setInterval(new Interval(new_time));
+            }
+
+            /*for (Object obj : StudentView.getInstance().getLv().getItems()) {
                 String address = ((Button) obj).getId();
                 Student toChange = StudentList.getStudentList()
                         .findStudentByIpAddress(address);
@@ -380,7 +385,7 @@ public class Controller implements Initializable {
                 toChange.setInterval(new Interval(new_time));
                 String[] filters = getSelectedFilters();
                 toChange.setFilter(filters);
-            }
+            }*/
         }
     }
 
@@ -397,7 +402,7 @@ public class Controller implements Initializable {
 
         String path = Settings.getInstance().getPathOfImages();
         File handOut = Settings.getInstance().getHandOutFile();
-        int time = (int) slHarvester.getValue();
+        int time = (int) slHarvesterStudent.getValue();
         int port = AdvancedSettingsPackage.getInstance().getPort();
         boolean isRnd = AdvancedSettingsPackage.getInstance().isRandom();
         boolean startable = true;
@@ -448,7 +453,7 @@ public class Controller implements Initializable {
             setImage(ivPath, true);
             setImage(ivFileExtensions, true);
             tbMode.setDisable(true);
-            slHarvester.setDisable(true);
+            //slHarvester.setDisable(true);
 
             btnhandout.setDisable(true);
             btndirectory.setDisable(true);
@@ -483,7 +488,7 @@ public class Controller implements Initializable {
 //                }
                 btndirectory.setDisable(false);
                 btnhandout.setDisable(false);
-                slHarvester.setDisable(false);
+                //slHarvester.setDisable(false);
             } else {
                 setMsg(true, "Server is already stopped");
             }
@@ -599,7 +604,7 @@ public class Controller implements Initializable {
             stage.show();
 
             stage.setOnCloseRequest(event -> {
-                slHarvester.setDisable(AdvancedSettingsPackage.getInstance().isRandom());
+                //slHarvester.setDisable(AdvancedSettingsPackage.getInstance().isRandom());
                 Settings.getInstance().getScreenShot().setQuality(
                         (float) convertToOneDecimalPoint(AdvancedSettingsPackage.getInstance().getImageQuality()));
                 Settings.getInstance().getScreenShot().setFormat(
@@ -733,12 +738,12 @@ public class Controller implements Initializable {
      * changes the quickinfo for showing the student.
      */
     public void initializePatrol() {
-        slHarvesterStudent.valueProperty().addListener(new ChangeListener<Number>() {
+        /*slHarvesterStudent.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Settings.getInstance().setSleepTime(newValue.longValue() * 1000);
             }
-        });
+        });*/
     }
 
     //endregion
@@ -1090,7 +1095,7 @@ public class Controller implements Initializable {
                 Settings.getInstance().getScreenShot().setQuality(new_val.floatValue());
             }
             label.setText(time);
-            if (slider == slHarvester) {
+            if (slider == slHarvesterStudent) {
                 AdvancedSettingsPackage.getInstance().setTime(new_val.intValue());
             }
         });
