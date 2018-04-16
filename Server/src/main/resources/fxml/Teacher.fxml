@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.web.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.StackedAreaChart?>
@@ -27,17 +19,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
-<?import javafx.scene.control.CheckBox?>
 
-<AnchorPane id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../styles/TeacherStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.server.view.Controller">
+<AnchorPane id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../styles/TeacherStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.htl.server.view.Controller">
     <children>
         <SplitPane fx:id="splitter" dividerPositions="0.2" layoutX="72.0" layoutY="172.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -316,43 +307,45 @@
                                               <children>
                                     <BorderPane layoutX="2.0">
                                        <top>
-                                                      <Label fx:id="lbNameOfPupilM" text="Name" BorderPane.alignment="CENTER">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                      </Label>
+                                          <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <HBox alignment="CENTER" spacing="5.0">
+                                                   <children>
+                                                                <CheckBox fx:id="tbToggleSettings" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="27.0" prefWidth="200.0" selected="true" text="Apply for &quot;ALL Students&quot;" textFill="#2f2d2d">
+                                                         <padding>
+                                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                         </padding>
+                                                      </CheckBox>
+                                                                <Label prefHeight="26.0" prefWidth="212.0" text="Harvester Timeinterval:">
+                                                                    <font>
+                                                                        <Font size="18.0" />
+                                                                    </font>
+                                                                </Label>
+                                                      <StackPane>
+                                                         <children>
+                                                                      <ProgressBar fx:id="pbHarvesterStudent" prefHeight="16.0" prefWidth="252.0" progress="0.0" />
+                                                                      <Slider fx:id="slHarvesterStudent" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="263.0" value="1.0" />
+                                                         </children>
+                                                      </StackPane>
+                                                                   <Button fx:id="btnPatrolMode" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="150.0" text="Start Patrol" />
+                                                                <Label fx:id="lbTimeInterval" prefHeight="26.0" prefWidth="212.0" text="00 Seconds">
+                                                                    <font>
+                                                                        <Font size="18.0" />
+                                                                    </font>
+                                                                </Label>
+                                                   </children>
+                                                </HBox>
+                                                            <Label fx:id="lbNameOfPupilM" text="Name">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                             </children>
+                                          </VBox>
                                        </top>
                                        <center>
                                                         <ImageView fx:id="ivLiveView" fitHeight="500.0" fitWidth="992.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                                        </center>
-                                       <bottom>
-                                          <HBox alignment="CENTER" spacing="5.0" BorderPane.alignment="CENTER">
-                                             <children>
-                                                          <CheckBox fx:id="tbToggleSettings" mnemonicParsing="false" onAction="#toggleSettings" prefHeight="27.0" prefWidth="200.0" selected="true" text="Apply for &quot;ALL Students&quot;" textFill="#2f2d2d">
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
-                                                </CheckBox>
-                                                          <Label prefHeight="26.0" prefWidth="212.0" text="Harvester Timeinterval:">
-                                                              <font>
-                                                                  <Font size="18.0" />
-                                                              </font>
-                                                          </Label>
-                                                <StackPane>
-                                                   <children>
-                                                                <ProgressBar fx:id="pbHarvesterStudent" prefHeight="16.0" prefWidth="252.0" progress="0.0" />
-                                                                <Slider fx:id="slHarvesterStudent" majorTickUnit="10.0" max="60.0" min="1.0" minorTickCount="10" prefHeight="44.0" prefWidth="263.0" value="1.0" />
-                                                   </children>
-                                                </StackPane>
-                                                             <Button fx:id="btnPatrolMode" mnemonicParsing="false" onAction="#startPatrol" prefHeight="27.0" prefWidth="150.0" text="Start Patrol" />
-                                                          <Label fx:id="lbTimeInterval" prefHeight="26.0" prefWidth="212.0" text="00 Seconds">
-                                                              <font>
-                                                                  <Font size="18.0" />
-                                                              </font>
-                                                          </Label>
-                                             </children>
-                                          </HBox>
-                                       </bottom>
                                     </BorderPane>
                                               </children>
                                           </AnchorPane>

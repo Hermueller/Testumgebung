@@ -324,16 +324,15 @@ public class Controller implements Initializable {
                                 .title("Student Settings updated")
                                 .hideAfter(Duration.seconds(1))
                                 .showInformation());
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                 }
             }
         });
-        String seperator=getSeperatorForOS();
-        String DefPath=System.getProperty("user.dir")+seperator+"Server"+seperator+"src"+seperator+"main"+seperator+"resources"+seperator+"images";
-        Settings.getInstance().setHandOutFile(new File(DefPath+seperator+"NoExamInstruction1s.jpg"));
+        String seperator = getSeperatorForOS();
+        String DefPath = System.getProperty("user.dir") + seperator + "Server" + seperator + "src" + seperator + "main" + seperator + "resources" + seperator + "images";
+        Settings.getInstance().setHandOutFile(new File(DefPath + seperator + "NoExamInstruction1s.jpg"));
 
         tfHandoutPath.setText(Settings.getInstance().getHandOutFile().getPath());
     }
@@ -1227,7 +1226,7 @@ public class Controller implements Initializable {
         StudentList.getStudentList().selectedStudentProperty().addListener((observable, oldValue, newValue) -> {
             Student st = newValue;
 
-            System.out.println("Current Student: "+st.getPupil().getEnrolmentID());
+            System.out.println("Current Student: " + st.getPupil().getEnrolmentID());
 
             //   CHANGE CHART
             loc.getData().clear();
@@ -1286,7 +1285,7 @@ public class Controller implements Initializable {
         ivLiveView.setSmooth(true);
         ivLiveView.setCache(true);
         spStudentList.widthProperty().addListener((observable, oldValue, newValue) -> {
-            this.vbStudents.setPrefWidth(((double)newValue)-25);
+            this.vbStudents.setPrefWidth(((double) newValue) - 25);
         });
     }
 
@@ -1392,10 +1391,11 @@ public class Controller implements Initializable {
     public void chooseHandOutFile() {
         // Create and show the file filter
         FileChooser fc = new FileChooser();
-        if (Settings.getInstance().getHandOutFile() != null) {
-            fc.setInitialDirectory(Settings.getInstance().getHandOutFile());
-        } else {
-            fc.setInitialDirectory(new File(System.getProperty("user.dir")));
+        fc.setInitialDirectory(new File(System.getProperty("user.dir")));
+
+        if (Settings.getInstance().getHandOutFile() != null
+                && new File(Settings.getInstance().getHandOutFile().getParent()).exists()) {
+            fc.setInitialDirectory(new File(Settings.getInstance().getHandOutFile().getParent()));
         }
         //fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("ZIP files (*.zip)", "*.zip"));
         File yourZip = fc.showOpenDialog(new Stage());

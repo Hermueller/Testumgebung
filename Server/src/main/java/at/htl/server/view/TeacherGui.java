@@ -1,5 +1,6 @@
 package at.htl.server.view;
 
+import at.htl.server.Server;
 import at.htl.server.Settings;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -97,14 +98,14 @@ public class TeacherGui extends Application {
      * @param stage Specialises the root-window of the program.
      */
     public void askCancel(Stage stage) {
-        Alert alert = new Alert(Alert.AlertType.WARNING,"Your Server is running!\nWould you like to close this Application?",ButtonType.OK,ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Would you like to close this Application?", ButtonType.OK, ButtonType.CANCEL);
 
-        alert.showAndWait()
-                .filter(response -> response == ButtonType.OK)
-                .ifPresent((r) -> {
-                    Platform.exit();
-                    System.exit(0);
-                });
+            alert.showAndWait()
+                    .filter(response -> response == ButtonType.OK)
+                    .ifPresent((r) -> {
+                        Platform.exit();
+                        System.exit(0);
+                    });
     }
 
 }
